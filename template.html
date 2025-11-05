@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Custom Template</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #b2c2ff, #e5ecff, #edf1ff, #c0beff);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 30px;
+      text-align: center;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .product, .extra-products {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .product a img, .extra-products a img {
+      width: 120px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .product a img:hover, .extra-products a img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>My Custom Template</h1>
+
+  <!-- Main Products -->
+  <div class="product" id="productContainer">
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/boat-smart-ring.png" alt=""></a>
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png" alt=""></a>
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png" alt=""></a>
+  </div>
+
+  <!-- Extra Products -->
+  <div class="extra-products">
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png" alt=""></a>
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/b519c81f-05ca-4615-a816-64eaf1429779removalaipreview.png" alt=""></a>
+    <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png" alt=""></a>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const data = params.get("data");
+
+      if (!data) {
+        console.log("No data found in URL.");
+        return;
+      }
+
+      try {
+        const decoded = decodeURIComponent(data);
+        const links = JSON.parse(decoded);
+
+        console.log("Loaded links:", links);
+
+        // Main products
+        const productAnchors = document.querySelectorAll("#productContainer a");
+        if (productAnchors.length >= 3) {
+          if (links.link1) productAnchors[0].href = links.link1;
+          if (links.link2) productAnchors[1].href = links.link2;
+          if (links.link3) productAnchors[2].href = links.link3;
+        }
+
+        // Extra products
+        const extraAnchors = document.querySelectorAll(".extra-products a");
+        if (extraAnchors.length >= 3) {
+          if (links.link1) extraAnchors[0].href = links.link1;
+          if (links.link2) extraAnchors[1].href = links.link2;
+          if (links.link3) extraAnchors[2].href = links.link3;
+        }
+
+      } catch (err) {
+        console.error("Error parsing data:", err);
+      }
+    });
+  </script>
+</body>
+</html>

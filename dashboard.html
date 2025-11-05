@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Your Template</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #e5ecff;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: auto;
+      gap: 15px;
+    }
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #6675ff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .link-box {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Customize Your Template</h1>
+  <form id="linkForm">
+    <input type="url" id="link1" placeholder="Product 1 Link" required>
+    <input type="url" id="link2" placeholder="Product 2 Link" required>
+    <input type="url" id="link3" placeholder="Product 3 Link" required>
+    <button type="submit">Generate Shareable Link</button>
+  </form>
+  <div class="link-box" id="output"></div>
+
+  <script>
+    document.getElementById('linkForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const links = {
+        link1: document.getElementById('link1').value,
+        link2: document.getElementById('link2').value,
+        link3: document.getElementById('link3').value
+      };
+      const encoded = encodeURIComponent(JSON.stringify(links));
+      const shareURL = `${window.location.origin}/template.html?data=${encoded}`;
+      document.getElementById('output').innerHTML = `
+        <p><strong>Your Shareable Link:</strong></p>
+        <a href="${shareURL}" target="_blank">${shareURL}</a>
+      `;
+    });
+  </script>
+</body>
+</html>
