@@ -1,68 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Your Template</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Customizer</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: #e5ecff;
-      padding: 40px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    form {
+      background: linear-gradient(135deg, #b2c2ff, #e5ecff, #edf1ff, #c0beff);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
       display: flex;
       flex-direction: column;
-      max-width: 500px;
-      margin: auto;
-      gap: 15px;
+      align-items: center;
+      padding: 40px;
+      color: #1a1a3d;
     }
-    input {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    button {
-      background: #6675ff;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .link-box {
-      margin-top: 20px;
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2rem;
       text-align: center;
+    }
+
+    .input-group {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    button {
+      background: #4e63ff;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2d47f5;
+    }
+
+    #output {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #4e63ff;
+      word-break: break-all;
     }
   </style>
 </head>
 <body>
   <h1>Customize Your Template</h1>
-  <form id="linkForm">
-    <input type="url" id="link1" placeholder="Product 1 Link" required>
-    <input type="url" id="link2" placeholder="Product 2 Link" required>
-    <input type="url" id="link3" placeholder="Product 3 Link" required>
-    <button type="submit">Generate Shareable Link</button>
-  </form>
-  <div class="link-box" id="output"></div>
+  <div class="input-group">
+    <label>Product 1 Image URL:</label>
+    <input type="text" id="img1" placeholder="Paste image URL">
+    <label>Product 1 Link URL:</label>
+    <input type="text" id="link1" placeholder="Paste link URL">
+  </div>
+
+  <div class="input-group">
+    <label>Product 2 Image URL:</label>
+    <input type="text" id="img2" placeholder="Paste image URL">
+    <label>Product 2 Link URL:</label>
+    <input type="text" id="link2" placeholder="Paste link URL">
+  </div>
+
+  <div class="input-group">
+    <label>Product 3 Image URL:</label>
+    <input type="text" id="img3" placeholder="Paste image URL">
+    <label>Product 3 Link URL:</label>
+    <input type="text" id="link3" placeholder="Paste link URL">
+  </div>
+
+  <button id="generateBtn">Generate Shareable Link</button>
+
+  <p id="output"></p>
 
   <script>
-    document.getElementById('linkForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const links = {
-        link1: document.getElementById('link1').value,
-        link2: document.getElementById('link2').value,
-        link3: document.getElementById('link3').value
+    document.getElementById("generateBtn").addEventListener("click", () => {
+      const data = {
+        img1: document.getElementById("img1").value,
+        img2: document.getElementById("img2").value,
+        img3: document.getElementById("img3").value,
+        link1: document.getElementById("link1").value,
+        link2: document.getElementById("link2").value,
+        link3: document.getElementById("link3").value,
       };
-      const encoded = encodeURIComponent(JSON.stringify(links));
-      const shareURL = `${window.location.origin}/template.html?data=${encoded}`;
-      document.getElementById('output').innerHTML = `
-        <p><strong>Your Shareable Link:</strong></p>
-        <a href="${shareURL}" target="_blank">${shareURL}</a>
+
+      const encoded = encodeURIComponent(JSON.stringify(data));
+      const url = `https://yourdomain.com/template.html?data=${encoded}`;
+
+      document.getElementById("output").innerHTML = `
+        <strong>✅ Shareable Link:</strong><br>
+        <a href="${url}" target="_blank">${url}</a>
       `;
     });
   </script>
