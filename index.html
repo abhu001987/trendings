@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>AFK Geeks | Viral Gadgets</title>
+  <title> Trending | Viral Gadgets</title>
+  <script>
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.addEventListener('keydown', e => {
+  if (
+    e.key === "F12" || 
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
+    (e.ctrlKey && ['u','s','c','x','v'].includes(e.key.toLowerCase()))
+  ) {
+    e.preventDefault();
+  }
+});
+</script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
