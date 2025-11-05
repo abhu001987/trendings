@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Custom Template</title>
   <style>
     body {
@@ -16,15 +16,19 @@
       justify-content: center;
       height: 100vh;
       gap: 20px;
+      text-align: center;
     }
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    h1 { color: #333; }
     .product {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .product a img {
       width: 120px;
@@ -38,7 +42,6 @@
 </head>
 <body>
   <h1>My Custom Template</h1>
-
   <div class="product" id="productContainer">
     <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/boat-smart-ring.png"></a>
     <a href="#" target="_blank"><img src="https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png"></a>
@@ -49,19 +52,24 @@
     window.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
       const data = params.get("data");
+
       if (!data) return;
 
       try {
-        const parsed = JSON.parse(decodeURIComponent(data));
-        const products = document.querySelectorAll("#productContainer a");
+        const links = JSON.parse(decodeURIComponent(data));
+        const anchors = document.querySelectorAll("#productContainer a img");
 
-        products.forEach((a, i) => {
-          const idx = i + 1;
-          if (parsed[`link${idx}`]) a.href = parsed[`link${idx}`];
-          if (parsed[`img${idx}`]) a.querySelector("img").src = parsed[`img${idx}`];
-        });
-      } catch (e) {
-        console.error("Error loading template:", e);
+        if (links.link1) anchors[0].parentElement.href = links.link1;
+        if (links.img1) anchors[0].src = links.img1;
+
+        if (links.link2) anchors[1].parentElement.href = links.link2;
+        if (links.img2) anchors[1].src = links.img2;
+
+        if (links.link3) anchors[2].parentElement.href = links.link3;
+        if (links.img3) anchors[2].src = links.img3;
+
+      } catch (err) {
+        console.error("Error loading template:", err);
       }
     });
   </script>
