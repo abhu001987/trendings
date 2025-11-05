@@ -1,129 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Template Customizer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Customizer Dashboard</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #b2c2ff, #e5ecff, #edf1ff, #c0beff);
       background-size: 400% 400%;
       animation: gradientMove 10s ease infinite;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-      color: #1a1a3d;
+      padding: 20px;
+      color: #333;
     }
-
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     h1 {
-      margin-bottom: 30px;
-      font-size: 2rem;
       text-align: center;
+      margin-bottom: 30px;
     }
-
     .input-group {
-      background: white;
-      padding: 20px;
       margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 450px;
     }
-
     label {
-      font-weight: 600;
       display: block;
-      margin-bottom: 6px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
-
     input {
       width: 100%;
-      padding: 8px 10px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-
-    button {
-      background: #4e63ff;
-      color: white;
-      border: none;
-      padding: 10px 22px;
+      padding: 8px;
       border-radius: 8px;
-      font-size: 1rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #5a6ef5;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
       transition: 0.3s;
     }
-
     button:hover {
-      background: #2d47f5;
+      background: #3f52d8;
     }
-
-    #output {
-      margin-top: 25px;
+    .result {
+      margin-top: 20px;
       text-align: center;
-      font-size: 0.95rem;
     }
-
     a {
-      color: #4e63ff;
-      word-break: break-all;
+      word-wrap: break-word;
+      color: #333;
     }
   </style>
 </head>
 <body>
   <h1>Customize Your Template</h1>
+
   <div class="input-group">
-    <label>Product 1 Image URL:</label>
-    <input type="text" id="img1" placeholder="Paste image URL">
-    <label>Product 1 Link URL:</label>
-    <input type="text" id="link1" placeholder="Paste link URL">
+    <label>Link 1:</label>
+    <input type="text" id="link1" placeholder="Enter link for product 1">
   </div>
 
   <div class="input-group">
-    <label>Product 2 Image URL:</label>
-    <input type="text" id="img2" placeholder="Paste image URL">
-    <label>Product 2 Link URL:</label>
-    <input type="text" id="link2" placeholder="Paste link URL">
+    <label>Image 1 URL:</label>
+    <input type="text" id="img1" placeholder="Enter image URL for product 1">
   </div>
 
   <div class="input-group">
-    <label>Product 3 Image URL:</label>
-    <input type="text" id="img3" placeholder="Paste image URL">
-    <label>Product 3 Link URL:</label>
-    <input type="text" id="link3" placeholder="Paste link URL">
+    <label>Link 2:</label>
+    <input type="text" id="link2" placeholder="Enter link for product 2">
   </div>
 
-  <button id="generateBtn">Generate Shareable Link</button>
+  <div class="input-group">
+    <label>Image 2 URL:</label>
+    <input type="text" id="img2" placeholder="Enter image URL for product 2">
+  </div>
 
-  <p id="output"></p>
+  <div class="input-group">
+    <label>Link 3:</label>
+    <input type="text" id="link3" placeholder="Enter link for product 3">
+  </div>
+
+  <div class="input-group">
+    <label>Image 3 URL:</label>
+    <input type="text" id="img3" placeholder="Enter image URL for product 3">
+  </div>
+
+  <div style="text-align:center;">
+    <button id="generateLink">Generate Shareable Link</button>
+  </div>
+
+  <div class="result" id="result"></div>
 
   <script>
-    document.getElementById("generateBtn").addEventListener("click", () => {
+    document.getElementById("generateLink").addEventListener("click", () => {
       const data = {
-        img1: document.getElementById("img1").value,
-        img2: document.getElementById("img2").value,
-        img3: document.getElementById("img3").value,
-        link1: document.getElementById("link1").value,
-        link2: document.getElementById("link2").value,
-        link3: document.getElementById("link3").value,
+        link1: document.getElementById("link1").value.trim(),
+        img1: document.getElementById("img1").value.trim(),
+        link2: document.getElementById("link2").value.trim(),
+        img2: document.getElementById("img2").value.trim(),
+        link3: document.getElementById("link3").value.trim(),
+        img3: document.getElementById("img3").value.trim(),
       };
 
       const encoded = encodeURIComponent(JSON.stringify(data));
       const url = `https://hotterbite.com/template.html?data=${encoded}`;
 
-      document.getElementById("output").innerHTML = `
-        <strong>✅ Shareable Link:</strong><br>
+      document.getElementById("result").innerHTML = `
+        <p><strong>Shareable link:</strong></p>
         <a href="${url}" target="_blank">${url}</a>
       `;
     });
