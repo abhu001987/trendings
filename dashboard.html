@@ -37,7 +37,7 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 .modal-head { display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f1f3ff; }
 .modal-body { padding:12px; overflow:auto; flex:1; background:linear-gradient(180deg,#fbfdff,#fff) }
 
-/* small toast */
+/* toast */
 .toast { position: fixed; right: 18px; bottom: 18px; background: #14143B;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 14px 40px rgba(20,20,60,0.18); display:none; z-index:10000; }
 
 /* responsive */
@@ -52,7 +52,7 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 <header>
   <div>
     <h1>Viral Gadgets — Dashboard</h1>
-    <div class="muted">Design a personal affiliate page. Changes are session-only. Click Get URL to generate a shareable page.</div>
+    <div class="muted">Design your personal affiliate & blog page. Everything is session-only and link-based. Use Get URL / Get Blog Link to share.</div>
   </div>
   <div class="row">
     <button id="savePreviewBtn" class="small btn-primary">💾 Save & Refresh Preview</button>
@@ -61,15 +61,15 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 </header>
 
 <div class="wrap">
-  <!-- left editor -->
+  <!-- LEFT: Editor Panels -->
   <div style="display:flex;flex-direction:column;gap:12px">
 
     <div class="panel">
       <h3 style="margin:0 0 6px 0">Site & Footer</h3>
       <label>Site Name (footer)</label>
-      <input id="footerSiteName" type="text" value="Mobili">
+      <input id="footerSiteName" type="text">
       <label>Copyright text</label>
-      <input id="footerCopyright" type="text" value="©️2017-2025 Mobili — All Rights Reserved.">
+      <input id="footerCopyright" type="text">
       <label style="margin-top:10px">Social Links</label>
       <input id="socFacebook" type="url" placeholder="Facebook URL">
       <input id="socYoutube" type="url" placeholder="YouTube URL">
@@ -127,14 +127,16 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
       <div class="controls">
         <button class="small" onclick="insertBox()">+ Insert Box</button>
         <button class="small" onclick="previewBlog()">👁 Preview Blog</button>
-        <button class="small btn-primary" onclick="createBlog()">💾 Create & Download Blog HTML</button>
+        <button class="small btn-primary" onclick="saveBlog()">💾 Save Blog (session)</button>
+        <button class="small" onclick="getBlogLinkFromForm()">🔗 Get Blog Link</button>
       </div>
-      <div class="footer-note">Created blog is downloaded as a standalone .html file (upload it to your site to publish).</div>
+      <div class="footer-note">Saved blogs for this session appear in the list below — each has a Get Blog Link button (link-based only).</div>
+      <div id="blogsList" style="margin-top:10px"></div>
     </div>
 
     <div class="panel">
       <h3 style="margin:0 0 6px 0">Utilities</h3>
-      <div class="muted">Export / Import the JSON of your current session (in-memory only)</div>
+      <div class="muted">Import/Export demo session JSON (in-memory only)</div>
       <div style="margin-top:8px">
         <button class="small" onclick="exportJSON()">Export JSON</button>
         <button class="small" onclick="importJSON()">Import JSON</button>
@@ -144,7 +146,7 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 
   </div>
 
-  <!-- right: preview -->
+  <!-- RIGHT: Live preview iframe -->
   <div class="panel iframe-wrap">
     <h3 style="margin:0 0 8px 0">Live Preview</h3>
     <div class="muted" style="margin-bottom:8px">Preview updates only when you click <strong>Save & Refresh Preview</strong>.</div>
@@ -169,7 +171,7 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 <div class="toast" id="toast">Link copied to clipboard</div>
 
 <script>
-/* ---------- DEFAULT (session-only) ---------- */
+/* ------------------ DEMO DATA (session-only) ------------------ */
 const DEFAULT = {
   footer: {
     siteName: "Mobili",
@@ -180,7 +182,7 @@ const DEFAULT = {
       { text: "Privacy Policy", url: "https://en.wikipedia.org/wiki/Privacy_policy" },
       { text: "Terms and Conditions", url: "https://en.wikipedia.org/wiki/Terms_of_service" }
     ],
-    socials: { facebook: "", youtube: "", instagram: "", x: "" }
+    socials: { facebook: "https://www.facebook.com", youtube: "https://www.youtube.com", instagram: "https://www.instagram.com", x: "https://twitter.com" }
   },
   categories: [
     { name: "AFK Gadgets", url: "http://hotterbite.online/afkgeek/" },
@@ -198,23 +200,42 @@ const DEFAULT = {
   ],
   extraProducts: [
     { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring", alt: "Smart Ring" },
-    { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone", alt: "Headphone" }
+    { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone", alt: "Headphone" },
+    { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car", alt: "RC Car" },
+    { img: "https://cdn.beebom.com/gadgets-store/b519c81f-05ca-4615-a816-64eaf1429779removalaipreview.png", url: "https://en.wikipedia.org/wiki/Power_bank", alt: "Power Bank" }
   ],
   products: {
     "Latest": [
       { img: "https://cdn.beebom.com/gadgets-store/618d6nc7edl-background-removed.sl1500.png", url: "https://en.wikipedia.org/wiki/Gadget" },
-      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" }
+      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
+      { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car" }
+    ],
+    "Smartphone Accessories": [
+      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
+      { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone" }
     ]
-  }
+  },
+  // sample blog (demo)
+  blogs: [
+    {
+      id: 'demo-blog-1',
+      title: '5 Viral Gadgets You Must See',
+      image: 'https://cdn.beebom.com/images/illustrations/100.png',
+      content: `<p>Here are 5 viral gadgets trending right now. I tested them and found these useful.</p>
+<div class="blog-box-tip"><strong>TIP:</strong> Always check compatibility before buying.</div>
+<p>Gadget 1: Amazing ring that tracks sleep and looks stylish.</p>
+<div class="blog-box-note"><strong>NOTE:</strong> Prices vary across stores.</div>
+<p>Gadget 2: Pocket drone — fun and tiny.</p>`
+    }
+  ]
 };
 
-/* ---------- IN-MEM STATE (session-only) ---------- */
+/* session-only state (no localStorage) */
 let state = JSON.parse(JSON.stringify(DEFAULT));
 
-/* ---------- DOM helpers ---------- */
-const el = (html) => { const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; };
+/* ------------------ DOM helpers & rendering ------------------ */
+const el = html => { const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; };
 
-/* ---------- RENDERERS ---------- */
 function renderFooterLinks(){
   const container = document.getElementById('footerLinks'); container.innerHTML='';
   state.footer.links.forEach((l,i)=>{
@@ -229,8 +250,7 @@ function renderFooterLinks(){
           <button class="small" onclick="moveFooter(${i},1)">▼</button>
           <button class="small danger" onclick="removeFooter(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
@@ -249,8 +269,7 @@ function renderCategories(){
           <button class="small" onclick="moveCategory(${i},1)">▼</button>
           <button class="small danger" onclick="removeCategory(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
@@ -269,8 +288,7 @@ function renderStore(){
           <button class="small" onclick="moveStore(${i},1)">▼</button>
           <button class="small danger" onclick="removeStore(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
@@ -290,8 +308,7 @@ function renderBest(){
           <button class="small" onclick="moveBest(${i},1)">▼</button>
           <button class="small danger" onclick="removeBest(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
@@ -311,8 +328,7 @@ function renderExtra(){
           <button class="small" onclick="moveExtra(${i},1)">▼</button>
           <button class="small danger" onclick="removeExtra(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
@@ -342,13 +358,33 @@ function renderProductCats(){
           </div>
         </div>
         <div>${productsHTML}</div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
 
-/* ---------- CRUD helpers ---------- */
+/* blogs list (session) */
+function renderBlogsList(){
+  const container = document.getElementById('blogsList'); container.innerHTML='';
+  if(!state.blogs || state.blogs.length===0){ container.innerHTML = '<div class="muted">No saved blogs in this session</div>'; return; }
+  state.blogs.slice().reverse().forEach(b=>{
+    const node = el(`
+      <div class="item" style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="width:56px;height:40px;border-radius:8px;overflow:hidden;background:#fff"><img src="${escapeHtml(b.image||'')}" style="width:100%;height:100%;object-fit:cover"></div>
+          <div><strong>${escapeHtml(b.title)}</strong><div style="font-size:.85rem;color:#556">${new Date(b.createdAt||Date.now()).toLocaleString()}</div></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="small" onclick="previewSavedBlog('${b.id}')">Preview</button>
+          <button class="small" onclick="copyBlogLink('${b.id}')">Get Blog Link</button>
+          <button class="small danger" onclick="removeBlog('${b.id}')">Delete</button>
+        </div>
+      </div>`);
+    container.appendChild(node);
+  });
+}
+
+/* ------------------ CRUD functions ------------------ */
 function addFooterLink(){ state.footer.links.push({ text: "New Link", url: "#" }); renderFooterLinks(); }
 function moveFooter(i,dir){ const a=state.footer.links; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderFooterLinks(); }
 function removeFooter(i){ state.footer.links.splice(i,1); renderFooterLinks(); }
@@ -372,11 +408,11 @@ function removeExtra(i){ state.extraProducts.splice(i,1); renderExtra(); }
 function addProductCategory(){ const name = prompt("New product category name:", "New Category"); if(!name) return; if(state.products[name]){ alert('Category exists'); return; } state.products[name]=[]; renderProductCats(); }
 function addProductTo(cat){ state.products[cat].push({ img: "", url: "#" }); renderProductCats(); }
 function removeProductCategory(cat){ if(!confirm(`Remove category "${cat}"?`)) return; delete state.products[cat]; renderProductCats(); }
-function renameCategory(oldName, newName){ if(!newName) return alert('Name required'); if(oldName===newName) return; if(state.products[newName]) return alert('Name exists'); state.products[newName]=state.products[oldName]; delete state.products[oldName]; renderProductCats(); }
-function moveProduct(cat,idx,dir){ const a = state.products[cat]; const j = idx + dir; if(j<0||j>=a.length)return; [a[idx],a[j]]=[a[j],a[idx]]; renderProductCats(); }
+function renameCategory(oldName,newName){ if(!newName) return alert('Name required'); if(oldName===newName) return; if(state.products[newName]) return alert('Name exists'); state.products[newName]=state.products[oldName]; delete state.products[oldName]; renderProductCats(); }
+function moveProduct(cat,idx,dir){ const a=state.products[cat]; const j=idx+dir; if(j<0||j>=a.length)return; [a[idx],a[j]]=[a[j],a[idx]]; renderProductCats(); }
 function removeProduct(cat,idx){ state.products[cat].splice(idx,1); renderProductCats(); }
 
-/* ---------- Blog helpers ---------- */
+/* ------------------ BLOG functions (session-only & link-based) ------------------ */
 function insertBox(){
   const type = document.getElementById('boxType').value;
   const txt = document.getElementById('boxText').value.trim();
@@ -387,46 +423,77 @@ function insertBox(){
   document.getElementById('boxText').value = '';
 }
 
-function buildBlogHTML(obj){
-  const safeTitle = escapeHtml(obj.title || '');
-  const safeImage = escapeHtml(obj.image || '');
-  const created = new Date().toLocaleString();
-  const body = obj.content || '';
-  return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${safeTitle}</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f3f6ff,#eef3ff);margin:0;padding:28px;color:#0b0b1a}
-.wrap{max-width:900px;margin:18px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
-h1{font-size:2rem;margin:0 0 10px}
-.meta{color:#556;font-size:.95rem;margin-bottom:14px}
-.feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
-.content{line-height:1.7;color:#122}
-.content p{margin:0 0 12px}
-.blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
-.blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
-.blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
-@media (max-width:600px){ .wrap{padding:16px} .feat{height:200px} h1{font-size:1.4rem} }
-</style></head><body>
-<div class="wrap">
-  <h1>${safeTitle}</h1>
-  <div class="meta">${created}</div>
-  ${safeImage ? `<img src="${safeImage}" class="feat" alt="${safeTitle}">` : ''}
-  <div class="content">${body}</div>
-</div>
-</body></html>`;
-}
-
-function previewBlog(){
+/* Save blog to session (in-memory) */
+function saveBlog(){
   const title = document.getElementById('blogTitle').value.trim();
   if(!title) return alert('Enter blog title');
   const image = document.getElementById('blogImage').value.trim();
   const content = document.getElementById('blogContent').value;
-  const html = buildBlogHTML({ title, image, content });
+  const id = 'blog-' + Date.now();
+  const b = { id, title, image, content, createdAt: Date.now() };
+  state.blogs.push(b);
+  renderBlogsList();
+  showToast('Blog saved to session');
+}
+
+/* Preview current blog form */
+function previewBlog(){
+  const title = document.getElementById('blogTitle').value.trim();
+  if(!title) return alert('Enter title');
+  const image = document.getElementById('blogImage').value.trim();
+  const content = document.getElementById('blogContent').value;
+  const html = buildBlogHTML({ title, image, content, createdAt: Date.now() });
   openModalWithHTML(html);
 }
 
+/* Preview a saved blog from session */
+function previewSavedBlog(id){
+  const b = (state.blogs||[]).find(x => x.id === id);
+  if(!b) return alert('Blog not found');
+  const html = buildBlogHTML(b);
+  openModalWithHTML(html);
+}
+
+/* Remove blog */
+function removeBlog(id){
+  if(!confirm('Delete this blog from session?')) return;
+  state.blogs = (state.blogs||[]).filter(x => x.id !== id);
+  renderBlogsList();
+  showToast('Deleted');
+}
+
+/* Build standalone blog HTML (for modal/new tab) */
+function buildBlogHTML(blog){
+  const safeTitle = escapeHtml(blog.title || '');
+  const safeImage = escapeHtml(blog.image || '');
+  const created = new Date(blog.createdAt||Date.now()).toLocaleString();
+  const body = blog.content || '';
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${safeTitle}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f3f6ff,#eef3ff);margin:0;padding:28px;color:#0b0b1a}
+    .wrap{max-width:900px;margin:18px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+    h1{font-size:2rem;margin:0 0 10px}
+    .meta{color:#556;font-size:.95rem;margin-bottom:14px}
+    .feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
+    .content{line-height:1.7;color:#122}
+    .content p{margin:0 0 12px}
+    .blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
+    .blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
+    .blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
+    @media (max-width:600px){ .wrap{padding:16px} .feat{height:200px} h1{font-size:1.4rem} }
+  </style></head><body>
+  <div class="wrap">
+    <h1>${safeTitle}</h1>
+    <div class="meta">${created}</div>
+    ${safeImage ? `<img src="${safeImage}" class="feat" alt="${safeTitle}">` : ''}
+    <div class="content">${body}</div>
+  </div>
+  </body></html>`;
+}
+
+/* Modal helpers */
 function openModalWithHTML(html){
   const modal = document.getElementById('modal');
   const body = document.getElementById('modalBody');
@@ -443,121 +510,145 @@ function openModalWithHTML(html){
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 function openModalInNewTab(){ const modal = document.getElementById('modal'); if(!modal._last) return; const w = window.open(); w.document.write(modal._last); w.document.close(); }
 
-function createBlog(){
-  const title = document.getElementById('blogTitle').value.trim();
-  if(!title) return alert('Enter blog title');
-  const image = document.getElementById('blogImage').value.trim();
-  const content = document.getElementById('blogContent').value;
-  const html = buildBlogHTML({ title, image, content });
-  const filename = 'blog-' + Date.now() + '.html';
-  downloadFile(html, filename);
-  alert('Blog downloaded as ' + filename + '. Upload it to your site to publish.');
-}
+/* ------------------ LINK GENERATION (link-based only) ------------------ */
 
-function downloadFile(content, filename){
-  const blob = new Blob([content], {type:'text/html'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = filename; a.click();
-  URL.revokeObjectURL(url);
-}
-
-/* ---------- Save & Preview / Get URL ---------- */
+/* gather site-wide state from UI before generating URL */
 function gatherStateFromUI(){
-  // footer
   state.footer.siteName = document.getElementById('footerSiteName').value || state.footer.siteName;
   state.footer.copyright = document.getElementById('footerCopyright').value || state.footer.copyright;
   state.footer.socials.facebook = document.getElementById('socFacebook').value || '';
   state.footer.socials.youtube = document.getElementById('socYoutube').value || '';
   state.footer.socials.instagram = document.getElementById('socInstagram').value || '';
-  state.footer.socials.x = document.getElementById('socX') ? document.getElementById('socX').value || '' : (document.getElementById('socX') && document.getElementById('socX').value) || '';
-  // the rest of arrays are already updated via inputs bound to state
+  state.footer.socials.x = document.getElementById('socX') ? document.getElementById('socX').value || '' : state.footer.socials.x;
+  // other arrays are live-updated by inputs
 }
 
+/* Save preview (updates iframe only) */
 function refreshPreview(){
   gatherStateFromUI();
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
   const previewUrl = origin + '/template.html?data=' + encoded;
-  const iframe = document.getElementById('previewFrame');
-  iframe.src = previewUrl;
+  document.getElementById('previewFrame').src = previewUrl;
   showToast('Preview refreshed');
 }
 
+/* Get full site link */
 function getUrl(){
   gatherStateFromUI();
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
   const full = origin + '/template.html?data=' + encoded;
-  // copy to clipboard
-  navigator.clipboard.writeText(full).then(()=> {
+  copyToClipboard(full, () => {
     showToast('Link copied to clipboard');
-    // also show prompt for visibility (optional)
+    // small prompt to show full link (optional for visibility)
     setTimeout(()=>{ alert('Shareable URL copied to clipboard:\n\n' + full); }, 50);
-  }).catch(()=> {
-    prompt('Copy this URL:', full);
   });
 }
 
-/* ---------- Import / Export / Reset ---------- */
+/* Generate a blog-only link from the current form (not saved) */
+function getBlogLinkFromForm(){
+  const title = document.getElementById('blogTitle').value.trim();
+  if(!title) return alert('Enter blog title');
+  const image = document.getElementById('blogImage').value.trim();
+  const content = document.getElementById('blogContent').value;
+  const blogObj = { id: 'temp-' + Date.now(), title, image, content, createdAt: Date.now() };
+  const payload = { blog: blogObj };
+  const encoded = encodeURIComponent(JSON.stringify(payload));
+  const origin = window.location.origin;
+  const full = origin + '/template.html?type=blog&data=' + encoded;
+  copyToClipboard(full, () => { showToast('Blog link copied to clipboard'); alert('Blog link copied:\n\n' + full); });
+}
+
+/* Copy blog link for a saved blog (in-session) */
+function copyBlogLink(id){
+  const b = (state.blogs||[]).find(x => x.id === id);
+  if(!b) return alert('Blog not found');
+  const payload = { blog: b };
+  const encoded = encodeURIComponent(JSON.stringify(payload));
+  const origin = window.location.origin;
+  const full = origin + '/template.html?type=blog&data=' + encoded;
+  copyToClipboard(full, () => { showToast('Blog link copied'); prompt('Blog link (copied):', full); });
+}
+
+/* copy helper */
+function copyToClipboard(text, onDone){
+  navigator.clipboard.writeText(text).then(()=>{ if(onDone) onDone(); }, ()=>{ prompt('Copy this URL:', text); if(onDone) onDone(); });
+}
+
+/* preview saved blog -> get link and open */
+function previewSavedBlogOpenLink(id){
+  const b = (state.blogs||[]).find(x => x.id === id);
+  if(!b) return alert('Blog not found');
+  const payload = { blog: b };
+  const encoded = encodeURIComponent(JSON.stringify(payload));
+  const origin = window.location.origin;
+  const full = origin + '/template.html?type=blog&data=' + encoded;
+  window.open(full, '_blank');
+}
+
+/* ------------------ import/export/reset (session) ------------------ */
 function exportJSON(){
   const data = JSON.stringify(state, null, 2);
   const blob = new Blob([data], {type:'application/json'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download='my-session.json'; a.click(); URL.revokeObjectURL(url);
+  const a = document.createElement('a'); a.href = url; a.download = 'session.json'; a.click(); URL.revokeObjectURL(url);
 }
 function importJSON(){
   const input = document.createElement('input'); input.type='file'; input.accept='.json,application/json';
   input.onchange = e => {
-    const f = e.target.files[0];
-    if(!f) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
+    const f = e.target.files[0]; if(!f) return;
+    const reader = new FileReader(); reader.onload = ev => {
       try {
         const parsed = JSON.parse(ev.target.result);
         state = parsed;
-        // reflect into UI
         fillFormFields();
         renderAll();
-        alert('Imported session (in-memory). Use Get URL to create shareable link.');
+        showToast('Imported session (in-memory)');
       } catch(err){ alert('Invalid JSON'); }
-    };
-    reader.readAsText(f);
-  };
-  input.click();
+    }; reader.readAsText(f);
+  }; input.click();
 }
 function resetSession(){
-  if(!confirm('Reset this session? This will clear all unsaved changes.')) return;
+  if(!confirm('Reset session to demo defaults?')) return;
   state = JSON.parse(JSON.stringify(DEFAULT));
   fillFormFields();
   renderAll();
+  showToast('Session reset');
 }
 
-/* ---------- small helpers ---------- */
+/* ------------------ small helpers & init ------------------ */
 function fillFormFields(){
   document.getElementById('footerSiteName').value = state.footer.siteName || '';
   document.getElementById('footerCopyright').value = state.footer.copyright || '';
   document.getElementById('socFacebook').value = state.footer.socials.facebook || '';
   document.getElementById('socYoutube').value = state.footer.socials.youtube || '';
   document.getElementById('socInstagram').value = state.footer.socials.instagram || '';
-  // render lists
+  document.getElementById('socX') && (document.getElementById('socX').value = state.footer.socials.x || '');
 }
+
 function renderAll(){
-  renderFooterLinks(); renderCategories(); renderStore(); renderBest(); renderExtra(); renderProductCats();
-  // ensure footer inputs reflect defaults
   fillFormFields();
+  renderFooterLinks();
+  renderCategories();
+  renderStore();
+  renderBest();
+  renderExtra();
+  renderProductCats();
+  renderBlogsList();
 }
-function escapeHtml(s){ if(s===null||s===undefined)return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function escapeForAttr(s){ return (s+'').replace(/'/g,"\\'").replace(/"/g,'\\"'); }
 
-/* ---------- toast ---------- */
+/* toast UI */
 function showToast(txt){ const t=document.getElementById('toast'); t.textContent=txt; t.style.display='block'; setTimeout(()=>t.style.display='none',2200); }
 
-/* ---------- init buttons ---------- */
+/* bind buttons */
 document.getElementById('savePreviewBtn').addEventListener('click', refreshPreview);
 document.getElementById('getUrlBtn').addEventListener('click', getUrl);
 
-/* ---------- initial render ---------- */
+/* initial render */
 renderAll();
 </script>
 </body>
