@@ -292,29 +292,34 @@ function buildFooter(){
 }
 
 /* Render blog-only layout */
-function renderBlogOnly(blog){
+function renderBlogOnly(blog) {
   document.getElementById('storeArea').style.display = 'none';
   document.getElementById('blogArea').style.display = 'block';
+
   const container = document.getElementById('blogContainer');
   container.innerHTML = '';
+
   const title = escapeHtml(blog.title || '');
   const image = escapeHtml(blog.image || '');
   const created = new Date(blog.createdAt || Date.now()).toLocaleString();
-  const content = blog.content || '';
-  
+
+  // convert any encoded newlines (\n) into <br> tags for display
+  const content = (blog.content || '').replace(/\n/g, '<br>');
+
   const html = `
     <div class="blog-wrap">
       <h1>${title}</h1>
       <div class="blog-meta">${created}</div>
       ${image ? `<img src="${image}" class="blog-feat" alt="${title}">` : ''}
-      <div class="blog-content" 
-           style="white-space: pre-line; line-height: 1.8; font-size: 17px; color: #333;">
+      <div class="blog-content" style="line-height: 1.8; font-size: 17px; color: #333;">
         ${content}
       </div>
     </div>
   `;
+
   container.innerHTML = html;
 }
+
 
 /* escape helper */
 function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
