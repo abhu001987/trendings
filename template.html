@@ -303,26 +303,27 @@ function renderBlogOnly(blog) {
   const image = escapeHtml(blog.image || '');
   const created = new Date(blog.createdAt || Date.now()).toLocaleString();
 
-  // Convert double newlines into paragraphs and single newlines into <br>
+  // Convert text newlines into <br> while preserving spacing
   let content = blog.content || '';
   content = content
-    .split(/\n\s*\n/) // split into paragraphs
-    .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`) // wrap each in <p>
-    .join('');
+    .replace(/\r\n/g, '\n')     // normalize Windows newlines
+    .replace(/\n{2,}/g, '</p><p>') // double newlines = new paragraph
+    .replace(/\n/g, '<br>');       // single newline = line break
 
   const html = `
     <div class="blog-wrap">
       <h1>${title}</h1>
       <div class="blog-meta">${created}</div>
       ${image ? `<img src="${image}" class="blog-feat" alt="${title}">` : ''}
-      <div class="blog-content" style="line-height: 1.8; font-size: 17px; color: #333;">
-        ${content}
+      <div class="blog-content" style="white-space: normal; line-height: 1.8; font-size: 17px; color: #333;">
+        <p>${content}</p>
       </div>
     </div>
   `;
 
   container.innerHTML = html;
 }
+
 
 /* escape helper */
 function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
