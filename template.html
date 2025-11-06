@@ -303,8 +303,12 @@ function renderBlogOnly(blog) {
   const image = escapeHtml(blog.image || '');
   const created = new Date(blog.createdAt || Date.now()).toLocaleString();
 
-  // convert any encoded newlines (\n) into <br> tags for display
-  const content = (blog.content || '').replace(/\n/g, '<br>');
+  // Convert double newlines into paragraphs and single newlines into <br>
+  let content = blog.content || '';
+  content = content
+    .split(/\n\s*\n/) // split into paragraphs
+    .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`) // wrap each in <p>
+    .join('');
 
   const html = `
     <div class="blog-wrap">
@@ -319,7 +323,6 @@ function renderBlogOnly(blog) {
 
   container.innerHTML = html;
 }
-
 
 /* escape helper */
 function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
