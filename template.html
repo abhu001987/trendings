@@ -301,12 +301,18 @@ function renderBlogOnly(blog){
   const image = escapeHtml(blog.image || '');
   const created = new Date(blog.createdAt || Date.now()).toLocaleString();
   const content = blog.content || '';
-  const html = `<div class="blog-wrap">
-    <h1>${title}</h1>
-    <div class="blog-meta">${created}</div>
-    ${image ? `<img src="${image}" class="blog-feat" alt="${title}">` : ''}
-    <div class="blog-content">${content}</div>
-  </div>`;
+  
+  const html = `
+    <div class="blog-wrap">
+      <h1>${title}</h1>
+      <div class="blog-meta">${created}</div>
+      ${image ? `<img src="${image}" class="blog-feat" alt="${title}">` : ''}
+      <div class="blog-content" 
+           style="white-space: pre-line; line-height: 1.8; font-size: 17px; color: #333;">
+        ${content}
+      </div>
+    </div>
+  `;
   container.innerHTML = html;
 }
 
