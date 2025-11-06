@@ -58,14 +58,8 @@ footer h2{margin-bottom:8px;font-size:1.3em}
 @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
 /* responsive */
-@media (max-width:880px){
-  .main-logo{width:260px}
-  .center-logos img{width:52px;height:52px}
-}
-@media (max-width:480px){
-  .main-logo{width:220px}
-  .center-logos img{width:44px;height:44px}
-}
+@media (max-width:880px){ .main-logo{width:260px} .center-logos img{width:52px;height:52px} }
+@media (max-width:480px){ .main-logo{width:220px} .center-logos img{width:44px;height:44px} }
 </style>
 </head>
 <body>
@@ -119,34 +113,35 @@ footer h2{margin-bottom:8px;font-size:1.3em}
   </footer>
 
 <script>
-/* Load data from ?data= or localStorage */
-function getData(){
+/* read only from ?data= param (link-based only) */
+function parseDataFromURL(){
   try{
     const p = new URLSearchParams(window.location.search);
     const enc = p.get('data');
-    if(enc){ return JSON.parse(decodeURIComponent(enc)); }
-    const local = localStorage.getItem('viralDashboard');
-    if(local) return JSON.parse(local);
-  }catch(e){ console.warn(e) }
-  return null;
+    if(!enc) return null;
+    return JSON.parse(decodeURIComponent(enc));
+  }catch(e){ console.warn('parse fail', e); return null; }
 }
-const raw = getData();
+
+const raw = parseDataFromURL();
 const defaults = {
   footer:{ siteName:'Mobili', copyright:'©️2017-2025 Mobili — All Rights Reserved.', links:[
     {text:'About Us',url:'https://en.wikipedia.org/wiki/About_us'},
     {text:'Contact Us',url:'https://en.wikipedia.org/wiki/Contact_us'},
     {text:'Privacy Policy',url:'https://en.wikipedia.org/wiki/Privacy_policy'},
     {text:'Terms and Conditions',url:'https://en.wikipedia.org/wiki/Terms_of_service'}],
-    socials:{facebook:'https://www.facebook.com',youtube:'https://www.youtube.com',instagram:'https://www.instagram.com',x:'https://twitter.com'} },
-  categories:[{name:'Latest',url:'#'}],
-  store:[{name:'Instagram',url:'https://www.instagram.com'},{name:'YouTube',url:'https://www.youtube.com'}],
-  bestPhones:[],
-  extraProducts:[],
-  products:{ Latest:[] }
+    socials:{facebook:'',youtube:'',instagram:'',x:''} },
+  categories:[
+    {name:'Latest',url:'#'},
+    {name:'Smartphone Accessories',url:'#'}
+  ],
+  store: [{name:'Instagram',url:'https://www.instagram.com'},{name:'YouTube',url:'https://www.youtube.com'}],
+  bestPhones: [],
+  extraProducts: [],
+  products: { Latest: [] }
 };
 const cfg = Object.assign({}, defaults, raw || {});
 if(raw){
-  // merge deeper pieces
   cfg.footer = Object.assign({}, defaults.footer, raw.footer || {});
   cfg.categories = raw.categories || defaults.categories;
   cfg.store = raw.store || defaults.store;
@@ -155,18 +150,18 @@ if(raw){
   cfg.products = raw.products || defaults.products;
 }
 
-/* Build Menu */
+/* Build menu */
 const dropdown = document.getElementById('dropdownMenu');
 const categoryBtn = document.getElementById('categoryBtn');
 
 function buildMenu(){
   dropdown.innerHTML = '';
   cfg.categories.forEach(c=>{
-    const a = document.createElement('a'); a.href = c.url||'#'; a.target='_blank'; a.textContent = c.name || 'Category'; dropdown.appendChild(a);
+    const a = document.createElement('a'); a.href = c.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = c.name || 'Category'; dropdown.appendChild(a);
   });
   const btn = document.createElement('button'); btn.id='storeToggle'; btn.textContent='Store ▾'; dropdown.appendChild(btn);
   const sub = document.createElement('div'); sub.className='sub'; sub.id='storeDropdown';
-  cfg.store.forEach(s=>{ const a=document.createElement('a'); a.href=s.url||'#'; a.target='_blank'; a.textContent=s.name||'Store'; sub.appendChild(a); });
+  cfg.store.forEach(s=>{ const a=document.createElement('a'); a.href=s.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=s.name||'Store'; sub.appendChild(a); });
   dropdown.appendChild(sub);
 
   btn.addEventListener('click',()=>{ sub.style.display = sub.style.display === 'block' ? 'none' : 'block'; });
@@ -174,7 +169,7 @@ function buildMenu(){
   document.addEventListener('click', e => { if(!categoryBtn.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display='none'; });
 }
 
-/* Slider & Products */
+/* Slider & products */
 const slider = document.getElementById('categorySlider');
 const categoryTitle = document.getElementById('categoryTitle');
 const productGrid = document.getElementById('productGrid');
@@ -201,13 +196,13 @@ function loadProducts(cat){
   categoryTitle.textContent = cat;
   const list = cfg.products[cat] || [];
   list.forEach((p,idx)=>{
-    const a=document.createElement('a'); a.className='product'; a.href=p.url||'#'; a.target='_blank';
+    const a=document.createElement('a'); a.className='product'; a.href=p.url||'#'; a.target='_blank'; a.rel='noopener noreferrer';
     const img=document.createElement('img'); img.src = p.img||''; img.alt = cat+' product '+(idx+1);
     a.appendChild(img); productGrid.appendChild(a);
   });
 }
 
-/* Best phones & extra products */
+/* Best & extra */
 function buildBest(){
   const bestGrid = document.getElementById('bestGrid'); bestGrid.innerHTML='';
   (cfg.bestPhones||[]).forEach(b=>{
@@ -217,7 +212,6 @@ function buildBest(){
     bestGrid.appendChild(a);
   });
 }
-
 function buildExtra(){
   const extra = document.getElementById('extraProducts'); extra.innerHTML='';
   (cfg.extraProducts||[]).forEach(e=>{
@@ -233,18 +227,18 @@ function buildFooter(){
   const linksArea = document.getElementById('footerLinksArea'); linksArea.innerHTML='';
   (cfg.footer.links||[]).forEach(l=>{
     const a=document.createElement('a'); a.href = l.url || '#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = l.text || '';
-    a.className='footer-links'; a.style.color='#fff'; a.style.textDecoration='none'; linksArea.appendChild(a);
+    a.style.color='#fff'; a.style.textDecoration='none'; linksArea.appendChild(a);
   });
   document.getElementById('footerCopyright').textContent = cfg.footer.copyright || '';
   const socials = document.getElementById('socialIcons'); socials.innerHTML='';
   const s = cfg.footer.socials || {};
-  if(s.facebook) socials.innerHTML += `<a href="${s.facebook}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px" title="Facebook">Facebook</a>`;
-  if(s.youtube) socials.innerHTML += `<a href="${s.youtube}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px" title="YouTube">YouTube</a>`;
-  if(s.instagram) socials.innerHTML += `<a href="${s.instagram}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px" title="Instagram">Instagram</a>`;
-  if(s.x) socials.innerHTML += `<a href="${s.x}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px" title="X">X</a>`;
+  if(s.facebook) socials.innerHTML += `<a href="${s.facebook}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">Facebook</a>`;
+  if(s.youtube) socials.innerHTML += `<a href="${s.youtube}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">YouTube</a>`;
+  if(s.instagram) socials.innerHTML += `<a href="${s.instagram}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">Instagram</a>`;
+  if(s.x) socials.innerHTML += `<a href="${s.x}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">X</a>`;
 }
 
-/* initialize */
+/* init */
 buildMenu(); buildSlider(); buildBest(); buildExtra(); buildFooter();
 </script>
 </body>
