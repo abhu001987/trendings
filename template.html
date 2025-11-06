@@ -8,7 +8,9 @@
 <style>
 *{box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:radial-gradient(circle at 15% 20%, #b2c2ff 0%, transparent 40%),radial-gradient(circle at 85% 30%, #e5ecff 0%, transparent 45%),radial-gradient(circle at 40% 80%, #c0beff 0%, transparent 50%),linear-gradient(135deg,#edf1ff 0%,#e5ecff 100%);color:#111;margin:0;padding:0}
-.menu{position:absolute;top:20px;right:30px;z-index:100}
+.container{max-width:1200px;margin:0 auto;padding:18px}
+/* menu */
+.menu{position:fixed;top:20px;right:30px;z-index:100}
 .menu button{background:#fff;border:none;padding:10px 18px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);font-weight:600;cursor:pointer}
 .dropdown{display:none;position:absolute;right:0;background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.12);margin-top:8px;overflow:hidden}
 .dropdown a,.dropdown button{display:block;text-decoration:none;color:#1a1a3d;padding:10px 16px;border-bottom:1px solid #f1f1f1;background:none;text-align:left;width:100%;cursor:pointer}
@@ -54,6 +56,16 @@ footer{margin-top:40px;background:linear-gradient(135deg,#14143B 0%,#4F1B2C 100%
 footer h2{margin-bottom:8px;font-size:1.3em}
 .footer-links a{color:#fff;text-decoration:none}
 
+/* blog single (modern rounded) */
+.blog-wrap{max-width:900px;margin:40px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+.blog-wrap h1{font-size:2rem;margin:0 0 10px}
+.blog-meta{color:#556;font-size:.95rem;margin-bottom:14px}
+.blog-feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
+.blog-content{line-height:1.7;color:#122}
+.blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
+.blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
+.blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
+
 /* floating animation */
 @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
@@ -64,121 +76,163 @@ footer h2{margin-bottom:8px;font-size:1.3em}
 </head>
 <body>
 
-  <!-- Category Menu -->
-  <div class="menu">
-    <button id="categoryBtn">Categories ☰</button>
-    <div class="dropdown" id="dropdownMenu"></div>
-  </div>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-title">
-      <img src="https://cdn.beebom.com/images/illustrations/100.png" class="title-icon" alt="icon">
-      <h1 style="font-size:2.4rem;color:#14143B">Viral Gadgets on</h1>
+<div class="container" id="pageRoot">
+  <!-- store sections (only shown when not blog mode) -->
+  <div id="storeArea">
+    <div class="menu">
+      <button id="categoryBtn">Categories ☰</button>
+      <div class="dropdown" id="dropdownMenu"></div>
     </div>
-    <div class="center-logos">
-      <img src="https://cdn.beebom.com/images/illustrations/smile-emoji.png" class="emoji left-emoji" alt="left-emoji">
-      <img src="https://cdn.beebom.com/images/logos/instagram-beebom-gradient-logo.svg" class="main-logo" alt="instagram">
-      <img src="https://cdn.beebom.com/images/illustrations/heart.png" class="emoji right-emoji" alt="right-emoji">
+
+    <section class="hero">
+      <div class="hero-title">
+        <img src="https://cdn.beebom.com/images/illustrations/100.png" class="title-icon" alt="icon">
+        <h1 style="font-size:2.4rem;color:#14143B">Viral Gadgets on</h1>
+      </div>
+      <div class="center-logos">
+        <img src="https://cdn.beebom.com/images/illustrations/smile-emoji.png" class="emoji left-emoji" alt="left-emoji">
+        <img src="https://cdn.beebom.com/images/logos/instagram-beebom-gradient-logo.svg" class="main-logo" alt="instagram">
+        <img src="https://cdn.beebom.com/images/illustrations/heart.png" class="emoji right-emoji" alt="right-emoji">
+      </div>
+    </section>
+
+    <div class="slider" id="categorySlider"></div>
+
+    <div style="text-align:center;">
+      <h2 class="section-title" id="categoryTitle" style="font-size:1.4rem;color:#1a1a3d">Latest</h2>
     </div>
-  </section>
 
-  <!-- Slider -->
-  <div class="slider" id="categorySlider"></div>
+    <div class="product-grid" id="productGrid"></div>
 
-  <div style="text-align:center;">
-    <h2 class="section-title" id="categoryTitle" style="font-size:1.4rem;color:#1a1a3d">Latest</h2>
-  </div>
+    <div class="best-phones">
+      <h2 class="section-title">Best Phones By Price</h2>
+      <div class="best-grid" id="bestGrid"></div>
+    </div>
 
-  <div class="product-grid" id="productGrid"></div>
+    <div class="extra-products" id="extraProducts"></div>
 
-  <div class="best-phones">
-    <h2 class="section-title">Best Phones By Price</h2>
-    <div class="best-grid" id="bestGrid"></div>
-  </div>
+    <footer id="siteFooter">
+      <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>
+          <h2 id="footerSiteName">Mobili</h2>
+          <div id="socialIcons" style="display:flex;gap:10px;font-size:1.05rem"></div>
+        </div>
 
-  <div class="extra-products" id="extraProducts"></div>
-
-  <footer>
-    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-      <div>
-        <h2 id="footerSiteName">Mobili</h2>
-        <div id="socialIcons" style="display:flex;gap:10px;font-size:1.05rem"></div>
+        <div id="footerLinksArea" style="text-align:right;display:flex;flex-direction:column;gap:6px"></div>
       </div>
 
-      <div id="footerLinksArea" style="text-align:right;display:flex;flex-direction:column;gap:6px"></div>
-    </div>
+      <div id="footerCopyright" style="margin-top:12px;opacity:0.9">©️2017-2025 Mobili — All Rights Reserved.</div>
+    </footer>
+  </div>
 
-    <div id="footerCopyright" style="margin-top:12px;opacity:0.9">©️2017-2025 Mobili — All Rights Reserved.</div>
-  </footer>
+  <!-- blog area (only shown in blog mode) -->
+  <div id="blogArea" style="display:none">
+    <div id="blogContainer"></div>
+  </div>
+</div>
 
 <script>
-/* read only from ?data= param (link-based only) */
-function parseDataFromURL(){
+/* Parse URL for either full site data or blog-only */
+function readURLData(){
   try{
-    const p = new URLSearchParams(window.location.search);
-    const enc = p.get('data');
-    if(!enc) return null;
-    return JSON.parse(decodeURIComponent(enc));
-  }catch(e){ console.warn('parse fail', e); return null; }
+    const params = new URLSearchParams(window.location.search);
+    const enc = params.get('data');
+    const type = params.get('type') || 'site';
+    if(!enc) return { type };
+    const parsed = JSON.parse(decodeURIComponent(enc));
+    return { type, payload: parsed };
+  }catch(e){
+    console.warn('parse error', e);
+    return { type: 'site' };
+  }
 }
 
-const raw = parseDataFromURL();
-const defaults = {
+const urlData = readURLData();
+const isBlogMode = urlData.type === 'blog';
+
+/* default baseline (demo if no data) */
+const DEFAULT = {
   footer:{ siteName:'Mobili', copyright:'©️2017-2025 Mobili — All Rights Reserved.', links:[
     {text:'About Us',url:'https://en.wikipedia.org/wiki/About_us'},
     {text:'Contact Us',url:'https://en.wikipedia.org/wiki/Contact_us'},
     {text:'Privacy Policy',url:'https://en.wikipedia.org/wiki/Privacy_policy'},
     {text:'Terms and Conditions',url:'https://en.wikipedia.org/wiki/Terms_of_service'}],
-    socials:{facebook:'',youtube:'',instagram:'',x:''} },
+    socials:{facebook:'https://www.facebook.com',youtube:'https://www.youtube.com',instagram:'https://www.instagram.com',x:'https://twitter.com'} },
   categories:[
-    {name:'Latest',url:'#'},
-    {name:'Smartphone Accessories',url:'#'}
+    {name:'AFK Gadgets',url:'http://hotterbite.online/afkgeek/'},
+    {name:'Latest Phones',url:'http://hotterbite.online/latestphones/'},
+    {name:'Comparison',url:'http://hotterbite.online/ChooseYourComparison/'},
+    {name:'Blogs',url:'http://hotterbite.online/blogmenu/'}
   ],
-  store: [{name:'Instagram',url:'https://www.instagram.com'},{name:'YouTube',url:'https://www.youtube.com'}],
-  bestPhones: [],
-  extraProducts: [],
-  products: { Latest: [] }
+  store:[{name:'Instagram',url:'https://www.instagram.com'},{name:'YouTube',url:'https://www.youtube.com'}],
+  bestPhones:[
+    {title:'Best Phone Under ₹15,000',img:'https://images.unsplash.com/photo-1533022139390-e31c488d69e2',url:'https://en.wikipedia.org/wiki/Smartphone'},
+    {title:'Best Phone Under ₹5,000',img:'https://images.unsplash.com/photo-1423666639041-f56000c27a9a',url:'https://en.wikipedia.org/wiki/Mobile_phone'}
+  ],
+  extraProducts:[
+    {img:'https://cdn.beebom.com/gadgets-store/boat-smart-ring.png',url:'https://en.wikipedia.org/wiki/Smart_ring',alt:'Smart Ring'},
+    {img:'https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png',url:'https://en.wikipedia.org/wiki/Headphone',alt:'Headphone'},
+    {img:'https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png',url:'https://en.wikipedia.org/wiki/Radio-controlled_car',alt:'RC Car'},
+    {img:'https://cdn.beebom.com/gadgets-store/b519c81f-05ca-4615-a816-64eaf1429779removalaipreview.png',url:'https://en.wikipedia.org/wiki/Power_bank',alt:'Power Bank'}
+  ],
+  products:{
+    "Latest":[
+      {img:'https://cdn.beebom.com/gadgets-store/618d6nc7edl-background-removed.sl1500.png',url:'https://en.wikipedia.org/wiki/Gadget'},
+      {img:'https://cdn.beebom.com/gadgets-store/boat-smart-ring.png',url:'https://en.wikipedia.org/wiki/Smart_ring'},
+      {img:'https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png',url:'https://en.wikipedia.org/wiki/Radio-controlled_car'}
+    ],
+    "Smartphone Accessories":[
+      {img:'https://cdn.beebom.com/gadgets-store/boat-smart-ring.png',url:'https://en.wikipedia.org/wiki/Smart_ring'},
+      {img:'https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png',url:'https://en.wikipedia.org/wiki/Headphone'}
+    ]
+  }
 };
-const cfg = Object.assign({}, defaults, raw || {});
-if(raw){
-  cfg.footer = Object.assign({}, defaults.footer, raw.footer || {});
-  cfg.categories = raw.categories || defaults.categories;
-  cfg.store = raw.store || defaults.store;
-  cfg.bestPhones = raw.bestPhones || defaults.bestPhones;
-  cfg.extraProducts = raw.extraProducts || defaults.extraProducts;
-  cfg.products = raw.products || defaults.products;
+
+/* Build config from url payload or defaults */
+let cfg = JSON.parse(JSON.stringify(DEFAULT));
+if(urlData.payload){
+  // if blog mode, payload may be { blog: { ... } }
+  if(isBlogMode && urlData.payload.blog){
+    // we'll render blog directly
+    cfg = { blog: urlData.payload.blog };
+  } else {
+    // merge site-level data (fallback to defaults)
+    const p = urlData.payload;
+    cfg = Object.assign({}, DEFAULT, p || {});
+    cfg.footer = Object.assign({}, DEFAULT.footer, (p && p.footer) || {});
+    cfg.categories = (p && p.categories) || DEFAULT.categories;
+    cfg.store = (p && p.store) || DEFAULT.store;
+    cfg.bestPhones = (p && p.bestPhones) || DEFAULT.bestPhones;
+    cfg.extraProducts = (p && p.extraProducts) || DEFAULT.extraProducts;
+    cfg.products = (p && p.products) || DEFAULT.products;
+  }
 }
 
-/* Build menu */
-const dropdown = document.getElementById('dropdownMenu');
-const categoryBtn = document.getElementById('categoryBtn');
-
+/* Render functions */
 function buildMenu(){
+  const dropdown = document.getElementById('dropdownMenu');
   dropdown.innerHTML = '';
-  cfg.categories.forEach(c=>{
-    const a = document.createElement('a'); a.href = c.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = c.name || 'Category'; dropdown.appendChild(a);
+  (cfg.categories || []).forEach(c=>{
+    const a = document.createElement('a'); a.href = c.url || '#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = c.name || 'Category';
+    dropdown.appendChild(a);
   });
   const btn = document.createElement('button'); btn.id='storeToggle'; btn.textContent='Store ▾'; dropdown.appendChild(btn);
   const sub = document.createElement('div'); sub.className='sub'; sub.id='storeDropdown';
-  cfg.store.forEach(s=>{ const a=document.createElement('a'); a.href=s.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=s.name||'Store'; sub.appendChild(a); });
+  (cfg.store||[]).forEach(s=>{ const a=document.createElement('a'); a.href=s.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=s.name||'Store'; sub.appendChild(a); });
   dropdown.appendChild(sub);
-
   btn.addEventListener('click',()=>{ sub.style.display = sub.style.display === 'block' ? 'none' : 'block'; });
-  categoryBtn.addEventListener('click',()=>{ dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block'; });
-  document.addEventListener('click', e => { if(!categoryBtn.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display='none'; });
+  document.getElementById('categoryBtn').addEventListener('click',()=>{ dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block'; });
+  document.addEventListener('click', e => { if(!document.getElementById('categoryBtn').contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display='none'; });
 }
 
-/* Slider & products */
-const slider = document.getElementById('categorySlider');
-const categoryTitle = document.getElementById('categoryTitle');
-const productGrid = document.getElementById('productGrid');
-
-function buildSlider(){
+function buildSliderAndProducts(){
+  const slider = document.getElementById('categorySlider');
+  const productGrid = document.getElementById('productGrid');
+  const categoryTitle = document.getElementById('categoryTitle');
   slider.innerHTML = '';
-  const cats = Object.keys(cfg.products).length ? Object.keys(cfg.products) : cfg.categories.map(c=>c.name);
+  const cats = Object.keys(cfg.products).length ? Object.keys(cfg.products) : (cfg.categories||[]).map(c=>c.name);
   cats.forEach((cat,idx)=>{
-    const span=document.createElement('span'); span.className='slide-btn'; if(idx===0) span.classList.add('active'); span.dataset.cat=cat; span.textContent=cat; slider.appendChild(span);
+    const span = document.createElement('span'); span.className='slide-btn'; if(idx===0) span.classList.add('active'); span.dataset.cat=cat; span.textContent=cat; slider.appendChild(span);
   });
   slider.querySelectorAll('.slide-btn').forEach(b=>{
     b.addEventListener('click', e=>{
@@ -188,58 +242,84 @@ function buildSlider(){
       loadProducts(b.dataset.cat);
     });
   });
-  const first = slider.querySelector('.slide-btn'); if(first) loadProducts(first.dataset.cat);
+  const first = slider.querySelector('.slide-btn');
+  if(first) loadProducts(first.dataset.cat);
+  function loadProducts(cat){
+    productGrid.innerHTML = '';
+    categoryTitle.textContent = cat;
+    const list = (cfg.products && cfg.products[cat]) || [];
+    list.forEach((p,idx)=>{
+      const a = document.createElement('a'); a.className='product'; a.href = p.url || '#'; a.target='_blank'; a.rel='noopener noreferrer';
+      const img = document.createElement('img'); img.src = p.img || ''; img.alt = cat + ' product ' + (idx+1);
+      a.appendChild(img); productGrid.appendChild(a);
+    });
+  }
 }
 
-function loadProducts(cat){
-  productGrid.innerHTML='';
-  categoryTitle.textContent = cat;
-  const list = cfg.products[cat] || [];
-  list.forEach((p,idx)=>{
-    const a=document.createElement('a'); a.className='product'; a.href=p.url||'#'; a.target='_blank'; a.rel='noopener noreferrer';
-    const img=document.createElement('img'); img.src = p.img||''; img.alt = cat+' product '+(idx+1);
-    a.appendChild(img); productGrid.appendChild(a);
-  });
-}
-
-/* Best & extra */
 function buildBest(){
   const bestGrid = document.getElementById('bestGrid'); bestGrid.innerHTML='';
-  (cfg.bestPhones||[]).forEach(b=>{
+  (cfg.bestPhones || []).forEach(b=>{
     const a=document.createElement('a'); a.className='best-card'; a.href=b.url||'#'; a.target='_blank';
     const img=document.createElement('img'); img.src=b.img||''; a.appendChild(img);
     const span=document.createElement('span'); span.textContent=b.title||''; a.appendChild(span);
     bestGrid.appendChild(a);
   });
 }
+
 function buildExtra(){
   const extra = document.getElementById('extraProducts'); extra.innerHTML='';
-  (cfg.extraProducts||[]).forEach(e=>{
+  (cfg.extraProducts || []).forEach(e=>{
     const a=document.createElement('a'); a.href=e.url||'#'; a.target='_blank'; a.rel='noopener noreferrer';
     const img=document.createElement('img'); img.src=e.img||''; img.alt=e.alt||'';
     a.appendChild(img); extra.appendChild(a);
   });
 }
 
-/* Footer */
 function buildFooter(){
-  document.getElementById('footerSiteName').textContent = cfg.footer.siteName || 'Mobili';
+  document.getElementById('footerSiteName').textContent = (cfg.footer && cfg.footer.siteName) || 'Mobili';
   const linksArea = document.getElementById('footerLinksArea'); linksArea.innerHTML='';
-  (cfg.footer.links||[]).forEach(l=>{
-    const a=document.createElement('a'); a.href = l.url || '#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = l.text || '';
-    a.style.color='#fff'; a.style.textDecoration='none'; linksArea.appendChild(a);
+  (cfg.footer && cfg.footer.links || []).forEach(l=>{
+    const a=document.createElement('a'); a.href=l.url||'#'; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent = l.text||''; a.style.color='#fff'; a.style.textDecoration='none';
+    linksArea.appendChild(a);
   });
-  document.getElementById('footerCopyright').textContent = cfg.footer.copyright || '';
+  document.getElementById('footerCopyright').textContent = (cfg.footer && cfg.footer.copyright) || '';
   const socials = document.getElementById('socialIcons'); socials.innerHTML='';
-  const s = cfg.footer.socials || {};
+  const s=(cfg.footer && cfg.footer.socials)||{};
   if(s.facebook) socials.innerHTML += `<a href="${s.facebook}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">Facebook</a>`;
   if(s.youtube) socials.innerHTML += `<a href="${s.youtube}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">YouTube</a>`;
   if(s.instagram) socials.innerHTML += `<a href="${s.instagram}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">Instagram</a>`;
   if(s.x) socials.innerHTML += `<a href="${s.x}" target="_blank" rel="noopener noreferrer" style="color:#fff;margin-right:8px">X</a>`;
 }
 
-/* init */
-buildMenu(); buildSlider(); buildBest(); buildExtra(); buildFooter();
+/* Render blog-only layout */
+function renderBlogOnly(blog){
+  document.getElementById('storeArea').style.display = 'none';
+  document.getElementById('blogArea').style.display = 'block';
+  const container = document.getElementById('blogContainer');
+  container.innerHTML = '';
+  const title = escapeHtml(blog.title || '');
+  const image = escapeHtml(blog.image || '');
+  const created = new Date(blog.createdAt || Date.now()).toLocaleString();
+  const content = blog.content || '';
+  const html = `<div class="blog-wrap">
+    <h1>${title}</h1>
+    <div class="blog-meta">${created}</div>
+    ${image ? `<img src="${image}" class="blog-feat" alt="${title}">` : ''}
+    <div class="blog-content">${content}</div>
+  </div>`;
+  container.innerHTML = html;
+}
+
+/* escape helper */
+function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* initialize: if blog mode -> render blog-only; else render full site */
+if(isBlogMode && urlData.payload && urlData.payload.blog){
+  renderBlogOnly(urlData.payload.blog);
+} else {
+  // normal site
+  buildMenu(); buildSliderAndProducts(); buildBest(); buildExtra(); buildFooter();
+}
 </script>
 </body>
 </html>
