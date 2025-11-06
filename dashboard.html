@@ -1,121 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template Customizer Dashboard</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #b2c2ff, #e5ecff, #edf1ff, #c0beff);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
-      padding: 20px;
-      color: #333;
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .input-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #5a6ef5;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #3f52d8;
-    }
-    .result {
-      margin-top: 20px;
-      text-align: center;
-    }
-    a {
-      word-wrap: break-word;
-      color: #333;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dashboard — Viral Gadgets</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#14143B;--muted:#f4f6ff}
+  body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f6f8ff,#eef2ff);margin:0;padding:18px;color:#111}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  h1{font-size:1.25rem;margin:0}
+  .wrap{display:grid;grid-template-columns:420px 1fr;gap:16px;align-items:start}
+  .panel{background:#fff;padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(20,20,60,0.06)}
+  .panel h2{margin:0 0 8px 0;font-size:1rem}
+  label{display:block;font-weight:600;margin-top:8px;font-size:0.85rem}
+  input[type="text"], input[type="url"], textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e3e7ff;margin-top:6px}
+  textarea{min-height:60px}
+  .list{margin-top:8px}
+  .item{background:var(--muted);padding:8px;border-radius:8px;margin-top:8px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+  .item .fields{display:flex;flex-direction:column;gap:6px}
+  .small{font-size:.85rem;padding:6px 10px;border-radius:8px;border:none;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,0.04);cursor:pointer}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{background:#fff;border:1px solid #ddd}
+  .controls{display:flex;gap:8px;margin-top:12px}
+  .iframe-wrap{height:calc(100vh - 120px)}
+  iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
+  .muted{font-size:.85rem;color:#556}
+  .row{display:flex;gap:8px;align-items:center}
+  .title-input{font-size:1.05rem;padding:8px}
+  .small-action{font-size:.85rem;padding:6px 8px}
+  .danger{background:#fff;border:1px solid #ffdddd;color:#b30000}
+  footer{margin-top:12px;text-align:center;color:#556;font-size:.85rem}
+</style>
 </head>
 <body>
-  <h1>Customize Your Template</h1>
 
-  <div class="input-group">
-    <label>Link 1:</label>
-    <input type="text" id="link1" placeholder="Enter link for product 1">
+<header>
+  <div>
+    <h1>Viral Gadgets — Dashboard</h1>
+    <div class="muted">Edit menu, products, footer & get a shareable TinyURL link</div>
+  </div>
+  <div class="row">
+    <button id="savePreviewBtn" class="small btn-primary">💾 Save & Refresh Preview</button>
+    <button id="getLinkBtn" class="small">🔗 Save & Get Short Link</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: Editor Panels -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <!-- Site title / footer -->
+    <div class="panel">
+      <h2>Site & Footer</h2>
+      <label>Site Name (footer H2)</label>
+      <input id="footerSiteName" type="text" placeholder="Mobili">
+      <label>Copyright text</label>
+      <input id="footerCopyright" type="text" placeholder="©️2017-2025 Mobili — All Rights Reserved.">
+      <label>Footer Links (About / Contact / Privacy / Terms) — you can edit text & URL</label>
+      <div id="footerLinks" class="list"></div>
+      <button class="small small-action" onclick="addFooterLink()">+ Add footer link</button>
+    </div>
+
+    <!-- Category menu -->
+    <div class="panel">
+      <h2>Category Menu (top-right)</h2>
+      <div class="muted">Add / edit categories that appear in the dropdown menu</div>
+      <div id="categoryList" class="list"></div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addCategory()">+ Add Category</button>
+      </div>
+
+      <hr style="margin:12px 0">
+
+      <h2 style="margin-top:8px">Store Submenu (Store ▾)</h2>
+      <div class="muted">These are the links inside the Store submenu</div>
+      <div id="storeList" class="list"></div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addStore()">+ Add Store Link</button>
+      </div>
+    </div>
+
+    <!-- Best phones -->
+    <div class="panel">
+      <h2>Best Phones By Price (cards)</h2>
+      <div id="bestList" class="list"></div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addBestCard()">+ Add Card</button>
+      </div>
+    </div>
+
+    <!-- Extra products -->
+    <div class="panel">
+      <h2>Extra Products (grid)</h2>
+      <div id="extraList" class="list"></div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addExtraProduct()">+ Add Extra Product</button>
+      </div>
+    </div>
+
+    <!-- Product categories -->
+    <div class="panel">
+      <h2>Product Categories & Items</h2>
+      <div class="muted">Each category can contain multiple products (image + link). You can add categories and products.</div>
+      <div id="productCatsList" class="list" style="margin-top:8px"></div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addProductCategory()">+ Add Product Category</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Utilities</h2>
+      <div class="muted">Reset to defaults or import/export the JSON data</div>
+      <div style="margin-top:8px">
+        <button class="small" onclick="exportJSON()">Export JSON</button>
+        <button class="small" onclick="importJSON()">Import JSON</button>
+        <button class="small danger" onclick="resetDefaults()">Reset to Defaults</button>
+      </div>
+    </div>
   </div>
 
-  <div class="input-group">
-    <label>Image 1 URL:</label>
-    <input type="text" id="img1" placeholder="Enter image URL for product 1">
+  <!-- RIGHT: Live preview iframe -->
+  <div class="panel iframe-wrap">
+    <h2 style="margin-bottom:8px">Live Preview</h2>
+    <div style="margin-bottom:8px" class="muted">Preview updates only after clicking <strong>Save & Refresh Preview</strong>.</div>
+    <iframe id="previewFrame" src="template.html" title="preview"></iframe>
   </div>
+</div>
 
-  <div class="input-group">
-    <label>Link 2:</label>
-    <input type="text" id="link2" placeholder="Enter link for product 2">
-  </div>
+<footer>Tip: Host both files on the same domain (hotterbite.online). The preview uses the local `template.html` file.</footer>
 
-  <div class="input-group">
-    <label>Image 2 URL:</label>
-    <input type="text" id="img2" placeholder="Enter image URL for product 2">
-  </div>
+<script>
+/* ========== DEFAULT DATA ========== */
+const DEFAULT = {
+  footer: {
+    siteName: "Mobili",
+    copyright: "©️2017-2025 Mobili — All Rights Reserved.",
+    links: [
+      { text: "About Us", url: "https://en.wikipedia.org/wiki/About_us" },
+      { text: "Contact Us", url: "https://en.wikipedia.org/wiki/Contact_us" },
+      { text: "Privacy Policy", url: "https://en.wikipedia.org/wiki/Privacy_policy" },
+      { text: "Terms and Conditions", url: "https://en.wikipedia.org/wiki/Terms_of_service" }
+    ],
+    socials: {
+      facebook: "https://www.facebook.com",
+      youtube: "https://www.youtube.com",
+      instagram: "https://www.instagram.com",
+      x: "https://twitter.com"
+    }
+  },
+  categories: [
+    { name: "AFK Gadgets", url: "http://hotterbite.online/afkgeek/" },
+    { name: "Latest Phones", url: "http://hotterbite.online/latestphones/" },
+    { name: "Comparison", url: "http://hotterbite.online/ChooseYourComparison/" },
+    { name: "Blogs", url: "http://hotterbite.online/blogmenu/" }
+  ],
+  store: [
+    { name: "Instagram", url: "https://www.instagram.com" },
+    { name: "YouTube", url: "https://www.youtube.com" }
+  ],
+  bestPhones: [
+    { title: "Best Phone Under ₹15,000", img: "https://images.unsplash.com/photo-1533022139390-e31c488d69e2", url: "https://en.wikipedia.org/wiki/Smartphone" },
+    { title: "Best Phone Under ₹5,000", img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a", url: "https://en.wikipedia.org/wiki/Mobile_phone" },
+    { title: "Best Phone Under ₹10,000", img: "https://images.unsplash.com/photo-1533022139390-e31c488d69e2", url: "https://en.wikipedia.org/wiki/Android_(operating_system)" },
+    { title: "Best Phone Under ₹20,000", img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a", url: "https://en.wikipedia.org/wiki/IPhone" }
+  ],
+  extraProducts: [
+    { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring", alt: "Smart Ring" },
+    { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone", alt: "Headphone" },
+    { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car", alt: "RC Car" },
+    { img: "https://cdn.beebom.com/gadgets-store/b519c81f-05ca-4615-a816-64eaf1429779removalaipreview.png", url: "https://en.wikipedia.org/wiki/Power_bank", alt: "Power Bank" }
+  ],
+  products: {
+    "Latest": [
+      { img: "https://cdn.beebom.com/gadgets-store/618d6nc7edl-background-removed.sl1500.png", url: "https://en.wikipedia.org/wiki/Gadget" },
+      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
+      { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car" }
+    ],
+    "Smartphone Accessories": [
+      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
+      { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone" }
+    ]
+  }
+};
 
-  <div class="input-group">
-    <label>Link 3:</label>
-    <input type="text" id="link3" placeholder="Enter link for product 3">
-  </div>
+/* ========== STATE ========== */
+let state = JSON.parse(localStorage.getItem('viralDashboard')) || DEFAULT;
 
-  <div class="input-group">
-    <label>Image 3 URL:</label>
-    <input type="text" id="img3" placeholder="Enter image URL for product 3">
-  </div>
+/* ========== HELPERS ========== */
+function saveState() {
+  localStorage.setItem('viralDashboard', JSON.stringify(state));
+}
+function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
 
-  <div style="text-align:center;">
-    <button id="generateLink">Generate Shareable Link</button>
-  </div>
+/* ========== RENDER FUNCTIONS ========== */
+function renderFooterLinks(){
+  const container = document.getElementById('footerLinks');
+  container.innerHTML = '';
+  state.footer.links.forEach((l,i)=>{
+    const node = el(`
+      <div class="item" data-i="${i}">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(l.text)}" placeholder="Link text" onchange="state.footer.links[${i}].text=this.value">
+          <input type="url" value="${escapeHtml(l.url)}" placeholder="https://example.com" onchange="state.footer.links[${i}].url=this.value">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveFooter(${i},-1)">▲</button>
+          <button class="small" onclick="moveFooter(${i},1)">▼</button>
+          <button class="small danger" onclick="removeFooter(${i})">✕</button>
+        </div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
 
-  <div class="result" id="result"></div>
+function renderCategories(){
+  const container = document.getElementById('categoryList');
+  container.innerHTML='';
+  state.categories.forEach((c,i)=>{
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(c.name)}" placeholder="Category name" onchange="state.categories[${i}].name=this.value" />
+          <input type="url" value="${escapeHtml(c.url)}" placeholder="https://..." onchange="state.categories[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveCategory(${i},-1)">▲</button>
+          <button class="small" onclick="moveCategory(${i},1)">▼</button>
+          <button class="small danger" onclick="removeCategory(${i})">✕</button>
+        </div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
 
-  <script>
-    document.getElementById("generateLink").addEventListener("click", () => {
-      const data = {
-        link1: document.getElementById("link1").value.trim(),
-        img1: document.getElementById("img1").value.trim(),
-        link2: document.getElementById("link2").value.trim(),
-        img2: document.getElementById("img2").value.trim(),
-        link3: document.getElementById("link3").value.trim(),
-        img3: document.getElementById("img3").value.trim(),
-      };
+function renderStore(){
+  const container = document.getElementById('storeList');
+  container.innerHTML='';
+  state.store.forEach((s,i)=>{
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(s.name)}" placeholder="Store name" onchange="state.store[${i}].name=this.value" />
+          <input type="url" value="${escapeHtml(s.url)}" placeholder="https://..." onchange="state.store[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveStore(${i},-1)">▲</button>
+          <button class="small" onclick="moveStore(${i},1)">▼</button>
+          <button class="small danger" onclick="removeStore(${i})">✕</button>
+        </div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
 
-      const encoded = encodeURIComponent(JSON.stringify(data));
-      const url = `https://hotterbite.com/template.html?data=${encoded}`;
+function renderBest(){
+  const container = document.getElementById('bestList');
+  container.innerHTML='';
+  state.bestPhones.forEach((b,i)=>{
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(b.title)}" placeholder="Card title" onchange="state.bestPhones[${i}].title=this.value" />
+          <input type="url" value="${escapeHtml(b.img)}" placeholder="Image URL" onchange="state.bestPhones[${i}].img=this.value" />
+          <input type="url" value="${escapeHtml(b.url)}" placeholder="Target URL" onchange="state.bestPhones[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveBest(${i},-1)">▲</button>
+          <button class="small" onclick="moveBest(${i},1)">▼</button>
+          <button class="small danger" onclick="removeBest(${i})">✕</button>
+        </div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
 
-      document.getElementById("result").innerHTML = `
-        <p><strong>Shareable link:</strong></p>
-        <a href="${url}" target="_blank">${url}</a>
-      `;
-    });
-  </script>
+function renderExtra(){
+  const container = document.getElementById('extraList');
+  container.innerHTML='';
+  state.extraProducts.forEach((e,i)=>{
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="url" value="${escapeHtml(e.img)}" placeholder="Image URL" onchange="state.extraProducts[${i}].img=this.value" />
+          <input type="text" value="${escapeHtml(e.alt||'')}" placeholder="Alt text" onchange="state.extraProducts[${i}].alt=this.value" />
+          <input type="url" value="${escapeHtml(e.url)}" placeholder="Target URL" onchange="state.extraProducts[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveExtra(${i},-1)">▲</button>
+          <button class="small" onclick="moveExtra(${i},1)">▼</button>
+          <button class="small danger" onclick="removeExtra(${i})">✕</button>
+        </div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
+
+function renderProductCats(){
+  const container = document.getElementById('productCatsList');
+  container.innerHTML='';
+  Object.keys(state.products).forEach((cat,ci)=>{
+    const productsHTML = state.products[cat].map((p,pi)=>`
+      <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:8px">
+        <div style="display:flex;flex-direction:column">
+          <input type="url" value="${escapeHtml(p.img)}" placeholder="Image URL" onchange="state.products['${escapeForAttr(cat)}'][${pi}].img=this.value">
+          <input type="url" value="${escapeHtml(p.url)}" placeholder="Target URL" onchange="state.products['${escapeForAttr(cat)}'][${pi}].url=this.value">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveProduct('${escapeForAttr(cat)}',${pi},-1)">▲</button>
+          <button class="small" onclick="moveProduct('${escapeForAttr(cat)}',${pi},1)">▼</button>
+          <button class="small danger" onclick="removeProduct('${escapeForAttr(cat)}',${pi})">✕</button>
+        </div>
+      </div>`).join('');
+    const node = el(`
+      <div style="margin-bottom:10px;padding:8px;border-radius:8px;background:#f8faff">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <input class="title-input" value="${escapeHtml(cat)}" onchange="renameCategory('${escapeForAttr(cat)}', this.value)" />
+          <div>
+            <button class="small" onclick="addProductTo('${escapeForAttr(cat)}')">+ product</button>
+            <button class="small danger" onclick="removeProductCategory('${escapeForAttr(cat)}')">remove category</button>
+          </div>
+        </div>
+        <div>${productsHTML}</div>
+      </div>
+    `);
+    container.appendChild(node);
+  });
+}
+
+/* ========== MUTATORS ========== */
+function addFooterLink(){
+  state.footer.links.push({ text: "New Link", url: "#" });
+  renderFooterLinks();
+}
+function moveFooter(i, dir){
+  const arr = state.footer.links;
+  const j = i + dir;
+  if (j<0||j>=arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  renderFooterLinks();
+}
+function removeFooter(i){ state.footer.links.splice(i,1); renderFooterLinks(); }
+
+function addCategory(){ state.categories.push({ name: "New Category", url: "#" }); renderCategories(); }
+function moveCategory(i,dir){ const arr=state.categories; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderCategories(); }
+function removeCategory(i){ state.categories.splice(i,1); renderCategories(); }
+
+function addStore(){ state.store.push({ name: "New", url: "#" }); renderStore(); }
+function moveStore(i,dir){ const arr=state.store; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderStore(); }
+function removeStore(i){ state.store.splice(i,1); renderStore(); }
+
+function addBestCard(){ state.bestPhones.push({ title: "New Card", img: "", url: "#" }); renderBest(); }
+function moveBest(i,dir){ const arr=state.bestPhones; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderBest(); }
+function removeBest(i){ state.bestPhones.splice(i,1); renderBest(); }
+
+function addExtraProduct(){ state.extraProducts.push({ img: "", url: "#", alt: "" }); renderExtra(); }
+function moveExtra(i,dir){ const arr=state.extraProducts; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderExtra(); }
+function removeExtra(i){ state.extraProducts.splice(i,1); renderExtra(); }
+
+function addProductCategory(){
+  const name = prompt("New product category name:", "New Category");
+  if(!name) return;
+  state.products[name] = [];
+  renderProductCats();
+}
+function addProductTo(cat){
+  state.products[cat].push({ img: "", url: "#" });
+  renderProductCats();
+}
+function removeProductCategory(cat){
+  if(!confirm(`Remove category "${cat}"? This deletes all its products.`)) return;
+  delete state.products[cat];
+  renderProductCats();
+}
+function renameCategory(oldName, newName){
+  if(!newName) { alert("Name required"); return; }
+  if (oldName === newName) return;
+  // prevent clashing with existing
+  if (state.products[newName]) { alert("Category with that name exists"); return; }
+  state.products[newName] = state.products[oldName];
+  delete state.products[oldName];
+  renderProductCats();
+}
+function moveProduct(cat, idx, dir){
+  const arr = state.products[cat];
+  const j = idx + dir;
+  if (j<0 || j>=arr.length) return;
+  [arr[idx], arr[j]] = [arr[j], arr[idx]];
+  renderProductCats();
+}
+function removeProduct(cat, idx){
+  state.products[cat].splice(idx,1);
+  renderProductCats();
+}
+
+/* ========== SAVE / PREVIEW / SHORTEN ========== */
+function gatherAllAndSave(){
+  // footer fields
+  state.footer.siteName = document.getElementById('footerSiteName').value || state.footer.siteName;
+  state.footer.copyright = document.getElementById('footerCopyright').value || state.footer.copyright;
+  saveState();
+}
+
+function refreshPreview(){
+  gatherAllAndSave();
+  saveState();
+  // set iframe src to template.html?data=ENCODED
+  const encoded = encodeURIComponent(JSON.stringify(state));
+  const origin = window.location.origin;
+  const previewUrl = origin + '/template.html?data=' + encoded;
+  const iframe = document.getElementById('previewFrame');
+  iframe.src = previewUrl;
+  alert('Preview refreshed.');
+}
+
+async function saveAndGetShort(){
+  gatherAllAndSave();
+  saveState();
+  const encoded = encodeURIComponent(JSON.stringify(state));
+  const origin = window.location.origin;
+  const fullUrl = origin + '/template.html?data=' + encoded;
+
+  // TinyURL public API (simple, no key)
+  try{
+    const api = 'https://tinyurl.com/api-create.php?url=' + encodeURIComponent(fullUrl);
+    const res = await fetch(api);
+    if(!res.ok) throw new Error('Shortening failed');
+    const short = await res.text();
+    // copy to clipboard and show
+    await navigator.clipboard.writeText(short);
+    prompt('Short link copied to clipboard (also shown below):', short);
+  } catch(err){
+    alert('Could not shorten URL automatically. Here is the full link (copy it):\n\n' + fullUrl);
+    console.error(err);
+  }
+}
+
+/* ========== IMPORT / EXPORT / RESET ========== */
+function exportJSON(){
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'viralDashboard.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+function importJSON(){
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  input.onchange = e => {
+    const f = e.target.files[0];
+    if(!f) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        state = parsed;
+        saveState();
+        fillFormFields();
+        renderAll();
+        alert('Imported successfully.');
+      } catch(err){ alert('Invalid JSON'); }
+    };
+    reader.readAsText(f);
+  };
+  input.click();
+}
+function resetDefaults(){
+  if(!confirm('Reset dashboard to built-in defaults?')) return;
+  state = JSON.parse(JSON.stringify(DEFAULT));
+  saveState();
+  fillFormFields();
+  renderAll();
+}
+
+/* ========== UTIL & RENDER MASTER ========== */
+function fillFormFields(){
+  document.getElementById('footerSiteName').value = state.footer.siteName || '';
+  document.getElementById('footerCopyright').value = state.footer.copyright || '';
+}
+function renderAll(){
+  fillFormFields();
+  renderFooterLinks();
+  renderCategories();
+  renderStore();
+  renderBest();
+  renderExtra();
+  renderProductCats();
+}
+
+/* ========== small helpers ========== */
+function escapeHtml(s){ if(!s && s!=='') return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeForAttr(s){ return s.replace(/'/g,"\\'").replace(/"/g,'\\"'); }
+
+/* ========== init ========== */
+document.getElementById('savePreviewBtn').addEventListener('click', refreshPreview);
+document.getElementById('getLinkBtn').addEventListener('click', saveAndGetShort);
+
+renderAll();
+</script>
 </body>
 </html>
