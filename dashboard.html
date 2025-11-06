@@ -4,33 +4,47 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Dashboard — Viral Gadgets</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--accent:#14143B;--muted:#f4f6ff}
-  body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f6f8ff,#eef2ff);margin:0;padding:18px;color:#111}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-  h1{font-size:1.25rem;margin:0}
-  .wrap{display:grid;grid-template-columns:420px 1fr;gap:16px;align-items:start}
-  .panel{background:#fff;padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(20,20,60,0.06)}
-  .panel h2{margin:0 0 8px 0;font-size:1rem}
-  label{display:block;font-weight:600;margin-top:8px;font-size:0.85rem}
-  input[type="text"], input[type="url"], textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e3e7ff;margin-top:6px}
-  textarea{min-height:60px}
-  .list{margin-top:8px}
-  .item{background:var(--muted);padding:8px;border-radius:8px;margin-top:8px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-  .item .fields{display:flex;flex-direction:column;gap:6px}
-  .small{font-size:.85rem;padding:6px 10px;border-radius:8px;border:none;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,0.04);cursor:pointer}
-  .btn-primary{background:var(--accent);color:#fff}
-  .btn-ghost{background:#fff;border:1px solid #ddd}
-  .controls{display:flex;gap:8px;margin-top:12px}
-  .iframe-wrap{height:calc(100vh - 120px)}
-  iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
-  .muted{font-size:.85rem;color:#556}
-  .row{display:flex;gap:8px;align-items:center}
-  .title-input{font-size:1.05rem;padding:8px}
-  .small-action{font-size:.85rem;padding:6px 8px}
-  .danger{background:#fff;border:1px solid #ffdddd;color:#b30000}
-  footer{margin-top:12px;text-align:center;color:#556;font-size:.85rem}
+:root{--accent:#14143B;--muted:#f6f8ff;--glass:rgba(255,255,255,0.6)}
+*{box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f6f8ff,#eef2ff);margin:0;padding:18px;color:#111}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+h1{font-size:1.2rem;margin:0}
+.wrap{display:grid;grid-template-columns:460px 1fr;gap:16px;align-items:start}
+.panel{background:#fff;padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(20,20,60,0.06)}
+label{display:block;font-weight:600;margin-top:8px;font-size:0.9rem}
+input[type="text"], input[type="url"], textarea, select{width:100%;padding:8px;border-radius:8px;border:1px solid #e3e7ff;margin-top:6px;font-size:0.95rem}
+textarea{min-height:90px;resize:vertical}
+.list{margin-top:8px}
+.item{background:var(--muted);padding:8px;border-radius:10px;margin-top:8px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.item .fields{display:flex;flex-direction:column;gap:6px}
+.small{font-size:.86rem;padding:8px 10px;border-radius:8px;border:none;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.04);cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff}
+.controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.iframe-wrap{height:calc(100vh - 160px)}
+iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
+.muted{font-size:.86rem;color:#556}
+.row{display:flex;gap:8px;align-items:center}
+.title-input{font-size:1.02rem;padding:8px;border-radius:8px}
+.small-action{font-size:.86rem;padding:6px 8px}
+.danger{background:#fff;border:1px solid #ffdddd;color:#b30000}
+.footer-note{font-size:0.86rem;color:#445;margin-top:8px}
+
+/* Blog preview modal */
+.modal {
+  position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+  background: rgba(12,14,30,0.45); z-index: 9999;
+}
+.modal .box { width: 920px; max-width: calc(100% - 40px); max-height: 86vh; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 70px rgba(2,6,23,0.5); }
+.modal .head { display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f1f3ff; }
+.modal .body { height: calc(86vh - 72px); overflow:auto; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .wrap{grid-template-columns:1fr; padding-bottom: 24px}
+  .iframe-wrap{height:56vh}
+}
 </style>
 </head>
 <body>
@@ -38,11 +52,11 @@
 <header>
   <div>
     <h1>Viral Gadgets — Dashboard</h1>
-    <div class="muted">Edit menu, products, footer & get a shareable TinyURL link</div>
+    <div class="muted">Edit menu, products, footer & blogs — Save + Get URL to share your personalized page.</div>
   </div>
   <div class="row">
     <button id="savePreviewBtn" class="small btn-primary">💾 Save & Refresh Preview</button>
-    <button id="getLinkBtn" class="small">🔗 Save & Get Short Link</button>
+    <button id="getUrlBtn" class="small">🔗 Get URL</button>
   </div>
 </header>
 
@@ -51,28 +65,33 @@
   <div style="display:flex;flex-direction:column;gap:12px">
     <!-- Site title / footer -->
     <div class="panel">
-      <h2>Site & Footer</h2>
+      <h2 style="margin:0 0 6px 0">Site & Footer</h2>
       <label>Site Name (footer H2)</label>
       <input id="footerSiteName" type="text" placeholder="Mobili">
       <label>Copyright text</label>
       <input id="footerCopyright" type="text" placeholder="©️2017-2025 Mobili — All Rights Reserved.">
-      <label>Footer Links (About / Contact / Privacy / Terms) — you can edit text & URL</label>
+      <label style="margin-top:10px">Social Links</label>
+      <input id="socFacebook" type="url" placeholder="Facebook URL">
+      <input id="socYoutube" type="url" placeholder="YouTube URL">
+      <input id="socInstagram" type="url" placeholder="Instagram URL">
+      <input id="socX" type="url" placeholder="X / Twitter URL">
+      <label style="margin-top:10px">Footer Links (About / Contact / Privacy / Terms)</label>
       <div id="footerLinks" class="list"></div>
-      <button class="small small-action" onclick="addFooterLink()">+ Add footer link</button>
+      <div style="margin-top:8px">
+        <button class="small" onclick="addFooterLink()">+ Add footer link</button>
+      </div>
     </div>
 
     <!-- Category menu -->
     <div class="panel">
-      <h2>Category Menu (top-right)</h2>
+      <h2 style="margin:0 0 8px 0">Category Menu (top-right)</h2>
       <div class="muted">Add / edit categories that appear in the dropdown menu</div>
       <div id="categoryList" class="list"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addCategory()">+ Add Category</button>
-      </div>
+      <div style="margin-top:8px"><button class="small" onclick="addCategory()">+ Add Category</button></div>
 
       <hr style="margin:12px 0">
 
-      <h2 style="margin-top:8px">Store Submenu (Store ▾)</h2>
+      <h3 style="margin:0 0 8px 0">Store Submenu (Store ▾)</h3>
       <div class="muted">These are the links inside the Store submenu</div>
       <div id="storeList" class="list"></div>
       <div style="margin-top:8px">
@@ -82,35 +101,51 @@
 
     <!-- Best phones -->
     <div class="panel">
-      <h2>Best Phones By Price (cards)</h2>
+      <h2 style="margin:0 0 6px 0">Best Phones By Price (cards)</h2>
       <div id="bestList" class="list"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addBestCard()">+ Add Card</button>
-      </div>
+      <div style="margin-top:8px"><button class="small" onclick="addBestCard()">+ Add Card</button></div>
     </div>
 
     <!-- Extra products -->
     <div class="panel">
-      <h2>Extra Products (grid)</h2>
+      <h2 style="margin:0 0 6px 0">Extra Products (grid)</h2>
       <div id="extraList" class="list"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addExtraProduct()">+ Add Extra Product</button>
-      </div>
+      <div style="margin-top:8px"><button class="small" onclick="addExtraProduct()">+ Add Extra Product</button></div>
     </div>
 
     <!-- Product categories -->
     <div class="panel">
-      <h2>Product Categories & Items</h2>
+      <h2 style="margin:0 0 6px 0">Product Categories & Items</h2>
       <div class="muted">Each category can contain multiple products (image + link). You can add categories and products.</div>
       <div id="productCatsList" class="list" style="margin-top:8px"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addProductCategory()">+ Add Product Category</button>
+      <div style="margin-top:8px"><button class="small" onclick="addProductCategory()">+ Add Product Category</button></div>
+    </div>
+
+    <!-- Blog creator -->
+    <div class="panel">
+      <h2 style="margin:0 0 6px 0">Blog Creator</h2>
+      <label>Blog Title</label>
+      <input id="blogTitle" type="text" placeholder="Enter blog title">
+      <label>Feature Image (URL)</label>
+      <input id="blogImage" type="url" placeholder="https://...">
+      <label>Main Content (HTML allowed)</label>
+      <textarea id="blogContent" placeholder="Write HTML or plain text. Use Add Box to insert highlight boxes."></textarea>
+
+      <label style="margin-top:8px">Add content box</label>
+      <select id="boxType"><option value="tip">Tip (blue)</option><option value="note">Note (yellow)</option><option value="warn">Warning (red)</option></select>
+      <input id="boxText" type="text" placeholder="Box text...">
+      <div class="controls">
+        <button class="small" onclick="insertBox()">+ Insert Box</button>
+        <button class="small" onclick="previewBlog()">👁 Preview Blog</button>
+        <button class="small btn-primary" onclick="createBlog()">💾 Create & Download Blog HTML</button>
       </div>
+      <div class="footer-note">When you create a blog a downloadable HTML file will be generated. Upload it to GitHub Pages to publish at e.g. <code>https://hotterbite.online/blog-1.html</code>.</div>
+      <div style="margin-top:8px" id="blogsList"></div>
     </div>
 
     <div class="panel">
-      <h2>Utilities</h2>
-      <div class="muted">Reset to defaults or import/export the JSON data</div>
+      <h2 style="margin:0 0 6px 0">Utilities</h2>
+      <div class="muted">Reset, import/export dashboard JSON</div>
       <div style="margin-top:8px">
         <button class="small" onclick="exportJSON()">Export JSON</button>
         <button class="small" onclick="importJSON()">Import JSON</button>
@@ -127,7 +162,21 @@
   </div>
 </div>
 
-<footer>Tip: Host both files on the same domain (hotterbite.online). The preview uses the local `template.html` file.</footer>
+<!-- Blog Preview Modal -->
+<div id="modal" class="modal" role="dialog">
+  <div class="box">
+    <div class="head">
+      <strong>Blog Preview</strong>
+      <div>
+        <button class="small" onclick="closeModal()">Close</button>
+        <button class="small btn-primary" onclick="openBlogInNewTab()">Open in new tab</button>
+      </div>
+    </div>
+    <div class="body" id="modalBody"></div>
+  </div>
+</div>
+
+<footer style="text-align:center;margin-top:12px;color:#556;font-size:.85rem">Tip: Host both files on the same domain (hotterbite.online). The preview uses local template.html.</footer>
 
 <script>
 /* ========== DEFAULT DATA ========== */
@@ -180,135 +229,119 @@ const DEFAULT = {
       { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
       { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone" }
     ]
-  }
+  },
+  blogs: [] // saved blog objects {id,title,image,html,createdAt}
 };
 
 /* ========== STATE ========== */
 let state = JSON.parse(localStorage.getItem('viralDashboard')) || DEFAULT;
 
 /* ========== HELPERS ========== */
-function saveState() {
-  localStorage.setItem('viralDashboard', JSON.stringify(state));
-}
+function saveState(){ localStorage.setItem('viralDashboard', JSON.stringify(state)); }
 function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
 
 /* ========== RENDER FUNCTIONS ========== */
 function renderFooterLinks(){
-  const container = document.getElementById('footerLinks');
-  container.innerHTML = '';
+  const container = document.getElementById('footerLinks'); container.innerHTML = '';
   state.footer.links.forEach((l,i)=>{
     const node = el(`
-      <div class="item" data-i="${i}">
+      <div class="item">
         <div class="fields">
           <input type="text" value="${escapeHtml(l.text)}" placeholder="Link text" onchange="state.footer.links[${i}].text=this.value">
-          <input type="url" value="${escapeHtml(l.url)}" placeholder="https://example.com" onchange="state.footer.links[${i}].url=this.value">
+          <input type="url" value="${escapeHtml(l.url)}" placeholder="https://..." onchange="state.footer.links[${i}].url=this.value">
         </div>
         <div style="display:flex;flex-direction:column;gap:6px">
           <button class="small" onclick="moveFooter(${i},-1)">▲</button>
           <button class="small" onclick="moveFooter(${i},1)">▼</button>
           <button class="small danger" onclick="removeFooter(${i})">✕</button>
         </div>
-      </div>
-    `);
+      </div>`);
     container.appendChild(node);
   });
 }
 
 function renderCategories(){
-  const container = document.getElementById('categoryList');
-  container.innerHTML='';
+  const container = document.getElementById('categoryList'); container.innerHTML='';
   state.categories.forEach((c,i)=>{
-    const node = el(`
-      <div class="item">
-        <div class="fields">
-          <input type="text" value="${escapeHtml(c.name)}" placeholder="Category name" onchange="state.categories[${i}].name=this.value" />
-          <input type="url" value="${escapeHtml(c.url)}" placeholder="https://..." onchange="state.categories[${i}].url=this.value" />
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="small" onclick="moveCategory(${i},-1)">▲</button>
-          <button class="small" onclick="moveCategory(${i},1)">▼</button>
-          <button class="small danger" onclick="removeCategory(${i})">✕</button>
-        </div>
+    const node = el(`<div class="item">
+      <div class="fields">
+        <input type="text" value="${escapeHtml(c.name)}" onchange="state.categories[${i}].name=this.value" />
+        <input type="url" value="${escapeHtml(c.url)}" onchange="state.categories[${i}].url=this.value" />
       </div>
-    `);
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="small" onclick="moveCategory(${i},-1)">▲</button>
+        <button class="small" onclick="moveCategory(${i},1)">▼</button>
+        <button class="small danger" onclick="removeCategory(${i})">✕</button>
+      </div>
+    </div>`);
     container.appendChild(node);
   });
 }
 
 function renderStore(){
-  const container = document.getElementById('storeList');
-  container.innerHTML='';
+  const container = document.getElementById('storeList'); container.innerHTML='';
   state.store.forEach((s,i)=>{
-    const node = el(`
-      <div class="item">
-        <div class="fields">
-          <input type="text" value="${escapeHtml(s.name)}" placeholder="Store name" onchange="state.store[${i}].name=this.value" />
-          <input type="url" value="${escapeHtml(s.url)}" placeholder="https://..." onchange="state.store[${i}].url=this.value" />
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="small" onclick="moveStore(${i},-1)">▲</button>
-          <button class="small" onclick="moveStore(${i},1)">▼</button>
-          <button class="small danger" onclick="removeStore(${i})">✕</button>
-        </div>
+    const node = el(`<div class="item">
+      <div class="fields">
+        <input type="text" value="${escapeHtml(s.name)}" onchange="state.store[${i}].name=this.value" />
+        <input type="url" value="${escapeHtml(s.url)}" onchange="state.store[${i}].url=this.value" />
       </div>
-    `);
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="small" onclick="moveStore(${i},-1)">▲</button>
+        <button class="small" onclick="moveStore(${i},1)">▼</button>
+        <button class="small danger" onclick="removeStore(${i})">✕</button>
+      </div>
+    </div>`);
     container.appendChild(node);
   });
 }
 
 function renderBest(){
-  const container = document.getElementById('bestList');
-  container.innerHTML='';
+  const container = document.getElementById('bestList'); container.innerHTML='';
   state.bestPhones.forEach((b,i)=>{
-    const node = el(`
-      <div class="item">
-        <div class="fields">
-          <input type="text" value="${escapeHtml(b.title)}" placeholder="Card title" onchange="state.bestPhones[${i}].title=this.value" />
-          <input type="url" value="${escapeHtml(b.img)}" placeholder="Image URL" onchange="state.bestPhones[${i}].img=this.value" />
-          <input type="url" value="${escapeHtml(b.url)}" placeholder="Target URL" onchange="state.bestPhones[${i}].url=this.value" />
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="small" onclick="moveBest(${i},-1)">▲</button>
-          <button class="small" onclick="moveBest(${i},1)">▼</button>
-          <button class="small danger" onclick="removeBest(${i})">✕</button>
-        </div>
+    const node = el(`<div class="item">
+      <div class="fields">
+        <input type="text" value="${escapeHtml(b.title)}" onchange="state.bestPhones[${i}].title=this.value" />
+        <input type="url" value="${escapeHtml(b.img)}" onchange="state.bestPhones[${i}].img=this.value" />
+        <input type="url" value="${escapeHtml(b.url)}" onchange="state.bestPhones[${i}].url=this.value" />
       </div>
-    `);
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="small" onclick="moveBest(${i},-1)">▲</button>
+        <button class="small" onclick="moveBest(${i},1)">▼</button>
+        <button class="small danger" onclick="removeBest(${i})">✕</button>
+      </div>
+    </div>`);
     container.appendChild(node);
   });
 }
 
 function renderExtra(){
-  const container = document.getElementById('extraList');
-  container.innerHTML='';
+  const container = document.getElementById('extraList'); container.innerHTML='';
   state.extraProducts.forEach((e,i)=>{
-    const node = el(`
-      <div class="item">
-        <div class="fields">
-          <input type="url" value="${escapeHtml(e.img)}" placeholder="Image URL" onchange="state.extraProducts[${i}].img=this.value" />
-          <input type="text" value="${escapeHtml(e.alt||'')}" placeholder="Alt text" onchange="state.extraProducts[${i}].alt=this.value" />
-          <input type="url" value="${escapeHtml(e.url)}" placeholder="Target URL" onchange="state.extraProducts[${i}].url=this.value" />
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="small" onclick="moveExtra(${i},-1)">▲</button>
-          <button class="small" onclick="moveExtra(${i},1)">▼</button>
-          <button class="small danger" onclick="removeExtra(${i})">✕</button>
-        </div>
+    const node = el(`<div class="item">
+      <div class="fields">
+        <input type="url" value="${escapeHtml(e.img)}" onchange="state.extraProducts[${i}].img=this.value" />
+        <input type="text" value="${escapeHtml(e.alt||'')}" onchange="state.extraProducts[${i}].alt=this.value" />
+        <input type="url" value="${escapeHtml(e.url)}" onchange="state.extraProducts[${i}].url=this.value" />
       </div>
-    `);
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="small" onclick="moveExtra(${i},-1)">▲</button>
+        <button class="small" onclick="moveExtra(${i},1)">▼</button>
+        <button class="small danger" onclick="removeExtra(${i})">✕</button>
+      </div>
+    </div>`);
     container.appendChild(node);
   });
 }
 
 function renderProductCats(){
-  const container = document.getElementById('productCatsList');
-  container.innerHTML='';
-  Object.keys(state.products).forEach((cat,ci)=>{
+  const container = document.getElementById('productCatsList'); container.innerHTML='';
+  Object.keys(state.products).forEach((cat)=>{
     const productsHTML = state.products[cat].map((p,pi)=>`
       <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:8px">
         <div style="display:flex;flex-direction:column">
-          <input type="url" value="${escapeHtml(p.img)}" placeholder="Image URL" onchange="state.products['${escapeForAttr(cat)}'][${pi}].img=this.value">
-          <input type="url" value="${escapeHtml(p.url)}" placeholder="Target URL" onchange="state.products['${escapeForAttr(cat)}'][${pi}].url=this.value">
+          <input type="url" value="${escapeHtml(p.img)}" onchange="state.products['${escapeForAttr(cat)}'][${pi}].img=this.value">
+          <input type="url" value="${escapeHtml(p.url)}" onchange="state.products['${escapeForAttr(cat)}'][${pi}].url=this.value">
         </div>
         <div style="display:flex;flex-direction:column;gap:6px">
           <button class="small" onclick="moveProduct('${escapeForAttr(cat)}',${pi},-1)">▲</button>
@@ -316,100 +349,204 @@ function renderProductCats(){
           <button class="small danger" onclick="removeProduct('${escapeForAttr(cat)}',${pi})">✕</button>
         </div>
       </div>`).join('');
-    const node = el(`
-      <div style="margin-bottom:10px;padding:8px;border-radius:8px;background:#f8faff">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <input class="title-input" value="${escapeHtml(cat)}" onchange="renameCategory('${escapeForAttr(cat)}', this.value)" />
-          <div>
-            <button class="small" onclick="addProductTo('${escapeForAttr(cat)}')">+ product</button>
-            <button class="small danger" onclick="removeProductCategory('${escapeForAttr(cat)}')">remove category</button>
-          </div>
+    const node = el(`<div style="margin-bottom:10px;padding:8px;border-radius:10px;background:#fbfdff">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <input class="title-input" value="${escapeHtml(cat)}" onchange="renameCategory('${escapeForAttr(cat)}', this.value)" />
+        <div>
+          <button class="small" onclick="addProductTo('${escapeForAttr(cat)}')">+ product</button>
+          <button class="small danger" onclick="removeProductCategory('${escapeForAttr(cat)}')">remove category</button>
         </div>
-        <div>${productsHTML}</div>
       </div>
-    `);
+      <div>${productsHTML}</div>
+    </div>`);
     container.appendChild(node);
   });
 }
 
-/* ========== MUTATORS ========== */
-function addFooterLink(){
-  state.footer.links.push({ text: "New Link", url: "#" });
-  renderFooterLinks();
+function renderBlogsList(){
+  const container = document.getElementById('blogsList'); container.innerHTML='';
+  if(!state.blogs || state.blogs.length===0){ container.innerHTML = '<div class="muted">No blogs yet</div>'; return;}
+  state.blogs.slice().reverse().forEach((b)=>{
+    const node = el(`<div class="item" style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="width:56px;height:40px;border-radius:8px;overflow:hidden;background:#fff"><img src="${escapeHtml(b.image||'')}" style="width:100%;height:100%;object-fit:cover"></div>
+        <div><strong>${escapeHtml(b.title)}</strong><div style="font-size:.85rem;color:#556">${new Date(b.createdAt).toLocaleString()}</div></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="small" onclick="previewSavedBlog('${b.id}')">Preview</button>
+        <button class="small" onclick="downloadBlog('${b.id}')">Download</button>
+        <button class="small danger" onclick="removeBlog('${b.id}')">Delete</button>
+      </div>
+    </div>`);
+    container.appendChild(node);
+  });
 }
-function moveFooter(i, dir){
-  const arr = state.footer.links;
-  const j = i + dir;
-  if (j<0||j>=arr.length) return;
-  [arr[i], arr[j]] = [arr[j], arr[i]];
-  renderFooterLinks();
-}
+
+/* ========== MUTATORS (footer, categories, best, extra, products) ========== */
+function addFooterLink(){ state.footer.links.push({ text: "New Link", url: "#" }); renderFooterLinks(); }
+function moveFooter(i,dir){ const a=state.footer.links; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderFooterLinks();}
 function removeFooter(i){ state.footer.links.splice(i,1); renderFooterLinks(); }
 
 function addCategory(){ state.categories.push({ name: "New Category", url: "#" }); renderCategories(); }
-function moveCategory(i,dir){ const arr=state.categories; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderCategories(); }
+function moveCategory(i,dir){ const a=state.categories; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderCategories();}
 function removeCategory(i){ state.categories.splice(i,1); renderCategories(); }
 
 function addStore(){ state.store.push({ name: "New", url: "#" }); renderStore(); }
-function moveStore(i,dir){ const arr=state.store; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderStore(); }
+function moveStore(i,dir){ const a=state.store; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderStore();}
 function removeStore(i){ state.store.splice(i,1); renderStore(); }
 
 function addBestCard(){ state.bestPhones.push({ title: "New Card", img: "", url: "#" }); renderBest(); }
-function moveBest(i,dir){ const arr=state.bestPhones; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderBest(); }
+function moveBest(i,dir){ const a=state.bestPhones; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderBest();}
 function removeBest(i){ state.bestPhones.splice(i,1); renderBest(); }
 
 function addExtraProduct(){ state.extraProducts.push({ img: "", url: "#", alt: "" }); renderExtra(); }
-function moveExtra(i,dir){ const arr=state.extraProducts; const j=i+dir; if(j<0||j>=arr.length)return; [arr[i],arr[j]]=[arr[j],arr[i]]; renderExtra(); }
+function moveExtra(i,dir){ const a=state.extraProducts; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderExtra();}
 function removeExtra(i){ state.extraProducts.splice(i,1); renderExtra(); }
 
-function addProductCategory(){
-  const name = prompt("New product category name:", "New Category");
-  if(!name) return;
-  state.products[name] = [];
-  renderProductCats();
-}
-function addProductTo(cat){
-  state.products[cat].push({ img: "", url: "#" });
-  renderProductCats();
-}
-function removeProductCategory(cat){
-  if(!confirm(`Remove category "${cat}"? This deletes all its products.`)) return;
-  delete state.products[cat];
-  renderProductCats();
-}
-function renameCategory(oldName, newName){
-  if(!newName) { alert("Name required"); return; }
-  if (oldName === newName) return;
-  // prevent clashing with existing
-  if (state.products[newName]) { alert("Category with that name exists"); return; }
-  state.products[newName] = state.products[oldName];
-  delete state.products[oldName];
-  renderProductCats();
-}
-function moveProduct(cat, idx, dir){
-  const arr = state.products[cat];
-  const j = idx + dir;
-  if (j<0 || j>=arr.length) return;
-  [arr[idx], arr[j]] = [arr[j], arr[idx]];
-  renderProductCats();
-}
-function removeProduct(cat, idx){
-  state.products[cat].splice(idx,1);
-  renderProductCats();
+function addProductCategory(){ const name = prompt("New product category name:", "New Category"); if(!name) return; if(state.products[name]){ alert('Category exists'); return;} state.products[name]=[]; renderProductCats();}
+function addProductTo(cat){ state.products[cat].push({ img: "", url: "#" }); renderProductCats(); }
+function removeProductCategory(cat){ if(!confirm(`Remove category "${cat}"?`)) return; delete state.products[cat]; renderProductCats(); }
+function renameCategory(oldName,newName){ if(!newName){ alert('Name required'); return; } if(oldName===newName) return; if(state.products[newName]){ alert('Name exists'); return;} state.products[newName]=state.products[oldName]; delete state.products[oldName]; renderProductCats(); }
+function moveProduct(cat,idx,dir){ const a=state.products[cat]; const j=idx+dir; if(j<0||j>=a.length) return; [a[idx],a[j]]=[a[j],a[idx]]; renderProductCats(); }
+function removeProduct(cat,idx){ state.products[cat].splice(idx,1); renderProductCats(); }
+
+/* ========== BLOGS: insert box, preview, create/download, manage saved blogs ========== */
+function insertBox(){
+  const type = document.getElementById('boxType').value;
+  const txt = document.getElementById('boxText').value.trim();
+  if(!txt){ alert('Enter box text'); return; }
+  const className = type === 'tip' ? 'blog-box-tip' : (type === 'note' ? 'blog-box-note' : 'blog-box-warn');
+  const html = `<div class="${className}"><strong>${escapeHtml(type.toUpperCase())}:</strong> ${escapeHtml(txt)}</div>\n\n`;
+  const area = document.getElementById('blogContent');
+  area.value = area.value + '\n' + html;
+  document.getElementById('boxText').value = '';
 }
 
-/* ========== SAVE / PREVIEW / SHORTEN ========== */
+function previewBlog(){
+  const title = document.getElementById('blogTitle').value.trim();
+  if(!title){ alert('Enter title'); return; }
+  const image = document.getElementById('blogImage').value.trim();
+  const content = document.getElementById('blogContent').value;
+  const html = buildBlogHTML({id:'preview', title, image, content, createdAt:Date.now()});
+  openModalWithHTML(html);
+}
+
+function createBlog(){
+  const title = document.getElementById('blogTitle').value.trim();
+  if(!title){ alert('Enter title'); return; }
+  const image = document.getElementById('blogImage').value.trim();
+  const content = document.getElementById('blogContent').value;
+  const id = 'blog-' + (Date.now());
+  const createdAt = Date.now();
+  const blog = { id, title, image, content, createdAt };
+  state.blogs = state.blogs || [];
+  state.blogs.push(blog);
+  saveState();
+  renderBlogsList();
+  const html = buildBlogHTML(blog);
+  downloadFile(html, id + '.html');
+  alert('Blog created and downloaded. Upload the file to your GitHub Pages to publish it.');
+}
+
+function buildBlogHTML(blog){
+  // modern rounded blog page (standalone, no site header)
+  const safeTitle = escapeHtml(blog.title || '');
+  const safeImage = escapeHtml(blog.image || '');
+  const created = new Date(blog.createdAt).toLocaleString();
+  const body = blog.content || '';
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${safeTitle}</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f3f6ff,#eef3ff);margin:0;padding:28px;color:#0b0b1a}
+  .wrap{max-width:900px;margin:18px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+  h1{font-size:2rem;margin:0 0 10px}
+  .meta{color:#556;font-size:.95rem;margin-bottom:14px}
+  .feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
+  .content{line-height:1.7;color:#122}
+  .content p{margin:0 0 12px}
+  .blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
+  .blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
+  .blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
+  @media (max-width:600px){ .wrap{padding:16px} .feat{height:200px} h1{font-size:1.4rem} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>${safeTitle}</h1>
+    <div class="meta">${created}</div>
+    ${safeImage ? `<img src="${safeImage}" class="feat" alt="${safeTitle}">` : ''}
+    <div class="content">
+      ${body}
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+function openModalWithHTML(html){
+  const modal = document.getElementById('modal');
+  const body = document.getElementById('modalBody');
+  body.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.style.width='100%'; iframe.style.height='100%'; iframe.style.border='0';
+  body.appendChild(iframe);
+  modal.style.display = 'flex';
+  // write to iframe
+  iframe.contentWindow.document.open();
+  iframe.contentWindow.document.write(html);
+  iframe.contentWindow.document.close();
+  // store last preview html for open in new tab
+  modal.lastHTML = html;
+}
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+function openBlogInNewTab(){ const modal = document.getElementById('modal'); if(!modal.lastHTML) return; const w = window.open(); w.document.write(modal.lastHTML); w.document.close(); }
+
+function previewSavedBlog(id){
+  const blog = (state.blogs||[]).find(b=>b.id===id);
+  if(!blog) return alert('Not found');
+  const html = buildBlogHTML(blog);
+  openModalWithHTML(html);
+}
+function downloadBlog(id){
+  const blog = (state.blogs||[]).find(b=>b.id===id);
+  if(!blog) return alert('Not found');
+  const html = buildBlogHTML(blog);
+  downloadFile(html, id + '.html');
+}
+function removeBlog(id){
+  if(!confirm('Delete this blog?')) return;
+  state.blogs = (state.blogs||[]).filter(b=>b.id!==id);
+  saveState();
+  renderBlogsList();
+  alert('Deleted.');
+}
+function downloadFile(content, filename){
+  const blob = new Blob([content], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ========== SAVE / PREVIEW / GET URL ========== */
 function gatherAllAndSave(){
   // footer fields
   state.footer.siteName = document.getElementById('footerSiteName').value || state.footer.siteName;
   state.footer.copyright = document.getElementById('footerCopyright').value || state.footer.copyright;
+  state.footer.socials.facebook = document.getElementById('socFacebook').value || state.footer.socials.facebook;
+  state.footer.socials.youtube = document.getElementById('socYoutube').value || state.footer.socials.youtube;
+  state.footer.socials.instagram = document.getElementById('socInstagram').value || state.footer.socials.instagram;
+  state.footer.socials.x = document.getElementById('socX').value || state.footer.socials.x;
   saveState();
 }
-
 function refreshPreview(){
   gatherAllAndSave();
   saveState();
-  // set iframe src to template.html?data=ENCODED
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
   const previewUrl = origin + '/template.html?data=' + encoded;
@@ -417,27 +554,17 @@ function refreshPreview(){
   iframe.src = previewUrl;
   alert('Preview refreshed.');
 }
-
-async function saveAndGetShort(){
+function getUrl(){
   gatherAllAndSave();
   saveState();
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
   const fullUrl = origin + '/template.html?data=' + encoded;
-
-  // TinyURL public API (simple, no key)
-  try{
-    const api = 'https://tinyurl.com/api-create.php?url=' + encodeURIComponent(fullUrl);
-    const res = await fetch(api);
-    if(!res.ok) throw new Error('Shortening failed');
-    const short = await res.text();
-    // copy to clipboard and show
-    await navigator.clipboard.writeText(short);
-    prompt('Short link copied to clipboard (also shown below):', short);
-  } catch(err){
-    alert('Could not shorten URL automatically. Here is the full link (copy it):\n\n' + fullUrl);
-    console.error(err);
-  }
+  navigator.clipboard.writeText(fullUrl).then(()=> {
+    prompt('Shareable URL copied to clipboard (also shown below):', fullUrl);
+  }).catch(()=> {
+    prompt('Copy this URL:', fullUrl);
+  });
 }
 
 /* ========== IMPORT / EXPORT / RESET ========== */
@@ -483,6 +610,10 @@ function resetDefaults(){
 function fillFormFields(){
   document.getElementById('footerSiteName').value = state.footer.siteName || '';
   document.getElementById('footerCopyright').value = state.footer.copyright || '';
+  document.getElementById('socFacebook').value = state.footer.socials.facebook || '';
+  document.getElementById('socYoutube').value = state.footer.socials.youtube || '';
+  document.getElementById('socInstagram').value = state.footer.socials.instagram || '';
+  document.getElementById('socX').value = state.footer.socials.x || '';
 }
 function renderAll(){
   fillFormFields();
@@ -492,16 +623,16 @@ function renderAll(){
   renderBest();
   renderExtra();
   renderProductCats();
+  renderBlogsList();
 }
 
 /* ========== small helpers ========== */
-function escapeHtml(s){ if(!s && s!=='') return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function escapeForAttr(s){ return s.replace(/'/g,"\\'").replace(/"/g,'\\"'); }
 
 /* ========== init ========== */
 document.getElementById('savePreviewBtn').addEventListener('click', refreshPreview);
-document.getElementById('getLinkBtn').addEventListener('click', saveAndGetShort);
-
+document.getElementById('getUrlBtn').addEventListener('click', getUrl);
 renderAll();
 </script>
 </body>
