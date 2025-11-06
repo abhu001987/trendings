@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6,11 +6,11 @@
 <title>Dashboard — Viral Gadgets</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#14143B;--muted:#f6f8ff;--glass:rgba(255,255,255,0.6)}
+:root{--accent:#14143B;--muted:#f6f8ff}
 *{box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f6f8ff,#eef2ff);margin:0;padding:18px;color:#111}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-h1{font-size:1.2rem;margin:0}
+h1{font-size:1.15rem;margin:0}
 .wrap{display:grid;grid-template-columns:460px 1fr;gap:16px;align-items:start}
 .panel{background:#fff;padding:12px;border-radius:12px;box-shadow:0 10px 30px rgba(20,20,60,0.06)}
 label{display:block;font-weight:600;margin-top:8px;font-size:0.9rem}
@@ -31,18 +31,18 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 .danger{background:#fff;border:1px solid #ffdddd;color:#b30000}
 .footer-note{font-size:0.86rem;color:#445;margin-top:8px}
 
-/* Blog preview modal */
-.modal {
-  position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
-  background: rgba(12,14,30,0.45); z-index: 9999;
-}
-.modal .box { width: 920px; max-width: calc(100% - 40px); max-height: 86vh; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 70px rgba(2,6,23,0.5); }
-.modal .head { display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f1f3ff; }
-.modal .body { height: calc(86vh - 72px); overflow:auto; }
+/* Modal */
+.modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(12,14,30,0.35); z-index: 9999; }
+.modal-card { width: 920px; max-width: calc(100% - 40px); max-height: 86vh; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 70px rgba(2,6,23,0.45); display:flex; flex-direction:column; }
+.modal-head { display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f1f3ff; }
+.modal-body { padding:12px; overflow:auto; flex:1; background:linear-gradient(180deg,#fbfdff,#fff) }
 
-/* Responsive */
-@media (max-width: 980px) {
-  .wrap{grid-template-columns:1fr; padding-bottom: 24px}
+/* small toast */
+.toast { position: fixed; right: 18px; bottom: 18px; background: #14143B;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 14px 40px rgba(20,20,60,0.18); display:none; z-index:10000; }
+
+/* responsive */
+@media (max-width:980px){
+  .wrap{grid-template-columns:1fr;padding-bottom:18px}
   .iframe-wrap{height:56vh}
 }
 </style>
@@ -52,7 +52,7 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 <header>
   <div>
     <h1>Viral Gadgets — Dashboard</h1>
-    <div class="muted">Edit menu, products, footer & blogs — Save + Get URL to share your personalized page.</div>
+    <div class="muted">Design a personal affiliate page. Changes are session-only. Click Get URL to generate a shareable page.</div>
   </div>
   <div class="row">
     <button id="savePreviewBtn" class="small btn-primary">💾 Save & Refresh Preview</button>
@@ -61,75 +61,65 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
 </header>
 
 <div class="wrap">
-  <!-- LEFT: Editor Panels -->
+  <!-- left editor -->
   <div style="display:flex;flex-direction:column;gap:12px">
-    <!-- Site title / footer -->
+
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Site & Footer</h2>
-      <label>Site Name (footer H2)</label>
-      <input id="footerSiteName" type="text" placeholder="Mobili">
+      <h3 style="margin:0 0 6px 0">Site & Footer</h3>
+      <label>Site Name (footer)</label>
+      <input id="footerSiteName" type="text" value="Mobili">
       <label>Copyright text</label>
-      <input id="footerCopyright" type="text" placeholder="©️2017-2025 Mobili — All Rights Reserved.">
+      <input id="footerCopyright" type="text" value="©️2017-2025 Mobili — All Rights Reserved.">
       <label style="margin-top:10px">Social Links</label>
       <input id="socFacebook" type="url" placeholder="Facebook URL">
       <input id="socYoutube" type="url" placeholder="YouTube URL">
       <input id="socInstagram" type="url" placeholder="Instagram URL">
       <input id="socX" type="url" placeholder="X / Twitter URL">
-      <label style="margin-top:10px">Footer Links (About / Contact / Privacy / Terms)</label>
+      <label style="margin-top:10px">Footer Links (text & URL)</label>
       <div id="footerLinks" class="list"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addFooterLink()">+ Add footer link</button>
-      </div>
+      <div style="margin-top:8px"><button class="small" onclick="addFooterLink()">+ Add footer link</button></div>
     </div>
 
-    <!-- Category menu -->
     <div class="panel">
-      <h2 style="margin:0 0 8px 0">Category Menu (top-right)</h2>
-      <div class="muted">Add / edit categories that appear in the dropdown menu</div>
+      <h3 style="margin:0 0 6px 0">Category Menu</h3>
+      <div class="muted">Add/edit categories that appear in the dropdown menu</div>
       <div id="categoryList" class="list"></div>
       <div style="margin-top:8px"><button class="small" onclick="addCategory()">+ Add Category</button></div>
 
       <hr style="margin:12px 0">
 
-      <h3 style="margin:0 0 8px 0">Store Submenu (Store ▾)</h3>
-      <div class="muted">These are the links inside the Store submenu</div>
+      <h4 style="margin:0 0 6px 0">Store Submenu</h4>
       <div id="storeList" class="list"></div>
-      <div style="margin-top:8px">
-        <button class="small" onclick="addStore()">+ Add Store Link</button>
-      </div>
+      <div style="margin-top:8px"><button class="small" onclick="addStore()">+ Add Store Link</button></div>
     </div>
 
-    <!-- Best phones -->
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Best Phones By Price (cards)</h2>
+      <h3 style="margin:0 0 6px 0">Best Phones By Price</h3>
       <div id="bestList" class="list"></div>
       <div style="margin-top:8px"><button class="small" onclick="addBestCard()">+ Add Card</button></div>
     </div>
 
-    <!-- Extra products -->
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Extra Products (grid)</h2>
+      <h3 style="margin:0 0 6px 0">Extra Products</h3>
       <div id="extraList" class="list"></div>
       <div style="margin-top:8px"><button class="small" onclick="addExtraProduct()">+ Add Extra Product</button></div>
     </div>
 
-    <!-- Product categories -->
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Product Categories & Items</h2>
-      <div class="muted">Each category can contain multiple products (image + link). You can add categories and products.</div>
-      <div id="productCatsList" class="list" style="margin-top:8px"></div>
+      <h3 style="margin:0 0 6px 0">Product Categories & Items</h3>
+      <div class="muted">Create categories (e.g. Latest) and add image+link items to them</div>
+      <div id="productCatsList" class="list"></div>
       <div style="margin-top:8px"><button class="small" onclick="addProductCategory()">+ Add Product Category</button></div>
     </div>
 
-    <!-- Blog creator -->
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Blog Creator</h2>
+      <h3 style="margin:0 0 6px 0">Blog Creator</h3>
       <label>Blog Title</label>
-      <input id="blogTitle" type="text" placeholder="Enter blog title">
+      <input id="blogTitle" type="text" placeholder="My review of XYZ">
       <label>Feature Image (URL)</label>
       <input id="blogImage" type="url" placeholder="https://...">
       <label>Main Content (HTML allowed)</label>
-      <textarea id="blogContent" placeholder="Write HTML or plain text. Use Add Box to insert highlight boxes."></textarea>
+      <textarea id="blogContent" placeholder="Write HTML or plain text"></textarea>
 
       <label style="margin-top:8px">Add content box</label>
       <select id="boxType"><option value="tip">Tip (blue)</option><option value="note">Note (yellow)</option><option value="warn">Warning (red)</option></select>
@@ -139,47 +129,47 @@ iframe{width:100%;height:100%;border-radius:10px;border:1px solid #e8ecff}
         <button class="small" onclick="previewBlog()">👁 Preview Blog</button>
         <button class="small btn-primary" onclick="createBlog()">💾 Create & Download Blog HTML</button>
       </div>
-      <div class="footer-note">When you create a blog a downloadable HTML file will be generated. Upload it to GitHub Pages to publish at e.g. <code>https://hotterbite.online/blog-1.html</code>.</div>
-      <div style="margin-top:8px" id="blogsList"></div>
+      <div class="footer-note">Created blog is downloaded as a standalone .html file (upload it to your site to publish).</div>
     </div>
 
     <div class="panel">
-      <h2 style="margin:0 0 6px 0">Utilities</h2>
-      <div class="muted">Reset, import/export dashboard JSON</div>
+      <h3 style="margin:0 0 6px 0">Utilities</h3>
+      <div class="muted">Export / Import the JSON of your current session (in-memory only)</div>
       <div style="margin-top:8px">
         <button class="small" onclick="exportJSON()">Export JSON</button>
         <button class="small" onclick="importJSON()">Import JSON</button>
-        <button class="small danger" onclick="resetDefaults()">Reset to Defaults</button>
+        <button class="small danger" onclick="resetSession()">Reset Session</button>
       </div>
     </div>
+
   </div>
 
-  <!-- RIGHT: Live preview iframe -->
+  <!-- right: preview -->
   <div class="panel iframe-wrap">
-    <h2 style="margin-bottom:8px">Live Preview</h2>
-    <div style="margin-bottom:8px" class="muted">Preview updates only after clicking <strong>Save & Refresh Preview</strong>.</div>
+    <h3 style="margin:0 0 8px 0">Live Preview</h3>
+    <div class="muted" style="margin-bottom:8px">Preview updates only when you click <strong>Save & Refresh Preview</strong>.</div>
     <iframe id="previewFrame" src="template.html" title="preview"></iframe>
   </div>
 </div>
 
-<!-- Blog Preview Modal -->
-<div id="modal" class="modal" role="dialog">
-  <div class="box">
-    <div class="head">
+<!-- Modal -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head">
       <strong>Blog Preview</strong>
-      <div>
-        <button class="small" onclick="closeModal()">Close</button>
-        <button class="small btn-primary" onclick="openBlogInNewTab()">Open in new tab</button>
+      <div style="display:flex;gap:8px">
+        <button class="small" onclick="closeModal()">Cancel</button>
+        <button class="small btn-primary" onclick="openModalInNewTab()">Open in New Tab</button>
       </div>
     </div>
-    <div class="body" id="modalBody"></div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
-<footer style="text-align:center;margin-top:12px;color:#556;font-size:.85rem">Tip: Host both files on the same domain (hotterbite.online). The preview uses local template.html.</footer>
+<div class="toast" id="toast">Link copied to clipboard</div>
 
 <script>
-/* ========== DEFAULT DATA ========== */
+/* ---------- DEFAULT (session-only) ---------- */
 const DEFAULT = {
   footer: {
     siteName: "Mobili",
@@ -190,12 +180,7 @@ const DEFAULT = {
       { text: "Privacy Policy", url: "https://en.wikipedia.org/wiki/Privacy_policy" },
       { text: "Terms and Conditions", url: "https://en.wikipedia.org/wiki/Terms_of_service" }
     ],
-    socials: {
-      facebook: "https://www.facebook.com",
-      youtube: "https://www.youtube.com",
-      instagram: "https://www.instagram.com",
-      x: "https://twitter.com"
-    }
+    socials: { facebook: "", youtube: "", instagram: "", x: "" }
   },
   categories: [
     { name: "AFK Gadgets", url: "http://hotterbite.online/afkgeek/" },
@@ -209,53 +194,43 @@ const DEFAULT = {
   ],
   bestPhones: [
     { title: "Best Phone Under ₹15,000", img: "https://images.unsplash.com/photo-1533022139390-e31c488d69e2", url: "https://en.wikipedia.org/wiki/Smartphone" },
-    { title: "Best Phone Under ₹5,000", img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a", url: "https://en.wikipedia.org/wiki/Mobile_phone" },
-    { title: "Best Phone Under ₹10,000", img: "https://images.unsplash.com/photo-1533022139390-e31c488d69e2", url: "https://en.wikipedia.org/wiki/Android_(operating_system)" },
-    { title: "Best Phone Under ₹20,000", img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a", url: "https://en.wikipedia.org/wiki/IPhone" }
+    { title: "Best Phone Under ₹5,000", img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a", url: "https://en.wikipedia.org/wiki/Mobile_phone" }
   ],
   extraProducts: [
     { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring", alt: "Smart Ring" },
-    { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone", alt: "Headphone" },
-    { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car", alt: "RC Car" },
-    { img: "https://cdn.beebom.com/gadgets-store/b519c81f-05ca-4615-a816-64eaf1429779removalaipreview.png", url: "https://en.wikipedia.org/wiki/Power_bank", alt: "Power Bank" }
+    { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone", alt: "Headphone" }
   ],
   products: {
     "Latest": [
       { img: "https://cdn.beebom.com/gadgets-store/618d6nc7edl-background-removed.sl1500.png", url: "https://en.wikipedia.org/wiki/Gadget" },
-      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
-      { img: "https://cdn.beebom.com/gadgets-store/500-rc-car-image-3.png", url: "https://en.wikipedia.org/wiki/Radio-controlled_car" }
-    ],
-    "Smartphone Accessories": [
-      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" },
-      { img: "https://cdn.beebom.com/gadgets-store/cigadesignblueplanetii-removebg-preview.png", url: "https://en.wikipedia.org/wiki/Headphone" }
+      { img: "https://cdn.beebom.com/gadgets-store/boat-smart-ring.png", url: "https://en.wikipedia.org/wiki/Smart_ring" }
     ]
-  },
-  blogs: [] // saved blog objects {id,title,image,html,createdAt}
+  }
 };
 
-/* ========== STATE ========== */
-let state = JSON.parse(localStorage.getItem('viralDashboard')) || DEFAULT;
+/* ---------- IN-MEM STATE (session-only) ---------- */
+let state = JSON.parse(JSON.stringify(DEFAULT));
 
-/* ========== HELPERS ========== */
-function saveState(){ localStorage.setItem('viralDashboard', JSON.stringify(state)); }
-function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
+/* ---------- DOM helpers ---------- */
+const el = (html) => { const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; };
 
-/* ========== RENDER FUNCTIONS ========== */
+/* ---------- RENDERERS ---------- */
 function renderFooterLinks(){
-  const container = document.getElementById('footerLinks'); container.innerHTML = '';
+  const container = document.getElementById('footerLinks'); container.innerHTML='';
   state.footer.links.forEach((l,i)=>{
     const node = el(`
       <div class="item">
         <div class="fields">
-          <input type="text" value="${escapeHtml(l.text)}" placeholder="Link text" onchange="state.footer.links[${i}].text=this.value">
-          <input type="url" value="${escapeHtml(l.url)}" placeholder="https://..." onchange="state.footer.links[${i}].url=this.value">
+          <input type="text" value="${escapeHtml(l.text)}" onchange="state.footer.links[${i}].text=this.value">
+          <input type="url" value="${escapeHtml(l.url)}" onchange="state.footer.links[${i}].url=this.value">
         </div>
         <div style="display:flex;flex-direction:column;gap:6px">
           <button class="small" onclick="moveFooter(${i},-1)">▲</button>
           <button class="small" onclick="moveFooter(${i},1)">▼</button>
           <button class="small danger" onclick="removeFooter(${i})">✕</button>
         </div>
-      </div>`);
+      </div>
+    `);
     container.appendChild(node);
   });
 }
@@ -263,17 +238,19 @@ function renderFooterLinks(){
 function renderCategories(){
   const container = document.getElementById('categoryList'); container.innerHTML='';
   state.categories.forEach((c,i)=>{
-    const node = el(`<div class="item">
-      <div class="fields">
-        <input type="text" value="${escapeHtml(c.name)}" onchange="state.categories[${i}].name=this.value" />
-        <input type="url" value="${escapeHtml(c.url)}" onchange="state.categories[${i}].url=this.value" />
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(c.name)}" onchange="state.categories[${i}].name=this.value" />
+          <input type="url" value="${escapeHtml(c.url)}" onchange="state.categories[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveCategory(${i},-1)">▲</button>
+          <button class="small" onclick="moveCategory(${i},1)">▼</button>
+          <button class="small danger" onclick="removeCategory(${i})">✕</button>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button class="small" onclick="moveCategory(${i},-1)">▲</button>
-        <button class="small" onclick="moveCategory(${i},1)">▼</button>
-        <button class="small danger" onclick="removeCategory(${i})">✕</button>
-      </div>
-    </div>`);
+    `);
     container.appendChild(node);
   });
 }
@@ -281,17 +258,19 @@ function renderCategories(){
 function renderStore(){
   const container = document.getElementById('storeList'); container.innerHTML='';
   state.store.forEach((s,i)=>{
-    const node = el(`<div class="item">
-      <div class="fields">
-        <input type="text" value="${escapeHtml(s.name)}" onchange="state.store[${i}].name=this.value" />
-        <input type="url" value="${escapeHtml(s.url)}" onchange="state.store[${i}].url=this.value" />
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(s.name)}" onchange="state.store[${i}].name=this.value" />
+          <input type="url" value="${escapeHtml(s.url)}" onchange="state.store[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveStore(${i},-1)">▲</button>
+          <button class="small" onclick="moveStore(${i},1)">▼</button>
+          <button class="small danger" onclick="removeStore(${i})">✕</button>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button class="small" onclick="moveStore(${i},-1)">▲</button>
-        <button class="small" onclick="moveStore(${i},1)">▼</button>
-        <button class="small danger" onclick="removeStore(${i})">✕</button>
-      </div>
-    </div>`);
+    `);
     container.appendChild(node);
   });
 }
@@ -299,18 +278,20 @@ function renderStore(){
 function renderBest(){
   const container = document.getElementById('bestList'); container.innerHTML='';
   state.bestPhones.forEach((b,i)=>{
-    const node = el(`<div class="item">
-      <div class="fields">
-        <input type="text" value="${escapeHtml(b.title)}" onchange="state.bestPhones[${i}].title=this.value" />
-        <input type="url" value="${escapeHtml(b.img)}" onchange="state.bestPhones[${i}].img=this.value" />
-        <input type="url" value="${escapeHtml(b.url)}" onchange="state.bestPhones[${i}].url=this.value" />
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="text" value="${escapeHtml(b.title)}" onchange="state.bestPhones[${i}].title=this.value" />
+          <input type="url" value="${escapeHtml(b.img)}" onchange="state.bestPhones[${i}].img=this.value" />
+          <input type="url" value="${escapeHtml(b.url)}" onchange="state.bestPhones[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveBest(${i},-1)">▲</button>
+          <button class="small" onclick="moveBest(${i},1)">▼</button>
+          <button class="small danger" onclick="removeBest(${i})">✕</button>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button class="small" onclick="moveBest(${i},-1)">▲</button>
-        <button class="small" onclick="moveBest(${i},1)">▼</button>
-        <button class="small danger" onclick="removeBest(${i})">✕</button>
-      </div>
-    </div>`);
+    `);
     container.appendChild(node);
   });
 }
@@ -318,18 +299,20 @@ function renderBest(){
 function renderExtra(){
   const container = document.getElementById('extraList'); container.innerHTML='';
   state.extraProducts.forEach((e,i)=>{
-    const node = el(`<div class="item">
-      <div class="fields">
-        <input type="url" value="${escapeHtml(e.img)}" onchange="state.extraProducts[${i}].img=this.value" />
-        <input type="text" value="${escapeHtml(e.alt||'')}" onchange="state.extraProducts[${i}].alt=this.value" />
-        <input type="url" value="${escapeHtml(e.url)}" onchange="state.extraProducts[${i}].url=this.value" />
+    const node = el(`
+      <div class="item">
+        <div class="fields">
+          <input type="url" value="${escapeHtml(e.img)}" onchange="state.extraProducts[${i}].img=this.value" />
+          <input type="text" value="${escapeHtml(e.alt||'')}" onchange="state.extraProducts[${i}].alt=this.value" />
+          <input type="url" value="${escapeHtml(e.url)}" onchange="state.extraProducts[${i}].url=this.value" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="small" onclick="moveExtra(${i},-1)">▲</button>
+          <button class="small" onclick="moveExtra(${i},1)">▼</button>
+          <button class="small danger" onclick="removeExtra(${i})">✕</button>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button class="small" onclick="moveExtra(${i},-1)">▲</button>
-        <button class="small" onclick="moveExtra(${i},1)">▼</button>
-        <button class="small danger" onclick="removeExtra(${i})">✕</button>
-      </div>
-    </div>`);
+    `);
     container.appendChild(node);
   });
 }
@@ -349,143 +332,99 @@ function renderProductCats(){
           <button class="small danger" onclick="removeProduct('${escapeForAttr(cat)}',${pi})">✕</button>
         </div>
       </div>`).join('');
-    const node = el(`<div style="margin-bottom:10px;padding:8px;border-radius:10px;background:#fbfdff">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <input class="title-input" value="${escapeHtml(cat)}" onchange="renameCategory('${escapeForAttr(cat)}', this.value)" />
-        <div>
-          <button class="small" onclick="addProductTo('${escapeForAttr(cat)}')">+ product</button>
-          <button class="small danger" onclick="removeProductCategory('${escapeForAttr(cat)}')">remove category</button>
+    const node = el(`
+      <div style="margin-bottom:10px;padding:8px;border-radius:10px;background:#fbfdff">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <input class="title-input" value="${escapeHtml(cat)}" onchange="renameCategory('${escapeForAttr(cat)}', this.value)" />
+          <div>
+            <button class="small" onclick="addProductTo('${escapeForAttr(cat)}')">+ product</button>
+            <button class="small danger" onclick="removeProductCategory('${escapeForAttr(cat)}')">remove category</button>
+          </div>
         </div>
+        <div>${productsHTML}</div>
       </div>
-      <div>${productsHTML}</div>
-    </div>`);
+    `);
     container.appendChild(node);
   });
 }
 
-function renderBlogsList(){
-  const container = document.getElementById('blogsList'); container.innerHTML='';
-  if(!state.blogs || state.blogs.length===0){ container.innerHTML = '<div class="muted">No blogs yet</div>'; return;}
-  state.blogs.slice().reverse().forEach((b)=>{
-    const node = el(`<div class="item" style="display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;gap:10px;align-items:center">
-        <div style="width:56px;height:40px;border-radius:8px;overflow:hidden;background:#fff"><img src="${escapeHtml(b.image||'')}" style="width:100%;height:100%;object-fit:cover"></div>
-        <div><strong>${escapeHtml(b.title)}</strong><div style="font-size:.85rem;color:#556">${new Date(b.createdAt).toLocaleString()}</div></div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="small" onclick="previewSavedBlog('${b.id}')">Preview</button>
-        <button class="small" onclick="downloadBlog('${b.id}')">Download</button>
-        <button class="small danger" onclick="removeBlog('${b.id}')">Delete</button>
-      </div>
-    </div>`);
-    container.appendChild(node);
-  });
-}
-
-/* ========== MUTATORS (footer, categories, best, extra, products) ========== */
+/* ---------- CRUD helpers ---------- */
 function addFooterLink(){ state.footer.links.push({ text: "New Link", url: "#" }); renderFooterLinks(); }
-function moveFooter(i,dir){ const a=state.footer.links; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderFooterLinks();}
+function moveFooter(i,dir){ const a=state.footer.links; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderFooterLinks(); }
 function removeFooter(i){ state.footer.links.splice(i,1); renderFooterLinks(); }
 
 function addCategory(){ state.categories.push({ name: "New Category", url: "#" }); renderCategories(); }
-function moveCategory(i,dir){ const a=state.categories; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderCategories();}
+function moveCategory(i,dir){ const a=state.categories; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderCategories(); }
 function removeCategory(i){ state.categories.splice(i,1); renderCategories(); }
 
 function addStore(){ state.store.push({ name: "New", url: "#" }); renderStore(); }
-function moveStore(i,dir){ const a=state.store; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderStore();}
+function moveStore(i,dir){ const a=state.store; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderStore(); }
 function removeStore(i){ state.store.splice(i,1); renderStore(); }
 
 function addBestCard(){ state.bestPhones.push({ title: "New Card", img: "", url: "#" }); renderBest(); }
-function moveBest(i,dir){ const a=state.bestPhones; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderBest();}
+function moveBest(i,dir){ const a=state.bestPhones; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderBest(); }
 function removeBest(i){ state.bestPhones.splice(i,1); renderBest(); }
 
 function addExtraProduct(){ state.extraProducts.push({ img: "", url: "#", alt: "" }); renderExtra(); }
-function moveExtra(i,dir){ const a=state.extraProducts; const j=i+dir; if(j<0||j>=a.length) return; [a[i],a[j]]=[a[j],a[i]]; renderExtra();}
+function moveExtra(i,dir){ const a=state.extraProducts; const j=i+dir; if(j<0||j>=a.length)return; [a[i],a[j]]=[a[j],a[i]]; renderExtra(); }
 function removeExtra(i){ state.extraProducts.splice(i,1); renderExtra(); }
 
-function addProductCategory(){ const name = prompt("New product category name:", "New Category"); if(!name) return; if(state.products[name]){ alert('Category exists'); return;} state.products[name]=[]; renderProductCats();}
+function addProductCategory(){ const name = prompt("New product category name:", "New Category"); if(!name) return; if(state.products[name]){ alert('Category exists'); return; } state.products[name]=[]; renderProductCats(); }
 function addProductTo(cat){ state.products[cat].push({ img: "", url: "#" }); renderProductCats(); }
 function removeProductCategory(cat){ if(!confirm(`Remove category "${cat}"?`)) return; delete state.products[cat]; renderProductCats(); }
-function renameCategory(oldName,newName){ if(!newName){ alert('Name required'); return; } if(oldName===newName) return; if(state.products[newName]){ alert('Name exists'); return;} state.products[newName]=state.products[oldName]; delete state.products[oldName]; renderProductCats(); }
-function moveProduct(cat,idx,dir){ const a=state.products[cat]; const j=idx+dir; if(j<0||j>=a.length) return; [a[idx],a[j]]=[a[j],a[idx]]; renderProductCats(); }
+function renameCategory(oldName, newName){ if(!newName) return alert('Name required'); if(oldName===newName) return; if(state.products[newName]) return alert('Name exists'); state.products[newName]=state.products[oldName]; delete state.products[oldName]; renderProductCats(); }
+function moveProduct(cat,idx,dir){ const a = state.products[cat]; const j = idx + dir; if(j<0||j>=a.length)return; [a[idx],a[j]]=[a[j],a[idx]]; renderProductCats(); }
 function removeProduct(cat,idx){ state.products[cat].splice(idx,1); renderProductCats(); }
 
-/* ========== BLOGS: insert box, preview, create/download, manage saved blogs ========== */
+/* ---------- Blog helpers ---------- */
 function insertBox(){
   const type = document.getElementById('boxType').value;
   const txt = document.getElementById('boxText').value.trim();
-  if(!txt){ alert('Enter box text'); return; }
-  const className = type === 'tip' ? 'blog-box-tip' : (type === 'note' ? 'blog-box-note' : 'blog-box-warn');
-  const html = `<div class="${className}"><strong>${escapeHtml(type.toUpperCase())}:</strong> ${escapeHtml(txt)}</div>\n\n`;
-  const area = document.getElementById('blogContent');
-  area.value = area.value + '\n' + html;
+  if(!txt) return alert('Enter box text');
+  const cls = type === 'tip' ? 'blog-box-tip' : (type === 'note' ? 'blog-box-note' : 'blog-box-warn');
+  const html = `<div class="${cls}"><strong>${escapeHtml(type.toUpperCase())}:</strong> ${escapeHtml(txt)}</div>\n\n`;
+  document.getElementById('blogContent').value += '\n' + html;
   document.getElementById('boxText').value = '';
+}
+
+function buildBlogHTML(obj){
+  const safeTitle = escapeHtml(obj.title || '');
+  const safeImage = escapeHtml(obj.image || '');
+  const created = new Date().toLocaleString();
+  const body = obj.content || '';
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${safeTitle}</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f3f6ff,#eef3ff);margin:0;padding:28px;color:#0b0b1a}
+.wrap{max-width:900px;margin:18px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+h1{font-size:2rem;margin:0 0 10px}
+.meta{color:#556;font-size:.95rem;margin-bottom:14px}
+.feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
+.content{line-height:1.7;color:#122}
+.content p{margin:0 0 12px}
+.blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
+.blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
+.blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
+@media (max-width:600px){ .wrap{padding:16px} .feat{height:200px} h1{font-size:1.4rem} }
+</style></head><body>
+<div class="wrap">
+  <h1>${safeTitle}</h1>
+  <div class="meta">${created}</div>
+  ${safeImage ? `<img src="${safeImage}" class="feat" alt="${safeTitle}">` : ''}
+  <div class="content">${body}</div>
+</div>
+</body></html>`;
 }
 
 function previewBlog(){
   const title = document.getElementById('blogTitle').value.trim();
-  if(!title){ alert('Enter title'); return; }
+  if(!title) return alert('Enter blog title');
   const image = document.getElementById('blogImage').value.trim();
   const content = document.getElementById('blogContent').value;
-  const html = buildBlogHTML({id:'preview', title, image, content, createdAt:Date.now()});
+  const html = buildBlogHTML({ title, image, content });
   openModalWithHTML(html);
-}
-
-function createBlog(){
-  const title = document.getElementById('blogTitle').value.trim();
-  if(!title){ alert('Enter title'); return; }
-  const image = document.getElementById('blogImage').value.trim();
-  const content = document.getElementById('blogContent').value;
-  const id = 'blog-' + (Date.now());
-  const createdAt = Date.now();
-  const blog = { id, title, image, content, createdAt };
-  state.blogs = state.blogs || [];
-  state.blogs.push(blog);
-  saveState();
-  renderBlogsList();
-  const html = buildBlogHTML(blog);
-  downloadFile(html, id + '.html');
-  alert('Blog created and downloaded. Upload the file to your GitHub Pages to publish it.');
-}
-
-function buildBlogHTML(blog){
-  // modern rounded blog page (standalone, no site header)
-  const safeTitle = escapeHtml(blog.title || '');
-  const safeImage = escapeHtml(blog.image || '');
-  const created = new Date(blog.createdAt).toLocaleString();
-  const body = blog.content || '';
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${safeTitle}</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#f3f6ff,#eef3ff);margin:0;padding:28px;color:#0b0b1a}
-  .wrap{max-width:900px;margin:18px auto;background:linear-gradient(180deg,#fff,#fbfdff);border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
-  h1{font-size:2rem;margin:0 0 10px}
-  .meta{color:#556;font-size:.95rem;margin-bottom:14px}
-  .feat{width:100%;border-radius:14px;height:360px;object-fit:cover;background:#f0f4ff;margin-bottom:18px}
-  .content{line-height:1.7;color:#122}
-  .content p{margin:0 0 12px}
-  .blog-box-tip{background:linear-gradient(90deg,#edf5ff,#f7fbff);border-left:4px solid #3b82f6;padding:12px;border-radius:10px;margin:12px 0}
-  .blog-box-note{background:linear-gradient(90deg,#fffbe6,#fffdf2);border-left:4px solid #f59e0b;padding:12px;border-radius:10px;margin:12px 0}
-  .blog-box-warn{background:linear-gradient(90deg,#fff2f2,#fff5f5);border-left:4px solid #ef4444;padding:12px;border-radius:10px;margin:12px 0}
-  @media (max-width:600px){ .wrap{padding:16px} .feat{height:200px} h1{font-size:1.4rem} }
-</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>${safeTitle}</h1>
-    <div class="meta">${created}</div>
-    ${safeImage ? `<img src="${safeImage}" class="feat" alt="${safeTitle}">` : ''}
-    <div class="content">
-      ${body}
-    </div>
-  </div>
-</body>
-</html>`;
 }
 
 function openModalWithHTML(html){
@@ -493,38 +432,28 @@ function openModalWithHTML(html){
   const body = document.getElementById('modalBody');
   body.innerHTML = '';
   const iframe = document.createElement('iframe');
-  iframe.style.width='100%'; iframe.style.height='100%'; iframe.style.border='0';
+  iframe.style.width='100%'; iframe.style.height='70vh'; iframe.style.border='0';
   body.appendChild(iframe);
   modal.style.display = 'flex';
-  // write to iframe
   iframe.contentWindow.document.open();
   iframe.contentWindow.document.write(html);
   iframe.contentWindow.document.close();
-  // store last preview html for open in new tab
-  modal.lastHTML = html;
+  modal._last = html;
 }
 function closeModal(){ document.getElementById('modal').style.display='none'; }
-function openBlogInNewTab(){ const modal = document.getElementById('modal'); if(!modal.lastHTML) return; const w = window.open(); w.document.write(modal.lastHTML); w.document.close(); }
+function openModalInNewTab(){ const modal = document.getElementById('modal'); if(!modal._last) return; const w = window.open(); w.document.write(modal._last); w.document.close(); }
 
-function previewSavedBlog(id){
-  const blog = (state.blogs||[]).find(b=>b.id===id);
-  if(!blog) return alert('Not found');
-  const html = buildBlogHTML(blog);
-  openModalWithHTML(html);
+function createBlog(){
+  const title = document.getElementById('blogTitle').value.trim();
+  if(!title) return alert('Enter blog title');
+  const image = document.getElementById('blogImage').value.trim();
+  const content = document.getElementById('blogContent').value;
+  const html = buildBlogHTML({ title, image, content });
+  const filename = 'blog-' + Date.now() + '.html';
+  downloadFile(html, filename);
+  alert('Blog downloaded as ' + filename + '. Upload it to your site to publish.');
 }
-function downloadBlog(id){
-  const blog = (state.blogs||[]).find(b=>b.id===id);
-  if(!blog) return alert('Not found');
-  const html = buildBlogHTML(blog);
-  downloadFile(html, id + '.html');
-}
-function removeBlog(id){
-  if(!confirm('Delete this blog?')) return;
-  state.blogs = (state.blogs||[]).filter(b=>b.id!==id);
-  saveState();
-  renderBlogsList();
-  alert('Deleted.');
-}
+
 function downloadFile(content, filename){
   const blob = new Blob([content], {type:'text/html'});
   const url = URL.createObjectURL(blob);
@@ -533,53 +462,52 @@ function downloadFile(content, filename){
   URL.revokeObjectURL(url);
 }
 
-/* ========== SAVE / PREVIEW / GET URL ========== */
-function gatherAllAndSave(){
-  // footer fields
+/* ---------- Save & Preview / Get URL ---------- */
+function gatherStateFromUI(){
+  // footer
   state.footer.siteName = document.getElementById('footerSiteName').value || state.footer.siteName;
   state.footer.copyright = document.getElementById('footerCopyright').value || state.footer.copyright;
-  state.footer.socials.facebook = document.getElementById('socFacebook').value || state.footer.socials.facebook;
-  state.footer.socials.youtube = document.getElementById('socYoutube').value || state.footer.socials.youtube;
-  state.footer.socials.instagram = document.getElementById('socInstagram').value || state.footer.socials.instagram;
-  state.footer.socials.x = document.getElementById('socX').value || state.footer.socials.x;
-  saveState();
+  state.footer.socials.facebook = document.getElementById('socFacebook').value || '';
+  state.footer.socials.youtube = document.getElementById('socYoutube').value || '';
+  state.footer.socials.instagram = document.getElementById('socInstagram').value || '';
+  state.footer.socials.x = document.getElementById('socX') ? document.getElementById('socX').value || '' : (document.getElementById('socX') && document.getElementById('socX').value) || '';
+  // the rest of arrays are already updated via inputs bound to state
 }
+
 function refreshPreview(){
-  gatherAllAndSave();
-  saveState();
+  gatherStateFromUI();
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
   const previewUrl = origin + '/template.html?data=' + encoded;
   const iframe = document.getElementById('previewFrame');
   iframe.src = previewUrl;
-  alert('Preview refreshed.');
+  showToast('Preview refreshed');
 }
+
 function getUrl(){
-  gatherAllAndSave();
-  saveState();
+  gatherStateFromUI();
   const encoded = encodeURIComponent(JSON.stringify(state));
   const origin = window.location.origin;
-  const fullUrl = origin + '/template.html?data=' + encoded;
-  navigator.clipboard.writeText(fullUrl).then(()=> {
-    prompt('Shareable URL copied to clipboard (also shown below):', fullUrl);
+  const full = origin + '/template.html?data=' + encoded;
+  // copy to clipboard
+  navigator.clipboard.writeText(full).then(()=> {
+    showToast('Link copied to clipboard');
+    // also show prompt for visibility (optional)
+    setTimeout(()=>{ alert('Shareable URL copied to clipboard:\n\n' + full); }, 50);
   }).catch(()=> {
-    prompt('Copy this URL:', fullUrl);
+    prompt('Copy this URL:', full);
   });
 }
 
-/* ========== IMPORT / EXPORT / RESET ========== */
+/* ---------- Import / Export / Reset ---------- */
 function exportJSON(){
   const data = JSON.stringify(state, null, 2);
   const blob = new Blob([data], {type:'application/json'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'viralDashboard.json'; a.click();
-  URL.revokeObjectURL(url);
+  const a = document.createElement('a'); a.href=url; a.download='my-session.json'; a.click(); URL.revokeObjectURL(url);
 }
 function importJSON(){
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.json,application/json';
+  const input = document.createElement('input'); input.type='file'; input.accept='.json,application/json';
   input.onchange = e => {
     const f = e.target.files[0];
     if(!f) return;
@@ -588,51 +516,48 @@ function importJSON(){
       try {
         const parsed = JSON.parse(ev.target.result);
         state = parsed;
-        saveState();
+        // reflect into UI
         fillFormFields();
         renderAll();
-        alert('Imported successfully.');
+        alert('Imported session (in-memory). Use Get URL to create shareable link.');
       } catch(err){ alert('Invalid JSON'); }
     };
     reader.readAsText(f);
   };
   input.click();
 }
-function resetDefaults(){
-  if(!confirm('Reset dashboard to built-in defaults?')) return;
+function resetSession(){
+  if(!confirm('Reset this session? This will clear all unsaved changes.')) return;
   state = JSON.parse(JSON.stringify(DEFAULT));
-  saveState();
   fillFormFields();
   renderAll();
 }
 
-/* ========== UTIL & RENDER MASTER ========== */
+/* ---------- small helpers ---------- */
 function fillFormFields(){
   document.getElementById('footerSiteName').value = state.footer.siteName || '';
   document.getElementById('footerCopyright').value = state.footer.copyright || '';
   document.getElementById('socFacebook').value = state.footer.socials.facebook || '';
   document.getElementById('socYoutube').value = state.footer.socials.youtube || '';
   document.getElementById('socInstagram').value = state.footer.socials.instagram || '';
-  document.getElementById('socX').value = state.footer.socials.x || '';
+  // render lists
 }
 function renderAll(){
+  renderFooterLinks(); renderCategories(); renderStore(); renderBest(); renderExtra(); renderProductCats();
+  // ensure footer inputs reflect defaults
   fillFormFields();
-  renderFooterLinks();
-  renderCategories();
-  renderStore();
-  renderBest();
-  renderExtra();
-  renderProductCats();
-  renderBlogsList();
 }
+function escapeHtml(s){ if(s===null||s===undefined)return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeForAttr(s){ return (s+'').replace(/'/g,"\\'").replace(/"/g,'\\"'); }
 
-/* ========== small helpers ========== */
-function escapeHtml(s){ if(s===null||s===undefined) return ''; return s.toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escapeForAttr(s){ return s.replace(/'/g,"\\'").replace(/"/g,'\\"'); }
+/* ---------- toast ---------- */
+function showToast(txt){ const t=document.getElementById('toast'); t.textContent=txt; t.style.display='block'; setTimeout(()=>t.style.display='none',2200); }
 
-/* ========== init ========== */
+/* ---------- init buttons ---------- */
 document.getElementById('savePreviewBtn').addEventListener('click', refreshPreview);
 document.getElementById('getUrlBtn').addEventListener('click', getUrl);
+
+/* ---------- initial render ---------- */
 renderAll();
 </script>
 </body>
