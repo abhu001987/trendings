@@ -350,10 +350,10 @@ header.glass-header {
   display: block;
 }
 
-/* ====== GLASS FOOTER ====== */
+/* ====== GLASS FOOTER (TIGHT MOBILE SPACING) ====== */
 .glass-footer {
   margin-top: 60px;
-  padding: 40px 20px 24px;
+  padding: 28px 16px 18px;
   background: rgba(255,255,255,0.15);
   border-top: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: blur(14px) saturate(180%);
@@ -369,7 +369,7 @@ header.glass-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
@@ -383,21 +383,22 @@ header.glass-header {
 .footer-tagline {
   font-size: 0.95rem;
   color: #02475e;
-  margin-bottom: 14px;
+  margin-bottom: 10px; /* reduced from 14px */
 }
 
 .social-links {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
 .social-links a {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(255,255,255,0.4);
   color: #022c3a;
   transition: 0.3s ease;
@@ -407,20 +408,14 @@ header.glass-header {
   background: linear-gradient(135deg, #9be7ff, #59c3ff);
   color: #022a32;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(89,195,255,0.3);
+  box-shadow: 0 4px 10px rgba(89,195,255,0.3);
 }
 
 .footer-right {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   text-align: right;
-}
-
-.footer-right h4 {
-  margin-bottom: 8px;
-  font-size: 1.1rem;
-  color: #023547;
 }
 
 .footer-right a {
@@ -428,6 +423,7 @@ header.glass-header {
   text-decoration: none;
   transition: 0.25s ease;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .footer-right a:hover {
@@ -437,24 +433,37 @@ header.glass-header {
 
 .footer-bottom {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 14px; /* smaller bottom space */
   font-size: 0.9rem;
   opacity: 0.8;
   color: #033147;
 }
 
-/* Responsive footer */
+/* ===== Responsive Fix for Mobile ===== */
 @media (max-width: 700px) {
   .footer-inner {
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 24px;
+    gap: 8px;
   }
-  .footer-right {
+
+  .footer-left, .footer-right {
     text-align: center;
+  }
+
+  .social-links {
+    margin-bottom: 4px; /* tighter under icons */
+  }
+
+  .footer-tagline {
+    margin-bottom: 6px; /* close gap under tagline */
+  }
+
+  .footer-right {
+    gap: 4px;
   }
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
@@ -844,7 +853,6 @@ header.glass-header {
     </div>
 
     <div class="footer-right">
-      <h4>Quick Links</h4>
       <a href="https://en.wikipedia.org/wiki/About_us" target="_blank" rel="noopener">About Us</a>
       <a href="https://en.wikipedia.org/wiki/Contact_us" target="_blank" rel="noopener">Contact Us</a>
       <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank" rel="noopener">Privacy Policy</a>
