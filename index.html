@@ -1,323 +1,756 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hazmat Affiliate Site</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hazmat — Glass Affiliate Themes</title>
 <style>
-/* -------- Base Reset -------- */
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:sans-serif;background:#0b1220;color:#fff;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
-button{cursor:pointer;border:none;}
+/* ================== Reset & Base ================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,#f6fbff 0%, #e9f6ff 100%);
+  color:#033147;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
 
-/* -------- Header -------- */
-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:12px 20px;background:#0f1724;position:relative;z-index:1000;
+/* small utility */
+.container {
+  width: 100%;
+  max-width: 1500px;         /* limits on very large screens */
+  margin: 0 auto;
+  padding: 0 20px;           /* space from left/right edges */
+  box-sizing: border-box;
 }
-.brand{font-weight:bold;font-size:1.5rem;}
-#catMenuWrap{position:relative;}
-#catBtn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;}
-.dropdown{
-  position:absolute;top:42px;right:0;background:#0b1220;border-radius:12px;
-  min-width:180px;display:none;box-shadow:0 8px 20px rgba(0,0,0,0.5);z-index:1500;
-}
-.dropdown.show{display:block;}
-.dropdown a, .dropdown button{
-  display:block;padding:10px 14px;color:#fff;background:transparent;text-align:left;
-}
-.dropdown a:hover,.dropdown button:hover{background:rgba(255,255,255,0.1);}
-.follow-list{display:none;background:#0f1724;margin-top:2px;border-radius:8px;}
-.follow-list.show{display:block;}
 
-/* -------- Hero Section -------- */
+/* ================== Glass utilities ================== */
+.glass {
+  background: rgba(255,255,255,0.75);
+  border-radius: 60px;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 8px 30px rgba(6,30,60,0.06);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* ================== HEADER (Glass, Edge-to-Edge Balanced) ================== */
+.header-wrap {
+  position: sticky;
+  top: 12px;
+  z-index: 1200;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+header.glass-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  /* ✅ Full width without transform */
+  width: 100vw;
+  margin-left: calc(-1 * (100vw - 100%)/2);
+
+  /* style */
+  padding: 16px 60px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245,250,255,0.82));
+  border: 1px solid rgba(4,41,58,0.06);
+  box-sizing: border-box;
+  overflow: visible; /* 👈 allows dropdown to open */
+}
+
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #022c3a;
+  white-space: nowrap;
+}
+
+.brand-sub {
+  font-size: 0.9rem;
+  color: #0a5260;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: visible;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(4, 41, 58, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  color: #023547;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: rgba(230, 245, 255, 0.9);
+  color: #022c3a;
+}
+
+/* Dropdown works fine on mobile */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1400;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(4, 41, 58, 0.1);
+  box-shadow: 0 10px 30px rgba(6, 30, 60, 0.1);
+}
+
+.dropdown.show {
+  display: flex;
+}
+
+.dropdown a,
+.dropdown button {
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: left;
+  color: #033147;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+  background: rgba(9, 139, 213, 0.06);
+  color: #023547;
+}
+
+/* ✅ Dropdown fixed for mobile */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1400;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(4, 41, 58, 0.1);
+  box-shadow: 0 10px 30px rgba(6, 30, 60, 0.1);
+}
+
+.dropdown.show {
+  display: flex;
+}
+
+.dropdown a,
+.dropdown button {
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: left;
+  color: #033147;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+  background: rgba(9, 139, 213, 0.06);
+  color: #023547;
+}
+
+/* dropdown menu positioned to right */
+.dropdown {
+  position:absolute; top:calc(100% + 10px); right:0;
+  min-width:220px; display:none; flex-direction:column; gap:8px;
+  padding:10px; border-radius:10px; z-index:1400;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,252,255,0.92));
+  border:1px solid rgba(4,41,58,0.04);
+  box-shadow: 0 10px 30px rgba(6,30,60,0.08);
+}
+.dropdown.show{display:flex}
+.dropdown a, .dropdown button{display:block;padding:10px;border-radius:8px;text-align:left;color:#033147;background:transparent;border:none;font-weight:600}
+.dropdown a:hover, .dropdown button:hover{background:rgba(9,139,213,0.06);color:#023547}
+
+/* follow sub list */
+.follow-sub{display:none;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid rgba(4,41,58,0.03)}
+.follow-sub.show{display:flex}
+
+/* ================== HERO ================== */
 .hero{
-  position:relative;width:100%;min-height:60vh;
-  background:url('https://ideogram.ai/assets/progressive-image/balanced/response/2OtZBsZnTfeNlXHtq62Ung') center/cover no-repeat;
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
-  padding:0 20px;
+  margin:18px; padding:36px; border-radius:14px; position:relative; overflow:hidden;
+  display:flex; gap:20px; align-items:center; justify-content:space-between;
+  background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1470&q=80');
+  background-size:cover; background-position:center;
+  min-height:420px;
+  border:1px solid rgba(4,41,58,0.04);
 }
+.hero::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.45),rgba(2,6,23,0.45));mix-blend-mode:multiply;
+}
+.hero-inner{position:relative;z-index:2;max-width:720px}
 .hero h1{
-  font-size:2.5rem;font-weight:bold;
-  backdrop-filter: blur(6px);background: rgba(255,255,255,0.15);
-  padding:10px 20px;border-radius:12px;
+  color:#f8ffff;font-size:2.4rem;line-height:1.02;margin-bottom:12px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  display:inline-block;padding:12px 16px;border-radius:10px;
 }
-.hero button{
-  margin-top:20px;padding:10px 20px;border-radius:12px;
-  background: rgba(255,255,255,0.15);color:#fff;font-weight:bold;border:none;
-}
-/* -------- Categories Slider -------- */
-.categories{
-  display:flex;overflow-x:auto;padding:20px;gap:20px;
-}
-.categories::-webkit-scrollbar{display:none;}
-.category-item{
-  min-width:120px;padding:12px 20px;background:#1a2536;
-  border-radius:12px;text-align:center;flex-shrink:0;
-  transition: background 0.3s;
-}
-.category-item.active{background:#2b3a55;}
+.hero p{color:rgba(255,255,255,0.88);margin-bottom:14px}
+.hero .cta{padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,#9be7ff,#59c3ff);color:#022a32;font-weight:800;border:none}
 
-/* -------- Theme Section -------- */
-.theme-section{padding:20px;}
-.theme-section h2{margin-bottom:20px;text-align:center;}
-.theme-slider{
-  display:flex;overflow-x:auto;gap:20px;
+/* right visual block */
+.hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.hero-card{
+  width:320px;height:200px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);box-shadow:0 12px 34px rgba(6,30,60,0.2)
 }
-.theme-slider::-webkit-scrollbar{display:none;}
-.theme-box{
-  min-width:250px;background:#1a2536;border-radius:20px;flex-shrink:0;
-  text-align:center;padding:10px;
-}
-.theme-box img{width:100%;border-radius:16px;}
-.theme-box button{
-  margin-top:10px;padding:8px 12px;border:none;border-radius:12px;
-  background:#2b3a55;color:#fff;font-weight:bold;
-  width:90%;
-}
-/* -------- Blogs Section -------- */
-.blogs{padding:20px;}
-.blogs h2{margin-bottom:20px;text-align:center;font-size:2rem;color:#fff;}
-.blog-slider{
-  display:flex;overflow-x:auto;gap:15px;padding-bottom:10px;
-}
-.blog-slider::-webkit-scrollbar{display:none;}
-.blog-box{
-  min-width:180px;max-width:220px;background:linear-gradient(145deg, #2b3a55, #3b4a65);
-  border-radius:16px;flex-shrink:0;text-align:center;padding:10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.blog-box:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.4);}
-.blog-box img{width:100%;height:120px;object-fit:cover;border-radius:12px;}
-.blog-box a{display:block;margin-top:8px;font-weight:bold;color:#f1f1f1;text-align:center;}
-/* -------- How to Get Started -------- */
-.howto{
-  padding:20px;background:#1a2536;border-radius:20px;margin:20px;text-align:center;
-}
-.howto h2{margin-bottom:10px;}
-.howto iframe{
-  width:100%;max-width:700px;height:400px;border:none;border-radius:12px;
-}
+.hero-card img{width:100%;height:100%;object-fit:cover}
 
-/* -------- Customer Review -------- */
-.review-section{padding:20px;}
-.review-slider{
-  display:flex;overflow-x:auto;gap:20px;
-}
-.review-slider::-webkit-scrollbar{display:none;}
-.review-box{
-  min-width:200px;background:#1a2536;border-radius:20px;flex-shrink:0;padding:10px;text-align:center;
-}
-.review-box img{width:50px;height:50px;border-radius:50%;margin-bottom:10px;}
-/* -------- Modal Preview -------- */
-.modal {
-  display:none;position: fixed;inset: 0;z-index:1400;
-  align-items: center;justify-content: center;background: rgba(2,6,23,0.7);
-  backdrop-filter: blur(6px);padding: 18px;
-}
-.modal.show { display:flex; }
-.modal-inner {
-  width: 100%;max-width: 1100px;height: 90vh;
-  background: #fff;border-radius: 12px;overflow: hidden;
-  display:flex;flex-direction:column;
-}
-.modal-top {
-  display:flex; justify-content:flex-end; padding:8px; background: transparent;
-}
-.modal-top button {
-  background:#0f1724; color:#fff; border:none; padding:8px 10px; border-radius:8px; cursor:pointer;
-}
-.modal-frame { flex: 1 1 auto; }
-.modal-frame iframe { width:100%; height:100%; border:0; display:block; }
-/* -------- Footer -------- */
-footer{
-  padding:20px;text-align:center;background:#0f1724;color:#fff;margin-top:40px;
-}
+/* ================== Tabs (categories) ================== */
+.tabs-wrap{margin:26px 18px; padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,250,255,0.9));border:1px solid rgba(4,41,58,0.04)}
+.tabs{display:flex;gap:10px;overflow-x:auto;padding:6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 14px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(245,250,255,0.9));color:#023547;font-weight:800;border:1px solid rgba(4,41,58,0.03);cursor:pointer;white-space:nowrap}
+.tab.active{background:linear-gradient(90deg,#9be7ff,#59c3ff);color:#022a32;box-shadow:0 8px 28px rgba(89,195,255,0.12)}
 
-/* -------- Responsive -------- */
-@media(max-width:768px){
-  .categories, .theme-slider, .blog-slider, .review-slider{overflow-x:auto;}
-  .hero h1{font-size:2rem;}
+/* ================== Sections ================== */
+.main{max-width:1200px;margin:0 auto;padding:0 18px 40px}
+
+/* Section wrapper */
+.section{margin-top:22px;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,250,255,0.94));border:1px solid rgba(4,41,58,0.04)}
+
+/* themes grid/slider responsive */
+.themes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.theme-slider{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+.theme-slider::-webkit-scrollbar{display:none}
+
+/* theme card */
+.theme-card{
+  background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(250,255,255,0.96));
+  border-radius:12px;overflow:hidden;border:1px solid rgba(4,41,58,0.03);
+  display:flex;flex-direction:column;min-height:320px;
+}
+.theme-card .thumb{height:180px;overflow:hidden}
+.theme-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.theme-card .body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.theme-card h4{color:#022a32;font-size:1.02rem}
+.theme-card p{color:#0a566f;font-size:0.95rem;flex:1}
+.actions{display:flex;gap:10px;margin-top:8px}
+.btn-view{flex:1;padding:10px;border-radius:10px;border:none;background:linear-gradient(90deg,#9be7ff,#59c3ff);color:#022a32;font-weight:800;cursor:pointer}
+.btn-use{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(4,41,58,0.04);background:transparent;color:#023547;font-weight:700;cursor:pointer}
+
+/* blogs row */
+.blog-row{display:flex;gap:12px;overflow-x:auto;padding:12px 4px}
+.blog-row::-webkit-scrollbar{display:none}
+.blog-card{min-width:200px;max-width:240px;border-radius:10px;overflow:hidden;border:1px solid rgba(4,41,58,0.03);background:linear-gradient(180deg,#fff,#f8fdff)}
+.blog-card img{width:100%;height:120px;object-fit:cover}
+.blog-card h5{padding:10px;color:#02394a;font-weight:800}
+
+/* video / how to */
+.howto{padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,250,255,0.95));border:1px solid rgba(4,41,58,0.03);text-align:center}
+.video-wrap{max-width:920px;margin:12px auto;border-radius:12px;overflow:hidden;border:1px solid rgba(4,41,58,0.04)}
+
+/* reviews */
+.reviews-row{display:flex;gap:12px;overflow-x:auto;padding:12px 4px}
+.rev-card{min-width:220px;background:linear-gradient(180deg,#fff,#f8fdff);padding:12px;border-radius:10px;border:1px solid rgba(4,41,58,0.03)}
+.rev-card img{width:48px;height:48px;border-radius:999px;margin-bottom:10px}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);z-index:1600;padding:18px}
+.modal-overlay.show{display:flex}
+.modal-inner{width:100%;max-width:1100px;height:86vh;background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.modal-top{display:flex;justify-content:flex-end;padding:10px}
+.modal-top button{padding:8px 12px;border-radius:8px;border:none;background:#022a32;color:#fff;cursor:pointer}
+.modal-frame iframe{width:100%;height:100%;border:0;display:block}
+
+/* footer */
+footer{margin-top:40px;padding:22px;text-align:center;color:#0b4b62;}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  header.glass-header {
+    width: 98%;
+    padding: 10px 16px;
+    border-radius: 14px;
+  }
+  .btn {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <div class="brand">Hazmat</div>
-  <div id="catMenuWrap">
-    <button id="catBtn">Categories ☰</button>
-    <div class="dropdown" id="catMenu">
-      <a href="https://en.wikipedia.org/wiki/Test_1" target="_blank">Test 1</a>
-      <a href="https://en.wikipedia.org/wiki/Test_2" target="_blank">Test 2</a>
-      <a href="https://en.wikipedia.org/wiki/Test_3" target="_blank">Test 3</a>
-      <a href="https://en.wikipedia.org/wiki/Test_4" target="_blank">Test 4</a>
-      <a href="https://en.wikipedia.org/wiki/Test_5" target="_blank">Test 5</a>
-      <button id="followBtn">Follow Us ▾</button>
-      <div class="follow-list" id="followList">
-        <a href="https://www.instagram.com" target="_blank">Instagram</a>
-        <a href="https://www.youtube.com" target="_blank">YouTube</a>
+<!-- header -->
+<div class="header-wrap container">
+  <header class="glass-header" role="banner" aria-label="Main header">
+    <div class="header-left">
+      <div class="logo">Hazmat</div>
+      <div class="brand-sub"></div>
+    </div>
+
+    <div class="header-right" aria-hidden="false">
+      <div style="position:relative">
+        <button id="catBtn" class="btn small-btn" aria-expanded="false">Categories ☰</button>
+
+        <div id="catDropdown" class="dropdown" role="menu" aria-hidden="true">
+          <a href="#" data-wiki="https://en.wikipedia.org/wiki/Test_1">Test 1</a>
+          <a href="#" data-wiki="https://en.wikipedia.org/wiki/Test_2">Test 2</a>
+          <a href="#" data-wiki="https://en.wikipedia.org/wiki/Test_3">Test 3</a>
+          <a href="#" data-wiki="https://en.wikipedia.org/wiki/Test_4">Test 4</a>
+          <a href="#" data-wiki="https://en.wikipedia.org/wiki/Test_5">Test 5</a>
+
+          <button id="followToggle" class="btn small-btn" style="margin-top:6px;background:transparent">Follow Us ▾</button>
+          <div id="followSub" class="follow-sub">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
       </div>
     </div>
+  </header>
+</div>
+
+<!-- hero -->
+<section class="hero" role="banner" aria-label="Hero">
+  <div class="hero-inner">
+    <h1>Best place to get affiliate themes</h1>
+    <p>Beautiful, fast, responsive templates built for affiliate websites. Preview live, choose, and deploy.</p>
+    <button id="startBtn" class="cta">Let's get started</button>
   </div>
-</header>
-<!-- Hero Section -->
-<section class="hero">
-  <h1>Best Affiliate Site</h1>
-  <button id="letsStartBtn">Let's Get Started</button>
+
+  <div class="hero-right">
+    <div class="hero-card"><img src="https://images.unsplash.com/photo-1606312612506-7bd659d2f5b8?auto=format&fit=crop&w=800&q=60" alt="decor"></div>
+  </div>
 </section>
 
-<!-- Categories Slider -->
-<div class="categories" id="categoryList">
-  <div class="category-item active" data-cat="latest">Latest</div>
-  <div class="category-item" data-cat="mobile">Mobile</div>
-  <div class="category-item" data-cat="tech">Tech</div>
-  <div class="category-item" data-cat="gadgets">Gadgets</div>
-  <div class="category-item" data-cat="digital">Digital Product</div>
-</div>
-<!-- Theme Section -->
-<div class="theme-section" id="themeSection">
-  <h2>Select Your Theme</h2>
-  <div class="theme-slider" id="themeSlider">
-    <!-- Latest themes -->
-    <div class="theme-box" data-cat="latest">
-      <img src="https://images.unsplash.com/photo-1612831455541-0f7b9d9df9e0?auto=format&fit=crop&w=800&q=80">
-      <button class="viewBtn" data-url="https://hotterbite.online/">View One</button>
-      <button onclick="window.open('https://en.wikipedia.org/wiki/Theme1','_blank')">Use This</button>
-    </div>
-    <div class="theme-box" data-cat="latest">
-      <img src="https://images.unsplash.com/photo-1612831455541-0f7b9d9df9e0?auto=format&fit=crop&w=800&q=80">
-      <button class="viewBtn" data-url="https://hotterbite.online/">View One</button>
-      <button onclick="window.open('https://en.wikipedia.org/wiki/Theme2','_blank')">Use This</button>
-    </div>
-    <!-- Mobile themes -->
-    <div class="theme-box" data-cat="mobile" style="display:none;">
-      <img src="https://images.unsplash.com/photo-1612831455541-0f7b9d9df9e0?auto=format&fit=crop&w=800&q=80">
-      <button class="viewBtn" data-url="https://hotterbite.online/">View One</button>
-      <button onclick="window.open('https://en.wikipedia.org/wiki/Theme3','_blank')">Use This</button>
-    </div>
-    <div class="theme-box" data-cat="mobile" style="display:none;">
-      <img src="https://images.unsplash.com/photo-1612831455541-0f7b9d9df9e0?auto=format&fit=crop&w=800&q=80">
-      <button class="viewBtn" data-url="https://hotterbite.online/">View One</button>
-      <button onclick="window.open('https://en.wikipedia.org/wiki/Theme4','_blank')">Use This</button>
-    </div>
+<!-- category tabs -->
+<div class="tabs-wrap container">
+  <div class="tabs" role="tablist" aria-label="Theme categories">
+    <div class="tab active" data-cat="latest" tabindex="0">Latest</div>
+    <div class="tab" data-cat="mobile" tabindex="0">Mobile</div>
+    <div class="tab" data-cat="tech" tabindex="0">Tech</div>
+    <div class="tab" data-cat="gadgets" tabindex="0">Gadgets</div>
+    <div class="tab" data-cat="digital" tabindex="0">Digital Product</div>
   </div>
 </div>
 
-<!-- Blogs -->
-<div class="blogs">
-  <h2>Latest News and Blogs</h2>
-  <div class="blog-slider">
-    <div class="blog-box">
-      <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80">
-      <a href="https://en.wikipedia.org/wiki/Blog1">Something about the tool</a>
-    </div>
-    <div class="blog-box">
-      <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80">
-      <a href="https://en.wikipedia.org/wiki/Blog2">nothing about the tool</a>
-    </div>
-    <div class="blog-box">
-      <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=800&q=80">
-      <a href="https://en.wikipedia.org/wiki/Blog3">evrything about the tool</a>
-    </div>
-  </div>
-</div>
+<!-- main content -->
+<main class="main" role="main">
 
-<!-- How to Get Started -->
-<div class="howto" id="howtoSection">
-  <h2>How to Get Started</h2>
-  <p>One Step Away From World Market</p>
-  <!-- Video placeholder -->
-  <div style="position:relative;width:100%;max-width:700px;margin:0 auto;">
-    <a href="https://youtu.be/1mlVB26mujU" target="_blank">
-      <img src="https://img.youtube.com/vi/1mlVB26mujU/hqdefault.jpg" 
-           alt="Watch Video" style="width:100%;border-radius:12px;">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-                  font-size:3rem;color:white;background:rgba(0,0,0,0.4);padding:10px 20px;
-                  border-radius:50%;">▶</div>
-    </a>
-  </div>
-</div>
-</script>
+  <!-- LATEST -->
+  <section id="latest" class="section" data-cat="latest" aria-labelledby="latestTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="latestTitle">Select your theme — Latest</h3></div>
 
-<!-- Customer Reviews -->
-<div class="review-section">
-  <h2>What Our Customers Say</h2>
-  <div class="review-slider">
-    <div class="review-box">
-      <img src="https://via.placeholder.com/50">
-      <p>Great product!</p>
+    <!-- two-per-row grid for desktop + slider area for mobile -->
+    <div class="themes-grid" id="grid-latest">
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=900&q=80" alt="Latest A"></div>
+        <div class="body">
+          <h4>Latest Theme A</h4>
+          <p>Clean affiliate layout with product cards and strong CTAs for conversions.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Website">Use This</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="Latest B"></div>
+        <div class="body">
+          <h4>Latest Theme B</h4>
+          <p>Bright product showcase with conversion-first blocks and review sections.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Advertising">Use This</button>
+          </div>
+        </div>
+      </article>
     </div>
-    <div class="review-box">
-      <img src="https://via.placeholder.com/50">
-      <p>Excellent support!</p>
+
+    <!-- mobile-style horizontal slider (hidden on desktop) -->
+    <div class="theme-slider" id="slider-latest" style="margin-top:18px;display:none">
+      <!-- duplicates for mobile slider (keeps same content) -->
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Latest Theme A</h4><p>Clean affiliate layout.</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View One</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Website">Use This</button></div></div></div>
+
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Latest Theme B</h4><p>Bright product showcase.</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View One</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Advertising">Use This</button></div></div></div>
     </div>
-    <div class="review-box">
-      <img src="https://via.placeholder.com/50">
-      <p>Highly recommend!</p>
+  </section>
+
+  <!-- MOBILE -->
+  <section id="mobile" class="section" data-cat="mobile" hidden aria-labelledby="mobileTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="mobileTitle">Select your theme — Mobile</h3></div>
+
+    <div class="themes-grid" id="grid-mobile">
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1512499617640-c2f999098bcd?auto=format&fit=crop&w=900&q=80" alt="Mobile A"></div>
+        <div class="body">
+          <h4>Mobile Theme A</h4>
+          <p>Compact layout designed for fast mobile browsing and quick purchases.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Smartphone">Use This</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1505740106531-4243f3831c78?auto=format&fit=crop&w=900&q=80" alt="Mobile B"></div>
+        <div class="body">
+          <h4>Mobile Theme B</h4>
+          <p>Large CTA buttons and simplified navigation for one-handed users.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Mobile_website">Use This</button>
+          </div>
+        </div>
+      </article>
     </div>
-  </div>
-</div>
+
+    <div class="theme-slider" id="slider-mobile" style="margin-top:18px;display:none">
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1512499617640-c2f999098bcd?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Mobile A</h4><p>Mobile layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Smartphone">Use</button></div></div></div>
+
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1505740106531-4243f3831c78?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Mobile B</h4><p>Mobile layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Mobile_website">Use</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- TECH -->
+  <section id="tech" class="section" data-cat="tech" hidden aria-labelledby="techTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="techTitle">Select your theme — Tech</h3></div>
+
+    <div class="themes-grid" id="grid-tech">
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Tech A"></div>
+        <div class="body">
+          <h4>Tech Theme A</h4>
+          <p>Sleek review layout for gadgets and spec comparisons.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Technology">Use This</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=900&q=80" alt="Tech B"></div>
+        <div class="body">
+          <h4>Tech Theme B</h4>
+          <p>Article-first layout for deep dives and tutorials.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Information_technology">Use This</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="theme-slider" id="slider-tech" style="margin-top:18px;display:none">
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Tech A</h4><p>Tech layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Technology">Use</button></div></div></div>
+
+      <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Tech B</h4><p>Tech layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Information_technology">Use</button></div></div></div>
+    </div>
+  </section>
+
+  <!-- GADGETS -->
+  <section id="gadgets" class="section" data-cat="gadgets" hidden aria-labelledby="gadgetsTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="gadgetsTitle">Select your theme — Gadgets</h3></div>
+
+    <div class="themes-grid" id="grid-gadgets">
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1557004480-326b270b3d09?auto=format&fit=crop&w=900&q=80" alt="Gadget A"></div>
+        <div class="body">
+          <h4>Gadget Theme A</h4>
+          <p>Product-first layout with easy compare table.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Consumer_electronics">Use This</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=900&q=80" alt="Gadget B"></div>
+        <div class="body">
+          <h4>Gadget Theme B</h4>
+          <p>Gallery-first product displays and accessory bundling.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Gadget">Use This</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DIGITAL -->
+  <section id="digital" class="section" data-cat="digital" hidden aria-labelledby="digitalTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="digitalTitle">Select your theme — Digital Product</h3></div>
+
+    <div class="themes-grid" id="grid-digital">
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=80" alt="Digital A"></div>
+        <div class="body">
+          <h4>Digital Theme A</h4>
+          <p>Landing page for digital downloads & course funnels.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Digital_media">Use This</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Digital B"></div>
+        <div class="body">
+          <h4>Digital Theme B</h4>
+          <p>Course & resource library layout with gated content.</p>
+          <div class="actions">
+            <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
+            <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Digital_product">Use This</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BLOGS -->
+  <section class="section" id="blogs" aria-labelledby="blogsTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="blogsTitle">Latest News & Blogs</h3></div>
+
+    <div class="blog-row" role="list">
+      <article class="blog-card" role="listitem">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="">
+        <h5>How to Start Affiliate Marketing</h5>
+      </article>
+
+      <article class="blog-card" role="listitem">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="">
+        <h5>Best Tools for Tech Creators</h5>
+      </article>
+
+      <article class="blog-card" role="listitem">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="">
+        <h5>Grow Your Digital Business</h5>
+      </article>
+    </div>
+  </section>
+
+  <!-- HOW TO GET STARTED (Video) -->
+  <section class="section howto" id="howto" aria-labelledby="howtoTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px"><h3 id="howtoTitle">How to Get Started</h3></div>
+    <p style="text-align:center;color:#074b6d;margin-bottom:12px">One step away from world market — walkthrough below.</p>
+
+    <!-- Primary: youtube-nocookie embed (public, should play inline) -->
+    <div class="video-wrap">
+      <iframe id="ytIframe" width="100%" height="480" src="https://www.youtube-nocookie.com/embed/ysz5S6PUM-U?rel=0&modestbranding=1" title="How to get started" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <!-- fallback HTML5 video (if you want to host your own MP4) -->
+    <div style="display:none;margin-top:12px">
+      <video controls playsinline poster="">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section" id="reviews" aria-labelledby="reviewsTitle">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><h3 id="reviewsTitle">What Our Customers Say</h3></div>
+
+    <div class="reviews-row" role="list">
+      <div class="rev-card" role="listitem">
+        <img src="https://via.placeholder.com/48" alt="">
+        <p style="margin-top:8px;color:#0a566f">“Amazing themes — sales improved!”</p>
+      </div>
+
+      <div class="rev-card" role="listitem">
+        <img src="https://via.placeholder.com/48" alt="">
+        <p style="margin-top:8px;color:#0a566f">“Fast, beautiful, and easy to customize.”</p>
+      </div>
+
+      <div class="rev-card" role="listitem">
+        <img src="https://via.placeholder.com/48" alt="">
+        <p style="margin-top:8px;color:#0a566f">“Great support and clear code.”</p>
+      </div>
+    </div>
+  </section>
+</main>
 
 <!-- Footer -->
-<footer>
-  &copy; 2025 Hazmat. All rights reserved.
+<footer class="container">
+  <div style="opacity:0.9">© 2025 Hazmat — Modern Glass Affiliate Themes</div>
 </footer>
 
-<!-- Modal Preview -->
-<div class="modal" id="previewModal">
-  <div class="modal-inner">
+<!-- Modal (iframe preview) -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-inner" role="document">
     <div class="modal-top">
-      <button id="modalClose">Close</button>
+      <button id="modalClose">Close ✖</button>
     </div>
     <div class="modal-frame">
-      <iframe id="modalIframe" src="" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals"></iframe>
+      <iframe id="previewIframe" src="" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals" title="Preview"></iframe>
     </div>
   </div>
 </div>
+
 <script>
-// Header dropdown
+/* ================== Dropdowns ================== */
 const catBtn = document.getElementById('catBtn');
-const catMenu = document.getElementById('catMenu');
-const followBtn = document.getElementById('followBtn');
-const followList = document.getElementById('followList');
-catBtn.addEventListener('click', e=>{e.stopPropagation(); catMenu.classList.toggle('show');});
-followBtn.addEventListener('click', e=>{e.stopPropagation(); followList.classList.toggle('show');});
-document.addEventListener('click', e=>{if(!catMenu.contains(e.target)&&e.target!==catBtn)catMenu.classList.remove('show');if(!followList.contains(e.target)&&e.target!==followBtn)followList.classList.remove('show');});
+const catDropdown = document.getElementById('catDropdown');
+const followToggle = document.getElementById('followToggle');
+const followSub = document.getElementById('followSub');
 
-// Lets get started scroll
-document.getElementById('letsStartBtn').addEventListener('click', ()=>{document.getElementById('themeSection').scrollIntoView({behavior:'smooth'});});
-
-// Category click to filter themes
-const categoryItems = document.querySelectorAll('.category-item');
-const themeBoxes = document.querySelectorAll('.theme-box');
-categoryItems.forEach(item=>{
-  item.addEventListener('click', ()=>{
-    categoryItems.forEach(i=>i.classList.remove('active'));
-    item.classList.add('active');
-    const cat = item.getAttribute('data-cat');
-    themeBoxes.forEach(box=>{box.style.display=(box.getAttribute('data-cat')===cat)?'block':'none';});
-  });
+catBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const show = catDropdown.classList.toggle('show');
+  catBtn.setAttribute('aria-expanded', show);
+  if (show === true) { catDropdown.setAttribute('aria-hidden', 'false'); } else { catDropdown.setAttribute('aria-hidden','true'); }
 });
 
-// Modal iframe preview
-const viewBtns = document.querySelectorAll('.viewBtn');
-const modal = document.getElementById('previewModal');
-const modalIframe = document.getElementById('modalIframe');
+followToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  followSub.classList.toggle('show');
+});
+
+document.addEventListener('click', (e) => {
+  if (!catDropdown.contains(e.target) && e.target !== catBtn) {
+    catDropdown.classList.remove('show'); catBtn.setAttribute('aria-expanded','false');
+  }
+  if (!followSub.contains(e.target) && e.target !== followToggle) {
+    followSub.classList.remove('show');
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { catDropdown.classList.remove('show'); followSub.classList.remove('show'); closeModal(); }
+});
+
+/* ================== Tabs / Show category content ================== */
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('main section[data-cat]');
+
+function showCategory(cat) {
+  sections.forEach(s => {
+    if (s.getAttribute('data-cat') === cat) { s.hidden = false; }
+    else { s.hidden = true; }
+  });
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+  // scroll slightly so the section is visible under header
+  const el = document.querySelector(`section[data-cat="${cat}"]`);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// Tabs click handlers
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => showCategory(tab.dataset.cat));
+  tab.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showCategory(tab.dataset.cat); }});
+});
+
+// init default
+showCategory('latest');
+
+/* ================== Responsive: show mobile horizontal sliders if small screens ================== */
+function handleResponsiveSliders() {
+  const mobileBreak = window.matchMedia('(max-width:900px)');
+  const sliderLatest = document.getElementById('slider-latest');
+  const sliderMobile = document.getElementById('slider-mobile');
+  const sliderTech = document.getElementById('slider-tech');
+  if (mobileBreak.matches) {
+    // show mobile sliders and hide grid (keep duplicate slider content)
+    sliderLatest && (sliderLatest.style.display = 'flex');
+    sliderMobile && (sliderMobile.style.display = 'flex');
+    sliderTech && (sliderTech.style.display = 'flex');
+    document.getElementById('grid-latest').style.display = 'none';
+    document.getElementById('grid-mobile').style.display = 'none';
+    document.getElementById('grid-tech').style.display = 'none';
+  } else {
+    sliderLatest && (sliderLatest.style.display = 'none');
+    sliderMobile && (sliderMobile.style.display = 'none');
+    sliderTech && (sliderTech.style.display = 'none');
+    document.getElementById('grid-latest').style.display = '';
+    document.getElementById('grid-mobile').style.display = '';
+    document.getElementById('grid-tech').style.display = '';
+  }
+}
+window.addEventListener('resize', handleResponsiveSliders);
+handleResponsiveSliders();
+
+/* ================== Modal preview ================== */
+const modalOverlay = document.getElementById('modalOverlay');
+const previewIframe = document.getElementById('previewIframe');
 const modalClose = document.getElementById('modalClose');
-viewBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    modalIframe.src = btn.getAttribute('data-url');
-    modal.classList.add('show');
+
+function openModal(url) {
+  previewIframe.src = url;
+  modalOverlay.classList.add('show');
+  modalOverlay.style.display = 'flex';
+  modalOverlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  modalOverlay.classList.remove('show');
+  modalOverlay.style.display = 'none';
+  previewIframe.src = '';
+  modalOverlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+/* bind view buttons */
+document.querySelectorAll('.btn-view').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const url = btn.dataset.url || btn.getAttribute('data-url');
+    if (!url) { alert('No preview URL assigned'); return; }
+    // open modal with url
+    openModal(url);
   });
 });
-modalClose.addEventListener('click', ()=>{
-  modal.classList.remove('show');
-  modalIframe.src = '';
-});
-</script>
 
+/* bind use buttons to wiki tabs */
+document.querySelectorAll('.btn-use').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const wiki = btn.dataset.wiki || btn.getAttribute('data-wiki');
+    if (wiki) window.open(wiki, '_blank', 'noopener');
+  });
+});
+
+/* start button scroll to themes */
+document.getElementById('startBtn').addEventListener('click', () => {
+  const el = document.querySelector('main section[data-cat="latest"]');
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* small accessibility support: close modal on ESC already wired above */
+/* end of script */
+</script>
 </body>
 </html>
