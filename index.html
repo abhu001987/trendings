@@ -350,61 +350,111 @@ header.glass-header {
   display: block;
 }
 
+/* ====== GLASS FOOTER ====== */
+.glass-footer {
+  margin-top: 60px;
+  padding: 40px 20px 24px;
+  background: rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  color: #022a32;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 30px rgba(6,30,60,0.08);
+}
 
-/* === Footer: title, icons and right-side links as requested === */
-    footer {
-      margin-top: 40px;
-      background: linear-gradient(135deg, #14143B 0%, #4F1B2C 100%);
-      color: #fff;
-      padding: 28px 25px;
-      border-radius: 15px 15px 0 0;
-      max-width: 1500px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-    }
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
 
-    footer h2 { margin-bottom: 8px; font-size: 1.3em; }
-    .footer-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #012635;
+  margin-bottom: 6px;
+}
 
-    .social-icons {
-      display: flex;
-      gap: 18px;
-      font-size: 1.4em;
-    }
-    .social-icons a { color: #fff; text-decoration: none; transition: .2s; }
-    .social-icons a:hover { color: #88A8FF; }
+.footer-tagline {
+  font-size: 0.95rem;
+  color: #02475e;
+  margin-bottom: 14px;
+}
 
-    .footer-links {
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .footer-links a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.95em;
-    }
-    .footer-links a:hover { color: #88A8FF; text-decoration: underline; }
+.social-links {
+  display: flex;
+  gap: 12px;
+}
 
-    .footer-bottom {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 0.95em;
-      opacity: 0.95;
-    }
+.social-links a {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.4);
+  color: #022c3a;
+  transition: 0.3s ease;
+}
 
-    @media (max-width: 920px) {
-      .footer-top { flex-direction: column; align-items: center; }
-      .footer-links { text-align: center; }
-    }
+.social-links a:hover {
+  background: linear-gradient(135deg, #9be7ff, #59c3ff);
+  color: #022a32;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(89,195,255,0.3);
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+
+.footer-right h4 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #023547;
+}
+
+.footer-right a {
+  color: #024c5f;
+  text-decoration: none;
+  transition: 0.25s ease;
+  font-weight: 600;
+}
+
+.footer-right a:hover {
+  color: #0078b8;
+  text-shadow: 0 0 8px rgba(89,195,255,0.4);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: #033147;
+}
+
+/* Responsive footer */
+@media (max-width: 700px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .footer-right {
+    text-align: center;
+  }
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
@@ -770,29 +820,43 @@ header.glass-header {
   </section>
 </main>
 
-<!-- FOOTER (same as comparison page) -->
-  <footer>
-    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-      <div>
-        <h2 style="margin:0 0 6px 0;">Mobili</h2>
-        <div style="display:flex;gap:10px;font-size:1.05rem;">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener" style="color:#fff"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.youtube.com" target="_blank" rel="noopener" style="color:#fff"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener" style="color:#fff"><i class="fab fa-instagram"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" style="color:#fff"><i class="fab fa-x-twitter"></i></a>
-        </div>
-      </div>
+<!-- FOOTER -->
+<footer class="glass-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <h2 class="footer-logo">Mobili</h2>
+      <p class="footer-tagline">Your daily dose of tech, gadgets & innovation.</p>
 
-      <div style="text-align:right;display:flex;flex-direction:column;gap:6px;">
-        <a href="https://en.wikipedia.org/wiki/About_us" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;">About Us</a>
-        <a href="https://en.wikipedia.org/wiki/Contact_us" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;">Contact Us</a>
-        <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;">Privacy Policy</a>
-        <a href="https://en.wikipedia.org/wiki/Terms_of_service" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;">Terms and Conditions</a>
+      <div class="social-links">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="X (Twitter)">
+          <i class="fab fa-x-twitter"></i>
+        </a>
       </div>
     </div>
 
-    <div style="margin-top:12px;opacity:0.9;">©️2017-2025 Mobili — All Rights Reserved.</div>
-  </footer>
+    <div class="footer-right">
+      <h4>Quick Links</h4>
+      <a href="https://en.wikipedia.org/wiki/About_us" target="_blank" rel="noopener">About Us</a>
+      <a href="https://en.wikipedia.org/wiki/Contact_us" target="_blank" rel="noopener">Contact Us</a>
+      <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank" rel="noopener">Privacy Policy</a>
+      <a href="https://en.wikipedia.org/wiki/Terms_of_service" target="_blank" rel="noopener">Terms & Conditions</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2017–2025 <strong>Mobili</strong> — All Rights Reserved.</p>
+  </div>
+</footer>
+
 
 <!-- Modal (iframe preview) -->
 <div class="modal-overlay" id="modalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
