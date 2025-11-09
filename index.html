@@ -775,6 +775,45 @@ header.glass-header {
   </div>
 </section>
 
+<!-- 🔗 URL SHORTENER SECTION -->
+<section class="section shortener" id="shortener" aria-labelledby="shortenerTitle">
+  <div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px">
+    <h3 id="shortenerTitle">Shorten Your Link</h3>
+  </div>
+  <p style="text-align:center;color:#074b6d;margin-bottom:12px">
+    Turn long links into simple MyAffiliatePage URLs — choose your name.
+  </p>
+
+  <div class="shortener-box" style="
+    background: linear-gradient(135deg, #9be7ff, #59c3ff);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 420px;
+    margin: 0 auto;
+    color: rgba(255,255,255,0.88);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    text-align: center;
+    backdrop-filter: blur(10px);
+  ">
+    <input type="text" id="originalUrl" placeholder="Paste your long URL here" style="
+      width:100%;padding:10px;border:none;border-radius:10px;margin-bottom:10px;
+      background:rgba(255,255,255,0.2);color:#fff;outline:none;
+    ">
+    <input type="text" id="customName" placeholder="Name your link (e.g., geeks)" style="
+      width:100%;padding:10px;border:none;border-radius:10px;margin-bottom:12px;
+      background:rgba(255,255,255,0.2);color:#fff;outline:none;
+    ">
+    <button id="shortenBtn" style="
+      background:rgba(255,255,255,0.3);color:#fff;border:none;padding:10px 20px;
+      border-radius:10px;cursor:pointer;transition:0.3s;
+    " onmouseover="this.style.background='rgba(255,255,255,0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.3)'">
+      Shorten URL
+    </button>
+
+    <div id="result" style="margin-top:18px;font-size:1.1em;word-break:break-word;"></div>
+  </div>
+</section>
+
   <!-- HOW TO GET STARTED (Video) -->
   <section class="section howto" id="howto" aria-labelledby="howtoTitle">
     <div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px"><h3 id="howtoTitle">How to Get Started</h3></div>
@@ -782,7 +821,7 @@ header.glass-header {
 
     <!-- Primary: youtube-nocookie embed (public, should play inline) -->
     <div class="video-wrap">
-      <iframe id="ytIframe" width="100%" height="480" src="https://www.youtube-nocookie.com/embed/ysz5S6PUM-U?rel=0&modestbranding=1" title="How to get started" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="ytIframe" width="100%" height="480" src="https://www.youtube.com/embed/5MWT_doo68k?si=scoEm6fNL1hT5C0Z" title="How to get started" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <!-- fallback HTML5 video (if you want to host your own MP4) -->
@@ -895,7 +934,61 @@ header.glass-header {
   </div>
 </div>
 
-<script>
+<!-- 🔗 Firebase Shortener Script (type=module) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCaa2pD-iuQe35N4CAgWpgZdAsWDrpNYRQ",
+    authDomain: "myaffiliatepage-fdc27.firebaseapp.com",
+    projectId: "myaffiliatepage-fdc27",
+    storageBucket: "myaffiliatepage-fdc27.firebasestorage.app",
+    messagingSenderId: "998138300141",
+    appId: "1:998138300141:web:180cffa98550c16167eee4",
+    measurementId: "G-DWCGT207YP"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.getElementById('shortenBtn').addEventListener('click', async () => {
+    const originalUrl = document.getElementById('originalUrl').value.trim();
+    const customName = document.getElementById('customName').value.trim();
+    const result = document.getElementById('result');
+
+    if (!originalUrl || !customName) {
+      result.innerHTML = "<p>Please fill both fields.</p>";
+      return;
+    }
+
+    try {
+  await setDoc(doc(db, "links", customName), { url: originalUrl });
+
+  // The actual working redirect URL (real one with .com)
+  const realUrl = `https://myaffiliatepage.com/${customName}`;
+  // The visible fake short URL (without .com)
+  const displayUrl = `https://myaffiliatepage/${customName}`;
+
+  result.innerHTML = `
+    <p><strong>Your Shortened URL:</strong></p>
+    <a href="${realUrl}" target="_blank" style="color:#fff;text-decoration:none;">
+      ${displayUrl}
+    </a>
+    <div>
+      <button style="
+        margin-top:10px;background:rgba(255,255,255,0.2);color:#fff;
+        border:none;padding:6px 15px;border-radius:8px;cursor:pointer;"
+        onclick="navigator.clipboard.writeText('${realUrl}')">
+        Copy
+      </button>
+    </div>
+  `;
+} catch (e) {
+  console.error(e);
+  result.innerHTML = "<p>❌ Error saving link. Try again.</p>";
+}
+  });
 /* ================== Dropdowns ================== */
 const catBtn = document.getElementById('catBtn');
 const catDropdown = document.getElementById('catDropdown');
@@ -1017,11 +1110,13 @@ document.querySelectorAll('.btn-use').forEach(btn => {
   });
 });
 
+
 /* start button scroll to themes */
 document.getElementById('startBtn').addEventListener('click', () => {
   const el = document.querySelector('main section[data-cat="latest"]');
   if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
 });
+
 
 /* small accessibility support: close modal on ESC already wired above */
 /* end of script */
