@@ -294,14 +294,13 @@ header.glass-header {
 
 /* modal */
 .modal-overlay {
+  display: none;
   position: fixed;
   inset: 0;
-  display: none;
-  align-items: center;
+  background: rgba(0,0,0,0.8);
   justify-content: center;
-  background: rgba(2,6,23,0.45);
-  z-index: 1600;
-  padding: 0; /* removed padding to avoid white edges */
+  align-items: center;
+  z-index: 9999;
 }
 
 .modal-overlay.show {
@@ -309,10 +308,10 @@ header.glass-header {
 }
 
 .modal-inner {
-  width: 100%;
-  max-width: 1100px;
-  height: 95vh; /* taller so iframe fits properly */
   background: #fff;
+  width: 90%;
+  max-width: 900px;
+  height: 80vh;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -346,8 +345,7 @@ header.glass-header {
 .modal-frame iframe {
   width: 100%;
   height: 100%;
-  border: 0;
-  display: block;
+  border: none;
 }
 
 /* ====== GLASS FOOTER (TIGHT MOBILE SPACING) ====== */
@@ -511,7 +509,7 @@ header.glass-header {
     <div class="tab active" data-cat="latest" tabindex="0">Latest</div>
     <div class="tab" data-cat="mobile" tabindex="0">Mobile</div>
     <div class="tab" data-cat="tech" tabindex="0">Tech</div>
-    <div class="tab" data-cat="tech" tabindex="0">Hitech</div>
+    <div class="tab" data-cat="Hitech" tabindex="0">Hitech</div>
     <div class="tab" data-cat="gadgets" tabindex="0">Gadgets</div>
     <div class="tab" data-cat="digital" tabindex="0">Digital Product</div>
   </div>
@@ -643,7 +641,7 @@ header.glass-header {
         <div class="thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Hitech A"></div>
         <div class="body">
           <h4>Hitech Theme A</h4>
-          <p>Sleek review layout for gadgets and spec comparisons.</p>
+          <p>Sleek layout for gadgets and spec comparisons.</p>
           <div class="actions">
             <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
             <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Technology">Use This</button>
@@ -655,7 +653,7 @@ header.glass-header {
         <div class="thumb"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=900&q=80" alt="Hitech B"></div>
         <div class="body">
           <h4>Hitech Theme B</h4>
-          <p>Article-first layout for deep dives and tutorials.</p>
+          <p>Article-layout for deep dives and tutorials.</p>
           <div class="actions">
             <button class="btn-view" data-url="https://hotterbite.online/">View One</button>
             <button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Information_technology">Use This</button>
@@ -664,7 +662,7 @@ header.glass-header {
       </article>
     </div>
 
-    <div class="theme-slider" id="slider-tech" style="margin-top:18px;display:none">
+    <div class="theme-slider" id="slider-Hitech" style="margin-top:18px;display:none">
       <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Hitech A</h4><p>Hitech layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Technology">Use</button></div></div></div>
 
       <div class="theme-card" style="min-width:300px"><div class="thumb"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=900&q=80" alt=""></div><div class="body"><h4>Hitech B</h4><p>Hitech layout</p><div class="actions"><button class="btn-view" data-url="https://hotterbite.online/">View</button><button class="btn-use" data-wiki="https://en.wikipedia.org/wiki/Information_technology">Use</button></div></div></div>
@@ -935,13 +933,13 @@ const sections = document.querySelectorAll('main section[data-cat]');
 
 function showCategory(cat) {
   sections.forEach(s => {
-    if (s.getAttribute('data-cat') === cat) { s.hidden = false; }
-    else { s.hidden = true; }
+    if (s.getAttribute('data-cat') === cat) {
+      s.style.display = 'block';
+    } else {
+      s.style.display = 'none';
+    }
   });
   tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
-  // scroll slightly so the section is visible under header
-  const el = document.querySelector(`section[data-cat="${cat}"]`);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // Tabs click handlers
