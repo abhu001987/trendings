@@ -5,8 +5,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Creator Digital Card</title>
+
 <style>
-/* -------------------- GLOBAL -------------------- */
+/* ---------- GLOBAL ---------- */
 body {
   margin: 0;
   padding: 0;
@@ -15,163 +16,178 @@ body {
   display: flex;
   justify-content: center;
   padding: 20px;
-}
-
-/* -------------------- MAIN BOX -------------------- */
-.box {
-  width: 100%;
-  max-width: 460px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 20px;
-  padding: 16px;
-  backdrop-filter: blur(10px);
   color: #fff;
 }
 
-/* header icons */
+/* ---------- MAIN BOX ---------- */
+.box {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(11px);
+  padding: 16px;
+}
+
+/* header */
 .icon-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
   display: flex;
-  align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.1);
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
-/* -------------------- CARD -------------------- */
+/* ---------- CREATOR CARD ---------- */
 .name-card {
   position: relative;
   height: 220px;
   border-radius: 16px;
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .name-card img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(.55);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.6);
 }
 
-/* content overlay */
 .card-overlay {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 16px;
 }
 
-/* social icons row */
+/* social icons */
 .social-row {
-  display: flex; gap: 12px; margin-top: 10px;
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .social-item {
-  width: 70px; text-align: center; position: relative;
+  width: 70px;
+  text-align: center;
+  position: relative;
 }
 
 .social-btn {
-  width: 44px; height: 44px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.social-btn img { width: 24px; height: 24px; }
+.social-btn img {
+  width: 24px;
+  height: 24px;
+}
 
-/* neon follower count */
 .count {
   margin-top: 6px;
   font-weight: 700;
   font-size: 0.9rem;
-  position: relative;
 }
 
 .glow {
   position: absolute;
   inset: 0;
-  transform: translateY(10px);
   height: 20px;
+  transform: translateY(12px);
   filter: blur(10px);
   opacity: .7;
+  z-index: -1;
 }
 
-/* individual neon colors */
 .yt .glow { background: red; }
 .ig .glow { background: magenta; }
 .tw .glow { background: cyan; }
 .ds .glow { background: purple; }
 
-/* -------------------- TABS -------------------- */
+/* ---------- TABS ---------- */
 .tabs {
-  margin-top: 20px;
+  margin-top: 18px;
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .tab-btn {
   padding: 8px 18px;
-  border-radius: 999px;
-  border: none;
-  color: white;
-  background: rgba(255,255,255,0.1);
-  cursor: pointer;
   font-weight: 600;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  cursor: pointer;
+  color: #fff;
 }
 
-.tab-btn.active { background: rgba(255,255,255,0.25); }
+.tab-btn.active {
+  background: rgba(255,255,255,0.3);
+}
 
-/* -------------------- 3D CAROUSEL -------------------- */
+/* ---------- 3D CAROUSEL ---------- */
 .carousel-wrapper {
   width: 100%;
-  height: 360px;
-  perspective: 1500px;
-  position: relative;
+  height: 300px;
+  perspective: 1300px;
   margin-top: 14px;
+  position: relative;
+  overflow: hidden;
 }
 
 .carousel {
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
   position: relative;
+  transform-style: preserve-3d;
 }
 
 .carousel-item {
-  width: 160px;
-  height: 160px;
+  width: 130px;
+  height: 130px;
   border-radius: 16px;
   object-fit: cover;
   position: absolute;
-  left: 50%;
-  top: 70px;
-  transform-style: preserve-3d;
+  left: calc(50% - 65px);
+  top: 75px;
   cursor: pointer;
-  filter: blur(3px) brightness(.8);
-  transition: 0.35s ease;
+  transform-style: preserve-3d;
+  filter: blur(3px) brightness(.85);
+  transition: all .35s ease;
 }
 
 .carousel-item:hover {
-  transform: scale(1.15);
-  filter: blur(0) brightness(1.25);
-  box-shadow: 0 10px 40px rgba(255,255,255,0.4);
+  transform: scale(1.15) translateZ(18px);
+  filter: blur(0) brightness(1.2);
+  box-shadow: 0 10px 40px rgba(255,255,255,0.35);
 }
 
-/* -------------------- POPUP -------------------- */
-.popup {
+/* ---------- POPUP ---------- */
+#popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,.75);
   display: none;
   justify-content: center;
   align-items: center;
+  padding: 22px;
   z-index: 999;
 }
 
-.popup img {
+#popupImg {
   max-width: 90%;
   max-height: 90%;
   border-radius: 20px;
@@ -187,9 +203,10 @@ body {
 
 <body>
 
+
 <div class="box">
 
-  <!-- header -->
+  <!-- HEADER -->
   <div style="display:flex; justify-content:space-between;">
     <div class="icon-btn" onclick="history.back()">←</div>
     <div class="icon-btn">👤</div>
@@ -202,125 +219,132 @@ body {
 
       <div>
         <h2 style="margin:0;">Abhishek Kumar</h2>
-        <p style="margin:0; opacity:.8;">Creator • Tech & Affiliate</p>
+        <p style="margin:0; opacity:.85;">Creator • Tech & Affiliate</p>
       </div>
 
       <div class="social-row">
-        
         <div class="social-item yt">
-          <div class="social-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-          </div>
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"></div>
           <div class="glow"></div>
           <div class="count">12.4K</div>
         </div>
-
         <div class="social-item ig">
-          <div class="social-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-          </div>
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></div>
           <div class="glow"></div>
           <div class="count">8.2K</div>
         </div>
-
         <div class="social-item tw">
-          <div class="social-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png">
-          </div>
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"></div>
           <div class="glow"></div>
           <div class="count">3.5K</div>
         </div>
-
         <div class="social-item ds">
-          <div class="social-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
-          </div>
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"></div>
           <div class="glow"></div>
           <div class="count">1.1K</div>
         </div>
-
       </div>
+
     </div>
   </div>
 
   <!-- TABS -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('blogs')">Blogs</button>
-    <button class="tab-btn" onclick="showTab('shop')">Shop</button>
+    <button class="tab-btn active" onclick="switchTab('blogs')">Blogs</button>
+    <button class="tab-btn" onclick="switchTab('shop')">Shop</button>
   </div>
 
-  <!-- BLOG CAROUSEL -->
+  <!-- BLOGS -->
   <div id="blogs" class="carousel-wrapper">
     <div id="carouselBlogs" class="carousel"></div>
   </div>
 
-  <!-- SHOP CAROUSEL -->
-  <div id="shop" class="carousel-wrapper" style="display:none;">
+  <!-- SHOP -->
+  <div id="shop" style="display:none;" class="carousel-wrapper">
     <div id="carouselShop" class="carousel"></div>
   </div>
 
 </div>
 
 <!-- POPUP -->
-<div id="popup" class="popup">
-  <img id="popupImg">
-</div>
+<div id="popup"><img id="popupImg"></div>
 
 <script>
-/* -------------------- 3D CAROUSEL FUNCTION -------------------- */
-function createCarousel(wrapperId, items) {
+/* ---------- CREATE 3D CAROUSEL ---------- */
+function createCarousel(wrapperId, images) {
   const container = document.getElementById(wrapperId);
-  container.innerHTML = ""; // clear previous
+  container.innerHTML = "";
 
-  const angleStep = 360 / items.length;
-  let radius = 320;
-  let currAngle = 0;
+  const total = images.length;
+  const angleStep = 360 / total;
+  const radius = window.innerWidth < 480 ? 150 : 240;
 
-  items.forEach((src, i) => {
+  let curr = 0;
+
+  images.forEach((url, i) => {
     const img = document.createElement("img");
-    img.src = src;
+    img.src = url;
     img.className = "carousel-item";
-
-    const angle = angleStep * i;
-    img.style.transform = `
-      rotateY(${angle}deg)
-      translateZ(${radius}px)
-    `;
-
+    img.dataset.angle = angleStep * i;
     container.appendChild(img);
   });
 
-  const imgs = container.querySelectorAll(".carousel-item");
+  const items = container.querySelectorAll(".carousel-item");
 
-  /* dragging */
-  let drag = false;
-  let startX = 0;
+  function render() {
+    items.forEach(item => {
+      const a = (parseFloat(item.dataset.angle) + curr) % 360;
+      const rad = a * (Math.PI/180);
 
-  const start = x => { drag = true; startX = x; container.style.transition = "none"; };
-  const move = x => {
+      const x = Math.sin(rad) * radius;
+      const z = Math.cos(rad) * radius;
+
+      item.style.transform = `
+        translateX(${x}px)
+        translateZ(${z}px)
+        rotateY(${a}deg)
+      `;
+
+      item.style.zIndex = Math.round(z);
+
+      item.style.filter = z < 0 ? "blur(4px) brightness(.6)" : "blur(0) brightness(1.1)";
+    });
+  }
+
+  render();
+
+  /* DRAG */
+  let drag = false, startX = 0;
+
+  const start = x => { drag = true; startX = x; };
+  const move  = x => {
     if (!drag) return;
-    const dx = x - startX;
-    currAngle += dx * 0.3;
-    container.style.transform = `rotateY(${currAngle}deg)`;
+    curr += (x - startX) * 0.25;
     startX = x;
+    render();
   };
-  const end = () => { drag = false; container.style.transition = "0.4s"; };
+  const end   = () => drag = false;
 
   container.addEventListener("mousedown", e => start(e.clientX));
   window.addEventListener("mousemove", e => move(e.clientX));
   window.addEventListener("mouseup", end);
 
   container.addEventListener("touchstart", e => start(e.touches[0].clientX));
-  container.addEventListener("touchmove", e => move(e.touches[0].clientX));
+  container.addEventListener("touchmove",  e => move(e.touches[0].clientX));
   container.addEventListener("touchend", end);
 
-  /* popup */
-  imgs.forEach(img => img.onclick = () => {
-    document.getElementById("popupImg").src = img.src;
-    document.getElementById("popup").style.display = "flex";
+  /* CLICK POPUP */
+  const popup = document.getElementById("popup");
+  const popupImg = document.getElementById("popupImg");
+
+  items.forEach(img => img.onclick = () => {
+    popupImg.src = img.src;
+    popup.style.display = "flex";
   });
+
 }
 
+/* close popup */
 document.getElementById("popup").onclick = () =>
   document.getElementById("popup").style.display = "none";
 
@@ -342,10 +366,10 @@ createCarousel("carouselShop", [
   "https://picsum.photos/400/400?shop5"
 ]);
 
-/* TAB SWITCH */
-function showTab(tab) {
+/* SWITCH TABS */
+function switchTab(tab) {
   document.getElementById("blogs").style.display = tab === "blogs" ? "block" : "none";
-  document.getElementById("shop").style.display = tab === "shop" ? "block" : "none";
+  document.getElementById("shop").style.display  = tab === "shop"  ? "block" : "none";
 
   document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
   event.target.classList.add("active");
@@ -354,3 +378,4 @@ function showTab(tab) {
 
 </body>
 </html>
+
