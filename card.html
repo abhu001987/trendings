@@ -1,379 +1,355 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Digital Creator Card — Neon</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Creator Digital Card</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* -------------------- GLOBAL -------------------- */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #9be7ff, #59c3ff);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
 
-  :root{
-    --bg1: #9be7ff;
-    --bg2: #59c3ff;
-    --card-radius: 16px;
-    --glass: rgba(255,255,255,0.04);
-  }
+/* -------------------- MAIN BOX -------------------- */
+.box {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
 
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:"Poppins",system-ui,Segoe UI,Roboto,Helvetica,Arial;
-    background: linear-gradient(135deg,var(--bg1),var(--bg2));
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:28px 16px;
-    color:#fff;
-  }
+/* header icons */
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
 
-  /* Main boxed layout */
-  .box {
-    width:100%;
-    max-width:460px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border-radius:18px;
-    border: 1px solid rgba(255,255,255,0.16);
-    padding:16px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.25);
-    backdrop-filter: blur(8px);
-  }
+/* -------------------- CARD -------------------- */
+.name-card {
+  position: relative;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 10px;
+}
 
-  /* header inside the box */
-  .box .header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    margin-bottom:12px;
-  }
-  .icon-btn {
-    width:44px;height:44px;border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    background: rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.06);
-    cursor:pointer;color:rgba(255,255,255,0.95);
-    transition: transform .18s ease, background .18s ease;
-  }
-  .icon-btn:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06) }
+.name-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.55);
+}
 
-  /* small card */
-  .name-card {
-    position:relative;
-    height:220px;
-    border-radius:var(--card-radius);
-    overflow:hidden;
-    margin-bottom:14px;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.35);
-    border:1px solid rgba(255,255,255,0.06);
-  }
-  .name-card .bg {
-    width:100%;height:100%;object-fit:cover;
-    display:block;filter:brightness(.55);
-  }
-  .card-overlay {
-    position:absolute;inset:0;padding:16px;display:flex;flex-direction:column;justify-content:space-between;z-index:2;
-  }
+/* content overlay */
+.card-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
 
-  .card-top {
-    display:flex;align-items:center;gap:12px;justify-content:space-between;
-  }
-  .left {
-    display:flex;gap:12px;align-items:center;
-  }
-  .avatar {
-    width:72px;height:72px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.12);
-  }
-  .avatar img { width:100%;height:100%;object-fit:cover;display:block; }
+/* social icons row */
+.social-row {
+  display: flex; gap: 12px; margin-top: 10px;
+}
 
-  .name-wrap { color:#fff; text-shadow:0 6px 18px rgba(0,0,0,0.6) }
-  .name-wrap .name { font-size:1.25rem;font-weight:700;letter-spacing:0.2px }
-  .name-wrap .sub { font-size:0.86rem;opacity:0.95;margin-top:6px }
+.social-item {
+  width: 70px; text-align: center; position: relative;
+}
 
-  .meta {
-    text-align:right;font-size:0.82rem;opacity:0.95;
-  }
+.social-btn {
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
 
-  /* social icon row inside card */
-  .social-row{
-    display:flex;gap:10px;align-items:center;
-  }
-  .social-item{
-    display:flex;flex-direction:column;align-items:center;
-    width:74px;padding:6px;border-radius:10px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(255,255,255,0.02));
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .social-item:hover { transform: translateY(-6px); }
+.social-btn img { width: 24px; height: 24px; }
 
-  .social-btn{
-    width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-    background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.06); cursor:pointer;
-    transition: transform .18s, filter .18s;
-  }
-  .social-btn img { width:24px;height:24px;display:block; }
+/* neon follower count */
+.count {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  position: relative;
+}
 
-  /* follower count style (glow behind + neon) */
-  .count {
-    margin-top:8px;
-    font-weight:700;
-    font-size:0.92rem;
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    justify-content:center;
-  }
-  .glow {
-    position:absolute; inset:auto; bottom:8px; height:28px; width:100%;
-    left:0; right:0; pointer-events:none; border-radius:8px; filter:blur(10px);
-    opacity:0.5; transform:scale(1);
-  }
+.glow {
+  position: absolute;
+  inset: 0;
+  transform: translateY(10px);
+  height: 20px;
+  filter: blur(10px);
+  opacity: .7;
+}
 
-  /* each platform neon color */
-  .yt .glow { background: rgba(255,20,20,0.18); box-shadow: 0 6px 28px rgba(255,8,8,0.35); }
-  .ig .glow { background: linear-gradient(90deg, rgba(255,60,140,0.18), rgba(255,160,80,0.12)); box-shadow: 0 8px 36px rgba(255,80,150,0.25); }
-  .tw .glow { background: rgba(0,230,255,0.12); box-shadow: 0 8px 36px rgba(0,200,255,0.2); }
-  .ds .glow { background: rgba(160,120,255,0.12); box-shadow: 0 8px 36px rgba(150,120,255,0.22); }
+/* individual neon colors */
+.yt .glow { background: red; }
+.ig .glow { background: magenta; }
+.tw .glow { background: cyan; }
+.ds .glow { background: purple; }
 
-  /* count inner text bevel */
-  .count-text {
-    position:relative; z-index:3; padding:6px 10px; border-radius:8px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-    box-shadow: inset 0 -2px 8px rgba(0,0,0,0.25);
-    color:#fff;
-    font-weight:700;
-    font-size:0.9rem;
-  }
+/* -------------------- TABS -------------------- */
+.tabs {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
 
-  /* hover intensify neon */
-  .social-item:hover .glow { opacity:0.9; filter: blur(18px); transform: scale(1.06); }
-  .social-item:hover .count-text { transform: translateY(-4px); }
+.tab-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  font-weight: 600;
+}
 
-  /* slider controls */
-  .controls{
-    display:flex;justify-content:space-between;align-items:center;margin-top:6px;margin-bottom:8px;
-  }
-  .segmented {
-    background: rgba(255,255,255,0.03);
-    padding:6px;border-radius:999px;display:flex;gap:6px;
-  }
-  .segmented button{
-    border:0;background:transparent;color:#fff;padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:700;
-    opacity:0.85;transition:all .18s;
-  }
-  .segmented button.active { background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); opacity:1 }
+.tab-btn.active { background: rgba(255,255,255,0.25); }
 
-  /* slider area */
-  .slider-frame{ width:100%; height:300px; overflow:hidden; border-radius:12px; margin-top:8px; border:1px solid rgba(255,255,255,0.04); }
-  .slider-track{ display:flex; transition: transform .38s cubic-bezier(.2,.9,.27,1); width:200%; }
-  .panel{ width:50%; padding:14px; overflow:auto; }
+/* -------------------- 3D CAROUSEL -------------------- */
+.carousel-wrapper {
+  width: 100%;
+  height: 360px;
+  perspective: 1500px;
+  position: relative;
+  margin-top: 14px;
+}
 
-  .item{
-    display:block;background: rgba(255,255,255,0.03);padding:12px;border-radius:10px;margin-bottom:12px;text-decoration:none;color:#fff;
-  }
-  .item img{ width:100%; height:120px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
+.carousel {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  position: relative;
+}
 
-  /* responsive */
-  @media (max-width:420px){
-    .social-item{ width:62px }
-    .name-card{ height:200px }
-  }
+.carousel-item {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px;
+  object-fit: cover;
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  filter: blur(3px) brightness(.8);
+  transition: 0.35s ease;
+}
 
+.carousel-item:hover {
+  transform: scale(1.15);
+  filter: blur(0) brightness(1.25);
+  box-shadow: 0 10px 40px rgba(255,255,255,0.4);
+}
+
+/* -------------------- POPUP -------------------- */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 20px;
+  animation: pop .35s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
+
 <body>
-  <div class="box" role="region" aria-label="Creator box">
 
-    <!-- header inside box -->
-    <div class="header" role="banner">
-      <button class="icon-btn" aria-label="Back" onclick="history.back()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
+<div class="box">
 
-      <button class="icon-btn" aria-label="Home" onclick="location.href='/'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9.5L12 4l9 5.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
-      </button>
-    </div>
-
-    <!-- separate small card -->
-    <div class="name-card" role="article" aria-label="Creator card">
-      <img class="bg" src="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=b7a16c2d61a7f7d2c0d334d9c8e6d6c3" alt="Card background">
-      <div class="card-overlay" role="region">
-        <div class="card-top">
-          <div class="left">
-            <div class="avatar"><img src="https://i.ibb.co/QD8c0yk/profile.png" alt="avatar"></div>
-            <div class="name-wrap">
-              <div class="name">Abhishek Kumar</div>
-              <div class="sub">Creator • Tech & Affiliate</div>
-            </div>
-          </div>
-          <div class="meta">
-            <div style="font-size:12px;opacity:.9">Verified</div>
-            <div style="font-size:12px;opacity:.8;margin-top:6px">ID • 00123</div>
-          </div>
-        </div>
-
-        <!-- social row with neon count boxes -->
-        <div style="display:flex;gap:10px;">
-          <!-- YouTube -->
-          <div class="social-item yt" title="YouTube">
-            <a class="social-btn" href="https://www.youtube.com/channel/UC123456789?sub_confirmation=1" target="_blank" aria-label="YouTube">
-              <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="yt">
-            </a>
-            <div style="position:relative;width:100%;display:flex;justify-content:center;align-items:center;">
-              <div class="glow" aria-hidden="true"></div>
-              <div class="count"><span class="count-text">12.4K</span></div>
-            </div>
-          </div>
-
-          <!-- Instagram -->
-          <div class="social-item ig" title="Instagram">
-            <a class="social-btn" href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram">
-              <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="ig">
-            </a>
-            <div style="position:relative;width:100%;display:flex;justify-content:center;align-items:center;">
-              <div class="glow" aria-hidden="true"></div>
-              <div class="count"><span class="count-text">8.2K</span></div>
-            </div>
-          </div>
-
-          <!-- Twitter/X -->
-          <div class="social-item tw" title="Twitter / X">
-            <a class="social-btn" href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">
-              <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="x">
-            </a>
-            <div style="position:relative;width:100%;display:flex;justify-content:center;align-items:center;">
-              <div class="glow" aria-hidden="true"></div>
-              <div class="count"><span class="count-text">3.5K</span></div>
-            </div>
-          </div>
-
-          <!-- Discord -->
-          <div class="social-item ds" title="Discord">
-            <a class="social-btn" href="https://discord.gg/invite" target="_blank" aria-label="Discord">
-              <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="discord">
-            </a>
-            <div style="position:relative;width:100%;display:flex;justify-content:center;align-items:center;">
-              <div class="glow" aria-hidden="true"></div>
-              <div class="count"><span class="count-text">1.1K</span></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- slider controls below the card (inside main box) -->
-    <div class="controls">
-      <div class="segmented" role="tablist" aria-label="Content tabs">
-        <button id="bBlogs" class="active" role="tab" aria-selected="true">Blogs</button>
-        <button id="bShop" role="tab" aria-selected="false">Shop</button>
-      </div>
-
-      <!-- optional share/qr icon -->
-      <button class="icon-btn" title="Share card" onclick="copyShare()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>
-      </button>
-    </div>
-
-    <!-- sliding content -->
-    <div class="slider-frame" aria-live="polite">
-      <div class="slider-track" id="track" style="transform:translateX(0%)">
-        <!-- Panel 1: Blogs -->
-        <section class="panel" id="panelBlogs" aria-labelledby="bBlogs">
-          <a class="item" href="https://example.com/blog1" target="_blank">
-            <img src="https://i.ibb.co/7NNHb9S/blog1.jpg" alt="blog1">
-            <strong>5 Ways to Boost Affiliate Sales</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Quick tips to increase commissions & CTR.</div>
-          </a>
-
-          <a class="item" href="https://example.com/blog2" target="_blank">
-            <img src="https://i.ibb.co/ryJtYxr/blog2.jpg" alt="blog2">
-            <strong>Top 10 Tools for Digital Marketers</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Free & paid tools that save time.</div>
-          </a>
-
-          <a class="item" href="https://example.com/blog3" target="_blank">
-            <img src="https://i.ibb.co/CMj7C7h/blog3.jpg" alt="blog3">
-            <strong>How to Grow Your YouTube Channel Fast</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Practical workflow & growth experiments.</div>
-          </a>
-        </section>
-
-        <!-- Panel 2: Shop -->
-        <section class="panel" id="panelShop" aria-labelledby="bShop">
-          <a class="item" href="https://example.com/shop1" target="_blank">
-            <img src="https://i.ibb.co/b1hpm9S/product1.jpg" alt="product1">
-            <strong>Smart LED Ring Light – ₹999</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Affordable lighting for creators.</div>
-          </a>
-
-          <a class="item" href="https://example.com/shop2" target="_blank">
-            <img src="https://i.ibb.co/YhT3sTZ/product2.jpg" alt="product2">
-            <strong>Wireless Mic Kit – ₹2,499</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Clear audio, easy setup.</div>
-          </a>
-
-          <a class="item" href="https://example.com/shop3" target="_blank">
-            <img src="https://i.ibb.co/F6gH6NC/product3.jpg" alt="product3">
-            <strong>Creator Tripod Stand – ₹799</strong>
-            <div style="opacity:.9;font-size:.88rem;margin-top:6px">Stable & compact.</div>
-          </a>
-        </section>
-      </div>
-    </div>
-
+  <!-- header -->
+  <div style="display:flex; justify-content:space-between;">
+    <div class="icon-btn" onclick="history.back()">←</div>
+    <div class="icon-btn">👤</div>
   </div>
 
+  <!-- CREATOR CARD -->
+  <div class="name-card">
+    <img src="https://i.ibb.co/QD8c0yk/profile.png">
+    <div class="card-overlay">
+
+      <div>
+        <h2 style="margin:0;">Abhishek Kumar</h2>
+        <p style="margin:0; opacity:.8;">Creator • Tech & Affiliate</p>
+      </div>
+
+      <div class="social-row">
+        
+        <div class="social-item yt">
+          <div class="social-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+          </div>
+          <div class="glow"></div>
+          <div class="count">12.4K</div>
+        </div>
+
+        <div class="social-item ig">
+          <div class="social-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+          </div>
+          <div class="glow"></div>
+          <div class="count">8.2K</div>
+        </div>
+
+        <div class="social-item tw">
+          <div class="social-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png">
+          </div>
+          <div class="glow"></div>
+          <div class="count">3.5K</div>
+        </div>
+
+        <div class="social-item ds">
+          <div class="social-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
+          </div>
+          <div class="glow"></div>
+          <div class="count">1.1K</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('blogs')">Blogs</button>
+    <button class="tab-btn" onclick="showTab('shop')">Shop</button>
+  </div>
+
+  <!-- BLOG CAROUSEL -->
+  <div id="blogs" class="carousel-wrapper">
+    <div id="carouselBlogs" class="carousel"></div>
+  </div>
+
+  <!-- SHOP CAROUSEL -->
+  <div id="shop" class="carousel-wrapper" style="display:none;">
+    <div id="carouselShop" class="carousel"></div>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+  <img id="popupImg">
+</div>
+
 <script>
-  // slider logic
-  const bBlogs = document.getElementById('bBlogs');
-  const bShop = document.getElementById('bShop');
-  const track = document.getElementById('track');
+/* -------------------- 3D CAROUSEL FUNCTION -------------------- */
+function createCarousel(wrapperId, items) {
+  const container = document.getElementById(wrapperId);
+  container.innerHTML = ""; // clear previous
 
-  function showPanel(which){
-    if(which === 'blogs'){
-      track.style.transform = 'translateX(0%)';
-      bBlogs.classList.add('active'); bBlogSelected();
-      bShop.classList.remove('active');
-      bBlogs.setAttribute('aria-selected','true');
-      bShop.setAttribute('aria-selected','false');
-    } else {
-      track.style.transform = 'translateX(-50%)';
-      bShop.classList.add('active');
-      bBlogs.classList.remove('active');
-      bBlogs.setAttribute('aria-selected','false');
-      bShop.setAttribute('aria-selected','true');
-    }
-  }
+  const angleStep = 360 / items.length;
+  let radius = 320;
+  let currAngle = 0;
 
-  bBlogs.addEventListener('click', ()=> showPanel('blogs'));
-  bShop.addEventListener('click', ()=> showPanel('shop'));
+  items.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "carousel-item";
 
-  // mobile swipe support
-  let startX=0, curX=0, dragging=false;
-  const frame = document.querySelector('.slider-frame');
-  frame.addEventListener('touchstart',(e)=>{ startX=e.touches[0].clientX; dragging=true; track.style.transition='none'; },{passive:true});
-  frame.addEventListener('touchmove',(e)=>{ if(!dragging) return; curX=e.touches[0].clientX; const dx=(curX-startX)/frame.offsetWidth*100; const base = bShop.classList.contains('active') ? -50 : 0; track.style.transform=`translateX(${base+dx}%)`; },{passive:true});
-  frame.addEventListener('touchend',(e)=>{ dragging=false; track.style.transition='transform .32s cubic-bezier(.2,.9,.27,1)'; if(!curX) { showPanel('blogs'); return; } const dx=curX-startX; if(dx<-40) showPanel('shop'); else if(dx>40) showPanel('blogs'); else showPanel(bShop.classList.contains('active') ? 'shop':'blogs'); startX=curX=0; });
+    const angle = angleStep * i;
+    img.style.transform = `
+      rotateY(${angle}deg)
+      translateZ(${radius}px)
+    `;
 
-  // default show blogs
-  showPanel('blogs');
+    container.appendChild(img);
+  });
 
-  // copy share (simple)
-  function copyShare(){
-    const url = location.href;
-    navigator.clipboard.writeText(url).then(()=> alert('Card URL copied to clipboard!'));
-  }
+  const imgs = container.querySelectorAll(".carousel-item");
 
-  // small helper (aesthetic)
-  function bBlogSelected(){
-    // nothing for now — reserved
-  }
+  /* dragging */
+  let drag = false;
+  let startX = 0;
+
+  const start = x => { drag = true; startX = x; container.style.transition = "none"; };
+  const move = x => {
+    if (!drag) return;
+    const dx = x - startX;
+    currAngle += dx * 0.3;
+    container.style.transform = `rotateY(${currAngle}deg)`;
+    startX = x;
+  };
+  const end = () => { drag = false; container.style.transition = "0.4s"; };
+
+  container.addEventListener("mousedown", e => start(e.clientX));
+  window.addEventListener("mousemove", e => move(e.clientX));
+  window.addEventListener("mouseup", end);
+
+  container.addEventListener("touchstart", e => start(e.touches[0].clientX));
+  container.addEventListener("touchmove", e => move(e.touches[0].clientX));
+  container.addEventListener("touchend", end);
+
+  /* popup */
+  imgs.forEach(img => img.onclick = () => {
+    document.getElementById("popupImg").src = img.src;
+    document.getElementById("popup").style.display = "flex";
+  });
+}
+
+document.getElementById("popup").onclick = () =>
+  document.getElementById("popup").style.display = "none";
+
+/* BLOG IMAGES */
+createCarousel("carouselBlogs", [
+  "https://picsum.photos/400/400?blog1",
+  "https://picsum.photos/400/400?blog2",
+  "https://picsum.photos/400/400?blog3",
+  "https://picsum.photos/400/400?blog4",
+  "https://picsum.photos/400/400?blog5"
+]);
+
+/* SHOP IMAGES */
+createCarousel("carouselShop", [
+  "https://picsum.photos/400/400?shop1",
+  "https://picsum.photos/400/400?shop2",
+  "https://picsum.photos/400/400?shop3",
+  "https://picsum.photos/400/400?shop4",
+  "https://picsum.photos/400/400?shop5"
+]);
+
+/* TAB SWITCH */
+function showTab(tab) {
+  document.getElementById("blogs").style.display = tab === "blogs" ? "block" : "none";
+  document.getElementById("shop").style.display = tab === "shop" ? "block" : "none";
+
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+}
 </script>
 
 </body>
