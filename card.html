@@ -4,439 +4,410 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Creator Card — Card Swiper (Blogs & Shop)</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Creator Card — Responsive Swiper</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* -------- ROOT VARIABLES (FULLY RESPONSIVE) -------- */
+:root {
+  --card-width: min(90vw, 320px);
+  --card-height: calc(var(--card-width) * 1.35);
+  --stack-gap-y: calc(var(--card-width) * 0.04);
+  --stack-gap-z: calc(var(--card-width) * 0.04);
+  --swap-duration: 300ms;
+  font-family: "Poppins", sans-serif;
+}
 
-  :root{
-    --card-width: 320px;
-    --card-height: 440px;
-    --stack-gap-y: 12px;
-    --stack-gap-z: 12px;
-    --swap-duration: 300ms;
-  }
+/* -------- GLOBAL -------- */
+body {
+  margin: 0;
+  padding: 30px 16px;
+  background: linear-gradient(135deg, #9be7ff, #59c3ff);
+  display: flex;
+  justify-content: center;
+  font-family: inherit;
+  color: #fff;
+}
 
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:"Poppins",system-ui,Segoe UI,Roboto,Helvetica,Arial;
-    background: linear-gradient(135deg,#9be7ff,#59c3ff);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    display:flex;
-    justify-content:center;
-    padding:28px 16px;
-    color:#fff;
-    min-height:100vh;
-  }
+/* BOX */
+.box {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+}
 
-  .container { width:100%; max-width:760px; }
+/* Header */
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex; align-items:center; justify-content:center;
+  cursor: pointer;
+}
 
-  /* box */
-  .box {
-    background: rgba(255,255,255,0.04);
-    border-radius:18px;
-    border:1px solid rgba(255,255,255,0.12);
-    padding:16px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-  }
+/* ---------- CREATOR CARD ---------- */
+.name-card {
+  position: relative;
+  height: 220px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 12px;
+}
 
-  .top-row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-  .icon-btn { width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer }
+.name-card img {
+  width: 100%; height:100%;
+  object-fit: cover;
+  filter: brightness(.6);
+}
 
-  /* small creator card */
-  .name-card { margin-top:12px; border-radius:14px; overflow:hidden; position:relative; height:220px; }
-  .name-card img { width:100%;height:100%;object-fit:cover; filter:brightness(.6) }
-  .card-overlay{ position:absolute; inset:0; padding:14px; display:flex; flex-direction:column; justify-content:space-between; }
-  .avatar { width:68px;height:68px;border-radius:12px; overflow:hidden; border:2px solid rgba(255,255,255,0.12) }
-  .avatar img{ width:100%;height:100%;object-fit:cover }
+.card-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+}
 
-  .social-row { display:flex; gap:10px }
-  .social-item { width:64px; text-align:center; position:relative }
-  .social-btn { width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center }
-  .count { margin-top:6px;font-weight:700 }
+/* Avatar */
+.avatar {
+  width: 68px; height: 68px;
+  border-radius: 12px; overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+.avatar img { width:100%; height:100%; object-fit: cover; }
 
-  .glow { position:absolute; inset:0; transform:translateY(10px); filter:blur(10px); opacity:.7; z-index:-1 }
-  .yt .glow{ background: rgba(255,12,12,0.2); box-shadow:0 8px 28px rgba(255,12,12,0.18) }
-  .ig .glow{ background: linear-gradient(90deg, rgba(255,60,140,0.18), rgba(255,160,80,0.12)); box-shadow:0 8px 28px rgba(255,80,150,0.12) }
-  .tw .glow{ background: rgba(0,220,255,0.14); box-shadow:0 8px 28px rgba(0,200,255,0.12) }
-  .ds .glow{ background: rgba(160,120,255,0.13); box-shadow:0 8px 28px rgba(150,120,255,0.14) }
+/* Social */
+.social-row { display: flex; gap: 12px; }
+.social-item { width: 60px; text-align: center; position: relative; }
+.social-btn {
+  width: 44px; height:44px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.12);
+  display:flex; align-items:center; justify-content:center;
+}
+.social-btn img { width:24px; }
 
-  /* tabs */
-  .tabs { display:flex; gap:12px; justify-content:center; margin-top:16px }
-  .tab-btn { padding:8px 18px; border-radius:999px; border:0; background:rgba(255,255,255,0.08); color:#fff; cursor:pointer; font-weight:700 }
-  .tab-btn.active { background:rgba(255,255,255,0.26) }
+.count { margin-top: 6px; font-weight:700; }
 
-  /* stack container */
-  .stack-area { width:100%; display:flex; justify-content:center; margin-top:14px; }
-  .stack {
-    width:var(--card-width);
-    height:var(--card-height);
-    position:relative;
-    perspective:900px;
-    -webkit-perspective:900px;
-    touch-action: none;
-  }
+/* Neon glow */
+.glow { position:absolute; inset:0; transform:translateY(12px); filter:blur(12px); opacity:.7; z-index:-1; }
+.yt .glow{ background:red; }
+.ig .glow{ background:magenta; }
+.tw .glow{ background:cyan; }
+.ds .glow{ background:purple; }
 
-  /* card style */
-  .card {
-    --i: 1;
-    position:absolute;
-    left:50%;
-    top:0;
-    transform-origin: center center;
-    width:var(--card-width);
-    height:var(--card-height);
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.45);
-    transform: translateX(-50%) translateY(calc(var(--i) * var(--stack-gap-y))) translateZ(calc(var(--i) * -1px * var(--stack-gap-z)));
-    transition: transform var(--swap-duration) cubic-bezier(.2,.9,.27,1), opacity var(--swap-duration);
-    background:#111;
-    cursor: grab;
-    user-select:none;
-    -webkit-user-drag: none;
-  }
-  .card img { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none }
+/* ---------- TABS ----------- */
+.tabs { margin-top:16px; display:flex; justify-content:center; gap:12px; }
+.tab-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: none; cursor: pointer;
+  color: #fff; font-weight: 600;
+}
+.tab-btn.active { background: rgba(255,255,255,0.3); }
 
-  /* top card active styles via CSS vars (swipe x & rotate) */
-  .card[data-swipe-x] { transform: translateX(calc(-50% + var(--swipe-x))) translateY(calc(var(--i) * var(--stack-gap-y))) translateZ(calc(var(--i) * -1px * var(--stack-gap-z))) rotate(var(--swipe-rotate)); }
+/* ---------- STACK SWIPER ----------- */
+.stack-area { display:flex; justify-content:center; margin-top:16px; }
 
-  /* while dragging show cursor grabbing */
-  .card.is-dragging { cursor:grabbing }
+.stack {
+  width: var(--card-width);
+  height: var(--card-height);
+  position: relative;
+  perspective: 1000px;
+  touch-action: none;
+  overflow: visible;
+}
 
-  /* small indicator when stack empty */
-  .empty {
-    display:none;
-    text-align:center;
-    padding:40px 12px;
-    color:rgba(255,255,255,0.8);
-  }
-  .empty.show { display:block }
+/* Individual cards */
+.card {
+  --i: 1;
+  position: absolute;
+  left: 50%; top: 0;
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  transform-origin: center center;
 
-  /* popup */
-  .popup {
-    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-    background: rgba(0,0,0,0.75); z-index:9999;
-  }
-  .popup img { max-width:92%; max-height:92%; border-radius:14px; box-shadow:0 12px 44px rgba(0,0,0,0.6) }
+  transform:
+    translateX(-50%)
+    translateY(calc(var(--i) * var(--stack-gap-y)))
+    translateZ(calc(var(--i) * -1 * var(--stack-gap-z)))
+    rotate(0deg);
 
-  /* responsive adjustments */
-  @media (max-width:420px) {
-    :root { --card-width: 290px; --card-height: 380px }
-    .card { border-radius:12px }
-  }
+  box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+  transition: transform var(--swap-duration), opacity var(--swap-duration);
+  cursor: grab;
+}
+
+.card img { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+
+/* while dragging */
+.card.is-dragging { cursor:grabbing; }
+
+/* swipe transform applied dynamically */
+.card[data-swipe-x] {
+  transform:
+    translateX(calc(-50% + var(--swipe-x)))
+    translateY(calc(var(--i) * var(--stack-gap-y)))
+    translateZ(calc(var(--i) * -1 * var(--stack-gap-z)))
+    rotate(var(--swipe-rotate));
+}
+
+/* popup */
+.popup {
+  position: fixed; inset: 0;
+  display: none; justify-content: center; align-items:center;
+  background: rgba(0,0,0,.75);
+  z-index:999;
+}
+.popup img {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
 
 </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="box">
-   <div class="top-row">
-        <div style="display:flex;gap:8px">
-          <div class="icon-btn" onclick="history.back()">←</div>
-        </div>
-        <div class="icon-btn" title="Profile">👤</div>
-      </div>
 
-      <!-- creator name card -->
-      <div class="name-card" role="region" aria-label="Creator card">
-        <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=b7a16c2d61a7f7d2c0d334d9c8e6d6c3" alt="background">
-        <div class="card-overlay">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div class="avatar"><img src="https://i.ibb.co/QD8c0yk/profile.png" alt="avatar"></div>
-            <div>
-              <div style="font-weight:700;font-size:1.1rem">Abhishek Kumar</div>
-              <div style="opacity:.9;font-size:0.9rem">Creator • Tech & Affiliate</div>
-            </div>
-          </div>
-          <div
-style="display:flex;align-items:center;gap:12px;justify-content:flex-start">
-            <div class="social-row">
-              <div class="social-item yt">
-                <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="yt"></div>
-                <div class="glow"></div>
-                <div class="count">12.4K</div>
-              </div>
-              <div class="social-item ig">
-                <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="ig"></div>
-                <div class="glow"></div>
-                <div class="count">8.2K</div>
-              </div>
-              <div class="social-item tw">
-                <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="tw"></div>
-                <div class="glow"></div>
-                <div class="count">3.5K</div>
-              </div>
-              <div class="social-item ds">
-                <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="ds"></div>
-                <div class="glow"></div>
-                <div class="count">1.1K</div>
-              </div>
-            </div>
-          </div>
+<div class="box">
+
+  <!-- HEADER -->
+  <div style="display:flex;justify-content:space-between;">
+    <div class="icon-btn" onclick="history.back()">←</div>
+    <div class="icon-btn">👤</div>
+  </div>
+
+  <!-- CREATOR CARD -->
+  <div class="name-card">
+    <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80" />
+    <div class="card-overlay">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="avatar"><img src="https://i.ibb.co/QD8c0yk/profile.png"></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">Abhishek Kumar</div>
+          <div style="opacity:.9;font-size:.9rem">Creator • Tech & Affiliate</div>
         </div>
       </div>
 
-      <!-- tabs -->
-      <div class="tabs" role="tablist" aria-label="Content tabs">
-        <button class="tab-btn active" data-target="blogs">Blogs</button>
-        <button class="tab-btn" data-target="shop">Shop</button>
+      <div class="social-row">
+        <div class="social-item yt">
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"></div>
+          <div class="glow"></div>
+          <div class="count">12.4K</div>
+        </div>
+        <div class="social-item ig">
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></div>
+          <div class="glow"></div>
+          <div class="count">8.2K</div>
+        </div>
+        <div class="social-item tw">
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"></div>
+          <div class="glow"></div>
+          <div class="count">3.5K</div>
+        </div>
+        <div class="social-item ds">
+          <div class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"></div>
+          <div class="glow"></div>
+          <div class="count">1.1K</div>
+        </div>
       </div>
-
-      <!-- stack areas -->
-      <div class="stack-area">
-
-        <!-- Blogs stack -->
-        <div id="blogs" class="stack" role="region" aria-label="Blogs stack"></div>
-
-        <!-- Shop stack (hidden by default) -->
-        <div id="shop" class="stack" role="region" aria-label="Shop stack" style="display:none"></div>
-
-      </div>
-
     </div>
   </div>
 
-  <!-- popup -->
-  <div id="popup" class="popup" role="dialog" aria-modal="true" onclick="closePopup()">
-    <img id="popupImg" alt="Preview">
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" data-target="blogs">Blogs</button>
+    <button class="tab-btn" data-target="shop">Shop</button>
   </div>
 
+  <!-- STACK AREAS -->
+  <div class="stack-area">
+    <div id="blogs" class="stack"></div>
+    <div id="shop" class="stack" style="display:none"></div>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup" onclick="closePopup()">
+  <img id="popupImg">
+</div>
+
 <script>
-/* ---------- Card Swiper (vanilla JS) ----------
+/* ---------- Responsive Card Sizing ---------- */
+function updateCardSizes(){
+  const w = Math.min(window.innerWidth * 0.9, 320);
+  document.documentElement.style.setProperty("--card-width", w+"px");
+  document.documentElement.style.setProperty("--card-height", (w*1.35)+"px");
+}
+updateCardSizes();
+window.addEventListener("resize", updateCardSizes);
 
- Behavior:
- - Cards are stacked with CSS transforms based on index (--i)
- - Top card is draggable horizontally (mouse/touch)
- - If released past threshold -> swipe away (animates out) and card moves to back
- - If released before threshold -> snaps back
- - After swap, stack re-renders with updated indices
-
- Usage:
-  createStack(containerId, arrayOfImageUrls)
-*/
-
+/* ---------- Stack Swiper Logic ---------- */
 function createStack(containerId, images) {
   const container = document.getElementById(containerId);
-  container.innerHTML = ''; // reset
+  container.innerHTML = '';
 
-  // create card elements
   const cards = images.map((src, i) => {
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.style.setProperty('--i', i + 1);
-    el.innerHTML = `<img src="${src}" draggable="false" alt="card ${i+1}">`;
-    container.appendChild(el);
-    return el;
+    const div = document.createElement("div");
+    div.className = "card";
+    div.style.setProperty("--i", i + 1);
+    div.innerHTML = `<img src="${src}" draggable="false">`;
+    container.appendChild(div);
+    return div;
   });
 
-  // helper to refresh transforms based on current DOM order
-  function refreshStack() {
-    const elems = [...container.querySelectorAll('.card')];
-    elems.forEach((el, idx) => {
-      el.style.transition = `transform var(--swap-duration) cubic-bezier(.2,.9,.27,1), opacity var(--swap-duration)`;
-      el.style.setProperty('--i', idx + 1);
-      // clear swipe vars
-      el.style.removeProperty('--swipe-x');
-      el.style.removeProperty('--swipe-rotate');
-      el.classList.remove('is-dragging');
-      // ensure visible
-      el.style.opacity = '1';
+  function refresh() {
+    [...container.children].forEach((card, idx) => {
+      card.style.setProperty("--i", idx + 1);
+      card.style.removeProperty("--swipe-x");
+      card.style.removeProperty("--swipe-rotate");
+      card.style.opacity = "1";
     });
   }
 
-  refreshStack();
+  refresh();
 
-  // pointer drag variables
-  let active = null;
-  let startX = 0;
-  let currentX = 0;
-  let dragging = false;
-  const threshold = Math.max(60, window.innerWidth * 0.12); // px
+  let active = null, dragging = false;
+  let startX = 0, currentX = 0;
+  const threshold = window.innerWidth * 0.15;
 
-  // set top card to be interactive
   function topCard() {
-    return container.querySelector('.card');
+    return container.querySelector(".card");
   }
 
-  // apply drag transforms to top card
   function applyDrag(dx) {
     const card = topCard();
     if (!card) return;
-    card.style.setProperty('--swipe-x', dx + 'px');
-    card.style.setProperty('--swipe-rotate', (dx * 0.12) + 'deg');
+    card.style.setProperty("--swipe-x", dx + "px");
+    card.style.setProperty("--swipe-rotate", dx * 0.12 + "deg");
     card.dataset.swipeX = dx;
-    card.setAttribute('data-swipe-x', dx);
-    card.classList.add('is-dragging');
   }
 
-  // remove swipe attributes (snap back)
   function snapBack() {
     const card = topCard();
     if (!card) return;
-    card.style.transition = `transform 220ms cubic-bezier(.2,.9,.27,1), opacity 220ms`;
-    card.style.removeProperty('--swipe-x');
-    card.style.removeProperty('--swipe-rotate');
-    setTimeout(()=> {
-      card.style.transition = '';
-      delete card.dataset.swipeX;
-      card.removeAttribute('data-swipe-x');
-      card.classList.remove('is-dragging');
-    }, 230);
+    card.style.transition = "transform 250ms, opacity 250ms";
+    card.style.removeProperty("--swipe-x");
+    card.style.removeProperty("--swipe-rotate");
+    setTimeout(() => { card.style.transition = ""; }, 260);
   }
 
-  // animate swipe away and move card to back of DOM
   function swipeAway(dir) {
     const card = topCard();
     if (!card) return;
-    const offX = dir * (Math.max(window.innerWidth, 800) * 1.2);
-    card.style.transition = `transform ${getSwapMs()}ms cubic-bezier(.18,.9,.27,1), opacity ${getSwapMs()}ms`;
-    // set final transform
-    card.style.setProperty('--swipe-x', offX + 'px');
-    card.style.setProperty('--swipe-rotate', (dir * 30) + 'deg');
-    card.style.opacity = '0';
-    // after animation, move card to back and refresh
+    const off = dir * window.innerWidth * 1.4;
+    card.style.transition = "transform var(--swap-duration), opacity var(--swap-duration)";
+    card.style.setProperty("--swipe-x", off+"px");
+    card.style.setProperty("--swipe-rotate", dir*30+"deg");
+    card.style.opacity = "0";
+
     setTimeout(() => {
-      card.style.transition = '';
-      card.style.opacity = '1';
-      // DOM reorder: move first to end
       container.appendChild(card);
-      refreshStack();
-    }, getSwapMs() + 30);
+      refresh();
+    }, 330);
   }
 
-  function getSwapMs() {
-    // read CSS var --swap-duration (ms) from root or fallback
-    const root = getComputedStyle(document.documentElement);
-    const v = root.getPropertyValue('--swap-duration') || '300ms';
-    if (v.trim().endsWith('ms')) return parseFloat(v);
-    if (v.trim().endsWith('s')) return parseFloat(v) * 1000;
-    return parseFloat(v) || 300;
-  }
-
-  // pointer handlers
-  function onPointerDown(e) {
+  /* pointer events */
+  function start(e) {
     if (dragging) return;
-    const card = topCard();
-    if (!card) return;
     dragging = true;
-    active = card;
-    startX = (e.touches ? e.touches[0].clientX : e.clientX);
-    currentX = startX;
-    // remove transition for immediate response
-    active.style.transition = 'none';
-    active.classList.add('is-dragging');
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    active = topCard();
+    if (!active) return;
+
+    active.classList.add("is-dragging");
+    active.style.transition = "none";
+    startX = currentX = clientX;
   }
 
-  function onPointerMove(e) {
+  function move(e) {
     if (!dragging || !active) return;
-    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
-    const dx = clientX - startX;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     currentX = clientX;
-    applyDrag(dx);
+    applyDrag(currentX - startX);
   }
 
-  function onPointerUp() {
+  function end() {
     if (!dragging || !active) return;
     const dx = currentX - startX;
     dragging = false;
-    active.classList.remove('is-dragging');
+    active.classList.remove("is-dragging");
 
-    // decay / threshold check
     if (Math.abs(dx) > threshold) {
-      const dir = dx > 0 ? 1 : -1;
-      swipeAway(dir);
+      swipeAway(dx > 0 ? 1 : -1);
     } else {
       snapBack();
     }
     active = null;
   }
 
-  // add pointer listeners to container
-  container.addEventListener('mousedown', onPointerDown);
-  window.addEventListener('mousemove', onPointerMove);
-  window.addEventListener('mouseup', onPointerUp);
+  container.addEventListener("mousedown", start);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", end);
 
-  container.addEventListener('touchstart', onPointerDown, {passive:true});
-  container.addEventListener('touchmove', onPointerMove, {passive:true});
-  container.addEventListener('touchend', onPointerUp);
+  container.addEventListener("touchstart", start, {passive:true});
+  container.addEventListener("touchmove", move, {passive:true});
+  container.addEventListener("touchend", end);
 
-  // click to open popup (on top card or any)
-  const popup = document.getElementById('popup');
-  const popupImg = document.getElementById('popupImg');
-  container.addEventListener('click', (ev) => {
-    // only open if click target is an img (and not a drag)
+  /* popup open */
+  const popup = document.getElementById("popup");
+  const popupImg = document.getElementById("popupImg");
+
+  container.addEventListener("click", (e) => {
     if (dragging) return;
-    const el = ev.target.closest('.card');
-    if (!el) return;
-    const img = el.querySelector('img');
-    if (!img) return;
-    popupImg.src = img.src;
-    popup.style.display = 'flex';
+    const card = e.target.closest(".card");
+    if (!card) return;
+    popupImg.src = card.querySelector("img").src;
+    popup.style.display = "flex";
   });
-
-  // keyboard support: left/right arrows trigger swipe
-  container.tabIndex = 0;
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') swipeAway(-1);
-    if (e.key === 'ArrowRight') swipeAway(1);
-  });
-
-  // responsive: recalc stack on resize (optional)
-  window.addEventListener('resize', () => {
-    refreshStack();
-  });
-
-  return {
-    refresh: refreshStack
-  };
 }
 
-/* ---------- Setup both stacks (Blogs & Shop) ---------- */
-const blogs = [
-  'https://picsum.photos/600/800?blog1',
-  'https://picsum.photos/600/800?blog2',
-  'https://picsum.photos/600/800?blog3',
-  'https://picsum.photos/600/800?blog4',
-  'https://picsum.photos/600/800?blog5'
-];
+/* close popup */
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+}
 
-const shop = [
-  'https://picsum.photos/600/800?product1',
-  'https://picsum.photos/600/800?product2',
-  'https://picsum.photos/600/800?product3',
-  'https://picsum.photos/600/800?product4',
-  'https://picsum.photos/600/800?product5'
-];
+/* ---------- BLOGS STACK ---------- */
+createStack("blogs", [
+  "https://picsum.photos/600/800?blog1",
+  "https://picsum.photos/600/800?blog2",
+  "https://picsum.photos/600/800?blog3",
+  "https://picsum.photos/600/800?blog4",
+  "https://picsum.photos/600/800?blog5"
+]);
 
-const blogsStack = createStack('blogs', blogs);
-const shopStack  = createStack('shop', shop);
+/* ---------- SHOP STACK ---------- */
+createStack("shop", [
+  "https://picsum.photos/600/800?shop1",
+  "https://picsum.photos/600/800?shop2",
+  "https://picsum.photos/600/800?shop3",
+  "https://picsum.photos/600/800?shop4",
+  "https://picsum.photos/600/800?shop5"
+]);
 
-/* ---------- Tabs logic ---------- */
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
+/* ---------- TABS LOGIC ---------- */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
     const target = btn.dataset.target;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    if (target === 'blogs') {
-      document.getElementById('blogs').style.display = '';
-      document.getElementById('shop').style.display = 'none';
-    } else {
-      document.getElementById('blogs').style.display = 'none';
-      document.getElementById('shop').style.display = '';
-    }
+
+    document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+
+    document.getElementById("blogs").style.display = target === "blogs" ? "" : "none";
+    document.getElementById("shop").style.display  = target === "shop"  ? "" : "none";
   });
 });
-
-/* ---------- Popup close ---------- */
-function closePopup(){
-  const popup = document.getElementById('popup');
-  popup.style.display = 'none';
-  document.getElementById('popupImg').src = '';
-}
 </script>
+
 </body>
 </html>
