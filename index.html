@@ -1,326 +1,1763 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Your Custom LinkTree</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalist Landing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        margin: 0;
-        background: #e9e1d5;
-        font-family: Arial, sans-serif;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-    .glass-icon {
-        background: rgba(255,255,255,0.25);
-        backdrop-filter: blur(10px);
-        padding: 10px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border: 1px solid rgba(255,255,255,0.3);
-    }
+html { scroll-behavior: smooth; }
+body { background:#C7D3FF; color:#111; }
 
-    .top-buttons {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        display: flex;
-        gap: 15px;
-    }
+/* ================= HERO ================= */
+.hero {
+  /* FIX 1: remove forced full viewport height */
+  min-height: auto;
 
-    .header {
-        text-align: center;
-        padding-top: 100px;
-    }
+  /* FIX 2: reduce vertical padding only */
+  padding: 16px 32px;
 
-    .header img {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
+  display: flex;
+  flex-direction: column;
+}
 
-    .social-row {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 15px;
-    }
+header {
+  max-width: 1200px;
+  margin: 0 auto; /* FIX 3: prevent vertical auto spacing */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .tabs {
-        display: flex;
-        justify-content: center;
-        margin-top: 25px;
-        gap: 10px;
-    }
+.logo {
+  font-weight: 800;
+  letter-spacing: 2px;
+}
 
-    .tab {
-        padding: 10px 20px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.5);
-        cursor: pointer;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
+/* DESKTOP NAV */
+nav {
+  display: flex;
+  gap: 32px;
+}
 
-    .tab.active {
-        background: black;
-        color: white;
-    }
+nav a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,.6);
+}
 
-    /* SECTION CONTENT */
-    .section {
-        display: none;
-        padding: 20px;
-    }
+nav a:hover { color:#000; }
 
-    .section.active {
-        display: block;
-    }
+/* MOBILE MENU BUTTON */
+.menu-btn {
+  display: none;
+  width: 32px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
 
-    /* BLOG SLIDER */
-    .slider-container {
-        position: relative;
-        height: 420px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 25px;
-    }
+.menu-btn span {
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
+}
 
-    .card {
-        width: 300px;
-        height: 380px;
-        position: absolute;
-        top: 0;
-        border-radius: 15px;
-        background: rgba(255,255,255,0.35);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(0,0,0,0.2);
-        padding: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        cursor: grab;
-        transition: 0.3s;
-    }
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100vh;
+  background: #fff;
+  padding: 80px 30px;
+  transition: right .3s ease;
+  z-index: 999;
+  box-shadow: -20px 0 40px rgba(0,0,0,.1);
+}
 
-    .card img {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        margin: 0 auto;
-        display: block;
-        border: 2px solid white;
-    }
+.mobile-menu.active {
+  right: 0;
+}
 
-    /* SHOP GRID */
-    .shop-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
+.mobile-menu a {
+  display: block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: #111;
+}
 
-    .shop-item {
-        background: rgba(255,255,255,0.4);
-        backdrop-filter: blur(12px);
-        padding: 10px;
-        border-radius: 12px;
-    }
+/* CLOSE BUTTON */
+.menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111;
+}
 
-    .shop-item img {
-        width: 100%;
-        border-radius: 10px;
-    }
+/* ===== MAIN GRID ===== */
+.main {
+  max-width: 1200px;
 
-    /* QUIZ */
-    .question-box {
-        margin-top: 20px;
-        padding: 20px;
-        background: rgba(255,255,255,0.5);
-        border-radius: 12px;
-    }
+  /* FIX 4: remove vertical auto-centering */
+  margin: 0 auto;
 
-    .option {
-        background: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        margin-top: 10px;
-        cursor: pointer;
-        border: 1px solid #ccc;
-    }
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  column-gap: 120px;
+}
 
-    .option.correct {
-        background: #a4f3a4;
-        border-color: green;
-    }
+/* LEFT */
+.left p {
+  max-width: 260px;
+  font-size: 14px;
+  opacity: .85;
+}
 
-    .option.wrong {
-        background: #ffb8b8;
-        border-color: red;
-    }
+.cta {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 40px;
+  border: 1px solid rgba(0,0,0,.4);
+  background: transparent;
+  color: #000;
+  text-decoration: none;
+  transition: .3s;
+}
 
-    .explanation {
-        margin-top: 15px;
-        padding: 10px;
-        background: rgba(255,255,255,0.7);
-        border-radius: 10px;
-        display: none;
-    }
+.cta:hover { background: rgba(0,0,0,.05); }
+
+/* CENTER */
+.center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: rgba(234,179,8,.9);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hero-img {
+  width: 220px;
+  z-index: 2;
+  transform: scale(1.2);
+  transition: opacity .5s ease;
+}
+
+/* RIGHT */
+.right {
+  margin-left: 40px;
+  z-index: 3;
+}
+
+.right h1 {
+  font-size: clamp(64px, 9vw, 110px);
+  font-weight: 900;
+  line-height: .9;
+}
+/* ================= FEATURES ================= */
+.features {
+  /* FIX 1: remove forced tall height */
+  min-height: auto;
+
+  /* FIX 2: reduce vertical padding */
+  padding: 30px 0px;
+}
+
+.features-header {
+  text-align: center;
+
+  /* FIX 3: reduce header gap */
+  margin-bottom: 35px;
+}
+
+.features-header span {
+  color: #0ea5e9;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.features-header h2 {
+  font-size: 42px;
+  margin-top: 8px; /* slightly reduced */
+}
+
+.features-grid {
+  max-width: 1200px;
+  margin: 0 auto; /* FIX 4: prevent vertical auto spacing */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px; /* slightly reduced */
+  align-items: center;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  cursor: pointer;
+  padding: 18px;
+  border-radius: 14px;
+  transition: .3s;
+}
+
+.feature:hover {
+  background: #f8f8f8;
+}
+
+.feature.active {
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,.08);
+}
+
+.feature p {
+  font-size: 14px;
+  opacity: .7;
+}
+
+.feature-image img {
+  width: 100%;
+  max-width: 520px;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+
+/* ================= FOOTER ================= */
+.site-footer {
+  padding: 30px 20px; /* FIX 5: tighter footer spacing */
+  text-align: center;
+  font-size: 14px;
+  opacity: .7;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  nav { display: none; }
+  .menu-btn { display: flex; }
+
+  .main {
+    grid-template-columns: 1fr;
+    gap: 40px; /* FIX 6: reduce mobile gap */
+    text-align: center;
+  }
+
+  .right { margin-left: 0; }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 30px; /* FIX 7: tighter mobile spacing */
+  }
+
+  .feature-image img {
+    max-height: 220px;
+  }
+
+  .features {
+    padding: 25px 0; /* FIX 8: tighter mobile top & bottom */
+  }
+}
+/* ================= SHOWCASE SECTION ================= */
+.showcase-section {
+  background: #f1f7ff;
+  padding: 20px 0;
+}
+
+/* INNER BOX */
+.showcase-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 24px 0;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.showcase-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.showcase-header h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.divider {
+  width: 80px;
+  height: 2px;
+  background: #cbd5e1;
+  margin: 12px auto 0;
+}
+
+/* CAROUSEL */
+.showcase-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.showcase-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* SHOWCASE CARD */
+.showcase-card {
+  min-width: 260px;
+  height: 340px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  scroll-snap-align: center;
+  transform: scale(0.94);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* SCALE + BLUE GLOW ON HOVER */
+.showcase-card:hover {
+  transform: scale(1);
+  box-shadow:
+    0 0 0 0 rgba(14,165,233,0),
+    0 0 40px 10px rgba(14,165,233,0.35),
+    0 0 80px 20px rgba(14,165,233,0.25);
+}
+
+/* ACTION BUTTONS */
+.card-actions {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* GLASS BUTTON */
+.glass-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ================= IFRAME MODAL ================= */
+.iframe-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.iframe-modal.active {
+  display: flex;
+}
+
+.iframe-box {
+  width: 90%;
+  height: 85%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.iframe-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* CLOSE BUTTON */
+.iframe-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .showcase-box {
+    border-radius: 0;
+    padding: 20px 0;
+  }
+
+  .showcase-card {
+    min-width: 220px;
+    height: 280px;
+  }
+
+  .iframe-box {
+    height: 80%;
+  }
+}
+/* ================= VIDEO GUIDE SECTION ================= */
+.video-guide-section {
+  padding: 60px 20px;
+}
+
+/* MAIN BOX */
+.video-main-box {
+  max-width: 1100px;
+  margin: auto;
+  padding: 28px;
+  border-radius: 24px;
+  background: #32E9EC;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  align-items: center;
+}
+
+/* TEXT */
+.video-text h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.video-text p {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* VIDEO THUMB */
+.video-thumb {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.video-thumb.small {
+  min-width: 240px;
+  height: 150px;
+}
+
+/* PLAY BUTTON */
+.play-btn {
+  width: 54px;
+  height: 54px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* SLIDER */
+.video-slider {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.video-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .video-main-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .video-thumb {
+    height: 220px;
+  }
+}
+/* ================= FAQ SECTION ================= */
+.faq-section {
+  padding: 80px 20px;
+  background: #f9fafb;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* FAQ ITEM */
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* QUESTION */
+.faq-question {
+  width: 100%;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question span {
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+/* ANSWER */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  opacity: 0.75;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0;
+}
+
+/* ACTIVE */
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 0 0 18px 0;
+}
+
+.faq-item.active .faq-question span {
+  transform: rotate(45deg); /* + → x */
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .faq-title {
+    font-size: 26px;
+  }
+}
+/* ================= TESTIMONIALS ================= */
+.testimonials-section {
+  padding: 90px 20px;
+  background: #C7D3FF;
+}
+
+.testimonials-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+
+/* LAYOUT */
+.testimonials-wrapper {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* IMAGE STACK */
+.testimonial-images {
+  position: relative;
+  height: 360px;
+}
+
+.testimonial-images img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 26px;
+  opacity: 0;
+  transform: scale(0.9) translateY(40px) rotate(-4deg);
+  transition: all 0.6s ease;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+.testimonial-images img.active {
+  opacity: 1;
+  transform: scale(1) translateY(0) rotate(0);
+  z-index: 5;
+}
+
+/* TEXT */
+.testimonial-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.designation {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 24px;
+}
+
+.quote {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* CONTROLS */
+.testimonial-controls {
+  margin-top: 40px;
+  display: flex;
+  gap: 14px;
+}
+
+.testimonial-controls button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.testimonial-controls button:hover {
+  background: #d1d5db;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .testimonials-wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .testimonial-images {
+    height: 300px;
+  }
+}
+/* ================= EXPLORE THEMES SLIDER ================= */
+.themes-slider-section {
+  background: #eef6ff;
+  padding: 40px 0;
+}
+
+.themes-slider-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* SLIDER */
+.themes-slider {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.themes-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* SLIDE */
+.theme-slide {
+  min-width: 280px;
+  height: 340px;
+  border-radius: 22px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  scroll-snap-align: start;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* HOVER SCALE + BLUE GLOW */
+.theme-slide:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:
+    0 0 0 0 rgba(14,165,233,0),
+    0 0 40px 12px rgba(14,165,233,0.35),
+    0 0 90px 24px rgba(14,165,233,0.22);
+}
+
+/* GLASS BUTTON */
+.use-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* BUTTON HOVER */
+.theme-slide:hover .use-btn {
+  background: rgba(255,255,255,0.45);
+  transform: scale(1.05);
+}
+
+/* DESKTOP */
+@media (min-width: 900px) {
+  .theme-slide {
+    min-width: 360px;
+    height: 380px;
+  }
+}
+/* ================= BLOG SECTION ================= */
+.blog-section {
+  padding: 32px 0;              /* 🔧 reduced from 80px */
+  background: #f8fafc;
+  text-align: center;
+  overflow: hidden;
+}
+
+.blog-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.blog-sub {
+  margin-top: 6px;              /* 🔧 tighter */
+  color: #64748b;
+}
+
+/* STACK AREA */
+.blog-wrapper {
+  position: relative;
+  height: 460px;                /* 🔧 reduced from 600px */
+  margin-top: 28px;             /* 🔧 reduced from 60px */
+}
+
+/* BLOG CARD */
+.blog-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 420px;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,.12);
+  transition: transform .5s ease, opacity .5s ease;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.blog-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.blog-content {
+  padding: 18px;
+  text-align: left;
+}
+
+.blog-content h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.blog-content p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* READ MORE */
+.blog-read {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(255,255,255,.85);
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: #000;
+  backdrop-filter: blur(10px);
+}
+
+/* CONTROLS */
+.blog-controls {
+  position: absolute;
+  bottom: -10px;                /* 🔧 pulls controls up */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+}
+
+.blog-controls button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .blog-wrapper {
+    height: 400px;              /* 🔧 tighter mobile */
+  }
+
+  .blog-card {
+    width: 280px;
+    height: 380px;
+  }
+}
+/* ================= ADVERTISE SECTION ================= */
+.advertise-section {
+  padding: 60px 0;
+  background: #f8fafc;
+}
+
+.advertise-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* LEFT CONTENT */
+.advertise-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.advertise-content p {
+  margin-top: 14px;
+  color: #475569;
+  max-width: 420px;
+}
+
+.sub-line {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+/* BUTTON */
+.reach-btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 1px solid #0ea5e9;
+  color: #0ea5e9;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.reach-btn:hover {
+  background: #0ea5e9;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(14,165,233,0.35);
+}
+
+/* GALLERY */
+.advertise-gallery {
+  display: flex;
+  gap: 10px;
+  height: 340px;
+}
+
+.gallery-item {
+  flex: 1;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: flex 0.5s ease, filter 0.3s ease;
+  filter: brightness(0.8);
+}
+
+/* HOVER EXPAND EFFECT */
+.gallery-item:hover {
+  flex: 2;
+  filter: brightness(1);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .advertise-container {
+    grid-template-columns: 1fr;
+  }
+
+  .advertise-gallery {
+    height: 260px;
+  }
+}
+/* ================= CONTACT SECTION ================= */
+.contact-section {
+  padding: 60px 0;
+  background: #C7D3FF;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* image wider */
+  gap: 40px;
+  align-items: center;
+}
+
+/* IMAGE */
+.contact-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* RIGHT CONTENT */
+.contact-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.contact-content p {
+  margin-top: 14px;
+  color: #475569;
+  max-width: 420px;
+}
+
+.contact-sub {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+/* BUTTON */
+.contact-btn {
+  display: inline-block;
+  margin-top: 26px;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: 1px solid #0ea5e9;
+  color: #0ea5e9;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  background: #0ea5e9;
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(14,165,233,0.35);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .contact-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-image img {
+    height: 260px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- TOP BUTTONS -->
-<div class="top-buttons">
-    <div class="glass-icon">🏠</div>
-    <div class="glass-icon">⬅️</div>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" id="menuClose">✕</button>
+  <a href="https://en.wikipedia.org/wiki/Main_Page">HOME</a>
+  <a href="https://en.wikipedia.org/wiki/Product">TEMPLATES</a>
+  <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
+  <a href="https://en.wikipedia.org/wiki/About_Us">ABOUT</a>
 </div>
 
-<!-- HEADER -->
-<div class="header">
-    <img src="https://i.pravatar.cc/200" />
-    <h2>User Name</h2>
-    <p>Fitness Coach • Creator</p>
+<!-- ================= HERO ================= -->
+<section class="hero">
+<header>
+  <div class="logo">TreeDell</div>
 
-    <div class="social-row">
-        <div class="glass-icon">📷</div>
-        <div class="glass-icon">▶️</div>
-        <div class="glass-icon">✉️</div>
+  <nav>
+    <a href="https://en.wikipedia.org/wiki/Main_Page">HOME</a>
+    <a href="https://en.wikipedia.org/wiki/Product">TEMPLATES</a>
+    <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
+    <a href="https://en.wikipedia.org/wiki/About_Us">ABOUT</a>
+  </nav>
+
+  <!-- MOBILE MENU BUTTON -->
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<div class="main">
+  <div class="left">
+    <p>                              </p>
+    <a href="#features" class="cta">Let’s Get Started</a>
+  </div>
+
+  <div class="center">
+    <div class="circle"></div>
+    <img id="heroImage" class="hero-img">
+  </div>
+
+  <div class="right">
+    <h1>PURE<br>FORM</h1>
+  </div>
+</div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section id="features" class="features">
+  <div class="features-header">
+    <span>AI Mentors. Real Results.</span>
+    <h2>AI That Actually Teaches</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-list" id="featureList"></div>
+    <div class="feature-image">
+      <img id="featureImage">
     </div>
-</div>
+  </div>
+</section>
 
-<!-- TABS -->
-<div class="tabs">
-    <div class="tab active" onclick="showSection('blogs')">Blogs</div>
-    <div class="tab" onclick="showSection('shop')">Shop</div>
-    <div class="tab" onclick="showSection('quiz')">Quiz</div>
-</div>
+<section class="showcase-section">
 
-<!-- BLOG SECTION -->
-<div id="blogs" class="section active">
-    <div class="slider-container">
-        <div class="card" id="card1" style="z-index:3;">  
-            <img src="https://i.pravatar.cc/150?img=10" />
-            <h3 style="text-align:center;">Blog #1</h3>
-            <p>Lorem ipsum sample blog description.</p>
-        </div>
+  <!-- SECTION HEADING -->
+  <div class="showcase-header">
+    <h2>Start creating your page</h2>
+    <div class="divider"></div>
+  </div>
 
-        <div class="card" id="card2" style="z-index:2; top:20px;">  
-            <img src="https://i.pravatar.cc/150?img=11" />
-            <h3 style="text-align:center;">Blog #2</h3>
-            <p>Another content section.</p>
-        </div>
+  <!-- CAROUSEL -->
+  <div class="showcase-track">
 
-        <div class="card" id="card3" style="z-index:1; top:40px;">  
-            <img src="https://i.pravatar.cc/150?img=12" />
-            <h3 style="text-align:center;">Blog #3</h3>
-            <p>Stacked sliding card style.</p>
-        </div>
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/Artificial_intelligence">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/Machine_learning"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
     </div>
-</div>
 
-<!-- SHOP SECTION -->
-<div id="shop" class="section">
-    <div class="shop-grid">
-        <div class="shop-item"><img src="https://via.placeholder.com/200" />Item 1</div>
-        <div class="shop-item"><img src="https://via.placeholder.com/200" />Item 2</div>
-        <div class="shop-item"><img src="https://via.placeholder.com/200" />Item 3</div>
-        <div class="shop-item"><img src="https://via.placeholder.com/200" />Item 4</div>
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/Website">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/Web_application"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
     </div>
-</div>
 
-<!-- QUIZ SECTION -->
-<div id="quiz" class="section">
-    <div class="question-box">
-        <h3>Which language runs in a web browser?</h3>
-
-        <div class="option" onclick="selectOption(this, true)">JavaScript</div>
-        <div class="option" onclick="selectOption(this, false)">Python</div>
-        <div class="option" onclick="selectOption(this, false)">C++</div>
-        <div class="option" onclick="selectOption(this, false)">Java</div>
-
-        <div class="explanation" id="explainBox">
-            JavaScript is the language that runs inside browsers.
-        </div>
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/User_interface">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/User_experience_design"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
     </div>
+
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/User_interface">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/User_experience_design"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
+    </div>
+
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/User_interface">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/User_experience_design"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
+    </div>
+
+    <div class="showcase-card"
+      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn"
+          data-view="https://en.wikipedia.org/wiki/User_interface">
+          View
+        </button>
+        <a class="glass-btn use-btn"
+          href="https://en.wikipedia.org/wiki/User_experience_design"
+          target="_blank">
+          Use Me
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- IFRAME MODAL (HIDDEN BY DEFAULT) -->
+<div class="iframe-modal" id="iframeModal">
+  <div class="iframe-box">
+    <button class="iframe-close" id="iframeClose">✕</button>
+    <iframe id="iframeViewer"></iframe>
+  </div>
 </div>
+<section class="video-guide-section">
+
+  <!-- MAIN BOX -->
+  <div class="video-main-box">
+
+    <div class="video-text">
+      <h3>It only takes 10 minutes to start</h3>
+      <p>Open up an endless journey of opportunities</p>
+    </div>
+
+    <!-- MAIN VIDEO (CLICKABLE) -->
+    <a
+      href="https://youtu.be/hmtuvNfytjM"
+      target="_blank"
+      class="video-thumb"
+      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')"
+    >
+      <div class="play-btn">▶</div>
+    </a>
+
+  </div>
+
+  <!-- SLIDER VIDEOS -->
+  <div class="video-slider">
+
+    <a href="https://youtu.be/hmtuvNfytjM" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/9No-FiEInLA" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/9No-FiEInLA/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/Ke90Tje7VS0" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/Ke90Tje7VS0/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/1Rs2ND1ryYc" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/1Rs2ND1ryYc/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/ysEN5RaKOlA" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/ysEN5RaKOlA/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+  </div>
+</section>
+<section class="themes-slider-section">
+  <h2 class="themes-slider-title">Explore more themes</h2>
+
+  <div class="themes-slider">
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Color_theory" target="_blank" class="use-btn">Use me</a>
+    </div>
+  </div>
+</section>
+<section class="faq-section">
+  <div class="faq-container">
+
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Why do I need a link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        A link in bio tool lets you share all your important links, content, shops, and creations using just one URL across your social profiles.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Is Linktree the original link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Linktree popularized the concept, but today platforms like Treedell expand beyond links by letting you add blogs, quizzes, and interactive pages.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Can you get paid and sell things using a link in bio?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You can add affiliate links, product pages, shops, and payment links to start monetizing directly from your bio.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Is it safe to use a link in bio on all social platforms?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. A single bio link works safely across Instagram, Twitter, YouTube, TikTok, and more without violating platform rules.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        What makes Treedell better than other link in bio tools?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Treedell goes beyond links by letting you create blogs, quizzes, and storefronts — all from one dashboard.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How many links should I have on my bio page?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Focus on quality, not quantity. 5–10 well-organized links usually perform better than a long cluttered list.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Do I need a website to use a link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        No website needed. Your Treedell page itself works as a mini-website that you can customize anytime.
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="testimonials-section">
+  <h2 class="testimonials-title">What our users say</h2>
+
+  <div class="testimonials-wrapper">
+
+    <!-- IMAGE STACK -->
+    <div class="testimonial-images" id="testimonialImages">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800" />
+      <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800" />
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800" />
+      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800" />
+      <img src="https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=800" />
+    </div>
+
+    <!-- TEXT -->
+    <div class="testimonial-content">
+      <h3 id="userName"></h3>
+      <p class="designation" id="userRole"></p>
+      <p class="quote" id="userQuote"></p>
+
+      <div class="testimonial-controls">
+        <button id="prevBtn">←</button>
+        <button id="nextBtn">→</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="blog-section">
+  <h2 class="blog-title">Latest from our blog</h2>
+  <p class="blog-sub">Insights, guides, and ideas to grow your presence</p>
+
+  <div class="blog-wrapper">
+    <div id="blog-stack"></div>
+
+    <div class="blog-controls">
+      <button onclick="moveBlog(-1)">‹</button>
+      <button onclick="moveBlog(1)">›</button>
+    </div>
+  </div>
+</section>
+<section class="advertise-section">
+  <div class="advertise-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="advertise-content">
+      <h2>Advertise with us</h2>
+      <p>
+        Reach a highly engaged audience and showcase your brand where creators,
+        entrepreneurs, and innovators connect.
+      </p>
+      <p class="sub-line">
+        Promote your product. Build visibility. Grow faster.
+      </p>
+
+      <a href="mailto:hello@yourdomain.com" class="reach-btn">
+        Reach to us
+      </a>
+    </div>
+
+    <!-- RIGHT GALLERY -->
+    <div class="advertise-gallery">
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1709884735646-897b57461d61?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1502085671122-2d218cd434e6?q=80&w=1200')"></div>
+    </div>
+
+  </div>
+</section>
+<section class="contact-section">
+  <div class="contact-container">
+
+    <!-- LEFT IMAGE -->
+    <div class="contact-image">
+      <img
+        src="https://images.unsplash.com/photo-1466096115517-bceecbfb6fde?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
+        alt="Contact us"
+      />
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="contact-content">
+      <h2>Contact us</h2>
+      <p>
+        Reach out to us for any queries, partnerships, or support.
+        Our team is always happy to help you grow.
+      </p>
+      <p class="contact-sub">
+        We usually respond within 24 hours.
+      </p>
+
+      <a href="mailto:hello@yourdomain.com" class="contact-btn">
+        Contact us
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<div class="site-footer">© 2025 Your Brand</div>
 
 <script>
-/* SECTION SWITCHING */
-function showSection(id) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+/* MOBILE MENU */
+const menuBtn = document.getElementById("menuBtn");
+const menuClose = document.getElementById("menuClose");
+const mobileMenu = document.getElementById("mobileMenu");
 
-    event.target.classList.add('active');
-    document.getElementById(id).classList.add('active');
+menuBtn.onclick = () => mobileMenu.classList.add("active");
+menuClose.onclick = () => mobileMenu.classList.remove("active");
+
+/* HERO IMAGE ROTATION */
+const heroImages = [
+  "https://images.unsplash.com/photo-1611036831438-300a34247c9a?w=600",
+  "https://images.unsplash.com/photo-1646694505010-6ad7ab241fba?w=600",
+  "https://images.unsplash.com/photo-1757043045413-1a1bec073fd4?w=600"
+];
+
+const heroImg = document.getElementById("heroImage");
+let heroIndex = Math.floor(Math.random() * heroImages.length);
+
+function rotateHero() {
+  heroImg.style.opacity = 0;
+  setTimeout(() => {
+    heroImg.src = heroImages[heroIndex];
+    heroImg.style.opacity = 1;
+    heroIndex = (heroIndex + 1) % heroImages.length;
+  }, 300);
+}
+rotateHero();
+setInterval(rotateHero, 4000);
+
+/* FEATURES */
+const features = [
+  {
+    title: "Smart Learning",
+    description: "Adaptive AI mentors personalized to you.",
+    image: "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?w=800"
+  },
+  {
+    title: "Real Feedback",
+    description: "Instant insights that actually help.",
+    image: "https://images.unsplash.com/photo-1556761175-129418cb2dfe?w=800"
+  },
+  {
+    title: "Guided Growth",
+    description: "Step-by-step improvement with clarity.",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800"
+  }
+];
+
+let current = 0;
+const list = document.getElementById("featureList");
+const featureImage = document.getElementById("featureImage");
+
+function renderFeatures() {
+  list.innerHTML = "";
+  features.forEach((f, i) => {
+    const div = document.createElement("div");
+    div.className = "feature" + (i === current ? " active" : "");
+    div.innerHTML = `<h3>${f.title}</h3><p>${f.description}</p>`;
+    div.onclick = () => {
+      current = i;
+      updateImage();
+      renderFeatures();
+      mobileMenu.classList.remove("active");
+    };
+    list.appendChild(div);
+  });
 }
 
-/* QUIZ LOGIC */
-function selectOption(el, isCorrect) {
-    document.querySelectorAll(".option").forEach(o => {
-        o.classList.remove("correct", "wrong");
-    });
-
-    if (isCorrect) el.classList.add("correct");
-    else el.classList.add("wrong");
-
-    document.getElementById("explainBox").style.display = "block";
+function updateImage() {
+  featureImage.src = features[current].image;
 }
 
-/* SIMPLE SLIDER CARD DRAG */
-let cards = [card1, card2, card3];
+renderFeatures();
+updateImage();
+</script>
+<script>
+const modal = document.getElementById("iframeModal");
+const iframe = document.getElementById("iframeViewer");
+const closeBtn = document.getElementById("iframeClose");
 
-cards.forEach((card, i) => {
-    card.addEventListener("mousedown", startDrag);
-    card.addEventListener("touchstart", startDrag);
+document.querySelectorAll(".view-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    iframe.src = btn.dataset.view;
+    modal.classList.add("active");
+  });
 });
 
-function startDrag(e) {
-    let startX = e.clientX || e.touches[0].clientX;
-
-    const move = (ev) => {
-        let currentX = ev.clientX || ev.touches[0].clientX;
-        let diff = currentX - startX;
-        this.style.transform = `translateX(${diff}px)`;
-    };
-
-    const end = (ev) => {
-        let endX = ev.clientX || ev.changedTouches[0].clientX;
-        let diff = endX - startX;
-
-        this.style.transform = "translateX(0px)";
-
-        if (diff < -120) rotateCards();
-
-        document.removeEventListener("mousemove", move);
-        document.removeEventListener("mouseup", end);
-        document.removeEventListener("touchmove", move);
-        document.removeEventListener("touchend", end);
-    };
-
-    document.addEventListener("mousemove", move);
-    document.addEventListener("mouseup", end);
-    document.addEventListener("touchmove", move);
-    document.addEventListener("touchend", end);
-}
-
-function rotateCards() {
-    let last = cards.shift();
-    cards.push(last);
-
-    cards[0].style.zIndex = 3;
-    cards[1].style.zIndex = 2;
-    cards[2].style.zIndex = 1;
-
-    cards[0].style.top = "0px";
-    cards[1].style.top = "20px";
-    cards[2].style.top = "40px";
-}
+closeBtn.addEventListener("click", () => {
+  iframe.src = "";
+  modal.classList.remove("active");
+});
 </script>
+<script>
+const faqItems = document.querySelectorAll(".faq-item");
 
+faqItems.forEach(item => {
+  const button = item.querySelector(".faq-question");
+
+  button.addEventListener("click", () => {
+    const isOpen = item.classList.contains("active");
+
+    // Close all
+    faqItems.forEach(i => i.classList.remove("active"));
+
+    // Toggle current
+    if (!isOpen) {
+      item.classList.add("active");
+    }
+  });
+});
+</script>
+<script>
+const testimonials = [
+  {
+    name: "Priya Sharma",
+    role: "Content Creator",
+    quote: "Treedell made it incredibly easy to organize all my content in one place.",
+  },
+  {
+    name: "Marcus Johnson",
+    role: "Startup Founder",
+    quote: "Setting up my Treedell page took minutes and replaced my entire website.",
+  },
+  {
+    name: "Isabella Rossi",
+    role: "Digital Marketer",
+    quote: "I love how flexible Treedell is — blogs, links, and quizzes together.",
+  },
+  {
+    name: "Kenji Tanaka",
+    role: "Indie Developer",
+    quote: "The clean design and smooth experience really stand out.",
+  },
+  {
+    name: "Fatima Al-Jamil",
+    role: "Online Educator",
+    quote: "Treedell helped me turn my profile into a powerful learning hub.",
+  }
+];
+
+const images = document.querySelectorAll(".testimonial-images img");
+const nameEl = document.getElementById("userName");
+const roleEl = document.getElementById("userRole");
+const quoteEl = document.getElementById("userQuote");
+
+let index = 0;
+
+function showTestimonial(i) {
+  images.forEach(img => img.classList.remove("active"));
+  images[i].classList.add("active");
+
+  nameEl.textContent = testimonials[i].name;
+  roleEl.textContent = testimonials[i].role;
+  quoteEl.textContent = `"${testimonials[i].quote}"`;
+}
+
+document.getElementById("nextBtn").onclick = () => {
+  index = (index + 1) % testimonials.length;
+  showTestimonial(index);
+};
+
+document.getElementById("prevBtn").onclick = () => {
+  index = (index - 1 + testimonials.length) % testimonials.length;
+  showTestimonial(index);
+};
+
+/* AUTO PLAY */
+setInterval(() => {
+  index = (index + 1) % testimonials.length;
+  showTestimonial(index);
+}, 5000);
+
+showTestimonial(index);
+</script>
+<script>
+const blogs = [
+  {
+    title: "What is a Link in Bio?",
+    desc: "Understand how link-in-bio tools simplify online presence.",
+    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Linktree"
+  },
+  {
+    title: "Create Your Own Page",
+    desc: "Build a personal page in minutes with zero code.",
+    img: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Personal_web_page"
+  },
+  {
+    title: "Start Blogging Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Blogging Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "StarT Money Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Start Free Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Monetize Your Content",
+    desc: "Turn followers into income opportunities.",
+    img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Digital_marketing"
+  }
+];
+
+const stack = document.getElementById("blog-stack");
+
+function renderBlogs() {
+  stack.innerHTML = "";
+  const mid = Math.floor(blogs.length / 2);
+
+  blogs.forEach((blog, i) => {
+    const pos = i - mid;
+    const card = document.createElement("div");
+    card.className = "blog-card";
+
+    card.style.transform = `
+      translate(-50%, -50%)
+      translateX(${pos * 220}px)
+      translateY(${pos === 0 ? -40 : pos % 2 ? 20 : -20}px)
+      rotate(${pos === 0 ? 0 : pos % 2 ? 3 : -3}deg)
+    `;
+
+    card.style.zIndex = 10 - Math.abs(pos);
+    card.style.opacity = pos === 0 ? 1 : 0.7;
+
+    card.innerHTML = `
+      <img src="${blog.img}">
+      <div class="blog-content">
+        <h3>${blog.title}</h3>
+        <p>${blog.desc}</p>
+      </div>
+      <a href="${blog.link}" target="_blank" class="blog-read">Read more</a>
+    `;
+
+    card.onclick = () => moveBlog(pos);
+    stack.appendChild(card);
+  });
+}
+
+function moveBlog(step) {
+  if (step > 0) {
+    blogs.push(blogs.shift());
+  } else {
+    blogs.unshift(blogs.pop());
+  }
+  renderBlogs();
+}
+
+renderBlogs();
+</script>
 </body>
 </html>
