@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -369,19 +370,41 @@ nav a:hover { color:#000; }
   bottom: 14px;
   left: 14px;
   right: 14px;
-  display: flex;
-  justify-content: space-between;
 }
 
+/* LEFT BUTTON */
+.card-actions .glass-btn:first-child {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+/* RIGHT BUTTON */
+.card-actions .glass-btn:last-child {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
 /* GLASS BUTTON */
 .glass-btn {
-  padding: 8px 18px;
+  height: 34px;
+  padding: 0 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.22);
   backdrop-filter: blur(12px);
+
   color: #fff;
   font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+
   cursor: pointer;
   text-decoration: none;
 }
