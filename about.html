@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About</title>
+
+<style>
+:root {
+  --bg:#C7D3FF;
+  --text:#111;
+  --muted:#3a3a3a;
+  --blue:#2563eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* FLOAT */
+@keyframes float {
+  0% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-10px); }
+  100% { transform: translate(-50%, -50%) translateY(0); }
+}
+
+/* SECTION */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 48px 12px 24px;
+  text-align: center;
+}
+
+h1 {
+  font-size: clamp(26px, 6vw, 52px);
+}
+
+p {
+  margin-top: 12px;
+  color: var(--muted);
+  max-width: 760px;
+  margin-inline: auto;
+  font-size: clamp(15px, 3.8vw, 18px);
+}
+
+/* COLLAGE */
+.collage-wrapper {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.collage {
+  position: relative;
+  width: min(96vw, 1000px);
+  height: 520px;
+}
+
+.collage img {
+  position: absolute;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 18px 35px rgba(0,0,0,.25);
+}
+
+/* MAIN */
+.main {
+  width: 280px;
+  height: 420px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* SURROUNDING */
+.left1 { width: 220px; height: 300px; left: 22%; top: 52%; transform: translate(-50%, -50%); animation: float 7s infinite; }
+.left2 { width: 200px; height: 200px; left: 12%; top: 30%; transform: translate(-50%, -50%); animation: float 8s infinite; }
+
+.right1 { width: 220px; height: 300px; left: 78%; top: 52%; transform: translate(-50%, -50%); animation: float 7s infinite; }
+.right2 { width: 200px; height: 200px; left: 88%; top: 30%; transform: translate(-50%, -50%); animation: float 8s infinite; }
+
+.top { width: 200px; height: 200px; left: 50%; top: 8%; transform: translate(-50%, 0); animation: float 9s infinite; }
+.bottom { width: 260px; height: 180px; left: 50%; top: 88%; transform: translate(-50%, -100%); animation: float 9s infinite; }
+
+/* MOBILE SCALE */
+@media (max-width: 640px) {
+  .collage {
+    transform: scale(0.72);
+    transform-origin: center top;
+    height: 380px;
+  }
+}
+
+/* STATS */
+.stats {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat-number {
+  font-size: clamp(26px, 6vw, 40px);
+  font-weight: 700;
+  color: var(--blue);
+  text-shadow:
+    0 0 8px rgba(37,99,235,.5),
+    0 0 16px rgba(37,99,235,.35);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ABOUT TEXT BELOW STATS */
+.about-details {
+  margin-top: 32px;
+  padding: 0 12px;
+}
+
+.about-details h2 {
+  font-size: clamp(22px, 5vw, 36px);
+  margin-bottom: 12px;
+}
+
+/* IMAGE BELOW TEXT */
+.about-image {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-image img {
+  width: min(92vw, 720px);
+  height: auto;
+  border-radius: 22px;
+  box-shadow: 0 22px 45px rgba(0,0,0,.3);
+}
+/* ================= FOOTER ================= */
+.site-footer {
+  width: 100%;
+  background: linear-gradient(to bottom, #C7D3FF, #C7D3FF);
+  color: #111;
+}
+
+/* MAIN AREA */
+.footer-main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 22px 16px;   /* 🔥 reduced more */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* BRAND */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;   /* 🔥 tighter */
+}
+
+.footer-brand img {
+  height: 34px;         /* 🔥 smaller logo */
+}
+
+.brand-name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+/* TEXT */
+.footer-text {
+  max-width: 420px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 6px;   /* 🔥 tighter */
+}
+
+/* LINKS */
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+/* BOTTOM BAR */
+.footer-bottom {
+  border-top: 1px solid #111;
+  text-align: center;
+  padding: 8px 12px;    /* 🔥 reduced */
+  font-size: 11.5px;
+  opacity: 0.85;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .footer-main {
+    padding: 18px 14px;
+  }
+
+  .footer-brand img {
+    height: 30px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="section">
+  <h1>About Treedell</h1>
+  <p>Everything you create, beautifully connected in one place.</p>
+
+  <!-- COLLAGE -->
+  <div class="collage-wrapper">
+    <div class="collage">
+
+      <img class="main" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800">
+
+      <img class="left1" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800">
+      <img class="left2" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800">
+
+      <img class="right1" src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800">
+      <img class="right2" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800">
+
+      <img class="top" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800">
+      <img class="bottom" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800">
+
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div>
+      <div class="stat-number">3,000+</div>
+      <div class="stat-label">Users Trusted</div>
+    </div>
+    <div>
+      <div class="stat-number">10,000+</div>
+      <div class="stat-label">Templates Processed</div>
+    </div>
+  </div>
+
+  <!-- ABOUT TEXT -->
+  <div class="about-details">
+    <h2>Built for creators & brands</h2>
+    <p>
+      Treedell is a simple and powerful way to bring everything you do online into one place. In a digital world filled with scattered links and multiple platforms, Treedell helps creators, professionals, and brands stay organized and present their work through a single, shareable page.
+
+Built with clarity and ease in mind, Treedell allows you to showcase your links, content, blogs, and projects without unnecessary complexity. The focus is on clean design, smooth performance, and a layout that highlights what matters most — your work.
+
+Whether you are a creator growing an audience, a professional building your personal brand, or a business connecting with customers, Treedell adapts to your needs. It works seamlessly across devices and fits naturally into social bios, portfolios, resumes, and profiles.
+
+Treedell is designed to grow with you. As your journey evolves, your page can evolve too — helping you stay consistent, visible, and in control of your digital identity.
+
+With Treedell, one link becomes more than just a link. It becomes your online home.
+    </p>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="about-image">
+    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200">
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img
+        src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png"
+        alt="Treedell logo"
+      />
+      <span class="brand-name">Treedell</span>
+    </div>
+
+    <p class="footer-text">
+      Treedell helps creators and brands bring everything together
+      in one powerful link.
+    </p>
+
+    <div class="footer-links">
+      <a
+        href="https://myaffiliatepage.com/privacypolicy.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Privacy Policy
+      </a>
+      <span>•</span>
+      <a
+        href="https://myaffiliatepage.com/termandconditions.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Term and Condition
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 <strong>Treedell</strong>. All rights reserved.
+  </div>
+</footer>
+
+
+</body>
+</html>
