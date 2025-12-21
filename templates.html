@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Templates</title>
+
+<style>
+:root{
+  --bg:#C7D3FF;
+  --text:#111;
+  --muted:#444;
+  --glass:rgba(255,255,255,.45);
+  --border:rgba(255,255,255,.6);
+  --blue:#2563eb;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Inter,system-ui,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* PAGE */
+.page{
+  max-width:1200px;
+  margin:auto;
+  padding:48px 16px;
+  text-align:center;
+}
+
+h1{
+  font-size:clamp(28px,5vw,48px);
+}
+
+.subtitle{
+  margin-top:10px;
+  color:var(--muted);
+  max-width:720px;
+  margin-inline:auto;
+}
+
+/* AVATARS (AnimatedTooltip style) */
+.avatars{
+  margin:32px auto 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.avatar{
+  position:relative;
+  margin-left:-14px;
+}
+
+.avatar img{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  border:2px solid #fff;
+  object-fit:cover;
+  transition:transform .3s;
+}
+
+.avatar:hover img{
+  transform:scale(1.12);
+  z-index:3;
+}
+
+.tooltip{
+  position:absolute;
+  bottom:72px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  color:#fff;
+  padding:6px 10px;
+  font-size:12px;
+  border-radius:8px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.avatar:hover .tooltip{
+  opacity:1;
+}
+
+/* CATEGORIES */
+.categories{
+  margin:36px 0 18px;
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  justify-content:center;
+}
+.categories::-webkit-scrollbar{display:none;}
+
+.cat{
+  padding:10px 18px;
+  border-radius:999px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  font-size:14px;
+}
+.cat.active{
+  background:var(--blue);
+  color:#fff;
+}
+
+/* GRID */
+.grid{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
+/* CARD (FocusCards behavior) */
+.card{
+  position:relative;
+  height:320px;
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  transition:.35s;
+}
+
+.grid.hovering .card:not(.active){
+  filter:blur(4px);
+  transform:scale(.97);
+}
+
+.card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:16px;
+  color:#fff;
+}
+
+.card-title{
+  font-size:18px;
+  font-weight:600;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.btn{
+  flex:1;
+  padding:8px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.view{background:#fff;color:#111;}
+.use{background:var(--blue);color:#fff;}
+
+/* PREVIEW */
+.preview{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+
+.preview iframe{
+  width:90%;
+  height:85%;
+  border:none;
+  border-radius:16px;
+  background:#fff;
+}
+
+.preview button{
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:6px 12px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+.site-footer {
+  width: 100%;
+  background: linear-gradient(to bottom, #C7D3FF, #C7D3FF);
+  color: #111;
+}
+
+/* MAIN AREA */
+.footer-main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 22px 16px;   /* 🔥 reduced more */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* BRAND */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;   /* 🔥 tighter */
+}
+
+.footer-brand img {
+  height: 34px;         /* 🔥 smaller logo */
+}
+
+.brand-name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+/* TEXT */
+.footer-text {
+  max-width: 420px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 6px;   /* 🔥 tighter */
+}
+
+/* LINKS */
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+/* BOTTOM BAR */
+.footer-bottom {
+  border-top: 1px solid #111;
+  text-align: center;
+  padding: 8px 12px;    /* 🔥 reduced */
+  font-size: 11.5px;
+  opacity: 0.85;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .footer-main {
+    padding: 18px 14px;
+  }
+
+  .footer-brand img {
+    height: 30px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <h1>Templates</h1>
+  <p class="subtitle">
+    Choose a theme, preview it instantly, and use it to build your page.
+  </p>
+
+  <!-- AVATARS -->
+  <div class="avatars">
+    <div class="avatar">
+      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36">
+      <div class="tooltip">John · Engineer</div>
+    </div>
+    <div class="avatar">
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde">
+      <div class="tooltip">Robert · PM</div>
+    </div>
+    <div class="avatar">
+      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956">
+      <div class="tooltip">Jane · Data</div>
+    </div>
+    <div class="avatar">
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80">
+      <div class="tooltip">Emily · UX</div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories" id="categories"></div>
+
+  <!-- GRID -->
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- PREVIEW -->
+<div class="preview" id="preview">
+  <button onclick="closePreview()">Close</button>
+  <iframe id="frame"></iframe>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img
+        src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png"
+        alt="Treedell logo"
+      />
+      <span class="brand-name">Treedell</span>
+    </div>
+
+    <p class="footer-text">
+      Treedell helps creators and brands bring everything together
+      in one powerful link.
+    </p>
+
+    <div class="footer-links">
+      <a
+        href="https://myaffiliatepage.com/privacypolicy.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Privacy Policy
+      </a>
+      <span>•</span>
+      <a
+        href="https://myaffiliatepage.com/termandconditions.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Term and Condition
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 <strong>Treedell</strong>. All rights reserved.
+  </div>
+</footer>
+
+<script>
+/* ========= TEMPLATE DATA (EDIT ONLY THIS) ========= */
+const TEMPLATE_DATA = {
+  Trending: [
+    {
+      title: "Minimal Bio",
+      img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+      preview: "https://en.wikipedia.org/wiki/Minimalism",
+      use: "https://en.wikipedia.org/wiki/Personal_website"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Creator Hub",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      preview: "https://en.wikipedia.org/wiki/Creator_economy",
+      use: "https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title: "Glass UI",
+      img: "https://images.unsplash.com/photo-1553877522-43269d4ea984",
+      preview: "https://en.wikipedia.org/wiki/Glassmorphism",
+      use: "https://en.wikipedia.org/wiki/User_interface_design"
+    },
+    {
+      title: "Dark Mode",
+      img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      preview: "https://en.wikipedia.org/wiki/Dark_mode",
+      use: "https://en.wikipedia.org/wiki/Web_design"
+    }
+  ],
+
+  Blogs: [
+    {
+      title: "Writer Page",
+      img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      preview: "https://en.wikipedia.org/wiki/Blog",
+      use: "https://en.wikipedia.org/wiki/Writing"
+    },
+    {
+      title: "Tech Blog",
+      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      preview: "https://en.wikipedia.org/wiki/Technology_blog",
+      use: "https://en.wikipedia.org/wiki/Technology"
+    },
+    {
+      title: "Personal Blog",
+      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+      preview: "https://en.wikipedia.org/wiki/Personal_blog",
+      use: "https://en.wikipedia.org/wiki/Personal_branding"
+    },
+    {
+      title: "Magazine",
+      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      preview: "https://en.wikipedia.org/wiki/Magazine",
+      use: "https://en.wikipedia.org/wiki/Publishing"
+    }
+    ],
+
+  Music: [
+    {
+      title: "Writer Page",
+      img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      preview: "https://en.wikipedia.org/wiki/Blog",
+      use: "https://en.wikipedia.org/wiki/Writing"
+    },
+    {
+      title: "Tech Blog",
+      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      preview: "https://en.wikipedia.org/wiki/Technology_blog",
+      use: "https://en.wikipedia.org/wiki/Technology"
+    },
+    {
+      title: "Personal Blog",
+      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+      preview: "https://en.wikipedia.org/wiki/Personal_blog",
+      use: "https://en.wikipedia.org/wiki/Personal_branding"
+    },
+    {
+      title: "Magazine",
+      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      preview: "https://en.wikipedia.org/wiki/Magazine",
+      use: "https://en.wikipedia.org/wiki/Publishing"
+    }
+  ]
+};
+
+
+/* ========= LOGIC ========= */
+const categoriesEl = document.getElementById("categories");
+const gridEl = document.getElementById("grid");
+const previewEl = document.getElementById("preview");
+const frameEl = document.getElementById("frame");
+
+const categoryNames = Object.keys(TEMPLATE_DATA);
+let activeCategory = categoryNames[0]; // Trending default
+
+renderCategories();
+renderGrid(activeCategory);
+
+function renderCategories(){
+  categoriesEl.innerHTML="";
+  categoryNames.forEach((name,index)=>{
+    const btn=document.createElement("div");
+    btn.className="cat"+(index===0?" active":"");
+    btn.textContent=name;
+    btn.onclick=()=>{
+      document.querySelectorAll(".cat").forEach(c=>c.classList.remove("active"));
+      btn.classList.add("active");
+      renderGrid(name);
+    };
+    categoriesEl.appendChild(btn);
+  });
+}
+
+function renderGrid(category){
+  gridEl.innerHTML="";
+  TEMPLATE_DATA[category].forEach(item=>{
+    const card=document.createElement("div");
+    card.className="card";
+
+    card.innerHTML=`
+      <img src="${item.img}?q=80&w=900">
+      <div class="card-overlay">
+        <div class="card-title">${item.title}</div>
+        <div class="actions">
+          <button class="btn view">View Once</button>
+          <button class="btn use">Use Me</button>
+        </div>
+      </div>
+    `;
+
+    card.querySelector(".view").onclick=()=>openPreview(item.preview);
+    card.querySelector(".use").onclick=()=>window.open(item.use,"_blank");
+
+    card.onmouseenter=()=>{
+      gridEl.classList.add("hovering");
+      card.classList.add("active");
+    };
+    card.onmouseleave=()=>{
+      gridEl.classList.remove("hovering");
+      card.classList.remove("active");
+    };
+
+    gridEl.appendChild(card);
+  });
+}
+
+function openPreview(url){
+  previewEl.style.display="flex";
+  frameEl.src=url;
+}
+
+function closePreview(){
+  previewEl.style.display="none";
+  frameEl.src="";
+}
+</script>
+
+</body>
+</html>
