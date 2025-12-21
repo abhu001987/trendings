@@ -1893,7 +1893,32 @@ function moveBlog(step) {
 
 renderBlogs();
 </script>
+  <script>
+  const track = document.querySelector(".showcase-track");
+
+  let scrollSpeed = 0.4;   // control speed
+  let paused = false;
+
+  function autoSlide() {
+    if (!paused) {
+      track.scrollLeft += scrollSpeed;
+
+      // auto reset to start when reaching end
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth) {
+        track.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(autoSlide);
+  }
+
+  track.addEventListener("mouseenter", () => paused = true);
+  track.addEventListener("mouseleave", () => paused = false);
+
+  autoSlide();
+</script>
+
 </body>
 </html>
+
 
 
