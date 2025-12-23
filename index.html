@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -314,11 +315,35 @@ nav a:hover { color:#000; }
   margin-bottom: 30px;
 }
 
-.showcase-header h2 {
+/* TYPEWRITER HEADING */
+.typewriter {
   font-size: 30px;
   font-weight: 700;
+  min-height: 38px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
+.typewriter::after {
+  content: "|";
+  margin-left: 6px;
+  animation: blink 1s infinite;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* SUB TEXT */
+.showcase-subtext {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* DIVIDER */
 .divider {
   width: 80px;
   height: 2px;
@@ -349,16 +374,13 @@ nav a:hover { color:#000; }
   position: relative;
   scroll-snap-align: center;
   transform: scale(0.94);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* SCALE + BLUE GLOW ON HOVER */
 .showcase-card:hover {
   transform: scale(1);
   box-shadow:
-    0 0 0 0 rgba(14,165,233,0),
     0 0 40px 10px rgba(14,165,233,0.35),
     0 0 80px 20px rgba(14,165,233,0.25);
 }
@@ -384,26 +406,22 @@ nav a:hover { color:#000; }
   right: 0;
   bottom: 0;
 }
+
 /* GLASS BUTTON */
 .glass-btn {
   height: 34px;
   padding: 0 20px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
   backdrop-filter: blur(12px);
-
   color: #fff;
   font-size: 12px;
   font-weight: 500;
-  line-height: 1;
   white-space: nowrap;
-
   cursor: pointer;
   text-decoration: none;
 }
@@ -1155,10 +1173,10 @@ nav a:hover { color:#000; }
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="menu-close" id="menuClose">✕</button>
-  <a href="https://myaffiliatepage.com/">HOME</a>
-  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+  <a href="https://en.wikipedia.org/wiki/Main_Page">HOME</a>
+  <a href="https://en.wikipedia.org/wiki/Product">TEMPLATES</a>
   <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
-  <a href="https://myaffiliatepage.com/about">ABOUT</a>
+  <a href="https://en.wikipedia.org/wiki/About_Us">ABOUT</a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -1167,10 +1185,10 @@ nav a:hover { color:#000; }
   <div class="logo">TreeDell</div>
 
   <nav>
-    <a href="https://myaffiliatepage.com/">HOME</a>
-    <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+    <a href="https://en.wikipedia.org/wiki/Main_Page">HOME</a>
+    <a href="https://en.wikipedia.org/wiki/Product">TEMPLATES</a>
     <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
-    <a href="https://myaffiliatepage.com/about">ABOUT</a>
+    <a href="https://en.wikipedia.org/wiki/About_Us">ABOUT</a>
   </nav>
 
   <!-- MOBILE MENU BUTTON -->
@@ -1217,100 +1235,38 @@ nav a:hover { color:#000; }
 
   <!-- SECTION HEADING -->
   <div class="showcase-header">
-    <h2>Start creating your page</h2>
+    <h2 class="typewriter"
+        data-text='["Start creating your page","Explore trending themes","Build your digital presence"]'>
+    </h2>
+
     <div class="divider"></div>
+
+    <p class="showcase-subtext">
+      Discover trending layouts creators are using right now
+    </p>
   </div>
 
   <!-- CAROUSEL -->
   <div class="showcase-track">
 
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
       <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Web_design">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Website_builder" target="_blank">Use Me</a>
       </div>
     </div>
 
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
       <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/User_interface_design">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Web_template_system" target="_blank">Use Me</a>
       </div>
     </div>
 
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
       <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
-      </div>
-    </div>
-
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
-      </div>
-    </div>
-
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
-      </div>
-    </div>
-
-    <div class="showcase-card"
-      style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn"
-          data-view="https://myaffiliatepage.com/template">
-          View
-        </button>
-        <a class="glass-btn use-btn"
-          href="https://myaffiliatepage.com/dashboard"
-          target="_blank">
-          Use Me
-        </a>
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Front-end_web_development">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Use Me</a>
       </div>
     </div>
 
@@ -1893,9 +1849,39 @@ function moveBlog(step) {
 
 renderBlogs();
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.querySelector(".typewriter");
+  if (!el) return;
+
+  const texts = JSON.parse(el.getAttribute("data-text"));
+  let textIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function type() {
+    const currentText = texts[textIndex];
+
+    if (!deleting) {
+      el.textContent = currentText.slice(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === currentText.length) {
+        setTimeout(() => deleting = true, 1800);
+      }
+    } else {
+      el.textContent = currentText.slice(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        deleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+      }
+    }
+
+    setTimeout(type, deleting ? 40 : 70);
+  }
+
+  type();
+});
+</script>
 </body>
 </html>
-
-
-
-
