@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -744,21 +743,60 @@ nav a:hover { color:#000; }
   padding: 40px 0;
 }
 
+/* TITLE */
 .themes-slider-title {
   text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* SLIDER */
+/* ===== GRADIENT TEXT ===== */
+.themes-word {
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+
+  /* Standard + WebKit support */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  animation: gradientMove 4s ease infinite;
+}
+
+/* Individual gradients */
+.gradient-1 {
+  background-image: linear-gradient(90deg, #6366f1, #22d3ee, #6366f1);
+}
+
+.gradient-2 {
+  background-image: linear-gradient(90deg, #22c55e, #84cc16, #22c55e);
+  animation-delay: 0.5s;
+}
+
+.gradient-3 {
+  background-image: linear-gradient(90deg, #f97316, #ec4899, #f97316);
+  animation-delay: 1s;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== SLIDER ===== */
 .themes-slider {
   display: flex;
   gap: 20px;
   padding: 0 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
 }
 
 .themes-slider::-webkit-scrollbar {
@@ -774,17 +812,16 @@ nav a:hover { color:#000; }
   background-position: center;
   position: relative;
   scroll-snap-align: start;
+
   box-shadow: 0 16px 40px rgba(0,0,0,0.15);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* HOVER SCALE + BLUE GLOW */
+/* HOVER EFFECT */
 .theme-slide:hover {
   transform: translateY(-6px) scale(1.03);
   box-shadow:
-    0 0 0 0 rgba(14,165,233,0),
+    0 0 0 rgba(14,165,233,0),
     0 0 40px 12px rgba(14,165,233,0.35),
     0 0 90px 24px rgba(14,165,233,0.22);
 }
@@ -794,18 +831,21 @@ nav a:hover { color:#000; }
   position: absolute;
   bottom: 16px;
   right: 16px;
+
   padding: 8px 22px;
   border-radius: 999px;
+
   background: rgba(255,255,255,0.3);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.4);
+
   color: #fff;
   font-size: 13px;
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.3s ease;
+
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
-/* BUTTON HOVER */
 .theme-slide:hover .use-btn {
   background: rgba(255,255,255,0.45);
   transform: scale(1.05);
@@ -1236,7 +1276,7 @@ nav a:hover { color:#000; }
   <!-- SECTION HEADING -->
   <div class="showcase-header">
     <h2 class="typewriter"
-        data-text='["Build with Treedell","Customize instantly","Go digital"]'>
+        data-text='["Build with Treedell","Explore trends","Go digital"]'>
     </h2>
 
     <div class="divider"></div>
@@ -1338,32 +1378,42 @@ nav a:hover { color:#000; }
   </div>
 </section>
 <section class="themes-slider-section">
-  <h2 class="themes-slider-title">Explore more themes</h2>
 
+  <!-- Animated Heading -->
+  <h2 class="themes-slider-title">
+    <span class="themes-word gradient-1">Explore</span>
+    <span class="themes-word gradient-2">More</span>
+    <span class="themes-word gradient-3">Themes</span>
+  </h2>
+
+  <!-- Slider -->
   <div class="themes-slider">
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
       <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
       <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
       <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
     </div>
 
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?auto=format&fit=crop&w=1200&q=80')">
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?auto=format&fit=crop&w=1200&q=80')">
       <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?auto=format&fit=crop&w=1200&q=80')">
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?auto=format&fit=crop&w=1200&q=80')">
       <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Use me</a>
     </div>
 
-    <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/Color_theory" target="_blank" class="use-btn">Use me</a>
-    </div>
   </div>
 </section>
 <section class="faq-section">
