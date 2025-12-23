@@ -1,217 +1,1134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Templates</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalist Landing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#C7D3FF;
-  --text:#111;
-  --muted:#444;
-  --glass:rgba(255,255,255,.45);
-  --border:rgba(255,255,255,.6);
-  --blue:#2563eb;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Inter,system-ui,sans-serif;
+html { scroll-behavior: smooth; }
+body { background:#C7D3FF; color:#111; }
+
+/* ================= HERO ================= */
+.hero {
+  /* FIX 1: remove forced full viewport height */
+  min-height: auto;
+
+  /* FIX 2: reduce vertical padding only */
+  padding: 16px 32px;
+
+  display: flex;
+  flex-direction: column;
 }
 
-body{
-  background:var(--bg);
-  color:var(--text);
+header {
+  max-width: 1200px;
+  margin: 0 auto; /* FIX 3: prevent vertical auto spacing */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* PAGE */
-.page{
-  max-width:1200px;
-  margin:auto;
-  padding:48px 16px;
-  text-align:center;
+.logo {
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
-h1{
-  font-size:clamp(28px,5vw,48px);
+/* DESKTOP NAV */
+nav {
+  display: flex;
+  gap: 32px;
 }
 
-.subtitle{
-  margin-top:10px;
-  color:var(--muted);
-  max-width:720px;
-  margin-inline:auto;
+nav a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,.6);
 }
 
-/* AVATARS (AnimatedTooltip style) */
-.avatars{
-  margin:32px auto 20px;
-  display:flex;
-  justify-content:center;
+nav a:hover { color:#000; }
+
+/* MOBILE MENU BUTTON */
+.menu-btn {
+  display: none;
+  width: 32px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.avatar{
-  position:relative;
-  margin-left:-14px;
+.menu-btn span {
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
 }
 
-.avatar img{
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  border:2px solid #fff;
-  object-fit:cover;
-  transition:transform .3s;
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100vh;
+  background: #fff;
+  padding: 80px 30px;
+  transition: right .3s ease;
+  z-index: 999;
+  box-shadow: -20px 0 40px rgba(0,0,0,.1);
 }
 
-.avatar:hover img{
-  transform:scale(1.12);
-  z-index:3;
+.mobile-menu.active {
+  right: 0;
 }
 
-.tooltip{
-  position:absolute;
-  bottom:72px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111;
-  color:#fff;
-  padding:6px 10px;
-  font-size:12px;
-  border-radius:8px;
-  white-space:nowrap;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
+.mobile-menu a {
+  display: block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: #111;
 }
 
-.avatar:hover .tooltip{
-  opacity:1;
+/* CLOSE BUTTON */
+.menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111;
 }
 
-/* CATEGORIES */
-.categories{
-  margin:36px 0 18px;
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  justify-content:center;
-}
-.categories::-webkit-scrollbar{display:none;}
+/* ===== MAIN GRID ===== */
+.main {
+  max-width: 1200px;
 
-.cat{
-  padding:10px 18px;
-  border-radius:999px;
-  background:var(--glass);
-  border:1px solid var(--border);
-  cursor:pointer;
-  backdrop-filter:blur(10px);
-  font-size:14px;
-}
-.cat.active{
-  background:var(--blue);
-  color:#fff;
+  /* FIX 4: remove vertical auto-centering */
+  margin: 0 auto;
+
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  column-gap: 120px;
 }
 
-/* GRID */
-.grid{
-  margin-top:28px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:24px;
+/* LEFT */
+.left p {
+  max-width: 260px;
+  font-size: 14px;
+  opacity: .85;
 }
 
-/* CARD (FocusCards behavior) */
-.card{
-  position:relative;
-  height:320px;
-  border-radius:18px;
-  overflow:hidden;
-  background:var(--glass);
-  backdrop-filter:blur(14px);
-  border:1px solid var(--border);
-  transition:.35s;
+.cta {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 40px;
+  border: 1px solid rgba(0,0,0,.4);
+  background: transparent;
+  color: #000;
+  text-decoration: none;
+  transition: .3s;
 }
 
-.grid.hovering .card:not(.active){
-  filter:blur(4px);
-  transform:scale(.97);
+.cta:hover { background: rgba(0,0,0,.05); }
+
+/* CENTER */
+.center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.card img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.circle {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: rgba(234,179,8,.9);
+  border-radius: 50%;
+  z-index: 1;
 }
 
-.card-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding:16px;
-  color:#fff;
+.hero-img {
+  width: 220px;
+  z-index: 2;
+  transform: scale(1.2);
+  transition: opacity .5s ease;
 }
 
-.card-title{
-  font-size:18px;
-  font-weight:600;
+/* RIGHT */
+.right {
+  margin-left: 40px;
+  z-index: 3;
 }
 
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
+.right h1 {
+  font-size: clamp(64px, 9vw, 110px);
+  font-weight: 900;
+  line-height: .9;
+}
+/* ================= FEATURES ================= */
+.features {
+  /* FIX 1: remove forced tall height */
+  min-height: auto;
+
+  /* FIX 2: reduce vertical padding */
+  padding: 30px 0px;
 }
 
-.btn{
-  flex:1;
-  padding:8px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  font-size:13px;
+.features-header {
+  text-align: center;
+
+  /* FIX 3: reduce header gap */
+  margin-bottom: 35px;
 }
 
-.view{background:#fff;color:#111;}
-.use{background:var(--blue);color:#fff;}
-
-/* PREVIEW */
-.preview{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
+.features-header span {
+  color: #0ea5e9;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 600;
 }
 
-.preview iframe{
-  width:90%;
-  height:85%;
-  border:none;
-  border-radius:16px;
-  background:#fff;
+.features-header h2 {
+  font-size: 42px;
+  margin-top: 8px; /* slightly reduced */
 }
 
-.preview button{
-  position:absolute;
-  top:20px;
-  right:20px;
-  padding:6px 12px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+.features-grid {
+  max-width: 1200px;
+  margin: 0 auto; /* FIX 4: prevent vertical auto spacing */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px; /* slightly reduced */
+  align-items: center;
 }
 
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  cursor: pointer;
+  padding: 18px;
+  border-radius: 14px;
+  transition: .3s;
+}
+
+.feature:hover {
+  background: #f8f8f8;
+}
+
+.feature.active {
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,.08);
+}
+
+.feature p {
+  font-size: 14px;
+  opacity: .7;
+}
+
+.feature-image img {
+  width: 100%;
+  max-width: 520px;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+
+/* ================= FOOTER ================= */
+.site-footer {
+  padding: 30px 20px; /* FIX 5: tighter footer spacing */
+  text-align: center;
+  font-size: 14px;
+  opacity: .7;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  nav { display: none; }
+  .menu-btn { display: flex; }
+
+  .main {
+    grid-template-columns: 1fr;
+    gap: 40px; /* FIX 6: reduce mobile gap */
+    text-align: center;
+  }
+
+  .right { margin-left: 0; }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 30px; /* FIX 7: tighter mobile spacing */
+  }
+
+  .feature-image img {
+    max-height: 220px;
+  }
+
+  .features {
+    padding: 25px 0; /* FIX 8: tighter mobile top & bottom */
+  }
+}
+/* ================= SHOWCASE SECTION ================= */
+.showcase-section {
+  background: #f1f7ff;
+  padding: 20px 0;
+}
+
+/* INNER BOX */
+.showcase-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 24px 0;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.showcase-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* TYPEWRITER HEADING */
+.typewriter {
+  font-size: 30px;
+  font-weight: 700;
+  min-height: 38px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.typewriter::after {
+  content: "|";
+  margin-left: 6px;
+  animation: blink 1s infinite;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* SUB TEXT */
+.showcase-subtext {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* DIVIDER */
+.divider {
+  width: 80px;
+  height: 2px;
+  background: #cbd5e1;
+  margin: 12px auto 0;
+}
+
+/* CAROUSEL */
+.showcase-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.showcase-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* SHOWCASE CARD */
+.showcase-card {
+  min-width: 260px;
+  height: 340px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  scroll-snap-align: center;
+  transform: scale(0.94);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* SCALE + BLUE GLOW ON HOVER */
+.showcase-card:hover {
+  transform: scale(1);
+  box-shadow:
+    0 0 40px 10px rgba(14,165,233,0.35),
+    0 0 80px 20px rgba(14,165,233,0.25);
+}
+
+/* ACTION BUTTONS */
+.card-actions {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+}
+
+/* LEFT BUTTON */
+.card-actions .glass-btn:first-child {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+/* RIGHT BUTTON */
+.card-actions .glass-btn:last-child {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* GLASS BUTTON */
+.glass-btn {
+  height: 34px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ================= IFRAME MODAL ================= */
+.iframe-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.iframe-modal.active {
+  display: flex;
+}
+
+.iframe-box {
+  width: 90%;
+  height: 85%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.iframe-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* CLOSE BUTTON */
+.iframe-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .showcase-box {
+    border-radius: 0;
+    padding: 20px 0;
+  }
+
+  .showcase-card {
+    min-width: 220px;
+    height: 280px;
+  }
+
+  .iframe-box {
+    height: 80%;
+  }
+}
+/* ================= VIDEO GUIDE SECTION ================= */
+.video-guide-section {
+  padding: 60px 20px;
+}
+
+/* MAIN BOX */
+.video-main-box {
+  max-width: 1100px;
+  margin: auto;
+  padding: 28px;
+  border-radius: 24px;
+  background: #32E9EC;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  align-items: center;
+}
+
+/* TEXT */
+.video-text h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.video-text p {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* VIDEO THUMB */
+.video-thumb {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.video-thumb.small {
+  min-width: 240px;
+  height: 150px;
+}
+
+/* PLAY BUTTON */
+.play-btn {
+  width: 54px;
+  height: 54px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* SLIDER */
+.video-slider {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.video-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .video-main-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .video-thumb {
+    height: 220px;
+  }
+}
+/* ================= FAQ SECTION ================= */
+.faq-section {
+  padding: 80px 20px;
+  background: #f9fafb;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* FAQ ITEM */
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* QUESTION */
+.faq-question {
+  width: 100%;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question span {
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+/* ANSWER */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  opacity: 0.75;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0;
+}
+
+/* ACTIVE */
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 0 0 18px 0;
+}
+
+.faq-item.active .faq-question span {
+  transform: rotate(45deg); /* + → x */
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .faq-title {
+    font-size: 26px;
+  }
+}
+/* ================= TESTIMONIALS ================= */
+.testimonials-section {
+  padding: 90px 20px;
+  background: #C7D3FF;
+}
+
+.testimonials-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+
+/* LAYOUT */
+.testimonials-wrapper {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* IMAGE STACK */
+.testimonial-images {
+  position: relative;
+  height: 360px;
+}
+
+.testimonial-images img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 26px;
+  opacity: 0;
+  transform: scale(0.9) translateY(40px) rotate(-4deg);
+  transition: all 0.6s ease;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+.testimonial-images img.active {
+  opacity: 1;
+  transform: scale(1) translateY(0) rotate(0);
+  z-index: 5;
+}
+
+/* TEXT */
+.testimonial-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.designation {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 24px;
+}
+
+.quote {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* CONTROLS */
+.testimonial-controls {
+  margin-top: 40px;
+  display: flex;
+  gap: 14px;
+}
+
+.testimonial-controls button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.testimonial-controls button:hover {
+  background: #d1d5db;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .testimonials-wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .testimonial-images {
+    height: 300px;
+  }
+}
+/* ================= EXPLORE THEMES SLIDER ================= */
+.themes-slider-section {
+  background: #eef6ff;
+  padding: 40px 0;
+}
+
+/* TITLE */
+.themes-slider-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== GRADIENT TEXT ===== */
+.themes-word {
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+
+  /* Standard + WebKit support */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  animation: gradientMove 4s ease infinite;
+}
+
+/* Individual gradients */
+.gradient-1 {
+  background-image: linear-gradient(90deg, #6366f1, #22d3ee, #6366f1);
+}
+
+.gradient-2 {
+  background-image: linear-gradient(90deg, #22c55e, #84cc16, #22c55e);
+  animation-delay: 0.5s;
+}
+
+.gradient-3 {
+  background-image: linear-gradient(90deg, #f97316, #ec4899, #f97316);
+  animation-delay: 1s;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== SLIDER ===== */
+.themes-slider {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.themes-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* SLIDE */
+.theme-slide {
+  min-width: 280px;
+  height: 340px;
+  border-radius: 22px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  scroll-snap-align: start;
+
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* HOVER EFFECT */
+.theme-slide:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:
+    0 0 0 rgba(14,165,233,0),
+    0 0 40px 12px rgba(14,165,233,0.35),
+    0 0 90px 24px rgba(14,165,233,0.22);
+}
+
+/* GLASS BUTTON */
+.use-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  padding: 8px 22px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.4);
+
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.theme-slide:hover .use-btn {
+  background: rgba(255,255,255,0.45);
+  transform: scale(1.05);
+}
+
+/* DESKTOP */
+@media (min-width: 900px) {
+  .theme-slide {
+    min-width: 360px;
+    height: 380px;
+  }
+}
+/* ================= BLOG SECTION ================= */
+.blog-section {
+  padding: 32px 0;              /* 🔧 reduced from 80px */
+  background: #f8fafc;
+  text-align: center;
+  overflow: hidden;
+}
+
+.blog-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.blog-sub {
+  margin-top: 6px;              /* 🔧 tighter */
+  color: #64748b;
+}
+
+/* STACK AREA */
+.blog-wrapper {
+  position: relative;
+  height: 460px;                /* 🔧 reduced from 600px */
+  margin-top: 28px;             /* 🔧 reduced from 60px */
+}
+
+/* BLOG CARD */
+.blog-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 420px;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,.12);
+  transition: transform .5s ease, opacity .5s ease;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.blog-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.blog-content {
+  padding: 18px;
+  text-align: left;
+}
+
+.blog-content h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.blog-content p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* READ MORE */
+.blog-read {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(255,255,255,.85);
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: #000;
+  backdrop-filter: blur(10px);
+}
+
+/* CONTROLS */
+.blog-controls {
+  position: absolute;
+  bottom: -10px;                /* 🔧 pulls controls up */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+}
+
+.blog-controls button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .blog-wrapper {
+    height: 400px;              /* 🔧 tighter mobile */
+  }
+
+  .blog-card {
+    width: 280px;
+    height: 380px;
+  }
+}
+/* ================= ADVERTISE SECTION ================= */
+.advertise-section {
+  padding: 60px 0;
+  background: #f8fafc;
+}
+
+.advertise-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* LEFT CONTENT */
+.advertise-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.advertise-content p {
+  margin-top: 14px;
+  color: #475569;
+  max-width: 420px;
+}
+
+.sub-line {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+/* BUTTON */
+.reach-btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 1px solid #0ea5e9;
+  color: #0ea5e9;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.reach-btn:hover {
+  background: #0ea5e9;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(14,165,233,0.35);
+}
+
+/* GALLERY */
+.advertise-gallery {
+  display: flex;
+  gap: 10px;
+  height: 340px;
+}
+
+.gallery-item {
+  flex: 1;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: flex 0.5s ease, filter 0.3s ease;
+  filter: brightness(0.8);
+}
+
+/* HOVER EXPAND EFFECT */
+.gallery-item:hover {
+  flex: 2;
+  filter: brightness(1);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .advertise-container {
+    grid-template-columns: 1fr;
+  }
+
+  .advertise-gallery {
+    height: 260px;
+  }
+}
+/* ================= CONTACT SECTION ================= */
+.contact-section {
+  padding: 60px 0;
+  background: #C7D3FF;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* image wider */
+  gap: 40px;
+  align-items: center;
+}
+
+/* IMAGE */
+.contact-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* RIGHT CONTENT */
+.contact-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.contact-content p {
+  margin-top: 14px;
+  color: #475569;
+  max-width: 420px;
+}
+
+.contact-sub {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+/* BUTTON */
+.contact-btn {
+  display: inline-block;
+  margin-top: 26px;
+  padding: 12px 32px;
+  border-radius: 999px;
+  border: 1px solid #0ea5e9;
+  color: #0ea5e9;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  background: #0ea5e9;
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(14,165,233,0.35);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .contact-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-image img {
+    height: 260px;
+  }
+}
 /* ================= FOOTER ================= */
 .site-footer {
   width: 100%;
@@ -293,44 +1210,388 @@ h1{
 
 <body>
 
-<div class="page">
-  <h1>Templates</h1>
-  <p class="subtitle">
-    Choose a theme, preview it instantly, and use it to build your page.
-  </p>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" id="menuClose">✕</button>
+  <a href="https://myaffiliatepage.com/">HOME</a>
+  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+  <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
+  <a href="https://myaffiliatepage.com/about">ABOUT</a>
+</div>
 
-  <!-- AVATARS -->
-  <div class="avatars">
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36">
-      <div class="tooltip">John · Engineer</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde">
-      <div class="tooltip">Robert · PM</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956">
-      <div class="tooltip">Jane · Data</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80">
-      <div class="tooltip">Emily · UX</div>
-    </div>
+<!-- ================= HERO ================= -->
+<section class="hero">
+<header>
+  <div class="logo">TreeDell</div>
+
+  <nav>
+    <a href="https://myaffiliatepage.com/">HOME</a>
+    <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+    <a href="https://en.wikipedia.org/wiki/Retail">PRODUCTS</a>
+    <a href="https://myaffiliatepage.com/about">ABOUT</a>
+  </nav>
+
+  <!-- MOBILE MENU BUTTON -->
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<div class="main">
+  <div class="left">
+    <p>                              </p>
+    <a href="#features" class="cta">Let’s Get Started</a>
   </div>
 
-  <!-- CATEGORIES -->
-  <div class="categories" id="categories"></div>
+  <div class="center">
+    <div class="circle"></div>
+    <img id="heroImage" class="hero-img">
+  </div>
 
-  <!-- GRID -->
-  <div class="grid" id="grid"></div>
+  <div class="right">
+    <h1>PURE<br>FORM</h1>
+  </div>
 </div>
+</section>
 
-<!-- PREVIEW -->
-<div class="preview" id="preview">
-  <button onclick="closePreview()">Close</button>
-  <iframe id="frame"></iframe>
+<!-- ================= FEATURES ================= -->
+<section id="features" class="features">
+  <div class="features-header">
+    <span>AI Mentors. Real Results.</span>
+    <h2>AI That Actually Teaches</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-list" id="featureList"></div>
+    <div class="feature-image">
+      <img id="featureImage">
+    </div>
+  </div>
+</section>
+
+<section class="showcase-section">
+
+  <!-- SECTION HEADING -->
+  <div class="showcase-header">
+    <h2 class="typewriter"
+        data-text='["Build with Treedell","Explore trends","Go digital"]'>
+    </h2>
+
+    <div class="divider"></div>
+
+    <p class="showcase-subtext">
+      Discover trending layouts creators are using right now
+    </p>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div class="showcase-track">
+
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Web_design">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Website_builder" target="_blank">Use Me</a>
+      </div>
+    </div>
+
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/User_interface_design">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Web_template_system" target="_blank">Use Me</a>
+      </div>
+    </div>
+
+    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+      <div class="card-actions">
+        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Front-end_web_development">View</button>
+        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Use Me</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- IFRAME MODAL (HIDDEN BY DEFAULT) -->
+<div class="iframe-modal" id="iframeModal">
+  <div class="iframe-box">
+    <button class="iframe-close" id="iframeClose">✕</button>
+    <iframe id="iframeViewer"></iframe>
+  </div>
 </div>
+<section class="video-guide-section">
+
+  <!-- MAIN BOX -->
+  <div class="video-main-box">
+
+    <div class="video-text">
+      <h3>It only takes 10 minutes to start</h3>
+      <p>Open up an endless journey of opportunities</p>
+    </div>
+
+    <!-- MAIN VIDEO (CLICKABLE) -->
+    <a
+      href="https://youtu.be/hmtuvNfytjM"
+      target="_blank"
+      class="video-thumb"
+      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')"
+    >
+      <div class="play-btn">▶</div>
+    </a>
+
+  </div>
+
+  <!-- SLIDER VIDEOS -->
+  <div class="video-slider">
+
+    <a href="https://youtu.be/hmtuvNfytjM" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/9No-FiEInLA" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/9No-FiEInLA/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/Ke90Tje7VS0" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/Ke90Tje7VS0/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/1Rs2ND1ryYc" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/1Rs2ND1ryYc/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+    <a href="https://youtu.be/ysEN5RaKOlA" target="_blank"
+      class="video-thumb small"
+      style="background-image:url('https://img.youtube.com/vi/ysEN5RaKOlA/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </a>
+
+  </div>
+</section>
+<section class="themes-slider-section">
+
+  <!-- Animated Heading -->
+  <h2 class="themes-slider-title">
+    <span class="themes-word gradient-1">Explore</span>
+    <span class="themes-word gradient-2">More</span>
+    <span class="themes-word gradient-3">Themes</span>
+  </h2>
+
+  <!-- Slider -->
+  <div class="themes-slider">
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+    <div class="theme-slide"
+      style="background-image:url('https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?auto=format&fit=crop&w=1200&q=80')">
+      <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Use me</a>
+    </div>
+
+  </div>
+</section>
+<section class="faq-section">
+  <div class="faq-container">
+
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Why do I need a link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        A link in bio tool lets you share all your important links, content, shops, and creations using just one URL across your social profiles.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Is Linktree the original link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Linktree popularized the concept, but today platforms like Treedell expand beyond links by letting you add blogs, quizzes, and interactive pages.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Can you get paid and sell things using a link in bio?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You can add affiliate links, product pages, shops, and payment links to start monetizing directly from your bio.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Is it safe to use a link in bio on all social platforms?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. A single bio link works safely across Instagram, Twitter, YouTube, TikTok, and more without violating platform rules.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        What makes Treedell better than other link in bio tools?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Treedell goes beyond links by letting you create blogs, quizzes, and storefronts — all from one dashboard.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How many links should I have on my bio page?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Focus on quality, not quantity. 5–10 well-organized links usually perform better than a long cluttered list.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Do I need a website to use a link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        No website needed. Your Treedell page itself works as a mini-website that you can customize anytime.
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="testimonials-section">
+  <h2 class="testimonials-title">What our users say</h2>
+
+  <div class="testimonials-wrapper">
+
+    <!-- IMAGE STACK -->
+    <div class="testimonial-images" id="testimonialImages">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800" />
+      <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800" />
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800" />
+      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800" />
+      <img src="https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=800" />
+    </div>
+
+    <!-- TEXT -->
+    <div class="testimonial-content">
+      <h3 id="userName"></h3>
+      <p class="designation" id="userRole"></p>
+      <p class="quote" id="userQuote"></p>
+
+      <div class="testimonial-controls">
+        <button id="prevBtn">←</button>
+        <button id="nextBtn">→</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="blog-section">
+  <h2 class="blog-title">Latest from our blog</h2>
+  <p class="blog-sub">Insights, guides, and ideas to grow your presence</p>
+
+  <div class="blog-wrapper">
+    <div id="blog-stack"></div>
+
+    <div class="blog-controls">
+      <button onclick="moveBlog(-1)">‹</button>
+      <button onclick="moveBlog(1)">›</button>
+    </div>
+  </div>
+</section>
+<section class="advertise-section">
+  <div class="advertise-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="advertise-content">
+      <h2>Advertise with us</h2>
+      <p>
+        Reach a highly engaged audience and showcase your brand where creators,
+        entrepreneurs, and innovators connect.
+      </p>
+      <p class="sub-line">
+        Promote your product. Build visibility. Grow faster.
+      </p>
+
+      <a href="mailto:hello@yourdomain.com" class="reach-btn">
+        Reach to us
+      </a>
+    </div>
+
+    <!-- RIGHT GALLERY -->
+    <div class="advertise-gallery">
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1709884735646-897b57461d61?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1200')"></div>
+      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1502085671122-2d218cd434e6?q=80&w=1200')"></div>
+    </div>
+
+  </div>
+</section>
+<section class="contact-section">
+  <div class="contact-container">
+
+    <!-- LEFT IMAGE -->
+    <div class="contact-image">
+      <img
+        src="https://images.unsplash.com/photo-1466096115517-bceecbfb6fde?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
+        alt="Contact us"
+      />
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="contact-content">
+      <h2>Contact us</h2>
+      <p>
+        Reach out to us for any queries, partnerships, or support.
+        Our team is always happy to help you grow.
+      </p>
+      <p class="contact-sub">
+        We usually respond within 24 hours.
+      </p>
+
+      <a href="mailto:hello@yourdomain.com" class="contact-btn">
+        Contact us
+      </a>
+    </div>
+
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="footer-main">
@@ -372,191 +1633,305 @@ h1{
 </footer>
 
 <script>
-/* ========= TEMPLATE DATA (EDIT ONLY THIS) ========= */
-const TEMPLATE_DATA = {
-  Trending: [
-    {
-      title: "Minimal Bio",
-      img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-      preview: "https://en.wikipedia.org/wiki/Minimalism",
-      use: "https://en.wikipedia.org/wiki/Personal_website"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Creator Hub",
-      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview: "https://en.wikipedia.org/wiki/Creator_economy",
-      use: "https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title: "Glass UI",
-      img: "https://images.unsplash.com/photo-1553877522-43269d4ea984",
-      preview: "https://en.wikipedia.org/wiki/Glassmorphism",
-      use: "https://en.wikipedia.org/wiki/User_interface_design"
-    },
-    {
-      title: "Dark Mode",
-      img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-      preview: "https://en.wikipedia.org/wiki/Dark_mode",
-      use: "https://en.wikipedia.org/wiki/Web_design"
-    }
-  ],
+/* MOBILE MENU */
+const menuBtn = document.getElementById("menuBtn");
+const menuClose = document.getElementById("menuClose");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  Blogs: [
-    {
-      title: "Writer Page",
-      img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      preview: "https://en.wikipedia.org/wiki/Blog",
-      use: "https://en.wikipedia.org/wiki/Writing"
-    },
-    {
-      title: "Tech Blog",
-      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
-      preview: "https://en.wikipedia.org/wiki/Technology_blog",
-      use: "https://en.wikipedia.org/wiki/Technology"
-    },
-    {
-      title: "Personal Blog",
-      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
-      preview: "https://en.wikipedia.org/wiki/Personal_blog",
-      use: "https://en.wikipedia.org/wiki/Personal_branding"
-    },
-    {
-      title: "Magazine",
-      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
-      preview: "https://en.wikipedia.org/wiki/Magazine",
-      use: "https://en.wikipedia.org/wiki/Publishing"
-    }
-    ],
+menuBtn.onclick = () => mobileMenu.classList.add("active");
+menuClose.onclick = () => mobileMenu.classList.remove("active");
 
-  Music: [
-    {
-      title: "Writer Page",
-      img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      preview: "https://en.wikipedia.org/wiki/Blog",
-      use: "https://en.wikipedia.org/wiki/Writing"
-    },
-    {
-      title: "Tech Blog",
-      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
-      preview: "https://en.wikipedia.org/wiki/Technology_blog",
-      use: "https://en.wikipedia.org/wiki/Technology"
-    },
-    {
-      title: "Personal Blog",
-      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
-      preview: "https://en.wikipedia.org/wiki/Personal_blog",
-      use: "https://en.wikipedia.org/wiki/Personal_branding"
-    },
-    {
-      title: "Magazine",
-      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
-      preview: "https://en.wikipedia.org/wiki/Magazine",
-      use: "https://en.wikipedia.org/wiki/Publishing"
+/* HERO IMAGE ROTATION */
+const heroImages = [
+  "https://images.unsplash.com/photo-1611036831438-300a34247c9a?w=600",
+  "https://images.unsplash.com/photo-1646694505010-6ad7ab241fba?w=600",
+  "https://images.unsplash.com/photo-1757043045413-1a1bec073fd4?w=600"
+];
+
+const heroImg = document.getElementById("heroImage");
+let heroIndex = Math.floor(Math.random() * heroImages.length);
+
+function rotateHero() {
+  heroImg.style.opacity = 0;
+  setTimeout(() => {
+    heroImg.src = heroImages[heroIndex];
+    heroImg.style.opacity = 1;
+    heroIndex = (heroIndex + 1) % heroImages.length;
+  }, 300);
+}
+rotateHero();
+setInterval(rotateHero, 4000);
+
+/* FEATURES */
+const features = [
+  {
+    title: "Smart Learning",
+    description: "Adaptive AI mentors personalized to you.",
+    image: "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?w=800"
+  },
+  {
+    title: "Real Feedback",
+    description: "Instant insights that actually help.",
+    image: "https://images.unsplash.com/photo-1556761175-129418cb2dfe?w=800"
+  },
+  {
+    title: "Guided Growth",
+    description: "Step-by-step improvement with clarity.",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800"
+  }
+];
+
+let current = 0;
+const list = document.getElementById("featureList");
+const featureImage = document.getElementById("featureImage");
+
+function renderFeatures() {
+  list.innerHTML = "";
+  features.forEach((f, i) => {
+    const div = document.createElement("div");
+    div.className = "feature" + (i === current ? " active" : "");
+    div.innerHTML = `<h3>${f.title}</h3><p>${f.description}</p>`;
+    div.onclick = () => {
+      current = i;
+      updateImage();
+      renderFeatures();
+      mobileMenu.classList.remove("active");
+    };
+    list.appendChild(div);
+  });
+}
+
+function updateImage() {
+  featureImage.src = features[current].image;
+}
+
+renderFeatures();
+updateImage();
+</script>
+<script>
+const modal = document.getElementById("iframeModal");
+const iframe = document.getElementById("iframeViewer");
+const closeBtn = document.getElementById("iframeClose");
+
+document.querySelectorAll(".view-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    iframe.src = btn.dataset.view;
+    modal.classList.add("active");
+  });
+});
+
+closeBtn.addEventListener("click", () => {
+  iframe.src = "";
+  modal.classList.remove("active");
+});
+</script>
+<script>
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach(item => {
+  const button = item.querySelector(".faq-question");
+
+  button.addEventListener("click", () => {
+    const isOpen = item.classList.contains("active");
+
+    // Close all
+    faqItems.forEach(i => i.classList.remove("active"));
+
+    // Toggle current
+    if (!isOpen) {
+      item.classList.add("active");
     }
-  ]
+  });
+});
+</script>
+<script>
+const testimonials = [
+  {
+    name: "Priya Sharma",
+    role: "Content Creator",
+    quote: "Treedell made it incredibly easy to organize all my content in one place.",
+  },
+  {
+    name: "Marcus Johnson",
+    role: "Startup Founder",
+    quote: "Setting up my Treedell page took minutes and replaced my entire website.",
+  },
+  {
+    name: "Isabella Rossi",
+    role: "Digital Marketer",
+    quote: "I love how flexible Treedell is — blogs, links, and quizzes together.",
+  },
+  {
+    name: "Kenji Tanaka",
+    role: "Indie Developer",
+    quote: "The clean design and smooth experience really stand out.",
+  },
+  {
+    name: "Fatima Al-Jamil",
+    role: "Online Educator",
+    quote: "Treedell helped me turn my profile into a powerful learning hub.",
+  }
+];
+
+const images = document.querySelectorAll(".testimonial-images img");
+const nameEl = document.getElementById("userName");
+const roleEl = document.getElementById("userRole");
+const quoteEl = document.getElementById("userQuote");
+
+let index = 0;
+
+function showTestimonial(i) {
+  images.forEach(img => img.classList.remove("active"));
+  images[i].classList.add("active");
+
+  nameEl.textContent = testimonials[i].name;
+  roleEl.textContent = testimonials[i].role;
+  quoteEl.textContent = `"${testimonials[i].quote}"`;
+}
+
+document.getElementById("nextBtn").onclick = () => {
+  index = (index + 1) % testimonials.length;
+  showTestimonial(index);
 };
 
+document.getElementById("prevBtn").onclick = () => {
+  index = (index - 1 + testimonials.length) % testimonials.length;
+  showTestimonial(index);
+};
 
-/* ========= LOGIC ========= */
-const categoriesEl = document.getElementById("categories");
-const gridEl = document.getElementById("grid");
-const previewEl = document.getElementById("preview");
-const frameEl = document.getElementById("frame");
+/* AUTO PLAY */
+setInterval(() => {
+  index = (index + 1) % testimonials.length;
+  showTestimonial(index);
+}, 5000);
 
-const categoryNames = Object.keys(TEMPLATE_DATA);
-let activeCategory = categoryNames[0]; // Trending default
+showTestimonial(index);
+</script>
+<script>
+const blogs = [
+  {
+    title: "What is a Link in Bio?",
+    desc: "Understand how link-in-bio tools simplify online presence.",
+    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Linktree"
+  },
+  {
+    title: "Create Your Own Page",
+    desc: "Build a personal page in minutes with zero code.",
+    img: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Personal_web_page"
+  },
+  {
+    title: "Start Blogging Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Blogging Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "StarT Money Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Start Free Online",
+    desc: "Share your knowledge and grow an audience.",
+    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Blog"
+  },
+  {
+    title: "Monetize Your Content",
+    desc: "Turn followers into income opportunities.",
+    img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200",
+    link: "https://en.wikipedia.org/wiki/Digital_marketing"
+  }
+];
 
-renderCategories();
-renderGrid(activeCategory);
+const stack = document.getElementById("blog-stack");
 
-function renderCategories(){
-  categoriesEl.innerHTML="";
-  categoryNames.forEach((name,index)=>{
-    const btn=document.createElement("div");
-    btn.className="cat"+(index===0?" active":"");
-    btn.textContent=name;
-    btn.onclick=()=>{
-      document.querySelectorAll(".cat").forEach(c=>c.classList.remove("active"));
-      btn.classList.add("active");
-      renderGrid(name);
-    };
-    categoriesEl.appendChild(btn);
-  });
-}
+function renderBlogs() {
+  stack.innerHTML = "";
+  const mid = Math.floor(blogs.length / 2);
 
-function renderGrid(category){
-  gridEl.innerHTML="";
-  TEMPLATE_DATA[category].forEach(item=>{
-    const card=document.createElement("div");
-    card.className="card";
+  blogs.forEach((blog, i) => {
+    const pos = i - mid;
+    const card = document.createElement("div");
+    card.className = "blog-card";
 
-    card.innerHTML=`
-      <img src="${item.img}?q=80&w=900">
-      <div class="card-overlay">
-        <div class="card-title">${item.title}</div>
-        <div class="actions">
-          <button class="btn view">View Once</button>
-          <button class="btn use">Use Me</button>
-        </div>
-      </div>
+    card.style.transform = `
+      translate(-50%, -50%)
+      translateX(${pos * 220}px)
+      translateY(${pos === 0 ? -40 : pos % 2 ? 20 : -20}px)
+      rotate(${pos === 0 ? 0 : pos % 2 ? 3 : -3}deg)
     `;
 
-    card.querySelector(".view").onclick=()=>openPreview(item.preview);
-    card.querySelector(".use").onclick=()=>window.open(item.use,"_blank");
+    card.style.zIndex = 10 - Math.abs(pos);
+    card.style.opacity = pos === 0 ? 1 : 0.7;
 
-    card.onmouseenter=()=>{
-      gridEl.classList.add("hovering");
-      card.classList.add("active");
-    };
-    card.onmouseleave=()=>{
-      gridEl.classList.remove("hovering");
-      card.classList.remove("active");
-    };
+    card.innerHTML = `
+      <img src="${blog.img}">
+      <div class="blog-content">
+        <h3>${blog.title}</h3>
+        <p>${blog.desc}</p>
+      </div>
+      <a href="${blog.link}" target="_blank" class="blog-read">Read more</a>
+    `;
 
-    gridEl.appendChild(card);
+    card.onclick = () => moveBlog(pos);
+    stack.appendChild(card);
   });
 }
 
-function openPreview(url){
-  previewEl.style.display="flex";
-  frameEl.src=url;
+function moveBlog(step) {
+  if (step > 0) {
+    blogs.push(blogs.shift());
+  } else {
+    blogs.unshift(blogs.pop());
+  }
+  renderBlogs();
 }
 
-function closePreview(){
-  previewEl.style.display="none";
-  frameEl.src="";
-}
+renderBlogs();
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.querySelector(".typewriter");
+  if (!el) return;
 
+  const texts = JSON.parse(el.getAttribute("data-text"));
+  let textIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function type() {
+    const currentText = texts[textIndex];
+
+    if (!deleting) {
+      el.textContent = currentText.slice(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === currentText.length) {
+        setTimeout(() => deleting = true, 1800);
+      }
+    } else {
+      el.textContent = currentText.slice(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        deleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+      }
+    }
+
+    setTimeout(type, deleting ? 40 : 70);
+  }
+
+  type();
+});
+</script>
 </body>
 </html>
