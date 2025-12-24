@@ -35,16 +35,14 @@ body{
   text-align:center;
 }
 
-/* ================= RAINBOW TITLE (OPTIMIZED) ================= */
+/* ================= RAINBOW TITLE (HOVER ONLY) ================= */
 .rainbow-title{
   position:relative;
   display:inline-block;
   font-size:clamp(34px,6vw,52px);
   font-weight:800;
-  color:#111;
 }
 
-/* Rainbow only on hover */
 .rainbow-title:hover{
   background:linear-gradient(
     90deg,
@@ -59,10 +57,9 @@ body{
   background-clip:text;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:rainbowShift 2.5s linear;
+  animation:rainbow 2.5s linear;
 }
 
-/* Underline (static, lightweight) */
 .rainbow-title::after{
   content:"";
   position:absolute;
@@ -73,19 +70,17 @@ body{
   height:4px;
   border-radius:4px;
   background:var(--blue);
-  opacity:.85;
 }
 
-@keyframes rainbowShift{
-  from{background-position:0% 50%;}
-  to{background-position:300% 50%;}
+@keyframes rainbow{
+  from{background-position:0%}
+  to{background-position:300%}
 }
 
 /* ================= TEXT ================= */
 .subtitle{
   margin-top:24px;
   font-size:18px;
-  color:#222;
 }
 
 .desc{
@@ -96,50 +91,7 @@ body{
   font-size:14px;
 }
 
-/* ================= AVATARS ================= */
-.avatars{
-  margin:28px auto 10px;
-  display:flex;
-  justify-content:center;
-}
-
-.avatar{
-  position:relative;
-  margin-left:-14px;
-}
-
-.avatar img{
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  border:2px solid #fff;
-  object-fit:cover;
-  transition:.25s;
-}
-
-.avatar:hover img{
-  transform:scale(1.1);
-  z-index:3;
-}
-
-.tooltip{
-  position:absolute;
-  bottom:72px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111;
-  color:#fff;
-  padding:6px 10px;
-  font-size:12px;
-  border-radius:8px;
-  opacity:0;
-  transition:.25s;
-  white-space:nowrap;
-}
-
-.avatar:hover .tooltip{opacity:1;}
-
-/* ================= CATEGORIES (NO GLASS BLUR) ================= */
+/* ================= CATEGORIES ================= */
 .categories{
   margin:36px 0 18px;
   display:flex;
@@ -155,6 +107,7 @@ body{
   border:1px solid var(--border);
   cursor:pointer;
 }
+
 .cat.active{
   background:var(--blue);
   color:#fff;
@@ -168,14 +121,14 @@ body{
   gap:24px;
 }
 
-/* ================= CARD (GLASS KEPT, REDUCED) ================= */
+/* ================= CARD (GLASS OPTIMIZED) ================= */
 .card{
   position:relative;
-  height:320px;
+  height:300px;
   border-radius:18px;
   overflow:hidden;
   background:var(--glass);
-  backdrop-filter:blur(8px); /* reduced */
+  backdrop-filter:blur(8px);
   border:1px solid var(--border);
   transition:.3s;
 }
@@ -186,8 +139,6 @@ body{
 }
 
 .card img{
-  position:absolute;
-  inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
@@ -269,29 +220,9 @@ footer{
 
   <p class="subtitle">Choose a theme that fits your style.</p>
   <p class="desc">
-    Preview templates instantly, explore different layouts, and use the one
+    Preview templates instantly, explore layouts, and use the one
     that works best for you — all in just one click.
   </p>
-
-  <!-- AVATARS -->
-  <div class="avatars">
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36">
-      <div class="tooltip">John · Engineer</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde">
-      <div class="tooltip">Robert · PM</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956">
-      <div class="tooltip">Jane · Data</div>
-    </div>
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80">
-      <div class="tooltip">Emily · UX</div>
-    </div>
-  </div>
 
   <!-- CATEGORIES -->
   <div class="categories" id="categories"></div>
@@ -309,31 +240,18 @@ footer{
 <footer>
   © 2025 <strong>Treedell</strong>. All rights reserved.
 </footer>
-
 <script>
-const TEMPLATE_DATA={
+const DATA={
   Trending:[
     {
       title:"Minimal Bio",
-      img:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+      img:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600",
       preview:"https://en.wikipedia.org/wiki/Minimalism",
       use:"https://en.wikipedia.org/wiki/Personal_website"
     },
     {
       title:"Creator Hub",
-      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview:"https://en.wikipedia.org/wiki/Creator_economy",
-      use:"https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title:"Creator Hub",
-      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      preview:"https://en.wikipedia.org/wiki/Creator_economy",
-      use:"https://en.wikipedia.org/wiki/Content_creator"
-    },
-    {
-      title:"Creator Hub",
-      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
       preview:"https://en.wikipedia.org/wiki/Creator_economy",
       use:"https://en.wikipedia.org/wiki/Content_creator"
     }
@@ -341,27 +259,9 @@ const TEMPLATE_DATA={
   Blogs:[
     {
       title:"Tech Blog",
-      img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600",
       preview:"https://en.wikipedia.org/wiki/Technology_blog",
       use:"https://en.wikipedia.org/wiki/Technology"
-    },
-    {
-      title:"Writer Page",
-      img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      preview:"https://en.wikipedia.org/wiki/Blog",
-      use:"https://en.wikipedia.org/wiki/Writing"
-    },
-    {
-      title:"Writer Page",
-      img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      preview:"https://en.wikipedia.org/wiki/Blog",
-      use:"https://en.wikipedia.org/wiki/Writing"
-    },
-    {
-      title:"Writer Page",
-      img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      preview:"https://en.wikipedia.org/wiki/Blog",
-      use:"https://en.wikipedia.org/wiki/Writing"
     }
   ]
 };
@@ -371,12 +271,12 @@ const grid=document.getElementById("grid");
 const preview=document.getElementById("preview");
 const frame=document.getElementById("frame");
 
-Object.keys(TEMPLATE_DATA).forEach((c,i)=>{
+Object.keys(DATA).forEach((c,i)=>{
   const b=document.createElement("div");
   b.className="cat"+(i===0?" active":"");
   b.textContent=c;
   b.onclick=()=>{
-document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
     b.classList.add("active");
     render(c);
   };
@@ -385,11 +285,11 @@ document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
 
 function render(cat){
   grid.innerHTML="";
-  TEMPLATE_DATA[cat].forEach(item=>{
-    const c=document.createElement("div");
-    c.className="card";
-    c.innerHTML=`
-      <img src="${item.img}">
+  DATA[cat].forEach(item=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img loading="lazy" src="${item.img}">
       <div class="card-overlay">
         <strong>${item.title}</strong>
         <div class="actions">
@@ -397,16 +297,22 @@ function render(cat){
           <button class="btn use">Use Me</button>
         </div>
       </div>`;
-    c.querySelector(".view").onclick=()=>openPreview(item.preview);
-    c.querySelector(".use").onclick=()=>window.open(item.use,"_blank");
-    c.onmouseenter=()=>{grid.classList.add("hovering");c.classList.add("active");};
-    c.onmouseleave=()=>{grid.classList.remove("hovering");c.classList.remove("active");};
-    grid.appendChild(c);
+    card.querySelector(".view").onclick=()=>openPreview(item.preview);
+    card.querySelector(".use").onclick=()=>window.open(item.use,"_blank");
+    card.onmouseenter=()=>{grid.classList.add("hovering");card.classList.add("active");};
+    card.onmouseleave=()=>{grid.classList.remove("hovering");card.classList.remove("active");};
+    grid.appendChild(card);
   });
 }
 
-function openPreview(u){preview.style.display="flex";frame.src=u;}
-function closePreview(){preview.style.display="none";frame.src="";}
+function openPreview(u){
+  preview.style.display="flex";
+  frame.src=u;
+}
+function closePreview(){
+  preview.style.display="none";
+  frame.src="";
+}
 
 render("Trending");
 </script>
