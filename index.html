@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,6 +296,7 @@ nav a:hover { color:#000; }
 .showcase-section {
   background: #f1f7ff;
   padding: 20px 0;
+  overflow-x: hidden; /* 🔑 FIX MOBILE RIGHT GAP */
 }
 
 /* INNER BOX */
@@ -304,7 +306,6 @@ nav a:hover { color:#000; }
   background: #ffffff;
   border-radius: 28px;
   padding: 24px 0;
-  overflow: hidden;
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
 }
 
@@ -354,7 +355,7 @@ nav a:hover { color:#000; }
 .showcase-track {
   display: flex;
   gap: 24px;
-  padding: 0 32px;
+  padding: 0 16px;          /* reduced for mobile */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
@@ -363,25 +364,229 @@ nav a:hover { color:#000; }
   display: none;
 }
 
-/* SHOWCASE CARD */
+/* ================= RAINBOW BORDER WRAPPER ================= */
+.showcase-card-wrap {
+  position: relative;
+  border-radius: 20px;
+  padding: 2px;             /* border thickness */
+  flex-shrink: 0;           /* 🔑 prevents width overflow */
+}
+
+/* RAINBOW BORDER */
+.showcase-card-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8c00,
+    #ffd500,
+    #00ffcc,
+    #00aaff,
+    #8a2be2,
+    #ff0080
+  );
+  background-size: 300% 300%;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  animation: rainbowBorderMove 4s linear infinite;
+  transition: opacity 0.35s ease;
+}
+
+/* SHOW BORDER ON HOVER */
+.showcase-card-wrap:hover::before {
+  opacity: 1;
+}
+
+/* SHOW BORDER ON HOVER */
+.showcase-card-wrap:hover::before {
+  opacity: 1;
+}
+
+/* ================= SHOWCASE CARD (ORIGINAL STYLE) ================= */
 .showcase-card {
   min-width: 260px;
   height: 340px;
-  border-radius: 20px;
+  border-radius: 18px; /* 20px - 2px border */
   background-size: cover;
   background-position: center;
   position: relative;
   scroll-snap-align: center;
   transform: scale(0.94);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  z-index: 1;
 }
 
-/* SCALE + BLUE GLOW ON HOVER */
+/* ORIGINAL HOVER */
 .showcase-card:hover {
   transform: scale(1);
   box-shadow:
     0 0 40px 10px rgba(14,165,233,0.35),
     0 0 80px 20px rgba(14,165,233,0.25);
+}
+
+/* ACTION BUTTONS — FIXED */
+.card-actions {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 🔑 ALWAYS PARALLEL */
+  gap: 10px;
+  align-items: center;
+}
+
+
+/* ================= SHOWCASE SECTION ================= */
+.showcase-section {
+  background: #f1f7ff;
+  padding: 20px 0;
+  overflow-x: hidden;
+}
+
+/* INNER BOX */
+.showcase-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 24px 0;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.showcase-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* TYPEWRITER HEADING */
+.typewriter {
+  font-size: 30px;
+  font-weight: 700;
+  min-height: 38px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.typewriter::after {
+  content: "|";
+  margin-left: 6px;
+  animation: blink 1s infinite;
+  opacity: 0.8;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* SUB TEXT */
+.showcase-subtext {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* DIVIDER */
+.divider {
+  width: 80px;
+  height: 2px;
+  background: #cbd5e1;
+  margin: 12px auto 0;
+}
+
+/* CAROUSEL */
+.showcase-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.showcase-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================= CARD WRAPPER (RAINBOW BORDER) ================= */
+.showcase-card-wrap {
+  position: relative;
+  border-radius: 20px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+/* RAINBOW BORDER (ONLY ON HOVER) */
+.showcase-card-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #ff0080,
+    #ff8c00,
+    #ffd500,
+    #00ffcc,
+    #00aaff,
+    #8a2be2,
+    #ff0080
+  );
+  background-size: 300% 300%;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  animation: rainbowBorderMove 4s linear infinite;
+  transition: opacity 0.35s ease;
+}
+
+.showcase-card-wrap:hover::before {
+  opacity: 1;
+}
+
+/* ================= SHOWCASE CARD (DEFAULT CLEAN) ================= */
+.showcase-card {
+  min-width: 260px;
+  height: 340px;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  scroll-snap-align: center;
+  z-index: 1;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    filter 0.35s ease,
+    opacity 0.35s ease;
+}
+
+/* Hovered card */
+.showcase-card-wrap:hover .showcase-card {
+  transform: scale(1);
+  box-shadow:
+    0 0 40px 10px rgba(14,165,233,0.35),
+    0 0 80px 20px rgba(14,165,233,0.25);
+}
+
+/* ================= BLUR LOGIC ================= */
+/* When hovering anywhere in track → blur all cards */
+.showcase-track:hover .showcase-card {
+  filter: blur(6px) saturate(0.9);
+  opacity: 0.75;
+}
+
+/* But keep hovered card clear */
+.showcase-card-wrap:hover .showcase-card {
+  filter: none;
+  opacity: 1;
 }
 
 /* ACTION BUTTONS */
@@ -425,7 +630,13 @@ nav a:hover { color:#000; }
   text-decoration: none;
 }
 
-/* ================= IFRAME MODAL ================= */
+/* RAINBOW ANIMATION */
+@keyframes rainbowBorderMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ================= IFRAME MODAL (ORIGINAL STYLE RESTORED) ================= */
 .iframe-modal {
   position: fixed;
   inset: 0;
@@ -456,7 +667,6 @@ nav a:hover { color:#000; }
   border: none;
 }
 
-/* CLOSE BUTTON */
 .iframe-close {
   position: absolute;
   top: 12px;
@@ -465,7 +675,6 @@ nav a:hover { color:#000; }
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 10;
 }
 
 /* MOBILE */
@@ -1272,46 +1481,126 @@ nav a:hover { color:#000; }
 </section>
 
 <section class="showcase-section">
+  <div class="showcase-box">
 
-  <!-- SECTION HEADING -->
-  <div class="showcase-header">
-    <h2 class="typewriter"
-        data-text='["Build with Treedell","Explore trends","Go digital"]'>
-    </h2>
-
-    <div class="divider"></div>
-
-    <p class="showcase-subtext">
-      Discover trending layouts creators are using right now
-    </p>
-  </div>
-
-  <!-- CAROUSEL -->
-  <div class="showcase-track">
-
-    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Web_design">View</button>
-        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Website_builder" target="_blank">Use Me</a>
-      </div>
+    <div class="showcase-header">
+      <h2 class="typewriter"
+          data-text='["Build with Treedell","Explore trends","Go digital"]'></h2>
+      <div class="divider"></div>
+      <p class="showcase-subtext">
+        Discover trending layouts creators are using right now
+      </p>
     </div>
 
-    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/User_interface_design">View</button>
-        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Web_template_system" target="_blank">Use Me</a>
-      </div>
-    </div>
+    <div class="showcase-track">
 
-    <div class="showcase-card" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
-      <div class="card-actions">
-        <button class="glass-btn view-btn" data-view="https://en.wikipedia.org/wiki/Front-end_web_development">View</button>
-        <a class="glass-btn use-btn" href="https://en.wikipedia.org/wiki/Responsive_web_design" target="_blank">Use Me</a>
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1528458965990-428de4b1cb0d?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/Web_design">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Website_builder"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
 
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/Front-end_web_development">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Responsive_web_design"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/Front-end_web_development">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Responsive_web_design"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/Front-end_web_development">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Responsive_web_design"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/Front-end_web_development">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Responsive_web_design"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-card-wrap">
+        <div class="showcase-card"
+             style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900')">
+          <div class="card-actions">
+            <button class="glass-btn view-btn"
+                    data-view="https://en.wikipedia.org/wiki/User_interface_design">
+              Preview
+            </button>
+            <a class="glass-btn use-btn"
+               href="https://en.wikipedia.org/wiki/Web_template_system"
+               target="_blank">
+              Customize
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
+
 
 <!-- IFRAME MODAL (HIDDEN BY DEFAULT) -->
 <div class="iframe-modal" id="iframeModal">
@@ -1935,4 +2224,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
