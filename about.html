@@ -330,6 +330,17 @@ p {
     font-size: 16px;
   }
 }
+/* TEXT REVEAL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 </head>
 
@@ -357,16 +368,18 @@ p {
 
     <!-- MOBILE MENU BUTTON -->
     <div class="site-menu-btn" id="siteMenuBtn">
-      <span></span>
-      <span></span>
-      <span></span>
+      <a href="https://myaffiliatepage.com/">HOME</a>
+      <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+      <a href="https://myaffiliatepage.com/news">NEWS</a>
+      <a href="https://myaffiliatepage.com/about">ABOUT</a>
     </div>
   </div>
 </header>
 
 <section class="section">
-  <h1>About Treedell</h1>
-  <p>Everything you create, beautifully connected in one place.</p>
+  <h1 class="reveal">About Treedell</h1>
+  <p class="reveal">Everything you create, beautifully connected in one place.</p>
+  <p class="reveal">Treedell helps creators, professionals, and brands bring all their important links, content, and work together into a single, easy-to-share page.</p>
 
   <!-- COLLAGE -->
   <div class="collage-wrapper">
@@ -388,13 +401,11 @@ p {
 
   <!-- STATS -->
   <div class="stats">
+    <div class="stat-number reveal">3,000+</div>
+    <div class="stat-label reveal">Creators & brands</div>
     <div>
-      <div class="stat-number">3,000+</div>
-      <div class="stat-label">Users Trusted</div>
-    </div>
-    <div>
-      <div class="stat-number">10,000+</div>
-      <div class="stat-label">Templates Processed</div>
+      <div class="stat-number reveal">10,000+</div>
+      <div class="stat-label reveal">Templates Processed</div>
     </div>
   </div>
 
@@ -472,6 +483,23 @@ siteMenuBtn.addEventListener("click", () => {
 siteMenuClose.addEventListener("click", () => {
   siteMobileMenu.classList.remove("active");
 });
+</script>
+<script>
+  const reveals = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  reveals.forEach(el => observer.observe(el));
 </script>
 
 </body>
