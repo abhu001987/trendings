@@ -6,6 +6,109 @@
 <title>About</title>
 
 <style>
+/* ================= TOP NAV HEADER (TREEDLL STYLE) ================= */
+.site-header {
+  width: 100%;
+  background: transparent;
+  padding: 16px 32px;
+}
+
+.site-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
+.site-logo {
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* DESKTOP NAV */
+.site-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.site-nav a {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,0.6);
+}
+
+.site-nav a:hover {
+  color: #000;
+}
+
+/* MOBILE MENU BUTTON */
+.site-menu-btn {
+  display: none;
+  width: 32px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.site-menu-btn span {
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
+}
+
+/* MOBILE MENU */
+.site-mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100vh;
+  background: #fff;
+  padding: 80px 30px;
+  transition: right 0.3s ease;
+  z-index: 999;
+  box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+}
+
+.site-mobile-menu.active {
+  right: 0;
+}
+
+.site-mobile-menu a {
+  display: block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: #111;
+}
+
+/* CLOSE BUTTON */
+.site-menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+  }
+
+  .site-menu-btn {
+    display: flex;
+  }
+}
 :root {
   --bg:#C7D3FF;
   --text:#111;
@@ -231,6 +334,35 @@ p {
 </head>
 
 <body>
+<!-- ================= MOBILE MENU ================= -->
+<div class="site-mobile-menu" id="siteMobileMenu">
+  <button class="site-menu-close" id="siteMenuClose">✕</button>
+  <a href="https://myaffiliatepage.com/">HOME</a>
+  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+  <a href="https://myaffiliatepage.com/news">News</a>
+  <a href="https://myaffiliatepage.com/about">ABOUT</a>
+</div>
+
+<!-- ================= SITE HEADER ================= -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-logo">TreeDell</div>
+
+    <nav class="site-nav">
+      <a href="https://myaffiliatepage.com/">HOME</a>
+      <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+      <a href="https://myaffiliatepage.com/news">NEWS</a>
+      <a href="https://myaffiliatepage.com/about">ABOUT</a>
+    </nav>
+
+    <!-- MOBILE MENU BUTTON -->
+    <div class="site-menu-btn" id="siteMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
 
 <section class="section">
   <h1>About Treedell</h1>
@@ -328,6 +460,19 @@ With Treedell, one link becomes more than just a link. It becomes your online ho
   </div>
 </footer>
 
+<script>
+const siteMenuBtn = document.getElementById("siteMenuBtn");
+const siteMobileMenu = document.getElementById("siteMobileMenu");
+const siteMenuClose = document.getElementById("siteMenuClose");
+
+siteMenuBtn.addEventListener("click", () => {
+  siteMobileMenu.classList.add("active");
+});
+
+siteMenuClose.addEventListener("click", () => {
+  siteMobileMenu.classList.remove("active");
+});
+</script>
 
 </body>
 </html>
