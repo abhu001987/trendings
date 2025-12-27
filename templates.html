@@ -6,16 +6,16 @@
 <title>Templates</title>
 
 <style>
-/* ================= TOP NAV HEADER (TREEDLL STYLE) ================= */
+/* ================= HEADER ================= */
 .site-header {
   width: 100%;
-  background: transparent;
   padding: 16px 32px;
+  background: transparent;
 }
 
 .site-header-inner {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,9 +23,9 @@
 
 /* LOGO */
 .site-logo {
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 2px;
-  font-size: 14px;
 }
 
 /* DESKTOP NAV */
@@ -38,21 +38,23 @@
   text-decoration: none;
   font-size: 12px;
   letter-spacing: 3px;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0,0,0,.65);
 }
 
 .site-nav a:hover {
   color: #000;
 }
 
-/* MOBILE MENU BUTTON */
+/* HAMBURGER */
 .site-menu-btn {
   display: none;
-  width: 32px;
-  height: 22px;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
   flex-direction: column;
   justify-content: space-between;
-  cursor: pointer;
 }
 
 .site-menu-btn span {
@@ -70,9 +72,9 @@
   height: 100vh;
   background: #fff;
   padding: 80px 30px;
-  transition: right 0.3s ease;
+  transition: right .3s ease;
   z-index: 999;
-  box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+  box-shadow: -20px 0 40px rgba(0,0,0,.1);
 }
 
 .site-mobile-menu.active {
@@ -93,7 +95,7 @@
   position: absolute;
   top: 24px;
   right: 24px;
-  font-size: 28px;
+  font-size: 26px;
   background: none;
   border: none;
   cursor: pointer;
@@ -423,19 +425,20 @@ footer{
   <div class="site-header-inner">
     <div class="site-logo">TreeDell</div>
 
+    <!-- DESKTOP NAV -->
     <nav class="site-nav">
       <a href="https://myaffiliatepage.com/">HOME</a>
-      <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
-      <a href="https://myaffiliatepage.com/news">NEWS</a>
-      <a href="https://myaffiliatepage.com/about">ABOUT</a>
+  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
+  <a href="https://myaffiliatepage.com/news">NEWS</a>
+  <a href="https://myaffiliatepage.com/about">ABOUT</a>
     </nav>
 
     <!-- MOBILE MENU BUTTON -->
-    <div class="site-menu-btn" id="siteMenuBtn">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+    <button class="site-menu-btn" id="siteMenuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -626,6 +629,19 @@ render("Trending");
     setTimeout(() => {
       el.classList.add("show");
     }, index * 180); // stagger delay like What's New
+  });
+</script>
+<script>
+  const menuBtn = document.getElementById("siteMenuBtn");
+  const mobileMenu = document.getElementById("siteMobileMenu");
+  const menuClose = document.getElementById("siteMenuClose");
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.add("active");
+  });
+
+  menuClose.addEventListener("click", () => {
+    mobileMenu.classList.remove("active");
   });
 </script>
 </body>
