@@ -22,11 +22,20 @@
 }
 
 /* LOGO */
-.site-logo {
-  font-size: 14px;
+.logo {
   font-weight: 800;
   letter-spacing: 2px;
+  color: #000;              /* force black */
+  text-decoration: none;   /* remove underline */
 }
+
+.logo:visited,
+.logo:hover,
+.logo:active {
+  color: #000;
+  text-decoration: none;
+}
+
 
 /* DESKTOP NAV */
 .site-nav {
@@ -435,7 +444,7 @@ footer{
 <!-- ================= SITE HEADER ================= -->
 <header class="site-header">
   <div class="site-header-inner">
-    <div class="site-logo">TreeDell</div>
+    <a href="https://myaffiliatepage.com/" class="logo">TreeDell</a>
 
     <!-- DESKTOP NAV -->
     <nav class="site-nav">
