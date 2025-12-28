@@ -42,7 +42,17 @@ header {
 .logo {
   font-weight: 800;
   letter-spacing: 2px;
+  color: #000;              /* force black */
+  text-decoration: none;   /* remove underline */
 }
+
+.logo:visited,
+.logo:hover,
+.logo:active {
+  color: #000;
+  text-decoration: none;
+}
+
 
 /* DESKTOP NAV */
 nav {
