@@ -190,14 +190,26 @@ body{
   color:var(--muted);
 }
 
-/* CATEGORIES */
+/* CATEGORY SLIDER */
 .categories{
   display:flex;
   gap:14px;
-  justify-content:center;
-  flex-wrap:wrap;
+  overflow-x:auto;
+  padding:6px 2px 14px;
   margin-bottom:28px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
 }
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.cat{
+  flex-shrink:0;
+  scroll-snap-align:start;
+}
+
 
 .cat{
   padding:10px 18px;
@@ -540,6 +552,102 @@ const DATA={
     }
   ],
   Blogs:[
+    {
+      title:"Tech Blog",
+      img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600",
+      preview:"https://en.wikipedia.org/wiki/Technology_blog",
+      use:"https://en.wikipedia.org/wiki/Technology"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    }
+  ],
+  Music:[
+    {
+      title:"Tech Blog",
+      img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600",
+      preview:"https://en.wikipedia.org/wiki/Technology_blog",
+      use:"https://en.wikipedia.org/wiki/Technology"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    }
+  ],
+  Arts:[
+    {
+      title:"Tech Blog",
+      img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600",
+      preview:"https://en.wikipedia.org/wiki/Technology_blog",
+      use:"https://en.wikipedia.org/wiki/Technology"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    },
+    {
+      title:"Creator Hub",
+      img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600",
+      preview:"https://en.wikipedia.org/wiki/Creator_economy",
+      use:"https://en.wikipedia.org/wiki/Content_creator"
+    }
+  ],
+  Themes:[
     {
       title:"Tech Blog",
       img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600",
