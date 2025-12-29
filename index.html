@@ -42,6 +42,15 @@ header {
 .logo {
   font-weight: 800;
   letter-spacing: 2px;
+  color: #000;              /* force black */
+  text-decoration: none;   /* remove underline */
+}
+
+.logo:visited,
+.logo:hover,
+.logo:active {
+  color: #000;
+  text-decoration: none;
 }
 
 /* DESKTOP NAV */
@@ -248,14 +257,24 @@ nav a:hover { color:#000; }
   opacity: .7;
 }
 
-.feature-image img {
+.feature-image {
   width: 100%;
   max-width: 520px;
-  max-height: 360px;
-  object-fit: cover;
+  border-radius: 20px;
+  overflow: hidden;   /* keeps rounded corners clean */
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;       /* 🔥 THIS IS THE KEY */
+  display: block;
+  object-fit: initial; /* no forcing */
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,.15);
 }
+
+
+
 
 /* ================= FOOTER ================= */
 .site-footer {
@@ -1434,7 +1453,7 @@ nav a:hover { color:#000; }
 <!-- ================= HERO ================= -->
 <section class="hero">
 <header>
-  <div class="logo">TreeDell</div>
+  <a href="https://myaffiliatepage.com/" class="logo">TreeDell</a>
 
   <nav>
     <a href="https://myaffiliatepage.com/">HOME</a>
