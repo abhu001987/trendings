@@ -16,7 +16,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { background:#FFF; color:#111; }
+body { background:#C7D3FF; color:#111; }
 
 /* ================= HERO ================= */
 .hero {
@@ -33,7 +33,7 @@ body { background:#FFF; color:#111; }
 header {
   max-width: 1200px;
   margin: 0 auto; /* FIX 3: prevent vertical auto spacing */
-  width: 125%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,17 +42,7 @@ header {
 .logo {
   font-weight: 800;
   letter-spacing: 2px;
-  color: #000;              /* force black */
-  text-decoration: none;   /* remove underline */
 }
-
-.logo:visited,
-.logo:hover,
-.logo:active {
-  color: #000;
-  text-decoration: none;
-}
-
 
 /* DESKTOP NAV */
 nav {
@@ -92,7 +82,7 @@ nav a:hover { color:#000; }
   right: -100%;
   width: 75%;
   height: 100vh;
-  background: #F7F8FA;
+  background: #fff;
   padding: 80px 30px;
   transition: right .3s ease;
   z-index: 999;
@@ -122,11 +112,6 @@ nav a:hover { color:#000; }
   border: none;
   cursor: pointer;
   color: #111;
-}
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
 }
 
 /* ===== MAIN GRID ===== */
@@ -250,11 +235,11 @@ nav a:hover { color:#000; }
 }
 
 .feature:hover {
-  background: #E9EEFF;
+  background: #f8f8f8;
 }
 
 .feature.active {
-  background: #E9EEFF;
+  background: #fff;
   box-shadow: 0 10px 40px rgba(0,0,0,.08);
 }
 
@@ -308,7 +293,7 @@ nav a:hover { color:#000; }
 }
 /* ================= SHOWCASE SECTION ================= */
 .showcase-section {
-  background: #E9EEFF;
+  background: #f1f7ff;
   padding: 20px 0;
   overflow-x: hidden; /* 🔑 FIX MOBILE RIGHT GAP */
 }
@@ -317,7 +302,7 @@ nav a:hover { color:#000; }
 .showcase-box {
   max-width: 1200px;
   margin: 0 auto;
-  background: #F7F8FA;
+  background: #ffffff;
   border-radius: 28px;
   padding: 24px 0;
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
@@ -458,7 +443,7 @@ nav a:hover { color:#000; }
 
 /* ================= SHOWCASE SECTION ================= */
 .showcase-section {
-  background: #E9EEFF;
+  background: #f1f7ff;
   padding: 20px 0;
   overflow-x: hidden;
 }
@@ -467,7 +452,7 @@ nav a:hover { color:#000; }
 .showcase-box {
   max-width: 1200px;
   margin: 0 auto;
-  background: #F7F8FA;
+  background: #ffffff;
   border-radius: 28px;
   padding: 24px 0;
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
@@ -707,11 +692,6 @@ nav a:hover { color:#000; }
     height: 80%;
   }
 }
-.typewriter .accent {
-  color: #2563eb;
-  font-weight: 700;
-}
-
 /* ================= VIDEO GUIDE SECTION ================= */
 .video-guide-section {
   padding: 60px 20px;
@@ -723,7 +703,7 @@ nav a:hover { color:#000; }
   margin: auto;
   padding: 28px;
   border-radius: 24px;
-  background: #E9EEFF;
+  background: #32E9EC;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 30px;
@@ -801,7 +781,7 @@ nav a:hover { color:#000; }
 /* ================= FAQ SECTION ================= */
 .faq-section {
   padding: 80px 20px;
-  background: #FFF;
+  background: #f9fafb;
 }
 
 .faq-container {
@@ -818,7 +798,7 @@ nav a:hover { color:#000; }
 
 /* FAQ ITEM */
 .faq-item {
-  border-bottom: 1px solid #E9EEFF;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* QUESTION */
@@ -870,7 +850,7 @@ nav a:hover { color:#000; }
 /* ================= TESTIMONIALS ================= */
 .testimonials-section {
   padding: 90px 20px;
-  background: #E9EEFF;
+  background: #C7D3FF;
 }
 
 .testimonials-title {
@@ -967,7 +947,7 @@ nav a:hover { color:#000; }
 }
 /* ================= EXPLORE THEMES SLIDER ================= */
 .themes-slider-section {
-  background: #E9EEFF;
+  background: #eef6ff;
   padding: 40px 0;
 }
 
@@ -1089,7 +1069,7 @@ nav a:hover { color:#000; }
 /* ================= BLOG SECTION ================= */
 .blog-section {
   padding: 32px 0;              /* 🔧 reduced from 80px */
-  background: #FFF;
+  background: #f8fafc;
   text-align: center;
   overflow: hidden;
 }
@@ -1198,7 +1178,7 @@ nav a:hover { color:#000; }
 /* ================= ADVERTISE SECTION ================= */
 .advertise-section {
   padding: 60px 0;
-  background: #E9EEFF;
+  background: #f8fafc;
 }
 
 .advertise-container {
@@ -1283,7 +1263,7 @@ nav a:hover { color:#000; }
 /* ================= CONTACT SECTION ================= */
 .contact-section {
   padding: 60px 0;
-  background: #FFF;
+  background: #C7D3FF;
 }
 
 .contact-container {
@@ -1360,7 +1340,7 @@ nav a:hover { color:#000; }
 /* ================= FOOTER ================= */
 .site-footer {
   width: 100%;
-  background: linear-gradient(to bottom, #FFF, #FFF);
+  background: linear-gradient(to bottom, #C7D3FF, #C7D3FF);
   color: #111;
 }
 
@@ -1450,7 +1430,7 @@ nav a:hover { color:#000; }
 <!-- ================= HERO ================= -->
 <section class="hero">
 <header>
-  <a href="https://myaffiliatepage.com/" class="logo">TreeDell</a>
+  <div class="logo">TreeDell</div>
 
   <nav>
     <a href="https://myaffiliatepage.com/">HOME</a>
@@ -1487,8 +1467,8 @@ nav a:hover { color:#000; }
 <!-- ================= FEATURES ================= -->
 <section id="features" class="features">
   <div class="features-header">
-    <span>One Page. All Links.</span>
-    <h2>Build Your Digital Page</h2>
+    <span>AI Mentors. Real Results.</span>
+    <h2>AI That Actually Teaches</h2>
   </div>
 
   <div class="features-grid">
@@ -1504,12 +1484,7 @@ nav a:hover { color:#000; }
 
     <div class="showcase-header">
       <h2 class="typewriter"
-    data-text='[
-      "Build with Treedell",
-      "See what’s trending",
-      "Go live in minutes"
-    ]'>
-</h2>
+          data-text='["Build with Treedell","Explore trends","Go digital"]'></h2>
       <div class="divider"></div>
       <p class="showcase-subtext">
         Discover trending layouts creators are using right now
@@ -1634,12 +1609,13 @@ nav a:hover { color:#000; }
   </div>
 </div>
 <section class="video-guide-section">
-  <div class="container">
-    <div class="video-main-box">
+
+  <!-- MAIN BOX -->
+  <div class="video-main-box">
 
     <div class="video-text">
-      <h3>Build your page in minutes</h3>
-      <p>Turn a single link into endless ways to connect and share.</p>
+      <h3>It only takes 10 minutes to start</h3>
+      <p>Open up an endless journey of opportunities</p>
     </div>
 
     <!-- MAIN VIDEO (CLICKABLE) -->
@@ -1690,11 +1666,10 @@ nav a:hover { color:#000; }
   </div>
 </section>
 <section class="themes-slider-section">
-<div class="container">
 
   <!-- Animated Heading -->
   <h2 class="themes-slider-title">
-    <span class="themes-word gradient-1">Discover</span>
+    <span class="themes-word gradient-1">Explore</span>
     <span class="themes-word gradient-2">More</span>
     <span class="themes-word gradient-3">Themes</span>
   </h2>
@@ -1704,27 +1679,27 @@ nav a:hover { color:#000; }
 
     <div class="theme-slide"
       style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Explore</a>
+      <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
     <div class="theme-slide"
       style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Explore</a>
+      <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
     <div class="theme-slide"
       style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Explore</a>
+      <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
     </div>
 
     <div class="theme-slide"
       style="background-image:url('https://images.unsplash.com/photo-1682686581854-5e71f58e7e3f?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Explore</a>
+      <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
     </div>
 
     <div class="theme-slide"
       style="background-image:url('https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?auto=format&fit=crop&w=1200&q=80')">
-      <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Explore</a>
+      <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Use me</a>
     </div>
 
   </div>
@@ -1745,14 +1720,14 @@ nav a:hover { color:#000; }
     </div>
 
     <div class="faq-item">
-  <button class="faq-question">
-    Who should use a link in bio page?
-    <span>+</span>
-  </button>
-  <div class="faq-answer">
-    Creators, businesses, and professionals can use a link in bio page to organize and share everything they offer through one simple link.
-  </div>
+      <button class="faq-question">
+        Is Linktree the original link in bio tool?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        Linktree popularized the concept, but today platforms like Treedell expand beyond links by letting you add blogs, quizzes, and interactive pages.
       </div>
+    </div>
 
     <div class="faq-item">
       <button class="faq-question">
@@ -1840,7 +1815,6 @@ nav a:hover { color:#000; }
 
   <div class="blog-wrapper">
     <div id="blog-stack"></div>
-    <div class="container"></div>
 
     <div class="blog-controls">
       <button onclick="moveBlog(-1)">‹</button>
@@ -1957,11 +1931,9 @@ menuClose.onclick = () => mobileMenu.classList.remove("active");
 
 /* HERO IMAGE ROTATION */
 const heroImages = [
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/image_1-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/ehdpeexzqfs8ihw8zub9ug-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/fclwolxktiibm2_htsvhia-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/0gj-lt7hr7szpf39twkmva-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/avgq22r3rwmj1lmsyxpdqw-removebg-preview.png"
+  "https://images.unsplash.com/photo-1611036831438-300a34247c9a?w=600",
+  "https://images.unsplash.com/photo-1646694505010-6ad7ab241fba?w=600",
+  "https://images.unsplash.com/photo-1757043045413-1a1bec073fd4?w=600"
 ];
 
 const heroImg = document.getElementById("heroImage");
@@ -1981,18 +1953,18 @@ setInterval(rotateHero, 4000);
 /* FEATURES */
 const features = [
   {
-    title: "Smart Pages",
-    description: "Beautiful pages, built for you.",
+    title: "Smart Learning",
+    description: "Adaptive AI mentors personalized to you.",
     image: "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?w=800"
   },
   {
-    title: "Easy Customization",
-    description: "Edit links and content in seconds.",
+    title: "Real Feedback",
+    description: "Instant insights that actually help.",
     image: "https://images.unsplash.com/photo-1556761175-129418cb2dfe?w=800"
   },
   {
-    title: "Share Anywhere",
-    description: "One link for all platforms.",
+    title: "Guided Growth",
+    description: "Step-by-step improvement with clarity.",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800"
   }
 ];
@@ -2249,40 +2221,6 @@ document.addEventListener("DOMContentLoaded", () => {
   type();
 });
 </script>
-<script>
-  const accentWords = ["Treedell", "what’s", "minutes"];
-  const typeEl = document.querySelector(".typewriter");
-
-  const observer = new MutationObserver(() => {
-    let text = typeEl.textContent;
-
-    // Do nothing if text is still typing or empty
-    if (!text || text.length < 4) return;
-
-    // Only proceed if any accent word exists
-    if (!accentWords.some(word => text.includes(word))) return;
-
-    let html = text;
-
-    accentWords.forEach(word => {
-      html = html.replace(
-        new RegExp(`\\b${word}\\b`, "g"),
-        `<span class="accent">${word}</span>`
-      );
-    });
-
-    // Replace ONCE per full word render
-    if (!typeEl.innerHTML.includes("accent")) {
-      typeEl.innerHTML = html;
-    }
-  });
-
-  observer.observe(typeEl, {
-    childList: true,
-    characterData: true,
-    subtree: true
-  });
-</script>
-
 </body>
 </html>
+
