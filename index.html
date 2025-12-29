@@ -31,7 +31,6 @@ body { background:#EEF1F5; color:#111; }
 }
 
 header {
-  max-width: 1200px;
   margin: 0 auto; /* FIX 3: prevent vertical auto spacing */
   width: 100%;
   display: flex;
@@ -125,7 +124,7 @@ nav a:hover { color:#000; }
 
 /* ===== MAIN GRID ===== */
 .main {
-  max-width: 1200px;
+
 
   /* FIX 4: remove vertical auto-centering */
   margin: 0 auto;
@@ -222,7 +221,6 @@ nav a:hover { color:#000; }
 }
 
 .features-grid {
-  max-width: 1200px;
   margin: 0 auto; /* FIX 4: prevent vertical auto spacing */
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -319,7 +317,6 @@ nav a:hover { color:#000; }
 
 /* INNER BOX */
 .showcase-box {
-  max-width: 1200px;
   margin: 0 auto;
   background: #ffffff;
   border-radius: 28px;
@@ -469,7 +466,6 @@ nav a:hover { color:#000; }
 
 /* INNER BOX */
 .showcase-box {
-  max-width: 1200px;
   margin: 0 auto;
   background: #ffffff;
   border-radius: 28px;
@@ -731,14 +727,37 @@ nav a:hover { color:#000; }
 
 /* TEXT */
 .video-text h3 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  position: relative;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(20px);
+  animation: textReveal 0.8s ease forwards;
+}
+
+.video-text h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 4px;
+  background: #0B4D5C;
+  border-radius: 4px;
+  animation: underlineGrow 0.8s ease forwards;
+  animation-delay: 0.6s;
 }
 
 .video-text p {
   font-size: 15px;
-  opacity: 0.7;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(20px);
+  animation: textReveal 0.8s ease forwards;
+  animation-delay: 0.3s;
+  margin-top: 18px;
 }
 
 /* VIDEO THUMB */
@@ -753,6 +772,7 @@ nav a:hover { color:#000; }
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .video-thumb.small {
@@ -786,6 +806,63 @@ nav a:hover { color:#000; }
   display: none;
 }
 
+/* VIDEO MODAL */
+.iframe-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.iframe-modal.active {
+  display: flex;
+}
+
+.iframe-box {
+  width: 90%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.iframe-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.iframe-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  color: #fff;
+  font-size: 26px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ANIMATIONS */
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineGrow {
+  to {
+    width: 65%;
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .video-main-box {
@@ -793,10 +870,16 @@ nav a:hover { color:#000; }
     text-align: center;
   }
 
+  .video-text h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .video-thumb {
     height: 220px;
   }
 }
+
 /* ================= FAQ SECTION ================= */
 .faq-section {
   padding: 80px 20px;
@@ -1208,7 +1291,6 @@ nav a:hover { color:#000; }
 }
 
 .advertise-container {
-  max-width: 1200px;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -1293,7 +1375,6 @@ nav a:hover { color:#000; }
 }
 
 .contact-container {
-  max-width: 1200px;
   margin: auto;
   display: grid;
   grid-template-columns: 1.2fr 1fr; /* image wider */
@@ -1372,7 +1453,6 @@ nav a:hover { color:#000; }
 
 /* MAIN AREA */
 .footer-main {
-  max-width: 1200px;
   margin: auto;
   padding: 22px 16px;   /* 🔥 reduced more */
   display: flex;
@@ -1443,6 +1523,16 @@ nav a:hover { color:#000; }
   color: #2563eb;
   font-weight: 700;
 }
+/* ===== GLOBAL LAYOUT SYSTEM ===== */
+.section {
+  padding: 60px 16px;
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 </head>
 
@@ -1461,6 +1551,7 @@ nav a:hover { color:#000; }
 <section class="hero">
 <header>
   <a href="https://myaffiliatepage.com/" class="logo">TreeDell</a>
+  <div class="container"></div>
 
   <nav>
     <a href="https://myaffiliatepage.com/">HOME</a>
@@ -1500,7 +1591,7 @@ nav a:hover { color:#000; }
     <span>AI Mentors. Real Results.</span>
     <h2>AI That Actually Teaches</h2>
   </div>
-
+  <div class="container"></div>
   <div class="features-grid">
     <div class="feature-list" id="featureList"></div>
     <div class="feature-image">
@@ -1636,72 +1727,65 @@ nav a:hover { color:#000; }
 </section>
 
 
-<!-- IFRAME MODAL (HIDDEN BY DEFAULT) -->
-<div class="iframe-modal" id="iframeModal">
-  <div class="iframe-box">
-    <button class="iframe-close" id="iframeClose">✕</button>
-    <iframe id="iframeViewer"></iframe>
-  </div>
-</div>
 <section class="video-guide-section">
 
-  <!-- MAIN BOX -->
   <div class="video-main-box">
-
     <div class="video-text">
       <h3>It only takes 10 minutes to start</h3>
       <p>Open up an endless journey of opportunities</p>
     </div>
 
-    <!-- MAIN VIDEO (CLICKABLE) -->
-    <a
-      href="https://youtu.be/hmtuvNfytjM"
-      target="_blank"
-      class="video-thumb"
-      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')"
-    >
-      <div class="play-btn">▶</div>
-    </a>
-
-  </div>
-
-  <!-- SLIDER VIDEOS -->
-  <div class="video-slider">
-
-    <a href="https://youtu.be/hmtuvNfytjM" target="_blank"
-      class="video-thumb small"
+    <div class="video-thumb video-play"
+      data-video="dQw4w9WgXcQ"
       style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
       <div class="play-btn">▶</div>
-    </a>
+    </div>
+  </div>
 
-    <a href="https://youtu.be/9No-FiEInLA" target="_blank"
-      class="video-thumb small"
+  <div class="video-slider">
+    <div class="video-thumb small video-play"
+      data-video="dQw4w9WgXcQ"
+      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
+      <div class="play-btn">▶</div>
+    </div>
+
+    <div class="video-thumb small video-play"
+      data-video="9No-FiEInLA"
       style="background-image:url('https://img.youtube.com/vi/9No-FiEInLA/hqdefault.jpg')">
       <div class="play-btn">▶</div>
-    </a>
+    </div>
 
-    <a href="https://youtu.be/Ke90Tje7VS0" target="_blank"
-      class="video-thumb small"
+    <div class="video-thumb small video-play"
+      data-video="Ke90Tje7VS0"
       style="background-image:url('https://img.youtube.com/vi/Ke90Tje7VS0/hqdefault.jpg')">
       <div class="play-btn">▶</div>
-    </a>
+    </div>
 
-    <a href="https://youtu.be/1Rs2ND1ryYc" target="_blank"
-      class="video-thumb small"
+    <div class="video-thumb small video-play"
+      data-video="1Rs2ND1ryYc"
       style="background-image:url('https://img.youtube.com/vi/1Rs2ND1ryYc/hqdefault.jpg')">
       <div class="play-btn">▶</div>
-    </a>
+    </div>
 
-    <a href="https://youtu.be/ysEN5RaKOlA" target="_blank"
-      class="video-thumb small"
+    <div class="video-thumb small video-play"
+      data-video="ysEN5RaKOlA"
       style="background-image:url('https://img.youtube.com/vi/ysEN5RaKOlA/hqdefault.jpg')">
       <div class="play-btn">▶</div>
-    </a>
-
+    </div>
   </div>
+
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="iframe-modal" id="iframeModal">
+  <div class="iframe-box">
+    <button class="iframe-close" id="iframeClose">✕</button>
+    <iframe id="iframeViewer" allow="autoplay; encrypted-media"></iframe>
+  </div>
+</div>
 </section>
 <section class="themes-slider-section">
-
+  <div class="container"></div>
   <h2 class="themes-slider-title">
   <span class="themes-word gradient-1">Designed</span>
   <span class="themes-word gradient-2">for</span>
@@ -1741,7 +1825,7 @@ nav a:hover { color:#000; }
 
 <section class="faq-section">
   <div class="faq-container">
-
+    <div class="container"></div>
     <h2 class="faq-title">Frequently Asked Questions</h2>
 
     <div class="faq-item">
@@ -1818,7 +1902,7 @@ nav a:hover { color:#000; }
 </section>
 <section class="testimonials-section">
   <h2 class="testimonials-title">What our users say</h2>
-
+    <div class="container"></div>
   <div class="testimonials-wrapper">
 
     <!-- IMAGE STACK -->
@@ -1845,6 +1929,7 @@ nav a:hover { color:#000; }
   </div>
 </section>
 <section class="blog-section">
+  <div class="container"></div>
   <h2 class="blog-title">Latest from our blog</h2>
   <p class="blog-sub">Insights, guides, and ideas to grow your presence</p>
 
@@ -1887,6 +1972,7 @@ nav a:hover { color:#000; }
   </div>
 </section>
 <section class="contact-section">
+  <div class="container"></div>
   <div class="contact-container">
 
     <!-- LEFT IMAGE -->
@@ -2329,6 +2415,48 @@ track.addEventListener("touchstart", () => isPaused = true);
 track.addEventListener("touchend", () => isPaused = false);
 
 animate();
+</script>
+<script>
+  const videoModal = document.getElementById("iframeModal");
+  const videoIframe = document.getElementById("iframeViewer");
+  const videoCloseBtn = document.getElementById("iframeClose");
+
+  function isShorts(videoId) {
+    // Known Shorts detection via fetch-free method
+    return [
+      "9No-FiEInLA",
+      "ysEN5RaKOlA"
+    ].includes(videoId);
+  }
+
+  document.querySelectorAll(".video-play").forEach(video => {
+    video.addEventListener("click", () => {
+      const id = video.dataset.video;
+
+      // If Shorts or restricted → open YouTube
+      if (isShorts(id)) {
+        window.open(`https://www.youtube.com/watch?v=${id}`, "_blank");
+        return;
+      }
+
+      videoIframe.src =
+        `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
+
+      videoModal.classList.add("active");
+    });
+  });
+
+  videoCloseBtn.onclick = () => {
+    videoIframe.src = "";
+    videoModal.classList.remove("active");
+  };
+
+  videoModal.onclick = e => {
+    if (e.target === videoModal) {
+      videoIframe.src = "";
+      videoModal.classList.remove("active");
+    }
+  };
 </script>
 
 </body>
