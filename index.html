@@ -2421,19 +2421,21 @@ animate();
   const videoIframe = document.getElementById("iframeViewer");
   const videoCloseBtn = document.getElementById("iframeClose");
 
-  // Known non-embeddable videos (Shorts / restricted)
-  const blockedVideos = [
-    "9No-FiEInLA",
-    "ysEN5RaKOlA"
-  ];
+  function isShorts(videoId) {
+    // Known Shorts detection via fetch-free method
+    return [
+      "9No-FiEInLA",
+      "ysEN5RaKOlA"
+    ].includes(videoId);
+  }
 
   document.querySelectorAll(".video-play").forEach(video => {
     video.addEventListener("click", () => {
       const id = video.dataset.video;
 
-      // If non-embeddable → open YouTube in SAME TAB
-      if (blockedVideos.includes(id)) {
-        window.location.href = `https://www.youtube.com/watch?v=${id}`;
+      // If Shorts or restricted → open YouTube
+      if (isShorts(id)) {
+        window.open(`https://www.youtube.com/watch?v=${id}`, "_blank");
         return;
       }
 
@@ -2456,7 +2458,6 @@ animate();
     }
   };
 </script>
-
 
 </body>
 </html>
