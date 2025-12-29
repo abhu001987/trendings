@@ -1413,6 +1413,10 @@ nav a:hover { color:#000; }
     font-size: 16px;
   }
 }
+.typewriter .accent {
+  color: #2563eb;
+  font-weight: 700;
+}
 </style>
 </head>
 
@@ -1484,7 +1488,12 @@ nav a:hover { color:#000; }
 
     <div class="showcase-header">
       <h2 class="typewriter"
-          data-text='["Build with Treedell","Explore trends","Go digital"]'></h2>
+    data-text='[
+      "Build with Treedell",
+      "See what’s trending",
+      "Go live in minutes"
+    ]'>
+</h2>
       <div class="divider"></div>
       <p class="showcase-subtext">
         Discover trending layouts creators are using right now
@@ -2222,6 +2231,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   type();
 });
+</script>
+<script>
+  const accentWords = ["Treedell", "what’s", "minutes"];
+  const typeEl = document.querySelector(".typewriter");
+
+  const observer = new MutationObserver(() => {
+    let text = typeEl.textContent;
+
+    // Do nothing if text is still typing or empty
+    if (!text || text.length < 4) return;
+
+    // Only proceed if any accent word exists
+    if (!accentWords.some(word => text.includes(word))) return;
+
+    let html = text;
+
+    accentWords.forEach(word => {
+      html = html.replace(
+        new RegExp(`\\b${word}\\b`, "g"),
+        `<span class="accent">${word}</span>`
+      );
+    });
+
+    // Replace ONCE per full word render
+    if (!typeEl.innerHTML.includes("accent")) {
+      typeEl.innerHTML = html;
+    }
+  });
+
+  observer.observe(typeEl, {
+    childList: true,
+    characterData: true,
+    subtree: true
+  });
 </script>
 </body>
 </html>
