@@ -16,7 +16,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { background: #0B0F14; color:#E5E7EB; }
+body { background:#EEF1F5; color:#111; }
 
 /* ================= HERO ================= */
 .hero {
@@ -41,14 +41,14 @@ header {
 .logo {
   font-weight: 800;
   letter-spacing: 2px;
-  color: #E5E7EB;              /* force black */
+  color: #000;              /* force black */
   text-decoration: none;   /* remove underline */
 }
 
 .logo:visited,
 .logo:hover,
 .logo:active {
-  color: #E5E7EB;
+  color: #000;
   text-decoration: none;
 }
 
@@ -62,10 +62,10 @@ nav a {
   text-decoration: none;
   font-size: 12px;
   letter-spacing: 3px;
-  color: rgba(229, 231, 235, 1);
+  color: rgba(0,0,0,.6);
 }
 
-nav a:hover { color:#E5E7EB; }
+nav a:hover { color:#000; }
 
 /* MOBILE MENU BUTTON */
 .menu-btn {
@@ -79,7 +79,7 @@ nav a:hover { color:#E5E7EB; }
 
 .menu-btn span {
   height: 2px;
-  background: #E5E7EB;
+  background: #111;
   border-radius: 2px;
 }
 
@@ -90,7 +90,7 @@ nav a:hover { color:#E5E7EB; }
   right: -100%;
   width: 75%;
   height: 100vh;
-  background: #E5E7EB;
+  background: #fff;
   padding: 80px 30px;
   transition: right .3s ease;
   z-index: 999;
@@ -150,7 +150,7 @@ nav a:hover { color:#E5E7EB; }
   border-radius: 40px;
   border: 1px solid rgba(0,0,0,.4);
   background: transparent;
-  color: #E5E7EB;
+  color: #000;
   text-decoration: none;
   transition: .3s;
 }
@@ -271,6 +271,17 @@ nav a:hover { color:#E5E7EB; }
   box-shadow: 0 20px 40px rgba(0,0,0,.15);
 }
 
+/* ================= FEATURES DESKTOP FINE TUNE ================= */
+@media (min-width: 900px) {
+  .features-grid {
+    gap: 70px;
+  }
+
+  .feature-image {
+    transform: translateX(130px); /* 👈 little more right */
+  }
+}
+
 /* ================= FOOTER ================= */
 .site-footer {
   padding: 30px 20px; /* FIX 5: tighter footer spacing */
@@ -307,7 +318,7 @@ nav a:hover { color:#E5E7EB; }
 }
 /* ================= SHOWCASE SECTION ================= */
 .showcase-section {
-  background: #0B0F14;
+  background: #f1f7ff;
   padding: 20px 0;
   overflow-x: hidden; /* 🔑 FIX MOBILE RIGHT GAP */
 }
@@ -315,7 +326,7 @@ nav a:hover { color:#E5E7EB; }
 /* INNER BOX */
 .showcase-box {
   margin: 0 auto;
-  background: #0B0F14;
+  background: #ffffff;
   border-radius: 28px;
   padding: 24px 0;
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
@@ -352,14 +363,14 @@ nav a:hover { color:#E5E7EB; }
 .showcase-subtext {
   margin-top: 10px;
   font-size: 14px;
-  color: #E5E7EB;
+  color: #64748b;
 }
 
 /* DIVIDER */
 .divider {
   width: 80px;
   height: 2px;
-  background: #E5E7EB;
+  background: #cbd5e1;
   margin: 12px auto 0;
 }
 
@@ -456,7 +467,7 @@ nav a:hover { color:#E5E7EB; }
 
 /* ================= SHOWCASE SECTION ================= */
 .showcase-section {
-  background: #0B0F14;
+  background: #f1f7ff;
   padding: 20px 0;
   overflow-x: hidden;
 }
@@ -464,7 +475,7 @@ nav a:hover { color:#E5E7EB; }
 /* INNER BOX */
 .showcase-box {
   margin: 0 auto;
-  background: #0B0F14;
+  background: #ffffff;
   border-radius: 28px;
   padding: 24px 0;
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
@@ -501,14 +512,14 @@ nav a:hover { color:#E5E7EB; }
 .showcase-subtext {
   margin-top: 10px;
   font-size: 14px;
-  color: #E5E7EB;
+  color: #64748b;
 }
 
 /* DIVIDER */
 .divider {
   width: 80px;
   height: 2px;
-  background: #E5E7EB;
+  background: #cbd5e1;
   margin: 12px auto 0;
 }
 
@@ -715,7 +726,7 @@ nav a:hover { color:#E5E7EB; }
   margin: auto;
   padding: 28px;
   border-radius: 24px;
-  background: #D2E823;
+  background: #32E9EC;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 30px;
@@ -741,7 +752,7 @@ nav a:hover { color:#E5E7EB; }
   bottom: -10px;
   width: 0;
   height: 4px;
-  background: #E5E7EB;
+  background: #0B4D5C;
   border-radius: 4px;
   animation: underlineGrow 0.8s ease forwards;
   animation-delay: 0.6s;
@@ -880,7 +891,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= FAQ SECTION ================= */
 .faq-section {
   padding: 80px 20px;
-  background: #0B0F14;
+  background: #f9fafb;
 }
 
 .faq-container {
@@ -897,7 +908,7 @@ nav a:hover { color:#E5E7EB; }
 
 /* FAQ ITEM */
 .faq-item {
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* QUESTION */
@@ -949,7 +960,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= TESTIMONIALS ================= */
 .testimonials-section {
   padding: 90px 20px;
-  background: #0B0F14;
+  background: #C7D3FF;
 }
 
 .testimonials-title {
@@ -1047,7 +1058,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= EXPLORE THEMES SLIDER ================= */
 /* SECTION */
 .themes-slider-section {
-  background: #0B0F14;
+  background: #eef6ff;
   padding: 40px 0;
   overflow: hidden;
 }
@@ -1175,7 +1186,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= BLOG SECTION ================= */
 .blog-section {
   padding: 32px 0;              /* 🔧 reduced from 80px */
-  background: #0B0F14;
+  background: #f8fafc;
   text-align: center;
   overflow: hidden;
 }
@@ -1284,7 +1295,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= ADVERTISE SECTION ================= */
 .advertise-section {
   padding: 60px 0;
-  background: #0B0F14;
+  background: #f8fafc;
 }
 
 .advertise-container {
@@ -1303,7 +1314,7 @@ nav a:hover { color:#E5E7EB; }
 
 .advertise-content p {
   margin-top: 14px;
-  color: #E5E7EB;
+  color: #475569;
   max-width: 420px;
 }
 
@@ -1368,7 +1379,7 @@ nav a:hover { color:#E5E7EB; }
 /* ================= CONTACT SECTION ================= */
 .contact-section {
   padding: 60px 0;
-  background: #0B0F14;
+  background: #C7D3FF;
 }
 
 .contact-container {
@@ -1396,7 +1407,7 @@ nav a:hover { color:#E5E7EB; }
 
 .contact-content p {
   margin-top: 14px;
-  color: #E5E7EB;
+  color: #475569;
   max-width: 420px;
 }
 
@@ -1444,8 +1455,8 @@ nav a:hover { color:#E5E7EB; }
 /* ================= FOOTER ================= */
 .site-footer {
   width: 100%;
-  background: linear-gradient(to bottom, #0B0F14, #0B0F14);
-  color: #E5E7EB;
+  background: linear-gradient(to bottom, #C7D3FF, #C7D3FF);
+  color: #111;
 }
 
 /* MAIN AREA */
@@ -1796,15 +1807,15 @@ nav a:hover { color:#E5E7EB; }
     <!-- MOVING TRACK -->
     <div class="themes-slider-track" id="themesSliderTrack">
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/1000118005.png')">
+      <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&w=1200&q=80')">
         <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
       </div>
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-3e03c354-f00c-47e2-acaf-bf0bbcfa5ce8.jpg')">
+      <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1200&q=80')">
         <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
       </div>
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-23cdf044-e4db-4871-b030-d711d7aacbe5.jpg')">
+      <div class="theme-slide" style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80')">
         <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
       </div>
 
@@ -2078,7 +2089,7 @@ const features = [
   {
     title: "Real Feedback",
     description: "Instant insights that actually help.",
-    image: "https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-2b4c00d3-336a-4e6b-8442-6d1c9c82ac8f.jpg"
+    image: "https://studymate81.wordpress.com/wp-content/uploads/2025/12/1000118005.png"
   },
   {
     title: "Guided Growth",
@@ -2458,27 +2469,3 @@ animate();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
