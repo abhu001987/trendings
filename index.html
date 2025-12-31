@@ -324,7 +324,7 @@ nav a:hover { color:#000; }
   display: grid;
   grid-template-columns: 1fr 360px;
   gap: 40px;
-  background: #0F172A;
+  background: #FACC15;
   box-sizing: border-box;
 }
 
@@ -500,178 +500,6 @@ nav a:hover { color:#000; }
 @media (min-width: 1024px) {
   .details-area {
     margin-left: 60px; /* adjust if needed */
-  }
-}
-/* ================= VIDEO GUIDE SECTION ================= */
-.video-guide-section {
-  padding: 60px 20px;
-}
-
-/* MAIN BOX */
-.video-main-box {
-  max-width: 1100px;
-  margin: auto;
-  padding: 28px;
-  border-radius: 24px;
-  background: #FAFAFA;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 30px;
-  align-items: center;
-}
-
-/* TEXT */
-.video-text h3 {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 14px;
-  position: relative;
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(20px);
-  animation: textReveal 0.8s ease forwards;
-}
-
-.video-text h3::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 0;
-  height: 4px;
-  background: #0B4D5C;
-  border-radius: 4px;
-  animation: underlineGrow 0.8s ease forwards;
-  animation-delay: 0.6s;
-}
-
-.video-text p {
-  font-size: 15px;
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(20px);
-  animation: textReveal 0.8s ease forwards;
-  animation-delay: 0.3s;
-  margin-top: 18px;
-}
-
-/* VIDEO THUMB */
-.video-thumb {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  border-radius: 18px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.video-thumb.small {
-  min-width: 240px;
-  height: 150px;
-}
-
-/* PLAY BUTTON */
-.play-btn {
-  width: 54px;
-  height: 54px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-
-/* SLIDER */
-.video-slider {
-  margin-top: 28px;
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-}
-
-.video-slider::-webkit-scrollbar {
-  display: none;
-}
-
-/* VIDEO MODAL */
-.iframe-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.iframe-modal.active {
-  display: flex;
-}
-
-.iframe-box {
-  width: 90%;
-  max-width: 900px;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border-radius: 18px;
-  overflow: hidden;
-  position: relative;
-}
-
-.iframe-box iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-.iframe-close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: none;
-  color: #fff;
-  font-size: 26px;
-  border: none;
-  cursor: pointer;
-}
-
-/* ANIMATIONS */
-@keyframes textReveal {
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
-}
-
-@keyframes underlineGrow {
-  to {
-    width: 65%;
-  }
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .video-main-box {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .video-text h3::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .video-thumb {
-    height: 220px;
   }
 }
 
@@ -1415,7 +1243,14 @@ nav a:hover { color:#000; }
         <p class="tag">Most Popular</p>
         <h3>Black Sea</h3>
         <span>January 2026</span>
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200">
+        <img src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-3e03c354-f00c-47e2-acaf-bf0bbcfa5ce8.jpg">
+      </div>
+
+      <div class="memory-card" data-link="https://en.wikipedia.org/wiki/Alps">
+        <p class="tag">Most Popular</p>
+        <h3>Alps</h3>
+        <span>December 2025</span>
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200">
       </div>
 
       <div class="memory-card" data-link="https://en.wikipedia.org/wiki/Alps">
@@ -1452,63 +1287,7 @@ nav a:hover { color:#000; }
 </section>
 
 
-<section class="video-guide-section">
 
-  <div class="video-main-box">
-    <div class="video-text">
-      <h3>It only takes 10 minutes to start</h3>
-      <p>Open up an endless journey of opportunities</p>
-    </div>
-
-    <div class="video-thumb video-play"
-      data-video="dQw4w9WgXcQ"
-      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-  </div>
-
-  <div class="video-slider">
-    <div class="video-thumb small video-play"
-      data-video="dQw4w9WgXcQ"
-      style="background-image:url('https://img.youtube.com/vi/hmtuvNfytjM/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-
-    <div class="video-thumb small video-play"
-      data-video="9No-FiEInLA"
-      style="background-image:url('https://img.youtube.com/vi/9No-FiEInLA/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-
-    <div class="video-thumb small video-play"
-      data-video="Ke90Tje7VS0"
-      style="background-image:url('https://img.youtube.com/vi/Ke90Tje7VS0/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-
-    <div class="video-thumb small video-play"
-      data-video="1Rs2ND1ryYc"
-      style="background-image:url('https://img.youtube.com/vi/1Rs2ND1ryYc/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-
-    <div class="video-thumb small video-play"
-      data-video="ysEN5RaKOlA"
-      style="background-image:url('https://img.youtube.com/vi/ysEN5RaKOlA/hqdefault.jpg')">
-      <div class="play-btn">▶</div>
-    </div>
-  </div>
-
-</section>
-
-<!-- VIDEO MODAL -->
-<div class="iframe-modal" id="iframeModal">
-  <div class="iframe-box">
-    <button class="iframe-close" id="iframeClose">✕</button>
-    <iframe id="iframeViewer" allow="autoplay; encrypted-media"></iframe>
-  </div>
-</div>
-</section>
 <section class="themes-slider-section">
   <div class="container"></div>
   <h2 class="themes-slider-title">
