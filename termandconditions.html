@@ -10,16 +10,12 @@ html,body{
     overflow:hidden;
     background:#87ceeb;
 }
-
-/* GAME CONTAINER */
 #game{
     position:relative;
     width:100vw;
     height:100vh;
     overflow:hidden;
 }
-
-/* WORLD */
 #world{
     position:absolute;
     height:100%;
@@ -32,10 +28,10 @@ html,body{
     width:80px;
     height:100px;
     background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
-    z-index:5;
+    z-index:10;
 }
 
-/* GROUND TILE */
+/* GROUND */
 .ground{
     position:absolute;
     bottom:0;
@@ -52,6 +48,15 @@ html,body{
     background:#8b4513;
     border:3px solid #5a2d0c;
 }
+
+/* FLOOR OBSTACLE */
+.obstacle{
+    position:absolute;
+    width:50px;
+    height:50px;
+    background:#444;
+    bottom:80px;
+}
 </style>
 </head>
 <body>
@@ -67,9 +72,10 @@ html,body{
    CONSTANTS
 ======================= */
 const GROUND_HEIGHT = 80;
-const PLAYER_WIDTH = 80;
-const PLAYER_HEIGHT = 100;
-const TILE_WIDTH = 200;
+const PLAYER_W = 80;
+const PLAYER_H = 100;
+const TILE_W = 200;
+const MAX_JUMP_Y = 10;
 
 /* =======================
    ELEMENTS
@@ -81,7 +87,7 @@ const player = document.getElementById("player");
    PLAYER STATE
 ======================= */
 let x = 100;
-let y = window.innerHeight - GROUND_HEIGHT - PLAYER_HEIGHT;
+let y = window.innerHeight - GROUND_HEIGHT - PLAYER_H;
 let vx = 0;
 let vy = 0;
 let onGround = false;
@@ -89,13 +95,13 @@ let onGround = false;
 /* =======================
    PHYSICS
 ======================= */
-const gravity = 0.8;
+const gravity = 0.9;
 const speed = 5;
-const jumpPower = 16;
+const jumpForce = 3;
 const keys = {};
 
 /* =======================
-   INPUT (WASD ALWAYS ON)
+   INPUT
 ======================= */
 document.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
 document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
@@ -104,33 +110,51 @@ document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
    INFINITE GROUND
 ======================= */
 const groundTiles = [];
-for(let i=0;i<30;i++){
+for(let i=0;i<40;i++){
     const g = document.createElement("div");
     g.className = "ground";
-    g.style.left = (i * TILE_WIDTH) + "px";
+    g.style.left = i * TILE_W + "px";
     world.appendChild(g);
     groundTiles.push(g);
 }
 
 /* =======================
-   INFINITE BOXES
+   BOX PLATFORMS
 ======================= */
 const boxes = [];
-
-function spawnBox(xPos,yPos){
+function addBox(x,y){
     const b = document.createElement("div");
     b.className = "block";
-    b.style.left = xPos + "px";
-    b.style.top = yPos + "px";
+    b.style.left = x+"px";
+    b.style.top = y+"px";
     world.appendChild(b);
     boxes.push(b);
 }
 
-for(let i=1;i<=15;i++){
-    spawnBox(
-        i * 400,
-        window.innerHeight - GROUND_HEIGHT - 160 - (i % 3) * 60
-    );
+/* floor boxes */
+for(let i=1;i<=10;i++){
+    addBox(i*500, window.innerHeight - GROUND_HEIGHT - 80);
+}
+
+/* air boxes */
+for(let i=1;i<=10;i++){
+    addBox(i*600, window.innerHeight - GROUND_HEIGHT - 200 - (i%3)*60);
+}
+
+/* =======================
+   FLOOR OBSTACLES
+======================= */
+const obstacles = [];
+function addObstacle(x){
+    const o = document.createElement("div");
+    o.className = "obstacle";
+    o.style.left = x+"px";
+    world.appendChild(o);
+    obstacles.push(o);
+}
+
+for(let i=1;i<=12;i++){
+    addObstacle(i*450);
 }
 
 /* =======================
@@ -152,11 +176,10 @@ function update(){
     if(keys["a"]) vx = -speed;
     if(keys["d"]) vx = speed;
 
-    if(keys["w"] && onGround){
-        vy = -jumpPower;
-        onGround = false;
+    if(keys["w"] && y > MAX_JUMP_Y){
+        vy -= jumpForce;
     }
-    if(keys["s"]) vy += 1;
+    if(keys["s"]) vy += 1.5;
 
     /* PHYSICS */
     vy += gravity;
@@ -167,38 +190,70 @@ function update(){
     const groundY = window.innerHeight - GROUND_HEIGHT;
 
     /* GROUND COLLISION */
-    if(y + PLAYER_HEIGHT >= groundY){
-        y = groundY - PLAYER_HEIGHT;
+    if(y + PLAYER_H >= groundY){
+        y = groundY - PLAYER_H;
         vy = 0;
         onGround = true;
     }
 
-    /* BOX COLLISION */
+    /* BOX COLLISIONS (FULL SOLID) */
     boxes.forEach(b=>{
         const bx = parseInt(b.style.left);
         const by = parseInt(b.style.top);
 
-        const p = { x, y, w:PLAYER_WIDTH, h:PLAYER_HEIGHT };
-        const box = { x:bx, y:by, w:80, h:80 };
+        const p = {x,y,w:PLAYER_W,h:PLAYER_H};
+        const box = {x:bx,y:by,w:80,h:80};
 
-        if(rectsCollide(p, box) && vy > 0){
-            y = by - PLAYER_HEIGHT;
-            vy = 0;
-            onGround = true;
+        if(rectsCollide(p,box)){
+            // TOP
+            if(vy > 0 && p.y + p.h - vy <= box.y){
+                y = box.y - PLAYER_H;
+                vy = 0;
+                onGround = true;
+            }
+            // BOTTOM
+            else if(vy < 0 && p.y >= box.y + box.h){
+                y = box.y + box.h;
+                vy = 0;
+            }
+            // LEFT
+            else if(vx > 0){
+                x = box.x - PLAYER_W;
+            }
+            // RIGHT
+            else if(vx < 0){
+                x = box.x + box.w;
+            }
         }
 
         /* recycle boxes */
-        if(bx < x - 600){
-            b.style.left = (x + 800 + Math.random()*400) + "px";
-            b.style.top = groundY - 160 - Math.random()*120;
+        if(bx < x - 800){
+            b.style.left = (x + 1000 + Math.random()*500) + "px";
+        }
+    });
+
+    /* OBSTACLE COLLISION */
+    obstacles.forEach(o=>{
+        const ox = parseInt(o.style.left);
+        const oy = groundY - 50;
+
+        const p = {x,y,w:PLAYER_W,h:PLAYER_H};
+        const ob = {x:ox,y:oy,w:50,h:50};
+
+        if(rectsCollide(p,ob)){
+            x -= vx; // block movement
+        }
+
+        if(ox < x - 600){
+            o.style.left = (x + 900 + Math.random()*400) + "px";
         }
     });
 
     /* RECYCLE GROUND */
     groundTiles.forEach(g=>{
-        const gx = parseInt(g.style.left);
-        if(gx < x - TILE_WIDTH){
-            g.style.left = (gx + TILE_WIDTH * groundTiles.length) + "px";
+        let gx = parseInt(g.style.left);
+        if(gx < x - TILE_W){
+            g.style.left = gx + TILE_W * groundTiles.length + "px";
         }
     });
 
@@ -206,8 +261,8 @@ function update(){
     world.style.transform = `translateX(${-x + 200}px)`;
 
     /* RENDER */
-    player.style.left = x + "px";
-    player.style.top = y + "px";
+    player.style.left = x+"px";
+    player.style.top = y+"px";
 
     requestAnimationFrame(update);
 }
