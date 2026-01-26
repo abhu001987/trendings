@@ -4,27 +4,47 @@
 <meta charset="UTF-8">
 <title>Paccy Platformer</title>
 <style>
-body{
+html,body{
     margin:0;
+    padding:0;
     overflow:hidden;
     background:#87ceeb;
 }
+
+/* GAME CONTAINER */
 #game{
     position:relative;
     width:100vw;
     height:100vh;
+    overflow:hidden;
 }
+
+/* WORLD */
 #world{
     position:absolute;
     height:100%;
-    width:3000px;
+    width:100000px;
 }
+
+/* PLAYER */
 #player{
     position:absolute;
     width:80px;
     height:100px;
     background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
+    z-index:5;
 }
+
+/* GROUND TILE */
+.ground{
+    position:absolute;
+    bottom:0;
+    width:200px;
+    height:80px;
+    background:#228b22;
+}
+
+/* PLATFORM BOX */
 .block{
     position:absolute;
     width:80px;
@@ -32,55 +52,90 @@ body{
     background:#8b4513;
     border:3px solid #5a2d0c;
 }
-.ground{
-    position:absolute;
-    bottom:0;
-    height:80px;
-    width:3000px;
-    background:#228b22;
-}
 </style>
 </head>
 <body>
 
 <div id="game">
     <div id="world">
-        <div class="ground"></div>
-
-        <!-- Platforms -->
-        <div class="block" style="left:400px; top:420px"></div>
-        <div class="block" style="left:500px; top:350px"></div>
-        <div class="block" style="left:650px; top:300px"></div>
-        <div class="block" style="left:900px; top:380px"></div>
-
         <div id="player"></div>
     </div>
 </div>
 
 <script>
-const player = document.getElementById("player");
-const world = document.getElementById("world");
-const blocks = document.querySelectorAll(".block");
+/* =======================
+   CONSTANTS
+======================= */
+const GROUND_HEIGHT = 80;
+const PLAYER_WIDTH = 80;
+const PLAYER_HEIGHT = 100;
+const TILE_WIDTH = 200;
 
+/* =======================
+   ELEMENTS
+======================= */
+const world = document.getElementById("world");
+const player = document.getElementById("player");
+
+/* =======================
+   PLAYER STATE
+======================= */
 let x = 100;
-let y = 320;
+let y = window.innerHeight - GROUND_HEIGHT - PLAYER_HEIGHT;
 let vx = 0;
 let vy = 0;
 let onGround = false;
 
+/* =======================
+   PHYSICS
+======================= */
 const gravity = 0.8;
 const speed = 5;
 const jumpPower = 16;
 const keys = {};
 
-// INPUT (NO TOGGLE)
-document.addEventListener("keydown", e => {
-    keys[e.key.toLowerCase()] = true;
-});
-document.addEventListener("keyup", e => {
-    keys[e.key.toLowerCase()] = false;
-});
+/* =======================
+   INPUT (WASD ALWAYS ON)
+======================= */
+document.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
+document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
 
+/* =======================
+   INFINITE GROUND
+======================= */
+const groundTiles = [];
+for(let i=0;i<30;i++){
+    const g = document.createElement("div");
+    g.className = "ground";
+    g.style.left = (i * TILE_WIDTH) + "px";
+    world.appendChild(g);
+    groundTiles.push(g);
+}
+
+/* =======================
+   INFINITE BOXES
+======================= */
+const boxes = [];
+
+function spawnBox(xPos,yPos){
+    const b = document.createElement("div");
+    b.className = "block";
+    b.style.left = xPos + "px";
+    b.style.top = yPos + "px";
+    world.appendChild(b);
+    boxes.push(b);
+}
+
+for(let i=1;i<=15;i++){
+    spawnBox(
+        i * 400,
+        window.innerHeight - GROUND_HEIGHT - 160 - (i % 3) * 60
+    );
+}
+
+/* =======================
+   COLLISION
+======================= */
 function rectsCollide(a,b){
     return a.x < b.x + b.w &&
            a.x + a.w > b.x &&
@@ -88,8 +143,11 @@ function rectsCollide(a,b){
            a.y + a.h > b.y;
 }
 
+/* =======================
+   GAME LOOP
+======================= */
 function update(){
-    // INPUT
+    /* INPUT */
     vx = 0;
     if(keys["a"]) vx = -speed;
     if(keys["d"]) vx = speed;
@@ -98,48 +156,56 @@ function update(){
         vy = -jumpPower;
         onGround = false;
     }
-
     if(keys["s"]) vy += 1;
 
-    // PHYSICS
+    /* PHYSICS */
     vy += gravity;
     x += vx;
     y += vy;
-
     onGround = false;
 
-    // GROUND COLLISION
-    if(y + 100 >= window.innerHeight - 80){
-        y = window.innerHeight - 180;
+    const groundY = window.innerHeight - GROUND_HEIGHT;
+
+    /* GROUND COLLISION */
+    if(y + PLAYER_HEIGHT >= groundY){
+        y = groundY - PLAYER_HEIGHT;
         vy = 0;
         onGround = true;
     }
 
-    // BLOCK COLLISIONS
-    blocks.forEach(b=>{
-        const br = b.getBoundingClientRect();
-        const wr = world.getBoundingClientRect();
+    /* BOX COLLISION */
+    boxes.forEach(b=>{
+        const bx = parseInt(b.style.left);
+        const by = parseInt(b.style.top);
 
-        const block = {
-            x: br.left - wr.left,
-            y: br.top - wr.top,
-            w: br.width,
-            h: br.height
-        };
+        const p = { x, y, w:PLAYER_WIDTH, h:PLAYER_HEIGHT };
+        const box = { x:bx, y:by, w:80, h:80 };
 
-        const playerRect = { x, y, w:80, h:100 };
-
-        if(rectsCollide(playerRect, block) && vy > 0){
-            y = block.y - 100;
+        if(rectsCollide(p, box) && vy > 0){
+            y = by - PLAYER_HEIGHT;
             vy = 0;
             onGround = true;
         }
+
+        /* recycle boxes */
+        if(bx < x - 600){
+            b.style.left = (x + 800 + Math.random()*400) + "px";
+            b.style.top = groundY - 160 - Math.random()*120;
+        }
     });
 
-    // CAMERA FOLLOW
+    /* RECYCLE GROUND */
+    groundTiles.forEach(g=>{
+        const gx = parseInt(g.style.left);
+        if(gx < x - TILE_WIDTH){
+            g.style.left = (gx + TILE_WIDTH * groundTiles.length) + "px";
+        }
+    });
+
+    /* CAMERA */
     world.style.transform = `translateX(${-x + 200}px)`;
 
-    // RENDER
+    /* RENDER */
     player.style.left = x + "px";
     player.style.top = y + "px";
 
