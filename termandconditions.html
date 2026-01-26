@@ -1,209 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Paccy Runner</title>
+<title>Paccy Platformer</title>
 <style>
-html,body{
+body{
     margin:0;
-    padding:0;
     overflow:hidden;
-    background:black;
-    font-family:Arial;
+    background:#87ceeb;
 }
-
 #game{
     position:relative;
     width:100vw;
     height:100vh;
-    overflow:hidden;
+    background:#6db3f2;
 }
-
-.bg{
+#world{
     position:absolute;
-    width:300%;
     height:100%;
-    background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/peccy-backgrudn.webp') repeat-x;
-    background-size:contain;
+    width:3000px;
 }
-
 #player{
     position:absolute;
-    left:120px;
-    bottom:60px;
-    width:120px;
-    z-index:5;
+    width:70px;
+    height:90px;
+    background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
 }
-
-.obstacle{
+.block{
     position:absolute;
-    bottom:60px;
-    width:100px;
+    width:80px;
+    height:80px;
+    background:#8b4513;
+    border:3px solid #5a2d0c;
 }
-
-.fly{ bottom:260px; }
-
-#menu{
+.ground{
     position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.6);
-    color:white;
-    z-index:10;
-}
-
-button{
-    padding:12px 25px;
-    font-size:18px;
-    margin:8px;
-    cursor:pointer;
+    bottom:0;
+    height:80px;
+    width:3000px;
+    background:#228b22;
 }
 </style>
 </head>
 <body>
 
 <div id="game">
-    <div class="bg" id="bg"></div>
+    <div id="world">
+        <div class="ground"></div>
 
-    <img id="player" src="https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png">
+        <!-- BLOCKS -->
+        <div class="block" style="left:400px; top:400px"></div>
+        <div class="block" style="left:480px; top:400px"></div>
+        <div class="block" style="left:700px; top:320px"></div>
+        <div class="block" style="left:1000px; top:350px"></div>
+        <div class="block" style="left:1200px; top:280px"></div>
 
-    <div id="menu">
-        <h1>Paccy Runner</h1>
-        <button onclick="startGame()">▶ Play</button>
-        <button onclick="toggleWASD()">🎮 Toggle WASD</button>
+        <div id="player"></div>
     </div>
 </div>
 
 <script>
-const game = document.getElementById("game");
 const player = document.getElementById("player");
-const bg = document.getElementById("bg");
-const menu = document.getElementById("menu");
+const world = document.getElementById("world");
+const blocks = document.querySelectorAll(".block");
 
-let gravity = 1.1;
-let velocity = 0;
-let jumpCount = 0;
-let alive = false;
-let obstacles = [];
-let gameSpeed = 4;
-let speedTimer = 0;
-let useWASD = false;
-let playerX = 120;
+let x = 100, y = 300;
+let vx = 0, vy = 0;
+let onGround = false;
 
-function startGame(){
-    menu.querySelector("button").remove(); // remove ONLY play button
-    alive = true;
-    loop();
-    spawnLoop();
+const gravity = 0.8;
+const speed = 5;
+const jumpPower = 16;
+const keys = {};
+
+document.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
+document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
+
+function rectsCollide(a,b){
+    return a.x < b.x+b.w &&
+           a.x+a.w > b.x &&
+           a.y < b.y+b.h &&
+           a.y+a.h > b.y;
 }
 
-function toggleWASD(){
-    useWASD = !useWASD;
-    alert("WASD Controls: " + (useWASD ? "ON" : "OFF"));
-}
-
-function die(){
-    alive = false;
-    menu.innerHTML = `
-        <h1>💀 Game Over</h1>
-        <button onclick="location.reload()">Restart</button>
-    `;
-    menu.style.display = "flex";
-}
-
-function jump(){
-    if(jumpCount < 2){
-        velocity = -18;
-        jumpCount++;
+function update(){
+    // INPUT
+    vx = 0;
+    if(keys["a"]) vx = -speed;
+    if(keys["d"]) vx = speed;
+    if(keys["w"] && onGround){
+        vy = -jumpPower;
+        onGround = false;
     }
-}
+    if(keys["s"]) vy += 1;
 
-document.addEventListener("keydown",e=>{
-    if(e.code==="Space") jump();
+    // PHYSICS
+    vy += gravity;
+    x += vx;
+    y += vy;
 
-    if(useWASD){
-        if(e.key==="w") jump();
-        if(e.key==="s") velocity += 10;
-        if(e.key==="a") playerX -= 20;
-        if(e.key==="d") playerX += 20;
-    }
-});
+    onGround = false;
 
-document.addEventListener("click",jump);
-
-function loop(){
-    if(!alive) return;
-
-    // SPEED PROGRESSION (Dino-style)
-    speedTimer++;
-    if(speedTimer % 300 === 0){
-        gameSpeed += 0.3;
+    // COLLISION WITH GROUND
+    if(y + 90 >= 80){
+        y = 80 - 90;
+        vy = 0;
+        onGround = true;
     }
 
-    // background movement
-    bg.style.left = (parseFloat(bg.style.left||0) - gameSpeed/2) + "px";
+    // COLLISION WITH BLOCKS
+    blocks.forEach(b=>{
+        const br = b.getBoundingClientRect();
+        const wr = world.getBoundingClientRect();
 
-    // gravity
-    velocity += gravity;
-    let bottom = parseInt(player.style.bottom);
-    bottom -= velocity;
+        const block = {
+            x: br.left - wr.left,
+            y: br.top - wr.top,
+            w: br.width,
+            h: br.height
+        };
 
-    if(bottom <= 60){
-        bottom = 60;
-        velocity = 0;
-        jumpCount = 0;
-    }
+        const playerRect = { x, y, w:70, h:90 };
 
-    player.style.bottom = bottom+"px";
-    playerX = Math.max(20,Math.min(window.innerWidth-150,playerX));
-    player.style.left = playerX+"px";
-
-    obstacles.forEach(o=>{
-        o.x -= gameSpeed;
-        o.style.left = o.x+"px";
-
-        if(
-            o.x < playerX+80 &&
-            o.x > playerX-80 &&
-            bottom < (o.fly?300:130)
-        ){
-            die();
+        if(rectsCollide(playerRect, block)){
+            if(vy > 0){
+                y = block.y - 90;
+                vy = 0;
+                onGround = true;
+            }
         }
     });
 
-    requestAnimationFrame(loop);
+    // CAMERA FOLLOW
+    world.style.transform = `translateX(${-x + 200}px)`;
+    player.style.left = x + "px";
+    player.style.top = y + "px";
+
+    requestAnimationFrame(update);
 }
 
-function spawnObstacle(src,fly=false){
-    let o = document.createElement("img");
-    o.src = src;
-    o.className = "obstacle";
-    o.fly = fly;
-    if(fly) o.classList.add("fly");
-    o.x = window.innerWidth;
-    o.style.left = o.x+"px";
-    game.appendChild(o);
-    obstacles.push(o);
-}
-
-function spawnLoop(){
-    if(!alive) return;
-
-    let r = Math.random();
-    if(r < .35)
-        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-walking_1.png");
-    else if(r < .6)
-        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-fly_09.png",true);
-    else if(r < .85)
-        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-get_hit_5.png");
-    else
-        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-walking_2.png");
-
-    setTimeout(spawnLoop,1200 / (gameSpeed/4));
-}
+update();
 </script>
 
 </body>
