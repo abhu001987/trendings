@@ -27,6 +27,7 @@ html,body{
     width:80px;
     height:100px;
     background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
+    z-index:10;
 }
 
 /* GROUND */
@@ -38,7 +39,7 @@ html,body{
     background:#228b22;
 }
 
-/* BOX */
+/* PLATFORM BOX */
 .block{
     position:absolute;
     width:80px;
@@ -57,38 +58,48 @@ html,body{
 </div>
 
 <script>
-/* CONSTANTS */
+/* =====================
+   CONSTANTS
+===================== */
 const TILE_W = 200;
 const GROUND_H = 80;
 const BOX = 80;
 const PLAYER_W = 80;
 const PLAYER_H = 100;
 
-/* ELEMENTS */
+/* =====================
+   ELEMENTS
+===================== */
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 
-/* PLAYER STATE */
+/* =====================
+   PLAYER STATE
+===================== */
 let x = 100;
 let y = window.innerHeight - GROUND_H - PLAYER_H;
 let vy = 0;
 
-/* PHYSICS */
+/* =====================
+   PHYSICS
+===================== */
 const gravity = 2;
 const speed = 5;
 
-/* INPUT STATE */
+/* =====================
+   INPUT STATE
+===================== */
 const keys = {};
-let wLock = false;
+let wPressed = false;
 
 /* INPUT */
 document.addEventListener("keydown", e=>{
     const k = e.key.toLowerCase();
 
-    // SINGLE-STEP JUMP (NO HOLD, NO VELOCITY)
-    if(k === "w" && !wLock){
-        wLock = true;
-        y = Math.max(0, y - BOX); // HARD CLAMP
+    // STEP JUMP — one press = one box height
+    if(k === "w" && !wPressed){
+        wPressed = true;
+        y = Math.max(0, y - BOX);
     }
 
     keys[k] = true;
@@ -97,10 +108,15 @@ document.addEventListener("keydown", e=>{
 document.addEventListener("keyup", e=>{
     const k = e.key.toLowerCase();
     keys[k] = false;
-    if(k === "w") wLock = false;
+
+    if(k === "w"){
+        wPressed = false; // allow next jump
+    }
 });
 
-/* INFINITE GROUND */
+/* =====================
+   INFINITE GROUND
+===================== */
 const groundTiles = [];
 const GROUND_COUNT = Math.ceil(window.innerWidth / TILE_W) + 3;
 
@@ -113,7 +129,9 @@ for(let i=0;i<GROUND_COUNT;i++){
     groundTiles.push(g);
 }
 
-/* BOXES */
+/* =====================
+   PLATFORMS
+===================== */
 const boxes = [];
 function addBox(x,y){
     const b = document.createElement("div");
@@ -123,12 +141,15 @@ function addBox(x,y){
     world.appendChild(b);
     boxes.push(b);
 }
+
 for(let i=1;i<=10;i++){
     addBox(i*500, window.innerHeight - GROUND_H - BOX);
     addBox(i*600, window.innerHeight - GROUND_H - 200);
 }
 
-/* COLLISION */
+/* =====================
+   COLLISION
+===================== */
 function collide(a,b){
     return a.x < b.x+b.w &&
            a.x+a.w > b.x &&
@@ -136,13 +157,15 @@ function collide(a,b){
            a.y+a.h > b.y;
 }
 
-/* LOOP */
+/* =====================
+   GAME LOOP
+===================== */
 function update(){
-    /* HORIZONTAL */
+    /* HORIZONTAL MOVE */
     if(keys["a"]) x -= speed;
     if(keys["d"]) x += speed;
 
-    /* GRAVITY (DOWN ONLY) */
+    /* GRAVITY */
     vy += gravity;
     y += vy;
 
@@ -165,12 +188,15 @@ function update(){
             if(p.y + p.h <= box.y + 10){
                 y = box.y - PLAYER_H;
                 vy = 0;
-            } else if(p.y >= box.y + box.h - 10){
+            }
+            else if(p.y >= box.y + box.h - 10){
                 y = box.y + box.h;
                 vy = 0;
-            } else if(keys["d"]){
+            }
+            else if(keys["d"]){
                 x = box.x - PLAYER_W;
-            } else if(keys["a"]){
+            }
+            else if(keys["a"]){
                 x = box.x + box.w;
             }
         }
