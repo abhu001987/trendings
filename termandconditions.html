@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Paccy Platformer</title>
+<title>Paccy Runner</title>
 <style>
 html,body{
     margin:0;
     padding:0;
     overflow:hidden;
-    background:#87ceeb;
+    font-family:Arial, sans-serif;
+    background:#000;
 }
 #game{
     position:relative;
@@ -16,205 +17,169 @@ html,body{
     height:100vh;
     overflow:hidden;
 }
-#world{
+.bg{
     position:absolute;
+    top:0;
+    width:200%;
     height:100%;
+    background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/peccy-backgrudn.webp') repeat-x;
+    background-size:contain;
+    animation:scroll 10s linear infinite;
+}
+@keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
 }
 
-/* PLAYER */
 #player{
     position:absolute;
+    bottom:40px;
+    left:100px;
     width:80px;
-    height:100px;
-    background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
+}
+
+.obstacle{
+    position:absolute;
+    bottom:40px;
+    width:70px;
+}
+
+.fly{
+    bottom:200px;
+}
+
+#ui{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.6);
+    color:white;
+    flex-direction:column;
     z-index:10;
 }
-
-/* GROUND */
-.ground{
-    position:absolute;
-    bottom:0;
-    width:200px;
-    height:80px;
-    background:#228b22;
+button{
+    padding:15px 30px;
+    font-size:20px;
+    cursor:pointer;
 }
-
-/* BOX */
-.block{
-    position:absolute;
-    width:80px;
-    height:80px;
-    background:#8b4513;
-    border:3px solid #5a2d0c;
-}
+.hidden{display:none;}
 </style>
 </head>
 <body>
 
 <div id="game">
-  <div id="world">
-    <div id="player"></div>
-  </div>
+    <div class="bg"></div>
+
+    <img id="player" src="https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png">
+
+    <div id="ui">
+        <h1>Paccy Runner</h1>
+        <button onclick="startGame()">▶ Play</button>
+    </div>
 </div>
 
 <script>
-/* ================= CONSTANTS ================= */
-const TILE_W = 200;
-const GROUND_H = 80;
-const BOX = 80;
-const PLAYER_W = 80;
-const PLAYER_H = 100;
-
-/* ================= ELEMENTS ================= */
-const world = document.getElementById("world");
+const game = document.getElementById("game");
 const player = document.getElementById("player");
+const ui = document.getElementById("ui");
 
-/* ================= PLAYER STATE ================= */
-let x = 100;
-let y = window.innerHeight - GROUND_H - PLAYER_H;
-let vy = 0;
+let gravity = 1.2;
+let velocity = 0;
+let jumping = false;
+let jumpCount = 0;
+let alive = false;
+let obstacles = [];
 
-/* ================= PHYSICS ================= */
-const gravity = 2;
-const speed = 5;
+function startGame(){
+    ui.classList.add("hidden");
+    alive = true;
+    jumpCount = 0;
+    obstacles.forEach(o=>o.remove());
+    obstacles=[];
+    requestAnimationFrame(loop);
+    spawnLoop();
+}
 
-/* ================= JUMP BUFFER ================= */
-let gravityLockFrames = 0;   // <- THIS IS THE FIX
-const GRAVITY_LOCK_TIME = 8;
+function die(){
+    alive = false;
+    ui.innerHTML = `
+        <h1>💀 You Died</h1>
+        <button onclick="location.reload()">Restart</button>
+    `;
+    ui.classList.remove("hidden");
+}
 
-/* ================= INPUT ================= */
-const keys = {};
-let wPressed = false;
-
-document.addEventListener("keydown", e=>{
-    const k = e.key.toLowerCase();
-
-    if(k === "w" && !wPressed){
-        wPressed = true;
-
-        // STEP JUMP
-        y = Math.max(0, y - BOX);
-
-        // TEMPORARILY DISABLE GRAVITY
-        gravityLockFrames = GRAVITY_LOCK_TIME;
+function jump(){
+    if(jumpCount < 2){
+        velocity = -18;
+        jumpCount++;
     }
+}
 
-    keys[k] = true;
+document.addEventListener("keydown",e=>{
+    if(e.code==="Space") jump();
 });
+document.addEventListener("click",jump);
 
-document.addEventListener("keyup", e=>{
-    const k = e.key.toLowerCase();
-    keys[k] = false;
-    if(k === "w") wPressed = false;
-});
+function loop(){
+    if(!alive) return;
 
-/* ================= INFINITE GROUND ================= */
-const groundTiles = [];
-const GROUND_COUNT = Math.ceil(window.innerWidth / TILE_W) + 3;
+    velocity += gravity;
+    let bottom = parseInt(getComputedStyle(player).bottom);
+    bottom -= velocity;
 
-for(let i=0;i<GROUND_COUNT;i++){
-    const g = document.createElement("div");
-    g.className = "ground";
-    g.dataset.i = i;
-    g.style.left = (i * TILE_W) + "px";
-    world.appendChild(g);
-    groundTiles.push(g);
-}
-
-/* ================= PLATFORMS ================= */
-const boxes = [];
-function addBox(x,y){
-    const b = document.createElement("div");
-    b.className = "block";
-    b.style.left = x+"px";
-    b.style.top = y+"px";
-    world.appendChild(b);
-    boxes.push(b);
-}
-
-for(let i=1;i<=12;i++){
-    addBox(i*500, window.innerHeight - GROUND_H - BOX);
-    addBox(i*600, window.innerHeight - GROUND_H - 200);
-}
-
-/* ================= COLLISION ================= */
-function collide(a,b){
-    return a.x < b.x+b.w &&
-           a.x+a.w > b.x &&
-           a.y < b.y+b.h &&
-           a.y+a.h > b.y;
-}
-
-/* ================= GAME LOOP ================= */
-function update(){
-    /* MOVE */
-    if(keys["a"]) x -= speed;
-    if(keys["d"]) x += speed;
-
-    /* GRAVITY CONTROL */
-    if(gravityLockFrames > 0){
-        gravityLockFrames--;
-    } else {
-        vy += gravity;
+    if(bottom <= 40){
+        bottom = 40;
+        velocity = 0;
+        jumpCount = 0;
     }
+    player.style.bottom = bottom+"px";
 
-    y += vy;
+    obstacles.forEach(o=>{
+        let ox = o.offsetLeft - 6;
+        o.style.left = ox+"px";
 
-    /* GROUND COLLISION */
-    const groundY = window.innerHeight - GROUND_H;
-    if(y + PLAYER_H >= groundY){
-        y = groundY - PLAYER_H;
-        vy = 0;
-    }
-
-    /* BOX COLLISION */
-    boxes.forEach(b=>{
-        const bx = parseInt(b.style.left);
-        const by = parseInt(b.style.top);
-
-        const p = {x,y,w:PLAYER_W,h:PLAYER_H};
-        const box = {x:bx,y:by,w:BOX,h:BOX};
-
-        if(collide(p,box)){
-            if(p.y + p.h <= box.y + 10){
-                y = box.y - PLAYER_H;
-                vy = 0;
-            }
-            else if(p.y >= box.y + box.h - 10){
-                y = box.y + box.h;
-                vy = 0;
-            }
-            else if(keys["d"]){
-                x = box.x - PLAYER_W;
-            }
-            else if(keys["a"]){
-                x = box.x + box.w;
-            }
+        // collision
+        if(
+            ox < 160 && ox > 60 &&
+            bottom < (o.classList.contains("fly") ? 220 : 100)
+        ){
+            die();
         }
     });
 
-    /* GROUND RECYCLE */
-    const camTile = Math.floor((x - 200) / TILE_W);
-    groundTiles.forEach(g=>{
-        let i = parseInt(g.dataset.i);
-        if(i < camTile - 1){
-            i += GROUND_COUNT;
-            g.dataset.i = i;
-            g.style.left = (i * TILE_W) + "px";
-        }
-    });
-
-    /* CAMERA */
-    world.style.transform = `translateX(${-x + 200}px)`;
-
-    /* RENDER */
-    player.style.left = x+"px";
-    player.style.top = y+"px";
-
-    requestAnimationFrame(update);
+    requestAnimationFrame(loop);
 }
 
-update();
+function spawnObstacle(src, fly=false){
+    let o = document.createElement("img");
+    o.src = src;
+    o.className = "obstacle"+(fly?" fly":"");
+    o.style.left = window.innerWidth+"px";
+    game.appendChild(o);
+    obstacles.push(o);
+}
+
+function spawnLoop(){
+    if(!alive) return;
+
+    let r = Math.random();
+
+    if(r < 0.4){
+        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-walking_1.png");
+    }else if(r < 0.7){
+        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-fly_09.png",true);
+    }else if(r < 0.9){
+        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-get_hit_5.png");
+    }else{
+        // rare strong attacker (must double jump)
+        spawnObstacle("https://studymate81.wordpress.com/wp-content/uploads/2026/01/skeleton-walking_2.png");
+    }
+
+    setTimeout(spawnLoop,1500);
+}
 </script>
 
 </body>
