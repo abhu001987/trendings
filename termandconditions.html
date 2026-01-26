@@ -13,7 +13,6 @@ body{
     position:relative;
     width:100vw;
     height:100vh;
-    background:#6db3f2;
 }
 #world{
     position:absolute;
@@ -22,8 +21,8 @@ body{
 }
 #player{
     position:absolute;
-    width:70px;
-    height:90px;
+    width:80px;
+    height:100px;
     background:url('https://studymate81.wordpress.com/wp-content/uploads/2026/01/image_of_paccy_as_hero-removebg-preview.png') no-repeat center/contain;
 }
 .block{
@@ -48,12 +47,11 @@ body{
     <div id="world">
         <div class="ground"></div>
 
-        <!-- BLOCKS -->
-        <div class="block" style="left:400px; top:400px"></div>
-        <div class="block" style="left:480px; top:400px"></div>
-        <div class="block" style="left:700px; top:320px"></div>
-        <div class="block" style="left:1000px; top:350px"></div>
-        <div class="block" style="left:1200px; top:280px"></div>
+        <!-- Platforms -->
+        <div class="block" style="left:400px; top:420px"></div>
+        <div class="block" style="left:500px; top:350px"></div>
+        <div class="block" style="left:650px; top:300px"></div>
+        <div class="block" style="left:900px; top:380px"></div>
 
         <div id="player"></div>
     </div>
@@ -64,8 +62,10 @@ const player = document.getElementById("player");
 const world = document.getElementById("world");
 const blocks = document.querySelectorAll(".block");
 
-let x = 100, y = 300;
-let vx = 0, vy = 0;
+let x = 100;
+let y = 320;
+let vx = 0;
+let vy = 0;
 let onGround = false;
 
 const gravity = 0.8;
@@ -73,14 +73,19 @@ const speed = 5;
 const jumpPower = 16;
 const keys = {};
 
-document.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
-document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
+// INPUT (NO TOGGLE)
+document.addEventListener("keydown", e => {
+    keys[e.key.toLowerCase()] = true;
+});
+document.addEventListener("keyup", e => {
+    keys[e.key.toLowerCase()] = false;
+});
 
 function rectsCollide(a,b){
-    return a.x < b.x+b.w &&
-           a.x+a.w > b.x &&
-           a.y < b.y+b.h &&
-           a.y+a.h > b.y;
+    return a.x < b.x + b.w &&
+           a.x + a.w > b.x &&
+           a.y < b.y + b.h &&
+           a.y + a.h > b.y;
 }
 
 function update(){
@@ -88,10 +93,12 @@ function update(){
     vx = 0;
     if(keys["a"]) vx = -speed;
     if(keys["d"]) vx = speed;
+
     if(keys["w"] && onGround){
         vy = -jumpPower;
         onGround = false;
     }
+
     if(keys["s"]) vy += 1;
 
     // PHYSICS
@@ -101,14 +108,14 @@ function update(){
 
     onGround = false;
 
-    // COLLISION WITH GROUND
-    if(y + 90 >= 80){
-        y = 80 - 90;
+    // GROUND COLLISION
+    if(y + 100 >= window.innerHeight - 80){
+        y = window.innerHeight - 180;
         vy = 0;
         onGround = true;
     }
 
-    // COLLISION WITH BLOCKS
+    // BLOCK COLLISIONS
     blocks.forEach(b=>{
         const br = b.getBoundingClientRect();
         const wr = world.getBoundingClientRect();
@@ -120,19 +127,19 @@ function update(){
             h: br.height
         };
 
-        const playerRect = { x, y, w:70, h:90 };
+        const playerRect = { x, y, w:80, h:100 };
 
-        if(rectsCollide(playerRect, block)){
-            if(vy > 0){
-                y = block.y - 90;
-                vy = 0;
-                onGround = true;
-            }
+        if(rectsCollide(playerRect, block) && vy > 0){
+            y = block.y - 100;
+            vy = 0;
+            onGround = true;
         }
     });
 
     // CAMERA FOLLOW
     world.style.transform = `translateX(${-x + 200}px)`;
+
+    // RENDER
     player.style.left = x + "px";
     player.style.top = y + "px";
 
