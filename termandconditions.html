@@ -40,7 +40,7 @@ html,body{
     background:#228b22;
 }
 
-/* PLATFORM BOX */
+/* PLATFORM */
 .block{
     position:absolute;
     width:80px;
@@ -49,7 +49,7 @@ html,body{
     border:3px solid #5a2d0c;
 }
 
-/* FLOOR OBSTACLE */
+/* OBSTACLE */
 .obstacle{
     position:absolute;
     width:50px;
@@ -62,55 +62,43 @@ html,body{
 <body>
 
 <div id="game">
-    <div id="world">
-        <div id="player"></div>
-    </div>
+  <div id="world">
+    <div id="player"></div>
+  </div>
 </div>
 
 <script>
-/* =======================
-   CONSTANTS
-======================= */
+/* CONSTANTS */
 const GROUND_HEIGHT = 80;
 const PLAYER_W = 80;
 const PLAYER_H = 100;
 const TILE_W = 200;
-const MAX_JUMP_Y = 10;
+const MAX_JUMP_Y = 5;
 
-/* =======================
-   ELEMENTS
-======================= */
+/* ELEMENTS */
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 
-/* =======================
-   PLAYER STATE
-======================= */
+/* PLAYER STATE */
 let x = 100;
 let y = window.innerHeight - GROUND_HEIGHT - PLAYER_H;
 let vx = 0;
 let vy = 0;
 let onGround = false;
 
-/* =======================
-   PHYSICS
-======================= */
+/* PHYSICS */
 const gravity = 0.9;
 const speed = 5;
 const jumpForce = 3;
 const keys = {};
 
-/* =======================
-   INPUT
-======================= */
+/* INPUT */
 document.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
 document.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
 
-/* =======================
-   INFINITE GROUND
-======================= */
+/* INFINITE GROUND */
 const groundTiles = [];
-for(let i=0;i<40;i++){
+for(let i=0;i<30;i++){
     const g = document.createElement("div");
     g.className = "ground";
     g.style.left = i * TILE_W + "px";
@@ -118,9 +106,7 @@ for(let i=0;i<40;i++){
     groundTiles.push(g);
 }
 
-/* =======================
-   BOX PLATFORMS
-======================= */
+/* BOXES */
 const boxes = [];
 function addBox(x,y){
     const b = document.createElement("div");
@@ -130,20 +116,12 @@ function addBox(x,y){
     world.appendChild(b);
     boxes.push(b);
 }
-
-/* floor boxes */
-for(let i=1;i<=10;i++){
+for(let i=1;i<=12;i++){
     addBox(i*500, window.innerHeight - GROUND_HEIGHT - 80);
-}
-
-/* air boxes */
-for(let i=1;i<=10;i++){
     addBox(i*600, window.innerHeight - GROUND_HEIGHT - 200 - (i%3)*60);
 }
 
-/* =======================
-   FLOOR OBSTACLES
-======================= */
+/* OBSTACLES */
 const obstacles = [];
 function addObstacle(x){
     const o = document.createElement("div");
@@ -152,14 +130,9 @@ function addObstacle(x){
     world.appendChild(o);
     obstacles.push(o);
 }
+for(let i=1;i<=10;i++) addObstacle(i*450);
 
-for(let i=1;i<=12;i++){
-    addObstacle(i*450);
-}
-
-/* =======================
-   COLLISION
-======================= */
+/* COLLISION */
 function rectsCollide(a,b){
     return a.x < b.x + b.w &&
            a.x + a.w > b.x &&
@@ -167,18 +140,13 @@ function rectsCollide(a,b){
            a.y + a.h > b.y;
 }
 
-/* =======================
-   GAME LOOP
-======================= */
+/* GAME LOOP */
 function update(){
     /* INPUT */
     vx = 0;
     if(keys["a"]) vx = -speed;
     if(keys["d"]) vx = speed;
-
-    if(keys["w"] && y > MAX_JUMP_Y){
-        vy -= jumpForce;
-    }
+    if(keys["w"] && y > MAX_JUMP_Y) vy -= jumpForce;
     if(keys["s"]) vy += 1.5;
 
     /* PHYSICS */
@@ -196,39 +164,30 @@ function update(){
         onGround = true;
     }
 
-    /* BOX COLLISIONS (FULL SOLID) */
+    /* BOX COLLISION (FULL SOLID) */
     boxes.forEach(b=>{
         const bx = parseInt(b.style.left);
         const by = parseInt(b.style.top);
-
         const p = {x,y,w:PLAYER_W,h:PLAYER_H};
         const box = {x:bx,y:by,w:80,h:80};
 
         if(rectsCollide(p,box)){
-            // TOP
             if(vy > 0 && p.y + p.h - vy <= box.y){
                 y = box.y - PLAYER_H;
                 vy = 0;
                 onGround = true;
-            }
-            // BOTTOM
-            else if(vy < 0 && p.y >= box.y + box.h){
+            } else if(vy < 0 && p.y >= box.y + box.h){
                 y = box.y + box.h;
                 vy = 0;
-            }
-            // LEFT
-            else if(vx > 0){
+            } else if(vx > 0){
                 x = box.x - PLAYER_W;
-            }
-            // RIGHT
-            else if(vx < 0){
+            } else if(vx < 0){
                 x = box.x + box.w;
             }
         }
 
-        /* recycle boxes */
-        if(bx < x - 800){
-            b.style.left = (x + 1000 + Math.random()*500) + "px";
+        if(bx + 80 < x - 800){
+            b.style.left = x + 1000 + Math.random()*500 + "px";
         }
     });
 
@@ -236,29 +195,29 @@ function update(){
     obstacles.forEach(o=>{
         const ox = parseInt(o.style.left);
         const oy = groundY - 50;
-
         const p = {x,y,w:PLAYER_W,h:PLAYER_H};
         const ob = {x:ox,y:oy,w:50,h:50};
 
-        if(rectsCollide(p,ob)){
-            x -= vx; // block movement
-        }
-
-        if(ox < x - 600){
-            o.style.left = (x + 900 + Math.random()*400) + "px";
+        if(rectsCollide(p,ob)) x -= vx;
+        if(ox + 50 < x - 600){
+            o.style.left = x + 900 + Math.random()*400 + "px";
         }
     });
 
-    /* RECYCLE GROUND */
+    /* FIXED GROUND RECYCLING */
+    const cameraX = x - 200;
+    let maxGroundX = Math.max(...groundTiles.map(g => parseInt(g.style.left)));
+
     groundTiles.forEach(g=>{
-        let gx = parseInt(g.style.left);
-        if(gx < x - TILE_W){
-            g.style.left = gx + TILE_W * groundTiles.length + "px";
+        const gx = parseInt(g.style.left);
+        if(gx + TILE_W < cameraX){
+            g.style.left = (maxGroundX + TILE_W) + "px";
+            maxGroundX += TILE_W;
         }
     });
 
     /* CAMERA */
-    world.style.transform = `translateX(${-x + 200}px)`;
+    world.style.transform = `translateX(${-cameraX}px)`;
 
     /* RENDER */
     player.style.left = x+"px";
