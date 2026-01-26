@@ -39,7 +39,7 @@ html,body{
     background:#228b22;
 }
 
-/* PLATFORM BOX */
+/* BOX */
 .block{
     position:absolute;
     width:80px;
@@ -58,48 +58,45 @@ html,body{
 </div>
 
 <script>
-/* =====================
-   CONSTANTS
-===================== */
+/* ================= CONSTANTS ================= */
 const TILE_W = 200;
 const GROUND_H = 80;
 const BOX = 80;
 const PLAYER_W = 80;
 const PLAYER_H = 100;
 
-/* =====================
-   ELEMENTS
-===================== */
+/* ================= ELEMENTS ================= */
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 
-/* =====================
-   PLAYER STATE
-===================== */
+/* ================= PLAYER STATE ================= */
 let x = 100;
 let y = window.innerHeight - GROUND_H - PLAYER_H;
 let vy = 0;
 
-/* =====================
-   PHYSICS
-===================== */
+/* ================= PHYSICS ================= */
 const gravity = 2;
 const speed = 5;
 
-/* =====================
-   INPUT STATE
-===================== */
+/* ================= JUMP BUFFER ================= */
+let gravityLockFrames = 0;   // <- THIS IS THE FIX
+const GRAVITY_LOCK_TIME = 8;
+
+/* ================= INPUT ================= */
 const keys = {};
 let wPressed = false;
 
-/* INPUT */
 document.addEventListener("keydown", e=>{
     const k = e.key.toLowerCase();
 
-    // STEP JUMP — one press = one box height
     if(k === "w" && !wPressed){
         wPressed = true;
+
+        // STEP JUMP
         y = Math.max(0, y - BOX);
+
+        // TEMPORARILY DISABLE GRAVITY
+        gravityLockFrames = GRAVITY_LOCK_TIME;
     }
 
     keys[k] = true;
@@ -108,15 +105,10 @@ document.addEventListener("keydown", e=>{
 document.addEventListener("keyup", e=>{
     const k = e.key.toLowerCase();
     keys[k] = false;
-
-    if(k === "w"){
-        wPressed = false; // allow next jump
-    }
+    if(k === "w") wPressed = false;
 });
 
-/* =====================
-   INFINITE GROUND
-===================== */
+/* ================= INFINITE GROUND ================= */
 const groundTiles = [];
 const GROUND_COUNT = Math.ceil(window.innerWidth / TILE_W) + 3;
 
@@ -129,9 +121,7 @@ for(let i=0;i<GROUND_COUNT;i++){
     groundTiles.push(g);
 }
 
-/* =====================
-   PLATFORMS
-===================== */
+/* ================= PLATFORMS ================= */
 const boxes = [];
 function addBox(x,y){
     const b = document.createElement("div");
@@ -142,14 +132,12 @@ function addBox(x,y){
     boxes.push(b);
 }
 
-for(let i=1;i<=10;i++){
+for(let i=1;i<=12;i++){
     addBox(i*500, window.innerHeight - GROUND_H - BOX);
     addBox(i*600, window.innerHeight - GROUND_H - 200);
 }
 
-/* =====================
-   COLLISION
-===================== */
+/* ================= COLLISION ================= */
 function collide(a,b){
     return a.x < b.x+b.w &&
            a.x+a.w > b.x &&
@@ -157,16 +145,19 @@ function collide(a,b){
            a.y+a.h > b.y;
 }
 
-/* =====================
-   GAME LOOP
-===================== */
+/* ================= GAME LOOP ================= */
 function update(){
-    /* HORIZONTAL MOVE */
+    /* MOVE */
     if(keys["a"]) x -= speed;
     if(keys["d"]) x += speed;
 
-    /* GRAVITY */
-    vy += gravity;
+    /* GRAVITY CONTROL */
+    if(gravityLockFrames > 0){
+        gravityLockFrames--;
+    } else {
+        vy += gravity;
+    }
+
     y += vy;
 
     /* GROUND COLLISION */
