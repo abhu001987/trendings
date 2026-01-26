@@ -58,78 +58,71 @@ html,body{
 </div>
 
 <script>
-/* =====================
-   CONSTANTS
-===================== */
+/* CONSTANTS */
 const TILE_W = 200;
 const GROUND_H = 80;
-const BOX_SIZE = 80;
+const BOX = 80;
 const PLAYER_W = 80;
 const PLAYER_H = 100;
 
-/* =====================
-   ELEMENTS
-===================== */
+/* ELEMENTS */
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 
-/* =====================
-   PLAYER STATE
-===================== */
+/* PLAYER STATE */
 let x = 100;
 let y = window.innerHeight - GROUND_H - PLAYER_H;
 let vx = 0;
 let vy = 0;
-let onGround = true;
 
-/* =====================
-   JUMP SYSTEM (FIXED)
-===================== */
-let jumpStepsUsed = 0;
-const MAX_JUMP_STEPS = Math.floor(window.innerHeight / BOX_SIZE);
+/* JUMP STATE (FIXED) */
+let isJumpingUp = false;
+let jumpTargetY = y;
 
-/* =====================
-   PHYSICS
-===================== */
-const gravity = 1.2;
+/* PHYSICS */
+const gravity = 1.5;
 const speed = 5;
-const keys = {};
+const jumpSpeed = 10;
 
-/* INPUT */
+const keys = {};
+let wPressed = false;
+
+/* INPUT — EDGE DETECT (NO HOLD) */
 document.addEventListener("keydown", e=>{
     const k = e.key.toLowerCase();
-    if(!keys[k]){
-        // KEY PRESS (not hold)
-        if(k === "w" && jumpStepsUsed < MAX_JUMP_STEPS){
-            vy = -BOX_SIZE;
-            jumpStepsUsed++;
-            onGround = false;
-        }
+    if(k === "w" && !wPressed){
+        wPressed = true;
+
+        // calculate next jump step
+        const nextTarget = jumpTargetY - BOX;
+
+        // hard cap: do not cross top of screen
+        jumpTargetY = Math.max(0, nextTarget);
+        isJumpingUp = true;
     }
     keys[k] = true;
 });
+
 document.addEventListener("keyup", e=>{
-    keys[e.key.toLowerCase()] = false;
+    const k = e.key.toLowerCase();
+    keys[k] = false;
+    if(k === "w") wPressed = false;
 });
 
-/* =====================
-   INFINITE GROUND (FIXED)
-===================== */
+/* INFINITE GROUND */
 const groundTiles = [];
-const GROUND_TILE_COUNT = Math.ceil(window.innerWidth / TILE_W) + 3;
+const GROUND_COUNT = Math.ceil(window.innerWidth / TILE_W) + 3;
 
-for(let i=0;i<GROUND_TILE_COUNT;i++){
+for(let i=0;i<GROUND_COUNT;i++){
     const g = document.createElement("div");
     g.className = "ground";
-    g.dataset.index = i;
+    g.dataset.i = i;
     g.style.left = (i * TILE_W) + "px";
     world.appendChild(g);
     groundTiles.push(g);
 }
 
-/* =====================
-   BOXES
-===================== */
+/* BOXES */
 const boxes = [];
 function addBox(x,y){
     const b = document.createElement("div");
@@ -139,15 +132,12 @@ function addBox(x,y){
     world.appendChild(b);
     boxes.push(b);
 }
-
 for(let i=1;i<=12;i++){
-    addBox(i*500, window.innerHeight - GROUND_H - BOX_SIZE);
+    addBox(i*500, window.innerHeight - GROUND_H - BOX);
     addBox(i*600, window.innerHeight - GROUND_H - 200);
 }
 
-/* =====================
-   COLLISION
-===================== */
+/* COLLISION */
 function collide(a,b){
     return a.x < b.x+b.w &&
            a.x+a.w > b.x &&
@@ -155,30 +145,31 @@ function collide(a,b){
            a.y+a.h > b.y;
 }
 
-/* =====================
-   GAME LOOP
-===================== */
+/* GAME LOOP */
 function update(){
-    /* INPUT */
+    /* HORIZONTAL INPUT */
     vx = 0;
     if(keys["a"]) vx = -speed;
     if(keys["d"]) vx = speed;
-    if(keys["s"]) vy += 2;
 
-    /* PHYSICS */
-    vy += gravity;
-    x += vx;
-    y += vy;
-    onGround = false;
-
-    const groundY = window.innerHeight - GROUND_H;
+    /* JUMP MOVE (FIXED HEIGHT) */
+    if(isJumpingUp){
+        y -= jumpSpeed;
+        if(y <= jumpTargetY){
+            y = jumpTargetY;
+            isJumpingUp = false;
+        }
+    } else {
+        vy += gravity;
+        y += vy;
+    }
 
     /* GROUND COLLISION */
+    const groundY = window.innerHeight - GROUND_H;
     if(y + PLAYER_H >= groundY){
         y = groundY - PLAYER_H;
         vy = 0;
-        onGround = true;
-        jumpStepsUsed = 0;
+        jumpTargetY = y;
     }
 
     /* BOX COLLISION */
@@ -187,16 +178,15 @@ function update(){
         const by = parseInt(b.style.top);
 
         const p = {x,y,w:PLAYER_W,h:PLAYER_H};
-        const box = {x:bx,y:by,w:BOX_SIZE,h:BOX_SIZE};
+        const box = {x:bx,y:by,w:BOX,h:BOX};
 
         if(collide(p,box)){
-            if(vy > 0 && p.y + p.h - vy <= box.y){
+            if(p.y + p.h <= box.y + 10){
                 y = box.y - PLAYER_H;
                 vy = 0;
-                onGround = true;
-                jumpStepsUsed = 0;
+                jumpTargetY = y;
             }
-            else if(vy < 0 && p.y >= box.y + box.h){
+            else if(p.y >= box.y + box.h - 10){
                 y = box.y + box.h;
                 vy = 0;
             }
@@ -209,15 +199,16 @@ function update(){
         }
     });
 
-    /* INFINITE GROUND RECYCLE (FINAL FIX) */
-    const cameraTile = Math.floor((x - 200) / TILE_W);
+    x += vx;
 
+    /* GROUND RECYCLE (STABLE) */
+    const camTile = Math.floor((x - 200) / TILE_W);
     groundTiles.forEach(g=>{
-        let idx = parseInt(g.dataset.index);
-        if(idx < cameraTile - 1){
-            idx += GROUND_TILE_COUNT;
-            g.dataset.index = idx;
-            g.style.left = (idx * TILE_W) + "px";
+        let i = parseInt(g.dataset.i);
+        if(i < camTile - 1){
+            i += GROUND_COUNT;
+            g.dataset.i = i;
+            g.style.left = (i * TILE_W) + "px";
         }
     });
 
