@@ -3,1986 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minimalist Landing</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<title>Treedell</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-html { scroll-behavior: smooth; }
-body { background:#FACC15; color:#111; }
-
-/* ================= HERO ================= */
-.hero {
-  /* FIX 1: remove forced full viewport height */
-  min-height: auto;
-
-  /* FIX 2: reduce vertical padding only */
-  padding: 16px 32px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  margin: 0 auto; /* FIX 3: prevent vertical auto spacing */
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #000;              /* force black */
-  text-decoration: none;   /* remove underline */
-}
-
-.logo:visited,
-.logo:hover,
-.logo:active {
-  color: #000;
-  text-decoration: none;
-}
-
-/* DESKTOP NAV */
-nav {
-  display: flex;
-  gap: 32px;
-}
-
-nav a {
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: rgba(0,0,0,.6);
-}
-
-nav a:hover { color:#000; }
-
-/* MOBILE MENU BUTTON */
-.menu-btn {
-  display: none;
-  width: 32px;
-  height: 22px;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.menu-btn span {
-  height: 2px;
-  background: #111;
-  border-radius: 2px;
-}
-
-/* MOBILE MENU */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 75%;
-  height: 100vh;
-  background: #fff;
-  padding: 80px 30px;
-  transition: right .3s ease;
-  z-index: 999;
-  box-shadow: -20px 0 40px rgba(0,0,0,.1);
-}
-
-.mobile-menu.active {
-  right: 0;
-}
-
-.mobile-menu a {
-  display: block;
-  margin-bottom: 24px;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-decoration: none;
-  color: #111;
-}
-
-/* CLOSE BUTTON */
-.menu-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  font-size: 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #111;
-}
-
-/* ===== MAIN GRID ===== */
-.main {
-
-
-  /* FIX 4: remove vertical auto-centering */
-  margin: 0 auto;
-
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  column-gap: 120px;
-}
-
-/* LEFT */
-.left p {
-  max-width: 260px;
-  font-size: 14px;
-  opacity: .85;
-}
-
-.cta {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 12px 30px;
-  border-radius: 40px;
-  border: 1px solid rgba(0,0,0,.4);
-  background: transparent;
-  color: #000;
-  text-decoration: none;
-  transition: .3s;
-}
-
-.cta:hover { background: rgba(0,0,0,.05); }
-
-/* CENTER */
-.center {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.circle {
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  background: rgba(234,179,8,.9);
-  border-radius: 50%;
-  z-index: 1;
-}
-
-.hero-img {
-  width: 220px;
-  z-index: 2;
-  transform: scale(1.2);
-  transition: opacity .5s ease;
-}
-
-/* RIGHT */
-.right {
-  margin-left: 40px;
-  z-index: 3;
-}
-
-.right h1 {
-  font-size: clamp(64px, 9vw, 110px);
-  font-weight: 900;
-  line-height: .9;
-}
-/* ================= FEATURES ================= */
-.features {
-  /* FIX 1: remove forced tall height */
-  min-height: auto;
-
-  /* FIX 2: reduce vertical padding */
-  padding: 30px 0px;
-}
-
-.features-header {
-  text-align: center;
-
-  /* FIX 3: reduce header gap */
-  margin-bottom: 35px;
-}
-
-.features-header span {
-  color: #0ea5e9;
-  font-size: 13px;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-.features-header h2 {
-  font-size: 42px;
-  margin-top: 8px; /* slightly reduced */
-}
-
-.features-grid {
-  margin: 0 auto; /* FIX 4: prevent vertical auto spacing */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px; /* slightly reduced */
-  align-items: center;
-}
-
-.feature-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.feature {
-  cursor: pointer;
-  padding: 18px;
-  border-radius: 14px;
-  transition: .3s;
-}
-
-.feature:hover {
-  background: #f8f8f8;
-}
-
-.feature.active {
-  background: #fff;
-  box-shadow: 0 10px 40px rgba(0,0,0,.08);
-}
-
-.feature p {
-  font-size: 14px;
-  opacity: .7;
-}
-
-.feature-image {
-  width: 100%;
-  max-width: 520px;
-  border-radius: 20px;
-  overflow: hidden;   /* keeps rounded corners clean */
-}
-
-.feature-image img {
-  width: 100%;
-  height: auto;       /* 🔥 THIS IS THE KEY */
-  display: block;
-  object-fit: initial; /* no forcing */
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.15);
-}
-
-/* ================= FEATURES DESKTOP FINE TUNE ================= */
-@media (min-width: 900px) {
-  .features-grid {
-    gap: 70px;
-  }
-
-  .feature-image {
-    transform: translateX(80px); /* 👈 little more right */
-  }
-}
-
-/* ================= FOOTER ================= */
-.site-footer {
-  padding: 30px 20px; /* FIX 5: tighter footer spacing */
-  text-align: center;
-  font-size: 14px;
-  opacity: .7;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  nav { display: none; }
-  .menu-btn { display: flex; }
-
-  .main {
-    grid-template-columns: 1fr;
-    gap: 40px; /* FIX 6: reduce mobile gap */
-    text-align: center;
-  }
-
-  .right { margin-left: 0; }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 30px; /* FIX 7: tighter mobile spacing */
-  }
-
-  .feature-image img {
-    max-height: 220px;
-  }
-
-  .features {
-    padding: 25px 0; /* FIX 8: tighter mobile top & bottom */
-  }
-}
-/* ===== SECTION ===== */
-.memories-section {
-  max-width: 1200px;
-  margin: auto;
-  padding: 50px 16px;
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 40px;
-  background: #FACC15;
-  box-sizing: border-box;
-}
-
-/* ===== CARD FRAME ===== */
-.cards-frame {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 3px; /* rainbow thickness */
-  border-radius: 24px;
-  background: linear-gradient(
-    90deg,
-    #ff0080,
-    #ff8c00,
-    #faff00,
-    #00ff8f,
-    #00cfff,
-    #8a2be2
-  );
-  background-size: 300%;
-  animation: rainbowMove 5s linear infinite;
-  overflow: hidden; /* 🔥 IMPORTANT */
-}
-
-/* ===== SLIDER ===== */
-.cards-slider {
-  display: flex;
-  gap: 20px;
-  padding: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  background: #000000;
-  border-radius: 21px;
-  box-sizing: border-box;
-}
-
-.cards-slider::-webkit-scrollbar {
-  display: none;
-}
-
-/* ===== CARD ===== */
-.memory-card {
-  flex: 0 0 220px;
-  scroll-snap-align: center;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  text-align: center;
-  cursor: pointer;
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.15),
-    0 0 60px rgba(0, 200, 255, 0.15);
-  transition: transform .35s ease, box-shadow .35s ease;
-}
-
-.memory-card.active {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.25),
-    0 0 90px rgba(0, 200, 255, 0.3);
-}
-
-.memory-card img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-top: 10px;
-}
-/* ===== TEXT ===== */
-.tag {
-  font-size: 11px;
-  letter-spacing: 1px;
-  font-weight: 700;
-  color: #777;
-}
-
-.memory-card h3 {
-  font-size: 20px;
-  margin: 6px 0;
-}
-
-.memory-card span {
-  font-size: 13px;
-  color: #999;
-}
-
-/* ===== DETAILS ===== */
-.details-area {
-  align-self: center;
-}
-
-.detail-tag {
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: #666;
-}
 
-.detail-title {
-  font-size: 42px;
-  font-weight: 800;
-  margin: 10px 0;
-  color: #fff;
-}
-
-.rainbow-line {
-  width: 120px;
-  height: 5px;
-  border-radius: 10px;
-  background: linear-gradient(
-    90deg,
-    #ff0080,
-    #ff8c00,
-    #faff00,
-    #00ff8f,
-    #00cfff,
-    #8a2be2
-  );
-  background-size: 300%;
-  animation: rainbowMove 4s linear infinite;
-}
-
-.detail-date {
-  margin-top: 14px;
-  color: #666;
-}
-
-/* ===== BUTTON ===== */
-.explore-btn {
-  display: inline-block;
-  margin-top: 26px;
-  padding: 14px 30px;
-  border-radius: 30px;
-  background: #fff;
-  color: #000;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .memories-section {
-    grid-template-columns: 1fr;
-  }
-
-  .details-area {
-    text-align: center;
-  }
-
-  .rainbow-line {
-    margin: 0 auto;
-  }
-
-  /* 🔥 PERFECT MOBILE CARD WIDTH */
-  .memory-card {
-    flex: 0 0 calc(100% - 32px);
-  }
-}
-
-/* ===== ANIMATION ===== */
-@keyframes rainbowMove {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-/* ===== DESKTOP ONLY SPACING FIX ===== */
-@media (min-width: 1024px) {
-  .memories-section {
-    gap: 60px;
-  }
-}
-/* ===== DESKTOP: PUSH TEXT TO RIGHT ===== */
-@media (min-width: 1024px) {
-  .details-area {
-    margin-left: 60px; /* adjust if needed */
-  }
-}
-
-/* ================= FAQ SECTION ================= */
-.faq-section {
-  padding: 80px 20px;
-  background: #000000;
-}
-
-.faq-container {
-  max-width: 800px;
-  margin: auto;
-}
-
-.faq-title {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 40px;
-}
-
-/* FAQ ITEM */
-.faq-item {
-  border-bottom: 1px solid #e5e7eb;
-}
-
-/* QUESTION */
-.faq-question {
-  width: 100%;
-  padding: 18px 0;
-  background: none;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.faq-question span {
-  font-size: 22px;
-  transition: transform 0.3s ease;
-}
-.faq-title {
-  color: #ffffff;
-}
-
-.faq-question {
-  color: #ffffff;
-}
-
-.faq-answer {
-  color: #d1d5db; /* light gray */
-}
-/* ANSWER */
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  font-size: 14px;
-  opacity: 0.75;
-  transition: max-height 0.4s ease, padding 0.4s ease;
-  padding: 0;
-}
-
-/* ACTIVE */
-.faq-item.active .faq-answer {
-  max-height: 200px;
-  padding: 0 0 18px 0;
-}
-
-.faq-item.active .faq-question span {
-  transform: rotate(45deg); /* + → x */
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .faq-title {
-    font-size: 26px;
-  }
-}
-/* ================= TESTIMONIALS ================= */
-.testimonials-section {
-  padding: 90px 20px;
-  background: #2563EB;
-}
-
-.testimonials-title {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 60px;
-}
-
-/* LAYOUT */
-.testimonials-wrapper {
-  max-width: 1100px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-/* IMAGE STACK */
-.testimonial-images {
-  position: relative;
-  height: 360px;
-}
-
-.testimonial-images img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 26px;
-  opacity: 0;
-  transform: scale(0.9) translateY(40px) rotate(-4deg);
-  transition: all 0.6s ease;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-}
-
-.testimonial-images img.active {
-  opacity: 1;
-  transform: scale(1) translateY(0) rotate(0);
-  z-index: 5;
-}
-
-/* TEXT */
-.testimonial-content h3 {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.designation {
-  font-size: 14px;
-  opacity: 0.6;
-  margin-bottom: 24px;
-}
-
-.quote {
-  font-size: 18px;
-  line-height: 1.6;
-  opacity: 0.8;
-}
-
-/* CONTROLS */
-.testimonial-controls {
-  margin-top: 40px;
-  display: flex;
-  gap: 14px;
-}
-
-.testimonial-controls button {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  background: #e5e7eb;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.testimonial-controls button:hover {
-  background: #d1d5db;
-}
-
-/* MOBILE */
-@media (max-width: 900px) {
-  .testimonials-wrapper {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .testimonial-images {
-    height: 300px;
-  }
-}
-/* ================= EXPLORE THEMES SLIDER ================= */
-/* SECTION */
-.themes-slider-section {
-  background: #000000;
-  padding: 40px 0;
-  overflow: hidden;
-}
-
-/* TITLE */
-.themes-slider-title {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 800;
-  margin-bottom: 28px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-/* GRADIENT TEXT */
-.themes-word {
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 4s ease infinite;
-}
-
-.gradient-1 { background-image: linear-gradient(90deg, #6366f1, #22d3ee, #6366f1); }
-.gradient-2 { background-image: linear-gradient(90deg, #22c55e, #84cc16, #22c55e); }
-.gradient-3 { background-image: linear-gradient(90deg, #f97316, #ec4899, #f97316); }
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* VIEWPORT */
-.themes-slider {
-  width: 100%;
-  overflow: hidden;
-  padding: 0 20px;
-}
-
-/* TRACK */
-.themes-slider-track {
-  display: flex;
-  gap: 16px;
-  width: max-content;
-  will-change: transform;
-}
-
-/* SLIDE */
-.theme-slide {
-  min-width: 230px;
-  height: 290px;
-  border-radius: 22px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  flex-shrink: 0;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.14);
-  transition: transform 0.3s ease;
-}
-
-.theme-slide:hover {
-  transform: translateY(-5px) scale(1.03);
-}
+/* =========================
+RESET
+========================= */
 
-/* BUTTON */
-.use-btn {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  padding: 6px 18px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.35);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 12px;
-  text-decoration: none;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
 
-/* DESKTOP */
-@media (min-width: 900px) {
-  .theme-slide {
-    min-width: 300px;
-    height: 330px;
-  }
+html,body{
+width:100%;
+overflow-x:hidden;
+background:#f4f6f8;
 }
-/* ===== TITLE ANIMATION FIX ===== */
-.themes-slider-title span {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: titleReveal 0.8s ease forwards;
-}
 
-.themes-slider-title span:nth-child(1) {
-  animation-delay: 0.2s;
-}
+/* =========================
+HEADER
+========================= */
 
-.themes-slider-title span:nth-child(2) {
-  animation-delay: 0.5s;
+header{
+background:#fff;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:1000;
 }
 
-.themes-slider-title span:nth-child(3) {
-  animation-delay: 0.8s;
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#0a58ca;
 }
 
-@keyframes titleReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+nav{
+display:flex;
+gap:25px;
 }
 
-/* Optional floating effect (nice polish) */
-.themes-slider-title {
-  animation: titleFloat 4s ease-in-out infinite;
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:600;
 }
 
-@keyframes titleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+nav a:hover{
+color:#0a58ca;
 }
 
-
-/* ================= BLOG SECTION ================= */
-.blog-section {
-  padding: 32px 0;              /* 🔧 reduced from 80px */
-  background: #2563EB;
-  text-align: center;
-  overflow: hidden;
+.menu-icon{
+display:none;
+font-size:26px;
+cursor:pointer;
 }
 
-.blog-title {
-  font-size: 32px;
-  font-weight: 700;
+.mobile-menu{
+display:none;
+background:#fff;
+padding:15px;
 }
 
-.blog-sub {
-  margin-top: 6px;              /* 🔧 tighter */
-  color: #111;
+.mobile-menu a{
+display:block;
+padding:10px 0;
+text-decoration:none;
+color:#333;
 }
 
-/* STACK AREA */
-.blog-wrapper {
-  position: relative;
-  height: 460px;                /* 🔧 reduced from 600px */
-  margin-top: 28px;             /* 🔧 reduced from 60px */
-}
+/* =========================
+NEWS TICKER
+========================= */
 
-/* BLOG CARD */
-.blog-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 340px;
-  height: 420px;
-  background: #fff;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,.12);
-  transition: transform .5s ease, opacity .5s ease;
-  cursor: pointer;
+.ticker{
+background:#ffffff;
+padding:8px 0;
+overflow:hidden;
+white-space:nowrap;
+width:100%;
 }
 
-/* IMAGE */
-.blog-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.ticker-content{
+display:inline-block;
+padding-left:100%;
+animation:ticker-scroll 25s linear infinite;
+font-size:14px;
 }
 
-/* CONTENT */
-.blog-content {
-  padding: 18px;
-  text-align: left;
+@keyframes ticker-scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
 }
 
-.blog-content h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-}
+/* =========================
+TOP AD BOX
+========================= */
 
-.blog-content p {
-  font-size: 14px;
-  color: #64748b;
+.ad-box{
+background:#fff;
+margin:20px auto;
+width:90%;
+max-width:900px;
+padding:30px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:2px dashed #ccc;
+color:#777;
+text-align:center;
 }
 
-/* READ MORE */
-.blog-read {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: rgba(255,255,255,.85);
-  border: 1px solid #ddd;
-  text-decoration: none;
-  color: #000;
-  backdrop-filter: blur(10px);
-}
+/* =========================
+SECTION BASE
+========================= */
 
-/* CONTROLS */
-.blog-controls {
-  position: absolute;
-  bottom: -10px;                /* 🔧 pulls controls up */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 16px;
+.section{
+width:90%;
+max-width:1100px;
+margin:40px auto;
 }
 
-.blog-controls button {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-size: 20px;
-  cursor: pointer;
+.section h2{
+margin-bottom:20px;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .blog-wrapper {
-    height: 400px;              /* 🔧 tighter mobile */
-  }
-
-  .blog-card {
-    width: 280px;
-    height: 380px;
-  }
-}
-/* ================= ADVERTISE SECTION ================= */
-.advertise-section {
-  padding: 60px 0;
-  background: #2563EB;
-}
+/* =========================
+CURRENT AFFAIRS SLIDER
+========================= */
 
-.advertise-container {
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
-  align-items: center;
+.slider-wrapper{
+position:relative;
 }
 
-/* LEFT CONTENT */
-.advertise-content h2 {
-  font-size: 36px;
-  font-weight: 700;
+.slider{
+display:flex;
+gap:15px;
+overflow-x:auto;
+scroll-behavior:smooth;
+padding-bottom:10px;
 }
 
-.advertise-content p {
-  margin-top: 14px;
-  color: #111;
-  max-width: 420px;
+.slider::-webkit-scrollbar{
+display:none;
 }
 
-.sub-line {
-  font-size: 14px;
-  margin-top: 8px;
-  opacity: 0.8;
+.ca-card{
+min-width:300px;
+height:180px;
+border-radius:10px;
+overflow:hidden;
+position:relative;
+text-decoration:none;
 }
 
-/* BUTTON */
-.reach-btn {
-  display: inline-block;
-  margin-top: 24px;
-  padding: 12px 30px;
-  border-radius: 999px;
-  border: 1px solid #FFF;
-  color: #0ea5e9;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s ease;
+.ca-card img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.reach-btn:hover {
-  background: #FFF;
-  color: #000;
-  box-shadow: 0 10px 30px rgba(14,165,233,0.35);
+.subject{
+position:absolute;
+top:10px;
+right:10px;
+background:#0a58ca;
+color:#fff;
+padding:4px 8px;
+font-size:12px;
+border-radius:4px;
 }
 
-/* GALLERY */
-.advertise-gallery {
-  display: flex;
-  gap: 10px;
-  height: 340px;
+.title{
+position:absolute;
+bottom:0;
+background:rgba(0,0,0,0.6);
+color:#fff;
+width:100%;
+padding:10px;
 }
 
-.gallery-item {
-  flex: 1;
-  border-radius: 18px;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
-  transition: flex 0.5s ease, filter 0.3s ease;
-  filter: brightness(0.8);
-}
+/* SLIDER BUTTON */
 
-/* HOVER EXPAND EFFECT */
-.gallery-item:hover {
-  flex: 2;
-  filter: brightness(1);
+.slide-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:#fff;
+border:none;
+font-size:22px;
+padding:8px 12px;
+cursor:pointer;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* MOBILE */
-@media (max-width: 900px) {
-  .advertise-container {
-    grid-template-columns: 1fr;
-  }
-
-  .advertise-gallery {
-    height: 260px;
-  }
-}
-/* ================= CONTACT SECTION ================= */
-.contact-section {
-  padding: 60px 0;
-  background: #FACC15;
-}
+.left-btn{left:-10px;}
+.right-btn{right:-10px;}
 
-.contact-container {
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr; /* image wider */
-  gap: 40px;
-  align-items: center;
-}
+/* =========================
+LONG BANNER AD
+========================= */
 
-/* IMAGE */
-.contact-image img {
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+.ad-banner-container{
+width:100%;
+display:flex;
+justify-content:center;
+margin:30px 0;
 }
 
-/* RIGHT CONTENT */
-.contact-content h2 {
-  font-size: 36px;
-  font-weight: 700;
+.ad-banner{
+width:90%;
+max-width:1100px;
+background:#fff;
+border:2px dashed #ccc;
+padding:25px;
+text-align:center;
+color:#777;
+font-size:16px;
 }
 
-.contact-content p {
-  margin-top: 14px;
-  color: #475569;
-  max-width: 420px;
-}
+/* =========================
+STUDY CATEGORY
+========================= */
 
-.contact-sub {
-  font-size: 14px;
-  margin-top: 8px;
-  opacity: 0.8;
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
 }
 
-/* BUTTON */
-.contact-btn {
-  display: inline-block;
-  margin-top: 26px;
-  padding: 12px 32px;
-  border-radius: 999px;
-  border: 1px solid #FFF;
-  color: #0ea5e9;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s ease;
+.card{
+background:#fff;
+padding:15px;
+border-radius:8px;
+text-decoration:none;
+color:#333;
+font-weight:600;
+transition:0.3s;
 }
 
-.contact-btn:hover {
-  background: #0ea5e9;
-  color: #FFF;
-  box-shadow: 0 12px 30px rgba(14,165,233,0.35);
+.card:hover{
+background:#0a58ca;
+color:#fff;
+transform:translateY(-3px);
 }
 
-/* MOBILE */
-@media (max-width: 900px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .contact-content p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .contact-image img {
-    height: 260px;
-  }
-}
-/* ================= FOOTER ================= */
-.site-footer {
-  width: 100%;
-  background: linear-gradient(to bottom, #FACC15, #FACC15);
-  color: #111;
-}
+/* =========================
+FOOTER
+========================= */
 
-/* MAIN AREA */
-.footer-main {
-  margin: auto;
-  padding: 22px 16px;   /* 🔥 reduced more */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+footer{
+background:#111;
+color:#fff;
+padding:30px;
+text-align:center;
+margin-top:40px;
 }
 
-/* BRAND */
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;   /* 🔥 tighter */
-}
+/* =========================
+MOBILE
+========================= */
 
-.footer-brand img {
-  height: 34px;         /* 🔥 smaller logo */
-}
+@media(max-width:768px){
 
-.brand-name {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+nav{
+display:none;
 }
 
-/* TEXT */
-.footer-text {
-  max-width: 420px;
-  font-size: 12.5px;
-  line-height: 1.5;
-  opacity: 0.85;
-  margin-bottom: 6px;   /* 🔥 tighter */
+.menu-icon{
+display:block;
 }
 
-/* LINKS */
-.footer-links {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
+.slide-btn{
+display:none;
 }
 
-/* BOTTOM BAR */
-.footer-bottom {
-  border-top: 1px solid #111;
-  text-align: center;
-  padding: 8px 12px;    /* 🔥 reduced */
-  font-size: 11.5px;
-  opacity: 0.85;
+.ad-box,
+.ad-banner{
+width:95%;
 }
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .footer-main {
-    padding: 18px 14px;
-  }
 
-  .footer-brand img {
-    height: 30px;
-  }
-
-  .brand-name {
-    font-size: 16px;
-  }
-}
-.typewriter .accent {
-  color: #2563eb;
-  font-weight: 700;
 }
-/* ===== GLOBAL LAYOUT SYSTEM ===== */
-.section {
-  padding: 60px 16px;
-}
 
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
 </style>
 </head>
 
 <body>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="menu-close" id="menuClose">✕</button>
-  <a href="https://myaffiliatepage.com/">HOME</a>
-  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
-  <a href="https://myaffiliatepage.com/news">NEWS</a>
-  <a href="https://myaffiliatepage.com/about">ABOUT</a>
-</div>
-
-<!-- ================= HERO ================= -->
-<section class="hero">
+<!-- HEADER -->
 <header>
-  <a href="https://myaffiliatepage.com/" class="logo">TreeDell</a>
-  <div class="container"></div>
 
-  <nav>
-    <a href="https://myaffiliatepage.com/">HOME</a>
-  <a href="https://myaffiliatepage.com/templates">TEMPLATES</a>
-  <a href="https://myaffiliatepage.com/news">NEWS</a>
-  <a href="https://myaffiliatepage.com/about">ABOUT</a>
-  </nav>
+<div class="logo">Treedell</div>
 
-  <!-- MOBILE MENU BUTTON -->
-  <div class="menu-btn" id="menuBtn">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<nav>
+<a href="#">Daily Quiz</a>
+<a href="#">UPSC Quiz</a>
+<a href="#">Blogs</a>
+<a href="#">YouTube</a>
+</nav>
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
 </header>
 
-<div class="main">
-  <div class="left">
-    <p>                              </p>
-    <a href="#features" class="cta">Let’s Get Started</a>
-  </div>
-
-  <div class="center">
-    <div class="circle"></div>
-    <img id="heroImage" class="hero-img">
-  </div>
-
-  <div class="right">
-    <h1>PURE<br>FORM</h1>
-  </div>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+<a href="#">Daily Quiz</a>
+<a href="#">UPSC Quiz</a>
+<a href="#">Blogs</a>
+<a href="#">YouTube</a>
 </div>
-</section>
 
-<!-- ================= FEATURES ================= -->
-<section id="features" class="features">
-  <div class="features-header">
-    <span>AI Mentors. Real Results.</span>
-    <h2>AI That Actually Teaches</h2>
-  </div>
-  <div class="container"></div>
-  <div class="features-grid">
-    <div class="feature-list" id="featureList"></div>
-    <div class="feature-image">
-      <img id="featureImage">
-    </div>
-  </div>
-</section>
+<!-- TICKER -->
+<div class="ticker">
+<div class="ticker-content">
+Breaking: UPSC 2026 Notification released • Study materials added • Daily quiz updated • Check latest blogs now •
+</div>
+</div>
 
-<section class="memories-section">
+<!-- TOP AD -->
+<div class="ad-box">
 
-  <!-- CARD AREA -->
-  <div class="cards-frame">
-    <div class="cards-slider">
+Top AdSense Ad Space
 
-      <div class="memory-card active" data-link="https://en.wikipedia.org/wiki/Black_Sea">
-        <p class="tag">Most Popular</p>
-        <h3>Black Sea</h3>
-        <span>January 2026</span>
-        <img src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-3e03c354-f00c-47e2-acaf-bf0bbcfa5ce8.jpg">
-      </div>
+</div>
 
-      <div class="memory-card" data-link="https://en.wikipedia.org/wiki/Alps">
-        <p class="tag">Most Popular</p>
-        <h3>Alps</h3>
-        <span>December 2025</span>
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200">
-      </div>
+<!-- CURRENT AFFAIRS -->
+<div class="section">
 
-      <div class="memory-card" data-link="https://en.wikipedia.org/wiki/Alps">
-        <p class="tag">Most Popular</p>
-        <h3>Alps</h3>
-        <span>December 2025</span>
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200">
-      </div>
+<h2>Current Affairs</h2>
 
-      <div class="memory-card" data-link="https://en.wikipedia.org/wiki/Maldives">
-        <p class="tag">Most Popular</p>
-        <h3>Maldives</h3>
-        <span>November 2025</span>
-        <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=1200">
-      </div>
+<div class="slider-wrapper">
 
-    </div>
-  </div>
+<button class="slide-btn left-btn" onclick="scrollSlider(-320)">‹</button>
 
-  <!-- DETAILS -->
-  <div class="details-area">
-    <p class="detail-tag">TRAVEL</p>
-    <h2 class="detail-title">Black Sea</h2>
-    <div class="rainbow-line"></div>
-    <p class="detail-date">June 2023</p>
+<div class="slider" id="slider">
 
-    <a id="exploreBtn" class="explore-btn"
-       href="https://en.wikipedia.org/wiki/Black_Sea"
-       target="_blank">
-      Explore Now
-    </a>
-  </div>
+<a href="#" class="ca-card">
+<img src="https://images.unsplash.com/photo-1770117588331-45aa2eedfdbe?w=600">
+<div class="subject">History</div>
+<div class="title">Ancient Civilizations</div>
+</a>
 
-</section>
+<a href="#" class="ca-card">
+<img src="https://images.unsplash.com/photo-1770989231010-c736f3aeffd2?w=600">
+<div class="subject">Geography</div>
+<div class="title">Climate Update</div>
+</a>
 
+<a href="#" class="ca-card">
+<img src="https://images.unsplash.com/photo-1771009469341-576c828b7691?w=600">
+<div class="subject">Physics</div>
+<div class="title">Quantum Mechanics News</div>
+</a>
 
+</div>
 
-<section class="themes-slider-section">
-  <div class="container"></div>
-  <h2 class="themes-slider-title">
-  <span class="themes-word gradient-1">Explore</span>
-  <span class="themes-word gradient-2">More</span>
-  <span class="themes-word gradient-3">Collection</span>
-</h2>
+<button class="slide-btn right-btn" onclick="scrollSlider(320)">›</button>
 
-  <!-- VIEWPORT -->
-  <div class="themes-slider">
+</div>
 
-    <!-- MOVING TRACK -->
-    <div class="themes-slider-track" id="themesSliderTrack">
+</div>
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-ea87edb5-d339-4709-aae2-8c6d0fa8a599.jpg')">
-        <a href="https://en.wikipedia.org/wiki/Web_design" target="_blank" class="use-btn">Use me</a>
-      </div>
+<!-- LONG BANNER AD -->
+<div class="ad-banner-container">
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/1000118005.png')">
-        <a href="https://en.wikipedia.org/wiki/User_interface_design" target="_blank" class="use-btn">Use me</a>
-      </div>
+<div class="ad-banner">
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-3e03c354-f00c-47e2-acaf-bf0bbcfa5ce8.jpg')">
-        <a href="https://en.wikipedia.org/wiki/Minimalism" target="_blank" class="use-btn">Use me</a>
-      </div>
+Long Banner AdSense Space  
+(Responsive – no fixed height)
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-05a9ea61-7476-49c2-8e4d-720ad7279e07.jpg')">
-        <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
-      </div>
+</div>
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-6a11f2bc-6c63-4d04-aebb-4fc01bf88d7a.jpg')">
-        <a href="https://en.wikipedia.org/wiki/Visual_design" target="_blank" class="use-btn">Use me</a>
-      </div>
+</div>
 
-      <div class="theme-slide" style="background-image:url('https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-edfe469c-6139-4d2a-943e-1c1b706f5df7.jpg')">
-        <a href="https://en.wikipedia.org/wiki/Typography" target="_blank" class="use-btn">Use me</a>
-      </div>
+<!-- STUDY CATEGORIES -->
+<div class="section">
 
-    </div>
-  </div>
-</section>
+<h2>Study Categories</h2>
 
-<section class="faq-section">
-  <div class="faq-container">
-    <div class="container"></div>
-    <h2 class="faq-title">Frequently Asked Questions</h2>
+<div class="features">
 
-    <div class="faq-item">
-      <button class="faq-question">
-        Why do I need a link in bio tool?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        A link in bio tool lets you share all your important links, content, shops, and creations using just one URL across your social profiles.
-      </div>
-    </div>
+<a href="#" class="card">History</a>
+<a href="#" class="card">Geography</a>
+<a href="#" class="card">Economics</a>
+<a href="#" class="card">Environment</a>
+<a href="#" class="card">Polity</a>
+<a href="#" class="card">Science</a>
 
-    <div class="faq-item">
-      <button class="faq-question">
-        Is Linktree the original link in bio tool?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        Linktree popularized the concept, but today platforms like Treedell expand beyond links by letting you add blogs, quizzes, and interactive pages.
-      </div>
-    </div>
+</div>
 
-    <div class="faq-item">
-      <button class="faq-question">
-        Can you get paid and sell things using a link in bio?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        Yes. You can add affiliate links, product pages, shops, and payment links to start monetizing directly from your bio.
-      </div>
-    </div>
+</div>
 
-    <div class="faq-item">
-      <button class="faq-question">
-        Is it safe to use a link in bio on all social platforms?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        Yes. A single bio link works safely across Instagram, Twitter, YouTube, TikTok, and more without violating platform rules.
-      </div>
-    </div>
+<!-- FOOTER -->
+<footer>
 
-    <div class="faq-item">
-      <button class="faq-question">
-        What makes Treedell better than other link in bio tools?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        Treedell goes beyond links by letting you create blogs, quizzes, and storefronts — all from one dashboard.
-      </div>
-    </div>
+© 2026 Treedell.com
 
-    <div class="faq-item">
-      <button class="faq-question">
-        How many links should I have on my bio page?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        Focus on quality, not quantity. 5–10 well-organized links usually perform better than a long cluttered list.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question">
-        Do I need a website to use a link in bio tool?
-        <span>+</span>
-      </button>
-      <div class="faq-answer">
-        No website needed. Your Treedell page itself works as a mini-website that you can customize anytime.
-      </div>
-    </div>
-
-  </div>
-</section>
-<section class="testimonials-section">
-  <h2 class="testimonials-title">What our users say</h2>
-    <div class="container"></div>
-  <div class="testimonials-wrapper">
-
-    <!-- IMAGE STACK -->
-    <div class="testimonial-images" id="testimonialImages">
-      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800" />
-      <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800" />
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800" />
-      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800" />
-      <img src="https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=800" />
-    </div>
-
-    <!-- TEXT -->
-    <div class="testimonial-content">
-      <h3 id="userName"></h3>
-      <p class="designation" id="userRole"></p>
-      <p class="quote" id="userQuote"></p>
-
-      <div class="testimonial-controls">
-        <button id="prevBtn">←</button>
-        <button id="nextBtn">→</button>
-      </div>
-    </div>
-
-  </div>
-</section>
-<section class="blog-section">
-  <div class="container"></div>
-  <h2 class="blog-title">Latest from our blog</h2>
-  <p class="blog-sub">Insights, guides, and ideas to grow your presence</p>
-
-  <div class="blog-wrapper">
-    <div id="blog-stack"></div>
-
-    <div class="blog-controls">
-      <button onclick="moveBlog(-1)">‹</button>
-      <button onclick="moveBlog(1)">›</button>
-    </div>
-  </div>
-</section>
-<section class="advertise-section">
-  <div class="advertise-container">
-
-    <!-- LEFT CONTENT -->
-    <div class="advertise-content">
-      <h2>Advertise with us</h2>
-      <p>
-        Reach a highly engaged audience and showcase your brand where creators,
-        entrepreneurs, and innovators connect.
-      </p>
-      <p class="sub-line">
-        Promote your product. Build visibility. Grow faster.
-      </p>
-
-      <a href="mailto:hello@yourdomain.com" class="reach-btn">
-        Reach to us
-      </a>
-    </div>
-
-    <!-- RIGHT GALLERY -->
-    <div class="advertise-gallery">
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1709884735646-897b57461d61?q=80&w=1200')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1200')"></div>
-      <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1502085671122-2d218cd434e6?q=80&w=1200')"></div>
-    </div>
-
-  </div>
-</section>
-<section class="contact-section">
-  <div class="container"></div>
-  <div class="contact-container">
-
-    <!-- LEFT IMAGE -->
-    <div class="contact-image">
-      <img
-        src="https://images.unsplash.com/photo-1466096115517-bceecbfb6fde?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
-        alt="Contact us"
-      />
-    </div>
-
-    <!-- RIGHT CONTENT -->
-    <div class="contact-content">
-      <h2>Contact us</h2>
-      <p>
-        Reach out to us for any queries, partnerships, or support.
-        Our team is always happy to help you grow.
-      </p>
-      <p class="contact-sub">
-        We usually respond within 24 hours.
-      </p>
-
-      <a href="mailto:hello@yourdomain.com" class="contact-btn">
-        Contact us
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-main">
-    <div class="footer-brand">
-      <img
-        src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png"
-        alt="Treedell logo"
-      />
-      <span class="brand-name">Treedell</span>
-    </div>
-
-    <p class="footer-text">
-      Treedell helps creators and brands bring everything together
-      in one powerful link.
-    </p>
-
-    <div class="footer-links">
-      <a
-        href="https://myaffiliatepage.com/privacypolicy.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Privacy Policy
-      </a>
-      <span>•</span>
-      <a
-        href="https://myaffiliatepage.com/termandconditions.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Term and Condition
-      </a>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 <strong>Treedell</strong>. All rights reserved.
-  </div>
 </footer>
 
+<!-- JS -->
 <script>
-/* MOBILE MENU */
-const menuBtn = document.getElementById("menuBtn");
-const menuClose = document.getElementById("menuClose");
-const mobileMenu = document.getElementById("mobileMenu");
 
-menuBtn.onclick = () => mobileMenu.classList.add("active");
-menuClose.onclick = () => mobileMenu.classList.remove("active");
-
-/* HERO IMAGE ROTATION */
-const heroImages = [
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/image_1-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/ehdpeexzqfs8ihw8zub9ug-removebg-preview.png",
-  "https://studymate81.wordpress.com/wp-content/uploads/2025/12/avgq22r3rwmj1lmsyxpdqw-removebg-preview.png"
-];
-
-const heroImg = document.getElementById("heroImage");
-let heroIndex = Math.floor(Math.random() * heroImages.length);
-
-function rotateHero() {
-  heroImg.style.opacity = 0;
-  setTimeout(() => {
-    heroImg.src = heroImages[heroIndex];
-    heroImg.style.opacity = 1;
-    heroIndex = (heroIndex + 1) % heroImages.length;
-  }, 300);
-}
-rotateHero();
-setInterval(rotateHero, 4000);
-
-/* FEATURES */
-const features = [
-  {
-    title: "Smart Learning",
-    description: "Adaptive AI mentors personalized to you.",
-    image: "https://studymate81.wordpress.com/wp-content/uploads/2025/12/1000118017.png"
-  },
-  {
-    title: "Real Feedback",
-    description: "Instant insights that actually help.",
-    image: "https://studymate81.wordpress.com/wp-content/uploads/2025/12/image-2b4c00d3-336a-4e6b-8442-6d1c9c82ac8f.jpg"
-  },
-  {
-    title: "Guided Growth",
-    description: "Step-by-step improvement with clarity.",
-    image: "https://studymate81.wordpress.com/wp-content/uploads/2025/12/1000118018.png"
-  }
-];
-
-let current = 0;
-const list = document.getElementById("featureList");
-const featureImage = document.getElementById("featureImage");
-
-function renderFeatures() {
-  list.innerHTML = "";
-  features.forEach((f, i) => {
-    const div = document.createElement("div");
-    div.className = "feature" + (i === current ? " active" : "");
-    div.innerHTML = `<h3>${f.title}</h3><p>${f.description}</p>`;
-    div.onclick = () => {
-      current = i;
-      updateImage();
-      renderFeatures();
-      mobileMenu.classList.remove("active");
-    };
-    list.appendChild(div);
-  });
+function toggleMenu(){
+let menu=document.getElementById("mobileMenu");
+menu.style.display=menu.style.display==="block"?"none":"block";
 }
 
-function updateImage() {
-  featureImage.src = features[current].image;
-}
-
-renderFeatures();
-updateImage();
-</script>
-<script>
-const modal = document.getElementById("iframeModal");
-const iframe = document.getElementById("iframeViewer");
-const closeBtn = document.getElementById("iframeClose");
-
-document.querySelectorAll(".view-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    iframe.src = btn.dataset.view;
-    modal.classList.add("active");
-  });
+function scrollSlider(amount){
+document.getElementById("slider").scrollBy({
+left:amount,
+behavior:"smooth"
 });
-
-closeBtn.addEventListener("click", () => {
-  iframe.src = "";
-  modal.classList.remove("active");
-});
-</script>
-<script>
-const faqItems = document.querySelectorAll(".faq-item");
-
-faqItems.forEach(item => {
-  const button = item.querySelector(".faq-question");
-
-  button.addEventListener("click", () => {
-    const isOpen = item.classList.contains("active");
-
-    // Close all
-    faqItems.forEach(i => i.classList.remove("active"));
-
-    // Toggle current
-    if (!isOpen) {
-      item.classList.add("active");
-    }
-  });
-});
-</script>
-<script>
-const testimonials = [
-  {
-    name: "Priya Sharma",
-    role: "Content Creator",
-    quote: "Treedell made it incredibly easy to organize all my content in one place.",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Startup Founder",
-    quote: "Setting up my Treedell page took minutes and replaced my entire website.",
-  },
-  {
-    name: "Isabella Rossi",
-    role: "Digital Marketer",
-    quote: "I love how flexible Treedell is — blogs, links, and quizzes together.",
-  },
-  {
-    name: "Kenji Tanaka",
-    role: "Indie Developer",
-    quote: "The clean design and smooth experience really stand out.",
-  },
-  {
-    name: "Fatima Al-Jamil",
-    role: "Online Educator",
-    quote: "Treedell helped me turn my profile into a powerful learning hub.",
-  }
-];
-
-const images = document.querySelectorAll(".testimonial-images img");
-const nameEl = document.getElementById("userName");
-const roleEl = document.getElementById("userRole");
-const quoteEl = document.getElementById("userQuote");
-
-let index = 0;
-
-function showTestimonial(i) {
-  images.forEach(img => img.classList.remove("active"));
-  images[i].classList.add("active");
-
-  nameEl.textContent = testimonials[i].name;
-  roleEl.textContent = testimonials[i].role;
-  quoteEl.textContent = `"${testimonials[i].quote}"`;
 }
 
-document.getElementById("nextBtn").onclick = () => {
-  index = (index + 1) % testimonials.length;
-  showTestimonial(index);
-};
-
-document.getElementById("prevBtn").onclick = () => {
-  index = (index - 1 + testimonials.length) % testimonials.length;
-  showTestimonial(index);
-};
-
-/* AUTO PLAY */
-setInterval(() => {
-  index = (index + 1) % testimonials.length;
-  showTestimonial(index);
-}, 5000);
-
-showTestimonial(index);
 </script>
-<script>
-const blogs = [
-  {
-    title: "What is a Link in Bio?",
-    desc: "Understand how link-in-bio tools simplify online presence.",
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Linktree"
-  },
-  {
-    title: "Create Your Own Page",
-    desc: "Build a personal page in minutes with zero code.",
-    img: "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Personal_web_page"
-  },
-  {
-    title: "Start Blogging Online",
-    desc: "Share your knowledge and grow an audience.",
-    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Blog"
-  },
-  {
-    title: "Blogging Online",
-    desc: "Share your knowledge and grow an audience.",
-    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Blog"
-  },
-  {
-    title: "StarT Money Online",
-    desc: "Share your knowledge and grow an audience.",
-    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Blog"
-  },
-  {
-    title: "Start Free Online",
-    desc: "Share your knowledge and grow an audience.",
-    img: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Blog"
-  },
-  {
-    title: "Monetize Your Content",
-    desc: "Turn followers into income opportunities.",
-    img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200",
-    link: "https://en.wikipedia.org/wiki/Digital_marketing"
-  }
-];
 
-const stack = document.getElementById("blog-stack");
-
-function renderBlogs() {
-  stack.innerHTML = "";
-  const mid = Math.floor(blogs.length / 2);
-
-  blogs.forEach((blog, i) => {
-    const pos = i - mid;
-    const card = document.createElement("div");
-    card.className = "blog-card";
-
-    card.style.transform = `
-      translate(-50%, -50%)
-      translateX(${pos * 220}px)
-      translateY(${pos === 0 ? -40 : pos % 2 ? 20 : -20}px)
-      rotate(${pos === 0 ? 0 : pos % 2 ? 3 : -3}deg)
-    `;
-
-    card.style.zIndex = 10 - Math.abs(pos);
-    card.style.opacity = pos === 0 ? 1 : 0.7;
-
-    card.innerHTML = `
-      <img src="${blog.img}">
-      <div class="blog-content">
-        <h3>${blog.title}</h3>
-        <p>${blog.desc}</p>
-      </div>
-      <a href="${blog.link}" target="_blank" class="blog-read">Read more</a>
-    `;
-
-    card.onclick = () => moveBlog(pos);
-    stack.appendChild(card);
-  });
-}
-
-function moveBlog(step) {
-  if (step > 0) {
-    blogs.push(blogs.shift());
-  } else {
-    blogs.unshift(blogs.pop());
-  }
-  renderBlogs();
-}
-
-renderBlogs();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const el = document.querySelector(".typewriter");
-  if (!el) return;
-
-  const texts = JSON.parse(el.getAttribute("data-text"));
-  let textIndex = 0;
-  let charIndex = 0;
-  let deleting = false;
-
-  function type() {
-    const currentText = texts[textIndex];
-
-    if (!deleting) {
-      el.textContent = currentText.slice(0, charIndex + 1);
-      charIndex++;
-      if (charIndex === currentText.length) {
-        setTimeout(() => deleting = true, 1800);
-      }
-    } else {
-      el.textContent = currentText.slice(0, charIndex - 1);
-      charIndex--;
-      if (charIndex === 0) {
-        deleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-      }
-    }
-
-    setTimeout(type, deleting ? 40 : 70);
-  }
-
-  type();
-});
-</script>
-<script>
-  const accentWords = ["Treedell", "what’s", "minutes"];
-  const typeEl = document.querySelector(".typewriter");
-
-  const observer = new MutationObserver(() => {
-    let text = typeEl.textContent;
-
-    // Do nothing if text is still typing or empty
-    if (!text || text.length < 4) return;
-
-    // Only proceed if any accent word exists
-    if (!accentWords.some(word => text.includes(word))) return;
-
-    let html = text;
-
-    accentWords.forEach(word => {
-      html = html.replace(
-        new RegExp(`\\b${word}\\b`, "g"),
-        `<span class="accent">${word}</span>`
-      );
-    });
-
-    // Replace ONCE per full word render
-    if (!typeEl.innerHTML.includes("accent")) {
-      typeEl.innerHTML = html;
-    }
-  });
-
-  observer.observe(typeEl, {
-    childList: true,
-    characterData: true,
-    subtree: true
-  });
-</script>
-<script>
-const track = document.getElementById("themesSliderTrack");
-let speed = 0.5;
-let isPaused = false;
-
-// Duplicate slides for true infinite loop
-track.innerHTML += track.innerHTML;
-
-let position = 0;
-let halfWidth = track.scrollWidth / 2;
-
-function animate() {
-  if (!isPaused) {
-    position -= speed;
-
-    if (Math.abs(position) >= halfWidth) {
-      position = 0;
-    }
-
-    track.style.transform = `translateX(${position}px)`;
-  }
-  requestAnimationFrame(animate);
-}
-
-// Pause on hover
-track.addEventListener("mouseenter", () => isPaused = true);
-track.addEventListener("mouseleave", () => isPaused = false);
-
-// Pause on card hover
-track.querySelectorAll(".theme-slide").forEach(card => {
-  card.addEventListener("mouseenter", () => isPaused = true);
-  card.addEventListener("mouseleave", () => isPaused = false);
-});
-
-// Pause on touch (mobile)
-track.addEventListener("touchstart", () => isPaused = true);
-track.addEventListener("touchend", () => isPaused = false);
-
-animate();
-</script>
-<script>
-  const videoModal = document.getElementById("iframeModal");
-  const videoIframe = document.getElementById("iframeViewer");
-  const videoCloseBtn = document.getElementById("iframeClose");
-
-  function isShorts(videoId) {
-    // Known Shorts detection via fetch-free method
-    return [
-      "9No-FiEInLA",
-      "ysEN5RaKOlA"
-    ].includes(videoId);
-  }
-
-  document.querySelectorAll(".video-play").forEach(video => {
-    video.addEventListener("click", () => {
-      const id = video.dataset.video;
-
-      // If Shorts or restricted → open YouTube
-      if (isShorts(id)) {
-        window.open(`https://www.youtube.com/watch?v=${id}`, "_blank");
-        return;
-      }
-
-      videoIframe.src =
-        `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
-
-      videoModal.classList.add("active");
-    });
-  });
-
-  videoCloseBtn.onclick = () => {
-    videoIframe.src = "";
-    videoModal.classList.remove("active");
-  };
-
-  videoModal.onclick = e => {
-    if (e.target === videoModal) {
-      videoIframe.src = "";
-      videoModal.classList.remove("active");
-    }
-  };
-</script>
-<script>
-  const cards = document.querySelectorAll('.memory-card');
-  const title = document.querySelector('.detail-title');
-  const tag = document.querySelector('.detail-tag');
-  const date = document.querySelector('.detail-date');
-  const btn = document.getElementById('exploreBtn');
-
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      cards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-
-      title.textContent = card.querySelector('h3').textContent;
-      tag.textContent = card.querySelector('.tag').textContent;
-      date.textContent = card.querySelector('span').textContent;
-      btn.href = card.dataset.link;
-    });
-  });
-</script>
 </body>
 </html>
