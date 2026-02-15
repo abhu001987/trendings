@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treedell History Test Series</title>
+
+<style>
+
+/* ================= RESET ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f8;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+/* ================= HEADER ================= */
+
+header{
+background:#fff;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#0a58ca;
+}
+
+nav{
+display:flex;
+gap:20px;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:600;
+}
+
+nav a:hover{
+color:#0a58ca;
+}
+
+.menu-icon{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+.mobile-menu{
+display:none;
+background:#fff;
+padding:15px;
+}
+
+.mobile-menu a{
+display:block;
+padding:10px;
+text-decoration:none;
+color:#333;
+}
+
+/* ================= QUIZ CONTAINER ================= */
+
+.container{
+width:100%;
+max-width:600px;
+margin:40px auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+flex:1;
+
+min-height:520px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+/* ================= QUESTION ================= */
+
+.q-number{
+color:#0a58ca;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.question{
+font-size:22px;
+margin-bottom:20px;
+min-height:60px;
+}
+
+.options{
+min-height:220px;
+}
+
+.option{
+padding:12px;
+margin-bottom:12px;
+background:#f1f1f1;
+border-radius:6px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#e2e2e2;
+}
+
+.option.selected{
+background:#0a58ca;
+color:#fff;
+}
+
+/* ================= BUTTONS ================= */
+
+.buttons{
+display:flex;
+justify-content:space-between;
+}
+
+.btn{
+padding:10px 22px;
+border:none;
+background:#0a58ca;
+color:#fff;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn:disabled{
+background:#ccc;
+}
+
+/* ================= RESULT ================= */
+
+.result{
+display:none;
+}
+
+.score{
+font-size:26px;
+margin-bottom:10px;
+color:#0a58ca;
+}
+
+.performance{
+font-size:18px;
+margin-bottom:20px;
+color:green;
+}
+
+.review{
+background:#f9f9f9;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+}
+
+.correct{
+color:green;
+}
+
+.wrong{
+color:red;
+}
+
+.desc{
+font-size:14px;
+margin-top:5px;
+color:#555;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+background:#111;
+color:#fff;
+text-align:center;
+padding:20px;
+margin-top:auto;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+nav{
+display:none;
+}
+
+.menu-icon{
+display:block;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">Treedell</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="daily-quiz.html">Daily Quiz</a>
+
+<a href="upsc-quiz.html">UPSC Quiz</a>
+
+<a href="history-test-series.html">History Test</a>
+
+<a href="blogs.html">Blogs</a>
+
+<a href="youtube.html">YouTube</a>
+
+</nav>
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+</header>
+
+<!-- MOBILE MENU -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+<a href="index.html">Home</a>
+
+<a href="daily-quiz.html">Daily Quiz</a>
+
+<a href="upsc-quiz.html">UPSC Quiz</a>
+
+<a href="history-test-series.html">History Test</a>
+
+<a href="blogs.html">Blogs</a>
+
+<a href="youtube.html">YouTube</a>
+
+</div>
+
+<!-- QUIZ -->
+
+<div class="container">
+
+<div id="quizBox">
+
+<div class="q-number" id="qNumber"></div>
+
+<div class="question" id="question"></div>
+
+<div class="options" id="options"></div>
+
+<div class="buttons">
+
+<button class="btn" onclick="prevQuestion()" id="prevBtn">
+Previous
+</button>
+
+<button class="btn" onclick="nextQuestion()" id="nextBtn">
+Next
+</button>
+
+</div>
+
+</div>
+
+<div id="resultBox" class="result"></div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 Treedell.com
+
+</footer>
+
+<script>
+
+/* MOBILE MENU */
+
+function toggleMenu(){
+
+let menu=document.getElementById("mobileMenu");
+
+menu.style.display=
+menu.style.display==="block"?"none":"block";
+
+}
+
+/* QUESTIONS */
+
+const quiz=[
+
+{
+q:"Who founded the Maurya Empire?",
+options:["Chandragupta Maurya","Ashoka","Bindusara","Harsha"],
+answer:0,
+desc:"Chandragupta Maurya founded Maurya Empire in 322 BCE."
+},
+
+{
+q:"Battle of Plassey was fought in?",
+options:["1757","1764","1857","1747"],
+answer:0,
+desc:"Battle of Plassey was fought in 1757."
+},
+
+{
+q:"First Mughal Emperor?",
+options:["Babur","Akbar","Humayun","Aurangzeb"],
+answer:0,
+desc:"Babur founded Mughal Empire in 1526."
+},
+
+{
+q:"Who wrote Arthashastra?",
+options:["Kautilya","Kalidasa","Tulsidas","Banabhatta"],
+answer:0,
+desc:"Kautilya wrote Arthashastra."
+},
+
+{
+q:"Who built Red Fort?",
+options:["Shah Jahan","Akbar","Babur","Aurangzeb"],
+answer:0,
+desc:"Red Fort built by Shah Jahan."
+},
+
+{
+q:"Quit India Movement year?",
+options:["1942","1947","1930","1920"],
+answer:0,
+desc:"Started in 1942."
+},
+
+{
+q:"First Governor General?",
+options:["Warren Hastings","Cornwallis","Dalhousie","Clive"],
+answer:0,
+desc:"Warren Hastings was first Governor General."
+},
+
+{
+q:"First INC President?",
+options:["W.C. Banerjee","Gandhi","Nehru","Patel"],
+answer:0,
+desc:"W.C. Banerjee was first INC President."
+},
+
+{
+q:"Nalanda University located in?",
+options:["Bihar","UP","Delhi","MP"],
+answer:0,
+desc:"Nalanda is in Bihar."
+},
+
+{
+q:"Who started Non Cooperation Movement?",
+options:["Gandhi","Nehru","Patel","Tilak"],
+answer:0,
+desc:"Started by Gandhi in 1920."
+}
+
+];
+
+let current=0;
+let userAnswers=new Array(quiz.length).fill(null);
+
+/* LOAD QUESTION */
+
+function loadQuestion(){
+
+document.getElementById("qNumber").innerText=
+"Question "+(current+1)+" of "+quiz.length;
+
+document.getElementById("question").innerText=
+quiz[current].q;
+
+let html="";
+
+quiz[current].options.forEach((opt,i)=>{
+
+let selected=userAnswers[current]==i?"selected":"";
+
+html+=`<div class="option ${selected}" onclick="selectOption(${i})">${opt}</div>`;
+
+});
+
+document.getElementById("options").innerHTML=html;
+
+document.getElementById("prevBtn").disabled=current==0;
+
+document.getElementById("nextBtn").innerText=
+current==quiz.length-1?"Finish":"Next";
+
+}
+
+/* SELECT */
+
+function selectOption(i){
+
+userAnswers[current]=i;
+loadQuestion();
+
+}
+
+/* NEXT */
+
+function nextQuestion(){
+
+if(current<quiz.length-1){
+
+current++;
+loadQuestion();
+
+}
+else{
+
+showResult();
+
+}
+
+}
+
+/* PREV */
+
+function prevQuestion(){
+
+current--;
+loadQuestion();
+
+}
+
+/* RESULT */
+
+function showResult(){
+
+document.getElementById("quizBox").style.display="none";
+
+let score=0;
+
+quiz.forEach((q,i)=>{
+
+if(userAnswers[i]==q.answer) score++;
+
+});
+
+let percent=Math.floor(score/quiz.length*100);
+
+let better=Math.floor(60+percent*0.4);
+
+let html="";
+
+html+=`<div class="score">Score: ${score}/${quiz.length}</div>`;
+
+html+=`<div class="performance">
+Congratulations! You performed better than ${better}% aspirants.
+</div>`;
+
+quiz.forEach((q,i)=>{
+
+html+=`
+<div class="review">
+
+<b>Q${i+1}. ${q.q}</b><br>
+
+<span class="${userAnswers[i]==q.answer?'correct':'wrong'}">
+Your Answer: ${q.options[userAnswers[i]] || "Not Answered"}
+</span><br>
+
+<span class="correct">
+Correct Answer: ${q.options[q.answer]}
+</span>
+
+<div class="desc">
+Explanation: ${q.desc}
+</div>
+
+</div>
+`;
+
+});
+
+document.getElementById("resultBox").innerHTML=html;
+
+document.getElementById("resultBox").style.display="block";
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
