@@ -74,25 +74,55 @@ text-decoration:none;
 color:#333;
 }
 
-/* ================= QUIZ CONTAINER ================= */
+/* ================= CONTAINER ================= */
 
 .container{
 width:100%;
-max-width:600px;
+max-width:700px;
 margin:40px auto;
 background:#fff;
 padding:30px;
 border-radius:12px;
 box-shadow:0 4px 15px rgba(0,0,0,0.08);
 flex:1;
-
 min-height:520px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
 }
 
-/* ================= QUESTION ================= */
+/* ================= INSTRUCTION ================= */
+
+.test-title{
+color:#0a58ca;
+margin-bottom:20px;
+}
+
+.instruction-card{
+background:#f9f9f9;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.instruction-card ul{
+margin-left:20px;
+margin-top:10px;
+}
+
+.instruction-card li{
+margin-bottom:8px;
+}
+
+.start-btn{
+margin-top:20px;
+padding:12px 25px;
+background:#0a58ca;
+color:#fff;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+/* ================= QUIZ ================= */
 
 .q-number{
 color:#0a58ca;
@@ -224,15 +254,10 @@ display:block;
 <nav>
 
 <a href="index.html">Home</a>
-
 <a href="daily-quiz.html">Daily Quiz</a>
-
 <a href="upsc-quiz.html">UPSC Quiz</a>
-
 <a href="history-test-series.html">History Test</a>
-
 <a href="blogs.html">Blogs</a>
-
 <a href="youtube.html">YouTube</a>
 
 </nav>
@@ -241,29 +266,62 @@ display:block;
 
 </header>
 
-<!-- MOBILE MENU -->
-
 <div class="mobile-menu" id="mobileMenu">
 
 <a href="index.html">Home</a>
-
 <a href="daily-quiz.html">Daily Quiz</a>
-
 <a href="upsc-quiz.html">UPSC Quiz</a>
-
 <a href="history-test-series.html">History Test</a>
-
 <a href="blogs.html">Blogs</a>
-
 <a href="youtube.html">YouTube</a>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="container">
+
+<!-- INSTRUCTION PAGE -->
+
+<div id="instructionBox">
+
+<h2 class="test-title">History Test Series – Full Length Test</h2>
+
+<div class="instruction-card">
+
+<h3>Test Instructions</h3>
+
+<ul>
+<li>Total Questions: <b>10</b></li>
+<li>Total Marks: <b>10</b></li>
+<li>No negative marking</li>
+<li>You can change answers anytime</li>
+<li>Click Finish to submit test</li>
+</ul>
+
+</div>
+
+<div class="instruction-card">
+
+<h3>Important Guidelines</h3>
+
+<ul>
+<li>Ensure stable internet connection</li>
+<li>Do not refresh page during test</li>
+<li>Result shown immediately after submission</li>
+</ul>
+
+</div>
+
+<button class="start-btn" onclick="startTest()">
+Start Test
+</button>
 
 </div>
 
 <!-- QUIZ -->
 
-<div class="container">
-
-<div id="quizBox">
+<div id="quizBox" style="display:none;">
 
 <div class="q-number" id="qNumber"></div>
 
@@ -292,9 +350,7 @@ Next
 <!-- FOOTER -->
 
 <footer>
-
 © 2026 Treedell.com
-
 </footer>
 
 <script>
@@ -302,12 +358,16 @@ Next
 /* MOBILE MENU */
 
 function toggleMenu(){
-
 let menu=document.getElementById("mobileMenu");
+menu.style.display=menu.style.display==="block"?"none":"block";
+}
 
-menu.style.display=
-menu.style.display==="block"?"none":"block";
+/* START TEST */
 
+function startTest(){
+document.getElementById("instructionBox").style.display="none";
+document.getElementById("quizBox").style.display="block";
+loadQuestion();
 }
 
 /* QUESTIONS */
@@ -389,15 +449,14 @@ desc:"Started by Gandhi in 1920."
 let current=0;
 let userAnswers=new Array(quiz.length).fill(null);
 
-/* LOAD QUESTION */
+/* LOAD */
 
 function loadQuestion(){
 
 document.getElementById("qNumber").innerText=
 "Question "+(current+1)+" of "+quiz.length;
 
-document.getElementById("question").innerText=
-quiz[current].q;
+document.getElementById("question").innerText=quiz[current].q;
 
 let html="";
 
@@ -421,10 +480,8 @@ current==quiz.length-1?"Finish":"Next";
 /* SELECT */
 
 function selectOption(i){
-
 userAnswers[current]=i;
 loadQuestion();
-
 }
 
 /* NEXT */
@@ -436,8 +493,7 @@ if(current<quiz.length-1){
 current++;
 loadQuestion();
 
-}
-else{
+}else{
 
 showResult();
 
@@ -463,9 +519,7 @@ document.getElementById("quizBox").style.display="none";
 let score=0;
 
 quiz.forEach((q,i)=>{
-
 if(userAnswers[i]==q.answer) score++;
-
 });
 
 let percent=Math.floor(score/quiz.length*100);
@@ -509,8 +563,6 @@ document.getElementById("resultBox").innerHTML=html;
 document.getElementById("resultBox").style.display="block";
 
 }
-
-loadQuestion();
 
 </script>
 
