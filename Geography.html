@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treedell UPSC Geography Test Series</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f8;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+/* HEADER */
+
+header{
+background:#fff;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#0a58ca;
+}
+
+nav{
+display:flex;
+gap:20px;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:600;
+}
+
+nav a:hover{
+color:#0a58ca;
+}
+
+.menu-icon{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+.mobile-menu{
+display:none;
+background:#fff;
+padding:15px;
+}
+
+.mobile-menu a{
+display:block;
+padding:10px;
+text-decoration:none;
+color:#333;
+}
+
+/* CONTAINER */
+
+.container{
+width:100%;
+max-width:700px;
+margin:40px auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+flex:1;
+min-height:520px;
+}
+
+/* INSTRUCTION */
+
+.test-title{
+color:#0a58ca;
+margin-bottom:20px;
+}
+
+.instruction-card{
+background:#f9f9f9;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.start-btn{
+margin-top:20px;
+padding:12px 25px;
+background:#0a58ca;
+color:#fff;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+/* QUIZ */
+
+.q-number{
+color:#0a58ca;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.question{
+font-size:22px;
+margin-bottom:20px;
+min-height:60px;
+}
+
+.options{
+min-height:220px;
+}
+
+.option{
+padding:12px;
+margin-bottom:12px;
+background:#f1f1f1;
+border-radius:6px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#e2e2e2;
+}
+
+.option.selected{
+background:#0a58ca;
+color:#fff;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+justify-content:space-between;
+}
+
+.btn{
+padding:10px 22px;
+border:none;
+background:#0a58ca;
+color:#fff;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn:disabled{
+background:#ccc;
+}
+
+/* RESULT */
+
+.result{
+display:none;
+}
+
+.score{
+font-size:26px;
+margin-bottom:10px;
+color:#0a58ca;
+}
+
+.performance{
+font-size:18px;
+margin-bottom:20px;
+color:green;
+}
+
+.review{
+background:#f9f9f9;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+}
+
+.correct{color:green;}
+.wrong{color:red;}
+
+.desc{
+font-size:14px;
+margin-top:5px;
+color:#555;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:#fff;
+text-align:center;
+padding:20px;
+margin-top:auto;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+nav{display:none;}
+.menu-icon{display:block;}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<div class="logo">Treedell</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="daily-quiz.html">Daily Quiz</a>
+<a href="upsc-quiz.html">UPSC Quiz</a>
+<a href="upsc-geography-test-series.html">Geography Test</a>
+<a href="#">Blogs</a>
+<a href="#">YouTube</a>
+
+</nav>
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+
+<a href="index.html">Home</a>
+<a href="daily-quiz.html">Daily Quiz</a>
+<a href="upsc-quiz.html">UPSC Quiz</a>
+<a href="upsc-geography-test-series.html">Geography Test</a>
+
+</div>
+
+<div class="container">
+
+<div id="instructionBox">
+
+<h2 class="test-title">UPSC Geography Test Series – Physical Geography</h2>
+
+<div class="instruction-card">
+
+<ul>
+<li>Total Questions: <b>10</b></li>
+<li>Total Marks: <b>10</b></li>
+<li>No negative marking</li>
+<li>UPSC standard questions</li>
+<li>Result with performance analysis</li>
+</ul>
+
+</div>
+
+<button class="start-btn" onclick="startTest()">Start Test</button>
+
+</div>
+
+<div id="quizBox" style="display:none;">
+
+<div class="q-number" id="qNumber"></div>
+
+<div class="question" id="question"></div>
+
+<div class="options" id="options"></div>
+
+<div class="buttons">
+
+<button class="btn" onclick="prevQuestion()" id="prevBtn">Previous</button>
+
+<button class="btn" onclick="nextQuestion()" id="nextBtn">Next</button>
+
+</div>
+
+</div>
+
+<div id="resultBox" class="result"></div>
+
+</div>
+
+<footer>
+© 2026 Treedell.com
+</footer>
+
+<script>
+
+function toggleMenu(){
+let menu=document.getElementById("mobileMenu");
+menu.style.display=menu.style.display==="block"?"none":"block";
+}
+
+function startTest(){
+instructionBox.style.display="none";
+quizBox.style.display="block";
+loadQuestion();
+}
+
+/* UPSC GEOGRAPHY QUESTIONS */
+
+const quiz=[
+
+{
+q:"Which is the largest desert in the world?",
+options:["Sahara","Thar","Gobi","Kalahari"],
+answer:0,
+desc:"Sahara Desert is the world's largest hot desert."
+},
+
+{
+q:"Which layer of Earth is liquid?",
+options:["Crust","Mantle","Outer Core","Inner Core"],
+answer:2,
+desc:"Outer core is liquid iron and nickel."
+},
+
+{
+q:"Longest river in the world?",
+options:["Amazon","Nile","Ganga","Yangtze"],
+answer:1,
+desc:"Nile River is longest."
+},
+
+{
+q:"Which is highest mountain?",
+options:["K2","Everest","Kangchenjunga","Lhotse"],
+answer:1,
+desc:"Mount Everest is highest peak."
+},
+
+{
+q:"Which ocean is largest?",
+options:["Indian","Atlantic","Pacific","Arctic"],
+answer:2,
+desc:"Pacific Ocean is largest."
+},
+
+{
+q:"Tropic of Cancer passes through?",
+options:["India","China","USA","Russia"],
+answer:0,
+desc:"Tropic of Cancer passes through India."
+},
+
+{
+q:"Which is not greenhouse gas?",
+options:["CO2","Methane","Oxygen","Nitrous Oxide"],
+answer:2,
+desc:"Oxygen is not greenhouse gas."
+},
+
+{
+q:"Which continent is largest?",
+options:["Africa","Asia","Europe","Australia"],
+answer:1,
+desc:"Asia is largest continent."
+},
+
+{
+q:"Which is deepest ocean trench?",
+options:["Mariana","Java","Tonga","Puerto Rico"],
+answer:0,
+desc:"Mariana trench is deepest."
+},
+
+{
+q:"Which is largest plateau?",
+options:["Tibetan","Deccan","Colorado","Patagonia"],
+answer:0,
+desc:"Tibetan Plateau is largest."
+}
+
+];
+
+let current=0;
+let userAnswers=new Array(quiz.length).fill(null);
+
+function loadQuestion(){
+
+qNumber.innerText=`Question ${current+1} of ${quiz.length}`;
+
+question.innerText=quiz[current].q;
+
+let html="";
+
+quiz[current].options.forEach((opt,i)=>{
+
+let selected=userAnswers[current]==i?"selected":"";
+
+html+=`<div class="option ${selected}" onclick="selectOption(${i})">${opt}</div>`;
+
+});
+
+options.innerHTML=html;
+
+prevBtn.disabled=current==0;
+
+nextBtn.innerText=current==quiz.length-1?"Finish":"Next";
+
+}
+
+function selectOption(i){
+userAnswers[current]=i;
+loadQuestion();
+}
+
+function nextQuestion(){
+
+if(current<quiz.length-1){
+
+current++;
+loadQuestion();
+
+}else{
+
+showResult();
+
+}
+
+}
+
+function prevQuestion(){
+current--;
+loadQuestion();
+}
+
+function showResult(){
+
+quizBox.style.display="none";
+
+let score=0;
+
+quiz.forEach((q,i)=>{
+if(userAnswers[i]==q.answer) score++;
+});
+
+let percent=Math.floor(score/quiz.length*100);
+
+let better=Math.floor(60+percent*0.4);
+
+let html=`
+<div class="score">Score: ${score}/${quiz.length}</div>
+<div class="performance">
+You performed better than ${better}% aspirants.
+</div>
+`;
+
+quiz.forEach((q,i)=>{
+
+html+=`
+<div class="review">
+
+<b>Q${i+1}. ${q.q}</b><br>
+
+<span class="${userAnswers[i]==q.answer?'correct':'wrong'}">
+Your Answer: ${q.options[userAnswers[i]] || "Not Answered"}
+</span><br>
+
+<span class="correct">
+Correct Answer: ${q.options[q.answer]}
+</span>
+
+<div class="desc">
+Explanation: ${q.desc}
+</div>
+
+</div>
+`;
+
+});
+
+resultBox.innerHTML=html;
+resultBox.style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
