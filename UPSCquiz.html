@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treedell UPSC Quiz</title>
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f4f6f8;
+}
+
+/* =========================
+HEADER (SAME DESIGN)
+========================= */
+
+header{
+background:#fff;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#0a58ca;
+}
+
+nav{
+display:flex;
+gap:25px;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:600;
+}
+
+nav a:hover{
+color:#0a58ca;
+}
+
+.menu-icon{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+.mobile-menu{
+display:none;
+background:#fff;
+padding:15px;
+}
+
+.mobile-menu a{
+display:block;
+padding:10px 0;
+text-decoration:none;
+color:#333;
+}
+
+/* =========================
+QUIZ SECTION
+========================= */
+
+.quiz-container{
+width:90%;
+max-width:900px;
+margin:40px auto;
+}
+
+.quiz-title{
+font-size:26px;
+margin-bottom:25px;
+color:#0a58ca;
+}
+
+/* QUESTION CARD */
+
+.question-card{
+background:#fff;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.question{
+font-weight:bold;
+margin-bottom:15px;
+line-height:1.5;
+}
+
+/* OPTIONS */
+
+.option{
+display:block;
+padding:12px;
+margin-bottom:10px;
+background:#f1f1f1;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.option:hover{
+background:#e2e2e2;
+}
+
+/* CORRECT / WRONG */
+
+.correct{
+background:#28a745 !important;
+color:#fff;
+}
+
+.wrong{
+background:#dc3545 !important;
+color:#fff;
+}
+
+/* EXPLANATION */
+
+.explanation{
+display:none;
+margin-top:15px;
+padding:12px;
+background:#eef3ff;
+border-left:4px solid #0a58ca;
+border-radius:5px;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:#fff;
+padding:30px;
+text-align:center;
+margin-top:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+nav{
+display:none;
+}
+
+.menu-icon{
+display:block;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">Treedell</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="quiz.html">Daily Quiz</a>
+<a href="upsc-quiz.html">UPSC Quiz</a>
+<a href="#">Blogs</a>
+<a href="#">YouTube</a>
+</nav>
+
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+
+<a href="index.html">Home</a>
+<a href="quiz.html">Daily Quiz</a>
+<a href="upsc-quiz.html">UPSC Quiz</a>
+<a href="#">Blogs</a>
+<a href="#">YouTube</a>
+
+</div>
+
+<!-- QUIZ -->
+
+<div class="quiz-container">
+
+<div class="quiz-title">UPSC Prelims Practice Quiz</div>
+
+<!-- QUESTION 1 -->
+
+<div class="question-card">
+
+<div class="question">
+1. Which one of the following is the correct definition of “Biodiversity”?
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Study of plants only
+</div>
+
+<div class="option" onclick="checkAnswer(this,true)">
+Variety of living organisms in a region
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Study of animals only
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Study of atmosphere
+</div>
+
+<div class="explanation">
+Biodiversity refers to the variety of life forms including plants, animals, and microorganisms.
+</div>
+
+</div>
+
+<!-- QUESTION 2 -->
+
+<div class="question-card">
+
+<div class="question">
+2. Which Article of the Constitution deals with Fundamental Rights?
+</div>
+
+<div class="option" onclick="checkAnswer(this,true)">
+Article 12 to 35
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Article 36 to 51
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Article 52 to 78
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Article 79 to 122
+</div>
+
+<div class="explanation">
+Fundamental Rights are mentioned in Articles 12 to 35.
+</div>
+
+</div>
+
+<!-- QUESTION 3 -->
+
+<div class="question-card">
+
+<div class="question">
+3. Which layer of Earth is responsible for plate tectonics?
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Inner Core
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Outer Core
+</div>
+
+<div class="option" onclick="checkAnswer(this,true)">
+Lithosphere
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Atmosphere
+</div>
+
+<div class="explanation">
+Lithosphere is the rigid outer layer responsible for tectonic plate movement.
+</div>
+
+</div>
+
+<!-- QUESTION 4 -->
+
+<div class="question-card">
+
+<div class="question">
+4. Who appoints the Chief Election Commissioner of India?
+</div>
+
+<div class="option" onclick="checkAnswer(this,true)">
+President
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Prime Minister
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Supreme Court
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Parliament
+</div>
+
+<div class="explanation">
+Chief Election Commissioner is appointed by the President.
+</div>
+
+</div>
+
+<!-- QUESTION 5 -->
+
+<div class="question-card">
+
+<div class="question">
+5. Which gas is mainly responsible for global warming?
+</div>
+
+<div class="option" onclick="checkAnswer(this,true)">
+Carbon dioxide
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Oxygen
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Nitrogen
+</div>
+
+<div class="option" onclick="checkAnswer(this,false)">
+Hydrogen
+</div>
+
+<div class="explanation">
+Carbon dioxide is the main greenhouse gas responsible for global warming.
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 Treedell.com
+
+</footer>
+
+<script>
+
+function toggleMenu(){
+let menu=document.getElementById("mobileMenu");
+menu.style.display=menu.style.display==="block"?"none":"block";
+}
+
+function checkAnswer(element,isCorrect){
+
+let options=element.parentElement.querySelectorAll(".option");
+
+options.forEach(opt=>{
+opt.style.pointerEvents="none";
+});
+
+if(isCorrect){
+element.classList.add("correct");
+}else{
+element.classList.add("wrong");
+}
+
+element.parentElement.querySelector(".explanation").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
