@@ -7,9 +7,7 @@
 
 <style>
 
-/* =========================
-RESET
-========================= */
+/* RESET */
 
 *{
 margin:0;
@@ -18,15 +16,11 @@ box-sizing:border-box;
 font-family:Arial, sans-serif;
 }
 
-html,body{
-width:100%;
-overflow-x:hidden;
+body{
 background:#f4f6f8;
 }
 
-/* =========================
-HEADER
-========================= */
+/* HEADER */
 
 header{
 background:#fff;
@@ -80,33 +74,62 @@ text-decoration:none;
 color:#333;
 }
 
-/* =========================
-NEWS TICKER
-========================= */
+/* TICKER */
 
 .ticker{
-background:#ffffff;
-padding:8px 0;
+background:#fff;
+padding:8px;
 overflow:hidden;
 white-space:nowrap;
-width:100%;
 }
 
 .ticker-content{
 display:inline-block;
 padding-left:100%;
-animation:ticker-scroll 25s linear infinite;
-font-size:14px;
+animation:ticker 25s linear infinite;
 }
 
-@keyframes ticker-scroll{
+@keyframes ticker{
 0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
 }
 
-/* =========================
-SECTION BASE
-========================= */
+/* HERO */
+
+.hero-section{
+width:90%;
+max-width:1100px;
+margin:25px auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+
+.hero-text h1{
+color:#0a58ca;
+margin-bottom:10px;
+}
+
+.hero-btn{
+background:#0a58ca;
+color:#fff;
+padding:10px 18px;
+text-decoration:none;
+border-radius:6px;
+display:inline-block;
+margin-top:10px;
+}
+
+.hero-image img{
+max-width:400px;
+border-radius:10px;
+}
+
+/* SECTION */
 
 .section{
 width:90%;
@@ -118,20 +141,12 @@ margin:40px auto;
 margin-bottom:20px;
 }
 
-/* =========================
-CURRENT AFFAIRS SLIDER
-========================= */
-
-.slider-wrapper{
-position:relative;
-}
+/* SLIDER */
 
 .slider{
 display:flex;
 gap:15px;
 overflow-x:auto;
-scroll-behavior:smooth;
-padding-bottom:10px;
 }
 
 .slider::-webkit-scrollbar{
@@ -145,6 +160,7 @@ border-radius:10px;
 overflow:hidden;
 position:relative;
 text-decoration:none;
+color:white;
 }
 
 .ca-card img{
@@ -158,47 +174,20 @@ position:absolute;
 top:10px;
 right:10px;
 background:#0a58ca;
-color:#fff;
 padding:4px 8px;
-font-size:12px;
 border-radius:4px;
+font-size:12px;
 }
 
 .title{
 position:absolute;
 bottom:0;
 background:rgba(0,0,0,0.6);
-color:#fff;
 width:100%;
 padding:10px;
 }
 
-/* SLIDER BUTTON */
-
-.slide-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:#fff;
-border:none;
-font-size:22px;
-padding:8px 12px;
-cursor:pointer;
-box-shadow:0 2px 5px rgba(0,0,0,0.2);
-}
-
-.left-btn{left:-10px;}
-.right-btn{right:-10px;}
-
-/* =========================
-PDF BANNER SECTION
-========================= */
-
-.pdf-banner-section{
-width:90%;
-max-width:1100px;
-margin:40px auto;
-}
+/* PDF */
 
 .pdf-banner{
 position:relative;
@@ -213,50 +202,28 @@ height:100%;
 object-fit:cover;
 }
 
-.pdf-banner-overlay{
+.pdf-overlay{
 position:absolute;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:linear-gradient(to right, rgba(0,0,0,0.75), rgba(0,0,0,0.2));
-display:flex;
-flex-direction:column;
-justify-content:center;
-padding:30px;
-}
-
-.pdf-banner-overlay h2{
+background:rgba(0,0,0,0.6);
 color:#fff;
-font-size:28px;
-margin-bottom:15px;
-max-width:500px;
-}
-
-.pdf-buttons{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
+padding:30px;
 }
 
 .pdf-btn{
 background:#0a58ca;
-color:#fff;
 padding:10px 18px;
-border-radius:6px;
+color:white;
 text-decoration:none;
-font-size:14px;
-font-weight:600;
+border-radius:6px;
+display:inline-block;
+margin-top:10px;
 }
 
-.pdf-btn.secondary{
-background:#fff;
-color:#000;
-}
-
-/* =========================
-STUDY CATEGORY
-========================= */
+/* TEST SERIES */
 
 .features{
 display:grid;
@@ -271,13 +238,11 @@ border-radius:8px;
 text-decoration:none;
 color:#333;
 font-weight:600;
-transition:0.3s;
 }
 
 .card:hover{
 background:#0a58ca;
 color:#fff;
-transform:translateY(-3px);
 }
 
 /* ================= FOOTER ================= */
@@ -359,38 +324,102 @@ transform:translateY(-3px);
   color: #2563eb;
   font-weight: 700;
 }
-/* ===== GLOBAL LAYOUT SYSTEM ===== */
-.section {
-  padding: 60px 16px;
-}
 
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* =========================
-MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:768px){
 
-nav{
-display:none;
+nav{display:none;}
+
+.menu-icon{display:block;}
+
+.hero-section{
+flex-direction:column;
+text-align:center;
 }
 
-.menu-icon{
+}
+/* ===== EXAM SECTION MODERN DESIGN ===== */
+
+.exam-section{
+width:90%;
+max-width:1100px;
+margin:50px auto;
+}
+
+.exam-section h2{
+margin-bottom:20px;
+}
+
+.exam-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+}
+
+.exam-card{
+
+background:#ffffff;
+
+border-radius:12px;
+
+padding:22px 15px;
+
+text-align:center;
+
+text-decoration:none;
+
+color:#111;
+
+font-weight:700;
+
+position:relative;
+
+transition:all 0.3s ease;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.06);
+
+border-top:4px solid #2563eb;
+
+}
+
+/* circle icon */
+
+.exam-card::before{
+
+content:"📘";
+
 display:block;
-}
 
-.slide-btn{
-display:none;
-}
+width:45px;
 
-.pdf-banner-overlay h2{
+height:45px;
+
+line-height:45px;
+
+margin:0 auto 10px;
+
+background:#eff6ff;
+
+border-radius:50%;
+
 font-size:20px;
+
 }
+
+/* hover */
+
+.exam-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 10px 25px rgba(0,0,0,0.12);
+
+border-top:4px solid #0a58ca;
+
+color:#0a58ca;
+
+background:#f8fbff;
 
 }
 
@@ -400,104 +429,114 @@ font-size:20px;
 <body>
 
 <header>
-  <div class="logo">
-    <a href="https://myaffiliatepage.com/" style="text-decoration: none; color: inherit;">
-      Treedell
-    </a>
-  </div>
+
+<div class="logo">Treedell</div>
 
 <nav>
-<a href="https://myaffiliatepage.com/Dailyquiz">Daily Quiz</a>
-<a href="https://myaffiliatepage.com/UPSCquiz">UPSC Quiz</a>
-<a href="https://myaffiliatepage.com/CAQuiz">Curren Affairs</a>
-<a href="https://www.youtube.com/@PastCast-13">YouTube</a>
+<a href="#">Daily Quiz</a>
+<a href="#">UPSC Quiz</a>
+<a href="#">Current Affairs</a>
+<a href="#">YouTube</a>
 </nav>
 
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
 </header>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-<a href="https://myaffiliatepage.com/Dailyquiz">Daily Quiz</a>
-<a href="https://myaffiliatepage.com/UPSCquiz">UPSC Quiz</a>
-<a href="https://myaffiliatepage.com/CAQuiz">Current Affairs</a>
-<a href="https://www.youtube.com/@PastCast-13">YouTube</a>
+<a href="#">Daily Quiz</a>
+<a href="#">UPSC Quiz</a>
+<a href="#">Current Affairs</a>
+<a href="#">YouTube</a>
 </div>
 
 <!-- TICKER -->
+
 <div class="ticker">
 <div class="ticker-content">
 Breaking: UPSC 2026 Notification released • Study materials added • Daily quiz updated • Check latest blogs now •
 </div>
 </div>
 
+<!-- HERO -->
+
+<div class="hero-section">
+
+<div class="hero-text">
+
+<h1>Start your UPSC journey today</h1>
+
+<p>Get daily current affairs and free test series to boost your preparation.</p>
+
+<a href="#" class="hero-btn">Start Learning</a>
+
+</div>
+
+<div class="hero-image">
+
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800">
+
+</div>
+
+</div>
+
 <!-- CURRENT AFFAIRS -->
+
 <div class="section">
 
 <h2>Current Affairs</h2>
 
-<div class="slider-wrapper">
+<div class="slider">
 
-<button class="slide-btn left-btn" onclick="scrollSlider(-320)">‹</button>
+<a href="wiki/viksit-bharat.html" class="ca-card">
 
-<div class="slider" id="slider">
+<img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=600">
 
-<a href="#" class="ca-card">
-<img src="https://images.unsplash.com/photo-1770117588331-45aa2eedfdbe?w=600">
-<div class="subject">History</div>
-<div class="title">Ancient Civilizations</div>
+<div class="subject">Economy</div>
+
+<div class="title">Viksit Bharat and Net Zero</div>
+
 </a>
 
-<a href="#" class="ca-card">
-<img src="https://images.unsplash.com/photo-1770989231010-c736f3aeffd2?w=600">
-<div class="subject">Geography</div>
-<div class="title">Climate Update</div>
+
+<a href="wiki/niti-aayog.html" class="ca-card">
+
+<img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600">
+
+<div class="subject">Policy</div>
+
+<div class="title">NITI Aayog Reports</div>
+
 </a>
 
-<a href="#" class="ca-card">
-<img src="https://images.unsplash.com/photo-1771009469341-576c828b7691?w=600">
-<div class="subject">Physics</div>
-<div class="title">Quantum Mechanics News</div>
+
+<a href="wiki/isro.html" class="ca-card">
+
+<img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600">
+
+<div class="subject">Science</div>
+
+<div class="title">ISRO Missions</div>
+
 </a>
 
 </div>
 
-<button class="slide-btn right-btn" onclick="scrollSlider(320)">›</button>
-
 </div>
 
-</div>
+<!-- PDF -->
 
-<!-- NEWSPAPER PDF BANNER -->
-
-<div class="pdf-banner-section">
+<div class="section">
 
 <div class="pdf-banner">
 
 <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200">
 
-<div class="pdf-banner-overlay">
+<div class="pdf-overlay">
 
-<h2>Today Newspaper Summary PDF Free Download</h2>
+<h2>Free study material, free test series, and daily current affairs</h2>
 
-<div class="pdf-buttons">
-
-<a href="https://en.wikipedia.org/wiki/Newspaper"
-class="pdf-btn"
-target="_blank">
-
-Download PDF
-
-</a>
-
-<a href="https://myaffiliatepage.com/Currentaffairs"
-class="pdf-btn secondary"
-target="_blank">
-
-Explore More
-
-</a>
+<a href="#" class="pdf-btn">Explore more</a>
 
 </div>
 
@@ -505,28 +544,44 @@ Explore More
 
 </div>
 
-</div>
-
-<!-- STUDY CATEGORIES -->
+<!-- FREE TEST SERIES -->
 
 <div class="section">
 
-<h2>Free Test Series</h2>
+<h2>Free Exam Practice Series</h2>
 
 <div class="features">
 
-<a href="https://myaffiliatepage.com/History" class="card">History</a>
-<a href="https://myaffiliatepage.com/Geography" class="card">Geography</a>
-<a href="https://myaffiliatepage.com/economics" class="card">Economics</a>
-<a href="https://myaffiliatepage.com/Environmentquiz" class="card">Environment</a>
-<a href="https://myaffiliatepage.com/polity" class="card">Polity</a>
+<a href="#" class="card">History</a>
+
+<a href="#" class="card">Geography</a>
+
+<a href="#" class="card">Economics</a>
+
+<a href="#" class="card">Environment</a>
+
+<a href="#" class="card">Polity</a>
 
 </div>
 
 </div>
+<div class="exam-section">
 
-<!-- FOOTER -->
+<h2>Exam-Specific Test Series</h2>
 
+<div class="exam-grid">
+
+<a href="wiki/upsc.html" class="exam-card">🧠 UPSC</a>
+<a href="wiki/bpsc.html" class="exam-card">📚 BPSC</a>
+<a href="wiki/jpsc.html" class="exam-card">📖 JPSC</a>
+<a href="wiki/uppcs.html" class="exam-card">🏛️ UPPCS</a>
+<a href="wiki/railway.html" class="exam-card">🚆 Railway</a>
+<a href="wiki/bank.html" class="exam-card">🏦 Bank</a>
+<a href="wiki/ssc.html" class="exam-card">📝 SSC</a>
+
+</div>
+
+</div>
 <footer class="site-footer">
   <div class="footer-main">
     <div class="footer-brand">
@@ -538,8 +593,7 @@ Explore More
     </div>
 
     <p class="footer-text">
-      Treedell helps creators and brands bring everything together
-      in one powerful link.
+      Treedell helps aspirants access exam-specific test series, study material, and preparation tools in one powerful platform.
     </p>
 
     <div class="footer-links">
@@ -552,17 +606,17 @@ Explore More
       </a>
       <span>•</span>
       <a
-        href="https://myaffiliatepage.com/termandconditions.html"
+        href="https://myaffiliatepage.com/aboutus"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Term and Condition
+        About us
       </a>
     </div>
   </div>
 
   <div class="footer-bottom">
-    © 2025 <strong>Treedell</strong>. All rights reserved.
+    © 2026 <strong>Treedell</strong>. All rights reserved.
   </div>
 </footer>
 
@@ -570,20 +624,14 @@ Explore More
 <script>
 
 function toggleMenu(){
-let menu=document.getElementById("mobileMenu");
-menu.style.display=menu.style.display==="block"?"none":"block";
-}
 
-function scrollSlider(amount){
-document.getElementById("slider").scrollBy({
-left:amount,
-behavior:"smooth"
-});
+let menu=document.getElementById("mobileMenu");
+
+menu.style.display=menu.style.display==="block"?"none":"block";
+
 }
 
 </script>
 
 </body>
 </html>
-
-
