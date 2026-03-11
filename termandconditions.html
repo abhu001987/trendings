@@ -3,339 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About | Treedell</title>
+<title>Quick Reads</title>
 
 <style>
-/* ================= TOP NAV HEADER ================= */
-.site-header {
-  width: 100%;
-  background: transparent;
-  padding: 16px 32px;
+
+body{
+font-family: Arial, sans-serif;
+margin:0;
+background:#f4f4f4;
 }
 
-.site-header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+background:white;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-.logo {
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #000;
-  text-decoration: none;
+.header h1{
+font-size:20px;
+margin:0;
 }
 
-.logo:visited,
-.logo:hover,
-.logo:active {
-  color: #000;
-  text-decoration: none;
+.menu,.login{
+font-size:22px;
+cursor:pointer;
 }
 
-.site-nav {
-  display: flex;
-  gap: 32px;
+/* FEATURED */
+
+.featured{
+padding:15px;
 }
 
-.site-nav a {
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: rgba(0,0,0,0.6);
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.site-nav a:hover {
-  color: #000;
+.quiz{
+color:#7a2df3;
+font-weight:bold;
 }
 
-.site-menu-btn {
-  display: none;
-  width: 32px;
-  height: 22px;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
+.slider{
+margin-top:10px;
 }
 
-.site-menu-btn span {
-  height: 2px;
-  background: #111;
+.slide{
+position:relative;
 }
 
-.site-mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 75%;
-  height: 100vh;
-  background: #fff;
-  padding: 80px 30px;
-  transition: right 0.3s ease;
-  z-index: 999;
+.slide img{
+width:100%;
+border-radius:12px;
 }
 
-.site-mobile-menu.active {
-  right: 0;
+.slide p{
+position:absolute;
+bottom:10px;
+left:15px;
+color:white;
+font-weight:bold;
+background:rgba(0,0,0,0.5);
+padding:5px 10px;
+border-radius:5px;
 }
 
-.site-mobile-menu a {
-  display: block;
-  margin-bottom: 24px;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-decoration: none;
-  color: #111;
+/* DOTS */
+
+.dots{
+text-align:center;
+margin-top:8px;
 }
 
-.site-menu-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  font-size: 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
+.dots span{
+height:6px;
+width:6px;
+background:#ccc;
+display:inline-block;
+border-radius:50%;
+margin:3px;
 }
 
-@media (max-width: 768px) {
-  .site-nav { display: none; }
-  .site-menu-btn { display: flex; }
+.dots .active{
+background:black;
 }
 
-:root {
-  --bg:#D2E823;
-  --text:#111;
-  --muted:#3a3a3a;
-  --blue:#2563eb;
+/* TOPICS */
+
+.topics{
+padding:15px;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:15px;
 }
 
-.section {
-  max-width: 1200px;
-  margin: auto;
-  padding: 48px 12px 24px;
-  text-align: center;
+.topic{
+text-align:center;
 }
 
-h1 {
-  font-size: clamp(26px, 6vw, 52px);
+.topic img{
+width:55px;
+height:55px;
+border-radius:12px;
+background:white;
+padding:8px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
-p {
-  margin-top: 12px;
-  color: var(--muted);
-  max-width: 760px;
-  margin-inline: auto;
-  font-size: clamp(15px, 3.8vw, 18px);
-}
-
-/* STATS */
-.stats {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.stat-number {
-  font-size: clamp(26px, 6vw, 40px);
-  font-weight: 700;
-  color: var(--blue);
-}
-
-.stat-label {
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.about-details {
-  margin-top: 32px;
-}
-
-.about-details h2 {
-  font-size: clamp(22px, 5vw, 36px);
+.topic p{
+font-size:13px;
+margin-top:6px;
 }
 
 /* FOOTER */
-.site-footer {
-  width: 100%;
-  background: #D2E823;
+
+footer{
+text-align:center;
+padding:20px;
+color:#777;
+font-size:14px;
 }
 
-.footer-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 22px 16px;
-  text-align: center;
-}
-
-.footer-brand {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer-brand img {
-  height: 34px;
-}
-
-.brand-name {
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.footer-text {
-  font-size: 13px;
-  margin-top: 8px;
-}
-
-.footer-links {
-  margin-top: 8px;
-  font-size: 12px;
-}
-
-.footer-bottom {
-  border-top: 1px solid #111;
-  text-align: center;
-  padding: 8px;
-  font-size: 12px;
-}
 </style>
 </head>
 
 <body>
 
-<header class="site-header">
-  <div class="site-header-inner">
-    <a href="#" class="logo">Treedell</a>
-
-    <nav class="site-nav">
-      <a href="#">HOME</a>
-      <a href="#">TEST SERIES</a>
-      <a href="#">CURRENT AFFAIRS</a>
-      <a href="#">ABOUT</a>
-    </nav>
-
-    <div class="site-menu-btn" id="siteMenuBtn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
+<header class="header">
+<div class="menu">☰</div>
+<h1>Home</h1>
+<div class="login">⇥</div>
 </header>
 
-<section class="section">
+<section class="featured">
 
-<h1>Treedell</h1>
-
-<p>
-Treedell is an online exam preparation platform designed to help students succeed in competitive exams through high-quality test series, mock tests, and study resources.
-</p>
-
-<p>
-We provide exam-focused tools that help aspirants practice effectively, evaluate performance, and improve accuracy.
-</p>
-
-<div class="stats">
-
-<div>
-<div class="stat-number">5,000+</div>
-<div class="stat-label">Students</div>
+<div class="section-title">
+<h2>Featured Stories</h2>
+<span class="quiz">Quiz</span>
 </div>
 
-<div>
-<div class="stat-number">50,000+</div>
-<div class="stat-label">Tests Attempted</div>
+<div class="slider">
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+<p>Economic Survey 2024-25</p>
+</div>
 </div>
 
-<div>
-<div class="stat-number">100+</div>
-<div class="stat-label">Practice Tests</div>
+<div class="dots">
+<span></span>
+<span></span>
+<span class="active"></span>
+<span></span>
 </div>
 
+</section>
+
+<section class="topics">
+
+<h2>Filter By Topics</h2>
+
+<div class="grid">
+
+<div class="topic">
+<img src="https://img.icons8.com/color/96/india.png">
+<p>All</p>
 </div>
 
-<div class="about-details">
+<div class="topic">
+<img src="https://img.icons8.com/color/96/book.png">
+<p>Daily</p>
+</div>
 
-<h2>What is Treedell?</h2>
+<div class="topic">
+<img src="https://img.icons8.com/color/96/combo-chart.png">
+<p>Economy</p>
+</div>
 
-<p>
+<div class="topic">
+<img src="https://img.icons8.com/color/96/edit.png">
+<p>Editorial</p>
+</div>
 
-Treedell is built to simplify exam preparation and make quality practice accessible to every student.
+<div class="topic">
+<img src="https://img.icons8.com/color/96/forest.png">
+<p>Environment</p>
+</div>
 
-We provide exam-specific test series, mock exams, and preparation resources for competitive exams such as UPSC, SSC, Banking, Railways, and other government exams.
+<div class="topic">
+<img src="https://img.icons8.com/color/96/parliament.png">
+<p>Governance</p>
+</div>
 
-Our platform focuses on helping students improve through practice. By attempting mock tests and analyzing performance, students can identify weak areas, build confidence, and perform better in real exams.
+<div class="topic">
+<img src="https://img.icons8.com/color/96/taj-mahal.png">
+<p>History</p>
+</div>
 
-</p>
+<div class="topic">
+<img src="https://img.icons8.com/color/96/handshake.png">
+<p>I.R</p>
+</div>
 
-<p>
+<div class="topic">
+<img src="https://img.icons8.com/color/96/video.png">
+<p>Sansad TV</p>
+</div>
 
-Treedell is designed to be simple, fast, and accessible on all devices. Students can use it anytime, anywhere, to continue their preparation without interruption.
+<div class="topic">
+<img src="https://img.icons8.com/color/96/india-map.png">
+<p>Schemes</p>
+</div>
 
-We believe that consistent practice and proper evaluation are the keys to exam success. Treedell helps students stay on track and achieve their goals.
+<div class="topic">
+<img src="https://img.icons8.com/color/96/dna-helix.png">
+<p>Science</p>
+</div>
 
-</p>
-
-<h2>Our Mission</h2>
-
-<p>
-Our mission is to provide reliable, affordable, and effective exam preparation tools that empower students to achieve success in competitive exams.
-</p>
-
-<h2>Our Vision</h2>
-
-<p>
-Our vision is to become a trusted platform for exam preparation by delivering high-quality test series and helping students reach their full potential.
-</p>
+<div class="topic">
+<img src="https://img.icons8.com/color/96/conference.png">
+<p>Social</p>
+</div>
 
 </div>
 
 </section>
 
-<footer class="site-footer">
-
-<div class="footer-main">
-
-<div class="footer-brand">
-<img src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png">
-<span class="brand-name">Treedell</span>
-</div>
-
-<p class="footer-text">
-Treedell provides exam-specific test series, mock tests, and study resources to help students prepare smarter and succeed.
-</p>
-
-<div class="footer-links">
-<a href="#">Privacy Policy</a> •
-<a href="#">Terms and Conditions</a>
-</div>
-
-</div>
-
-<div class="footer-bottom">
-© 2026 Treedell. All rights reserved.
-</div>
-
+<footer>
+Quick reads, smarter insights
 </footer>
-
-<script>
-const btn = document.getElementById("siteMenuBtn");
-const menu = document.getElementById("siteMobileMenu");
-if(btn){
-btn.onclick = ()=> menu.classList.add("active");
-}
-</script>
 
 </body>
 </html>
+
