@@ -8,17 +8,11 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
 
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
-overflow-x:hidden;
 }
 
 /* HEADER */
@@ -26,7 +20,6 @@ overflow-x:hidden;
 .header{
 text-align:center;
 padding:60px 20px;
-animation:blurReveal 1.5s ease;
 }
 
 .header h1{
@@ -52,16 +45,18 @@ position:relative;
 border-radius:18px;
 overflow:hidden;
 cursor:pointer;
-transform:translateY(40px);
-opacity:0;
-animation:cardReveal 1.4s forwards;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
 }
 
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
-filter:brightness(.55);
+filter:brightness(.6);
 }
 
 .card-content{
@@ -75,23 +70,20 @@ flex-direction:column;
 justify-content:space-between;
 }
 
-.card h2{font-size:24px;}
-.card p{font-size:14px;opacity:.9;}
-
 .counter{
-font-size:32px;
+font-size:30px;
 font-weight:600;
 }
 
 /* COLORS */
 
-.sop h2{color:#00f2fe;}
-.t4 h2{color:#ff6a00;}
-.aht h2{color:#ff2975;}
-.playbook h2{color:#00ff9c;}
-.checklist h2{color:#ffd000;}
+.sop h2{color:#00f2fe}
+.t4 h2{color:#ff6a00}
+.aht h2{color:#ff2975}
+.playbook h2{color:#00ff9c}
+.checklist h2{color:#ffd000}
 
-/* DETAILS SECTION */
+/* DETAILS */
 
 .details{
 padding:60px 80px;
@@ -99,11 +91,10 @@ padding:60px 80px;
 
 .detail-row{
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 margin-bottom:70px;
 gap:40px;
-animation:blurReveal 1.2s ease;
 }
 
 .detail-text{
@@ -115,11 +106,6 @@ font-size:30px;
 margin-bottom:10px;
 }
 
-.detail-text p{
-opacity:.9;
-line-height:1.6;
-}
-
 .detail-img{
 flex:1;
 text-align:right;
@@ -127,8 +113,37 @@ text-align:right;
 
 .detail-img img{
 width:260px;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+border-radius:12px;
+cursor:pointer;
+transition:.35s;
+}
+
+.detail-img img.zoomed{
+transform:scale(1.35);
+}
+
+/* GUIDE SECTION */
+
+.guide{
+padding:60px 80px;
+background:rgba(0,0,0,.35);
+margin-top:30px;
+}
+
+.guide h2{
+color:#ffd000;
+margin-bottom:20px;
+}
+
+.guide h3{
+margin-top:20px;
+color:#00f2fe;
+}
+
+.guide p{
+opacity:.9;
+margin-top:8px;
+line-height:1.6;
 }
 
 /* FOOTER */
@@ -138,18 +153,7 @@ text-align:center;
 padding:40px;
 font-size:18px;
 color:#ffd000;
-border-top:2px solid rgba(255,255,255,.15);
-}
-
-/* ANIMATIONS */
-
-@keyframes blurReveal{
-0%{opacity:0;filter:blur(10px);transform:translateY(30px);}
-100%{opacity:1;filter:blur(0);transform:translateY(0);}
-}
-
-@keyframes cardReveal{
-to{opacity:1;transform:translateY(0);}
+border-top:2px solid rgba(255,255,255,.2);
 }
 
 </style>
@@ -162,9 +166,11 @@ to{opacity:1;transform:translateY(0);}
 <p>Automation | Monitoring | Alerts | SOP Control</p>
 </div>
 
+<!-- TOP CARDS -->
+
 <div class="grid">
 
-<div class="card sop">
+<div class="card sop" onclick="scrollToSection('sopSection')">
 <img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
 <div class="card-content">
 <div>
@@ -175,45 +181,45 @@ to{opacity:1;transform:translateY(0);}
 </div>
 </div>
 
-<div class="card t4">
+<div class="card t4" onclick="scrollToSection('t4Section')">
 <img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
 <div class="card-content">
 <div>
 <h2>T4 Specific Tool</h2>
-<p>Advanced workflow automation tool</p>
+<p>Workflow automation tool</p>
 </div>
 <div class="counter" data-target="52">0</div>
 </div>
 </div>
 
-<div class="card aht">
+<div class="card aht" onclick="scrollToSection('ahtSection')">
 <img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
 <div class="card-content">
 <div>
 <h2>AHT Alarm System</h2>
-<p>Monitor response time alerts</p>
+<p>Response time monitoring</p>
 </div>
 <div class="counter" data-target="18">0</div>
 </div>
 </div>
 
-<div class="card playbook">
+<div class="card playbook" onclick="scrollToSection('playbookSection')">
 <img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
 <div class="card-content">
 <div>
 <h2>Playbook</h2>
-<p>Operational response strategies</p>
+<p>Operational strategy</p>
 </div>
 <div class="counter" data-target="36">0</div>
 </div>
 </div>
 
-<div class="card checklist">
+<div class="card checklist" onclick="scrollToSection('checklistSection')">
 <img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
 <div class="card-content">
 <div>
-<h2>Checklist Alert System</h2>
-<p>Daily monitoring & compliance alerts</p>
+<h2>Checklist Alert</h2>
+<p>Compliance alerts</p>
 </div>
 <div class="counter" data-target="89">0</div>
 </div>
@@ -225,80 +231,82 @@ to{opacity:1;transform:translateY(0);}
 
 <div class="details">
 
-<div class="detail-row">
+<div id="sopSection" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#00f2fe;">All SOP</h3>
-<p>
-Centralized database containing all Standard Operating Procedures.
-Helps teams quickly access the correct process documentation,
-ensuring consistency, compliance, and operational efficiency.
-</p>
+<p>Centralized SOP library for quick reference and standardized workflows.</p>
 </div>
-
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
+<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245" onclick="zoomImage(this)">
 </div>
 </div>
 
-<div class="detail-row">
+<div id="t4Section" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#ff6a00;">T4 Specific Tool</h3>
-<p>
-A dedicated operational tool designed for T4 workflows.
-Provides automation, quick action modules, and productivity
-enhancements to streamline repetitive tasks.
-</p>
+<p>Automation utility built specifically for T4 operational tasks.</p>
 </div>
-
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
+<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18" onclick="zoomImage(this)">
 </div>
 </div>
 
-<div class="detail-row">
+<div id="ahtSection" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#ff2975;">AHT Alarm System</h3>
-<p>
-Real-time alert monitoring system that tracks Average Handle Time.
-Triggers alarms when thresholds exceed defined limits,
-allowing quick intervention and performance optimization.
-</p>
+<p>Triggers alerts when response time thresholds exceed defined limits.</p>
 </div>
-
 <div class="detail-img">
-<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
+<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7" onclick="zoomImage(this)">
 </div>
 </div>
 
-<div class="detail-row">
+<div id="playbookSection" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#00ff9c;">Playbook</h3>
-<p>
-Operational playbook containing predefined response strategies
-for common operational scenarios, enabling faster decision making
-and standardized incident management.
-</p>
+<p>Operational response strategies for common workflow scenarios.</p>
 </div>
-
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
+<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a" onclick="zoomImage(this)">
 </div>
 </div>
 
-<div class="detail-row">
+<div id="checklistSection" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#ffd000;">Checklist Alert System</h3>
-<p>
-Automated checklist monitoring system ensuring tasks are completed
-on schedule. Sends alerts for missed checkpoints and improves
-process compliance and accountability.
-</p>
+<p>Automated checklist monitoring and alerts for compliance tracking.</p>
+</div>
+<div class="detail-img">
+<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076" onclick="zoomImage(this)">
+</div>
 </div>
 
-<div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
 </div>
-</div>
+
+<!-- GUIDE -->
+
+<div class="guide">
+
+<h2>If you have any queries</h2>
+
+<h3>Download Tampermonkey (Chrome)</h3>
+<p>
+Open Chrome Web Store → Search Tampermonkey → Click Add to Chrome → Confirm installation.
+</p>
+
+<h3>Download Tampermonkey (Firefox)</h3>
+<p>
+Open Firefox Add-ons → Search Tampermonkey → Click Add to Firefox → Allow permissions.
+</p>
+
+<h3>Install the Script</h3>
+<p>
+1. Open Tampermonkey dashboard<br>
+2. Click "Create New Script"<br>
+3. Paste the script code<br>
+4. Save the script<br>
+5. Refresh the page where the script should run
+</p>
 
 </div>
 
@@ -308,21 +316,19 @@ Reach out to me for any queries
 
 <script>
 
-const counters=document.querySelectorAll('.counter');
+/* COUNTER */
 
-counters.forEach(counter=>{
-
-counter.innerText='0';
+document.querySelectorAll('.counter').forEach(counter=>{
 
 const update=()=>{
 
 const target=+counter.getAttribute('data-target');
 const c=+counter.innerText;
 
-const increment=target/120;
+const inc=target/100;
 
 if(c<target){
-counter.innerText=`${Math.ceil(c+increment)}`;
+counter.innerText=Math.ceil(c+inc);
 setTimeout(update,20);
 }else{
 counter.innerText=target;
@@ -333,6 +339,24 @@ counter.innerText=target;
 update();
 
 });
+
+/* SCROLL TO SECTION */
+
+function scrollToSection(id){
+
+document.getElementById(id).scrollIntoView({
+behavior:'smooth'
+});
+
+}
+
+/* IMAGE ZOOM */
+
+function zoomImage(img){
+
+img.classList.toggle("zoomed");
+
+}
 
 </script>
 
