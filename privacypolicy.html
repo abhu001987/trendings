@@ -35,7 +35,7 @@ background:linear-gradient(90deg,#ff6a00,#ee0979,#00f2fe);
 -webkit-text-fill-color:transparent;
 }
 
-/* TOP GRID */
+/* GRID */
 
 .grid{
 display:grid;
@@ -87,7 +87,7 @@ font-weight:600;
 .playbook h2{color:#00ff9c}
 .checklist h2{color:#ffd000}
 
-/* DETAIL SECTIONS */
+/* DETAILS */
 
 .details{
 padding:60px 80px;
@@ -115,65 +115,92 @@ opacity:.9;
 line-height:1.6;
 }
 
-/* IMAGE ZOOM FIX */
-
-.detail-img{
-flex:1;
-text-align:right;
-overflow:hidden;
-}
-
 .detail-img img{
 width:260px;
 border-radius:12px;
-cursor:pointer;
-transition:.35s;
-display:block;
-}
-
-.detail-img img.zoomed{
-transform:scale(1.25);
 }
 
 /* GUIDE SECTION */
 
 .guide{
-padding:60px 80px;
+padding:70px 80px;
 }
 
 .guide h2{
 color:#ffd000;
-margin-bottom:30px;
+margin-bottom:35px;
 }
 
-.guide-grid{
+/* TOP TWO BOXES */
+
+.guide-top{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
+grid-template-columns:1fr 1fr;
+gap:30px;
+margin-bottom:40px;
 }
 
 .guide-box{
-background:rgba(255,255,255,0.06);
-border-radius:14px;
-padding:25px;
+background:rgba(255,255,255,0.07);
+border-radius:16px;
+padding:28px;
+border:1px solid rgba(255,255,255,0.15);
 backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.1);
 transition:.3s;
 }
 
 .guide-box:hover{
 transform:translateY(-6px);
-box-shadow:0 10px 30px rgba(0,0,0,.5);
+box-shadow:0 15px 35px rgba(0,0,0,.5);
 }
 
 .guide-box h3{
 color:#00f2fe;
-margin-bottom:10px;
+margin-bottom:14px;
 }
 
 .guide-box p{
-line-height:1.6;
+line-height:1.7;
 opacity:.9;
+}
+
+/* INSTALL BOX */
+
+.install-box{
+background:linear-gradient(135deg,#1c3b45,#294f5b);
+border-radius:16px;
+padding:35px;
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.install-box h3{
+color:#00ffcc;
+margin-bottom:18px;
+font-size:22px;
+}
+
+.install-box p{
+line-height:1.7;
+margin-bottom:25px;
+}
+
+/* IMAGES */
+
+.install-images{
+display:flex;
+gap:20px;
+}
+
+.install-images img{
+width:110px;
+height:80px;
+object-fit:cover;
+border-radius:10px;
+transition:.3s;
+}
+
+.install-images img:hover{
+transform:scale(1.08);
 }
 
 /* FOOTER */
@@ -257,7 +284,7 @@ border-top:2px solid rgba(255,255,255,.15);
 
 </div>
 
-<!-- DETAIL SECTIONS -->
+<!-- DETAILS -->
 
 <div class="details">
 
@@ -267,7 +294,7 @@ border-top:2px solid rgba(255,255,255,.15);
 <p>Centralized SOP library for quick reference and standardized workflows.</p>
 </div>
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245" onclick="zoomImage(this)">
+<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
 </div>
 </div>
 
@@ -277,7 +304,7 @@ border-top:2px solid rgba(255,255,255,.15);
 <p>Automation utility built specifically for T4 operational tasks.</p>
 </div>
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18" onclick="zoomImage(this)">
+<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
 </div>
 </div>
 
@@ -287,7 +314,7 @@ border-top:2px solid rgba(255,255,255,.15);
 <p>Triggers alerts when response time thresholds exceed limits.</p>
 </div>
 <div class="detail-img">
-<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7" onclick="zoomImage(this)">
+<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
 </div>
 </div>
 
@@ -297,7 +324,7 @@ border-top:2px solid rgba(255,255,255,.15);
 <p>Operational response strategies for common workflow scenarios.</p>
 </div>
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a" onclick="zoomImage(this)">
+<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
 </div>
 </div>
 
@@ -307,7 +334,7 @@ border-top:2px solid rgba(255,255,255,.15);
 <p>Automated checklist monitoring and alerts for compliance tracking.</p>
 </div>
 <div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076" onclick="zoomImage(this)">
+<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
 </div>
 </div>
 
@@ -319,7 +346,7 @@ border-top:2px solid rgba(255,255,255,.15);
 
 <h2>If you have any queries</h2>
 
-<div class="guide-grid">
+<div class="guide-top">
 
 <div class="guide-box">
 <h3>Download Tampermonkey (Chrome)</h3>
@@ -341,8 +368,12 @@ border-top:2px solid rgba(255,255,255,.15);
 </p>
 </div>
 
-<div class="guide-box">
+</div>
+
+<div class="install-box">
+
 <h3>Install the Script</h3>
+
 <p>
 1. Open Tampermonkey dashboard<br>
 2. Click Create New Script<br>
@@ -350,6 +381,13 @@ border-top:2px solid rgba(255,255,255,.15);
 4. Click Save<br>
 5. Refresh the page
 </p>
+
+<div class="install-images">
+
+<img src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613">
+<img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+
 </div>
 
 </div>
@@ -361,8 +399,6 @@ Reach out to me for any queries
 </div>
 
 <script>
-
-/* COUNTER */
 
 document.querySelectorAll('.counter').forEach(counter=>{
 
@@ -386,21 +422,11 @@ update();
 
 });
 
-/* SCROLL FUNCTION */
-
 function scrollToSection(id){
 
 document.getElementById(id).scrollIntoView({
 behavior:'smooth'
 });
-
-}
-
-/* IMAGE ZOOM */
-
-function zoomImage(img){
-
-img.classList.toggle("zoomed");
 
 }
 
