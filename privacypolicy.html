@@ -36,11 +36,6 @@ background:linear-gradient(90deg,#ff6a00,#ee0979,#00f2fe);
 -webkit-text-fill-color:transparent;
 }
 
-.header p{
-opacity:.8;
-margin-top:10px;
-}
-
 /* GRID */
 
 .grid{
@@ -60,14 +55,13 @@ cursor:pointer;
 transform:translateY(40px);
 opacity:0;
 animation:cardReveal 1.4s forwards;
-backdrop-filter:blur(12px);
 }
 
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
-filter:brightness(.5);
+filter:brightness(.55);
 }
 
 .card-content{
@@ -81,21 +75,12 @@ flex-direction:column;
 justify-content:space-between;
 }
 
-.card h2{
-font-size:24px;
-}
-
-.card p{
-font-size:14px;
-opacity:.85;
-}
-
-/* COUNTER */
+.card h2{font-size:24px;}
+.card p{font-size:14px;opacity:.9;}
 
 .counter{
 font-size:32px;
 font-weight:600;
-margin-top:10px;
 }
 
 /* COLORS */
@@ -106,48 +91,66 @@ margin-top:10px;
 .playbook h2{color:#00ff9c;}
 .checklist h2{color:#ffd000;}
 
-/* HOVER */
+/* DETAILS SECTION */
 
-.card:hover{
-transform:translateY(-10px) scale(1.03);
-transition:.4s;
-box-shadow:0 20px 40px rgba(0,0,0,.4);
+.details{
+padding:60px 80px;
+}
+
+.detail-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:70px;
+gap:40px;
+animation:blurReveal 1.2s ease;
+}
+
+.detail-text{
+flex:1;
+}
+
+.detail-text h3{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.detail-text p{
+opacity:.9;
+line-height:1.6;
+}
+
+.detail-img{
+flex:1;
+text-align:right;
+}
+
+.detail-img img{
+width:260px;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+/* FOOTER */
+
+.footer{
+text-align:center;
+padding:40px;
+font-size:18px;
+color:#ffd000;
+border-top:2px solid rgba(255,255,255,.15);
 }
 
 /* ANIMATIONS */
 
 @keyframes blurReveal{
-
-0%{
-opacity:0;
-filter:blur(10px);
-transform:translateY(30px);
-}
-
-100%{
-opacity:1;
-filter:blur(0);
-transform:translateY(0);
-}
-
+0%{opacity:0;filter:blur(10px);transform:translateY(30px);}
+100%{opacity:1;filter:blur(0);transform:translateY(0);}
 }
 
 @keyframes cardReveal{
-
-to{
-opacity:1;
-transform:translateY(0);
+to{opacity:1;transform:translateY(0);}
 }
-
-}
-
-/* DELAYS */
-
-.card:nth-child(1){animation-delay:.2s;}
-.card:nth-child(2){animation-delay:.4s;}
-.card:nth-child(3){animation-delay:.6s;}
-.card:nth-child(4){animation-delay:.8s;}
-.card:nth-child(5){animation-delay:1s;}
 
 </style>
 </head>
@@ -161,8 +164,6 @@ transform:translateY(0);
 
 <div class="grid">
 
-<!-- SOP -->
-
 <div class="card sop">
 <img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
 <div class="card-content">
@@ -173,8 +174,6 @@ transform:translateY(0);
 <div class="counter" data-target="124">0</div>
 </div>
 </div>
-
-<!-- T4 TOOL -->
 
 <div class="card t4">
 <img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
@@ -187,8 +186,6 @@ transform:translateY(0);
 </div>
 </div>
 
-<!-- AHT -->
-
 <div class="card aht">
 <img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
 <div class="card-content">
@@ -200,8 +197,6 @@ transform:translateY(0);
 </div>
 </div>
 
-<!-- PLAYBOOK -->
-
 <div class="card playbook">
 <img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
 <div class="card-content">
@@ -212,8 +207,6 @@ transform:translateY(0);
 <div class="counter" data-target="36">0</div>
 </div>
 </div>
-
-<!-- CHECKLIST -->
 
 <div class="card checklist">
 <img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
@@ -228,9 +221,92 @@ transform:translateY(0);
 
 </div>
 
-<script>
+<!-- DETAILS -->
 
-/* COUNTER ANIMATION */
+<div class="details">
+
+<div class="detail-row">
+<div class="detail-text">
+<h3 style="color:#00f2fe;">All SOP</h3>
+<p>
+Centralized database containing all Standard Operating Procedures.
+Helps teams quickly access the correct process documentation,
+ensuring consistency, compliance, and operational efficiency.
+</p>
+</div>
+
+<div class="detail-img">
+<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
+</div>
+</div>
+
+<div class="detail-row">
+<div class="detail-text">
+<h3 style="color:#ff6a00;">T4 Specific Tool</h3>
+<p>
+A dedicated operational tool designed for T4 workflows.
+Provides automation, quick action modules, and productivity
+enhancements to streamline repetitive tasks.
+</p>
+</div>
+
+<div class="detail-img">
+<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
+</div>
+</div>
+
+<div class="detail-row">
+<div class="detail-text">
+<h3 style="color:#ff2975;">AHT Alarm System</h3>
+<p>
+Real-time alert monitoring system that tracks Average Handle Time.
+Triggers alarms when thresholds exceed defined limits,
+allowing quick intervention and performance optimization.
+</p>
+</div>
+
+<div class="detail-img">
+<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
+</div>
+</div>
+
+<div class="detail-row">
+<div class="detail-text">
+<h3 style="color:#00ff9c;">Playbook</h3>
+<p>
+Operational playbook containing predefined response strategies
+for common operational scenarios, enabling faster decision making
+and standardized incident management.
+</p>
+</div>
+
+<div class="detail-img">
+<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
+</div>
+</div>
+
+<div class="detail-row">
+<div class="detail-text">
+<h3 style="color:#ffd000;">Checklist Alert System</h3>
+<p>
+Automated checklist monitoring system ensuring tasks are completed
+on schedule. Sends alerts for missed checkpoints and improves
+process compliance and accountability.
+</p>
+</div>
+
+<div class="detail-img">
+<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+Reach out to me for any queries
+</div>
+
+<script>
 
 const counters=document.querySelectorAll('.counter');
 
@@ -246,14 +322,10 @@ const c=+counter.innerText;
 const increment=target/120;
 
 if(c<target){
-
 counter.innerText=`${Math.ceil(c+increment)}`;
 setTimeout(update,20);
-
 }else{
-
 counter.innerText=target;
-
 }
 
 }
