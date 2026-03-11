@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,9 @@ body{
 font-family: Arial, sans-serif;
 margin:0;
 background:#f4f4f4;
+display:flex;
+flex-direction:column;
+height:100vh;
 }
 
 /* HEADER */
@@ -19,14 +23,14 @@ background:#f4f4f4;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px;
+padding:10px 15px;
 background:white;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
 position:relative;
 }
 
 .header h1{
-font-size:20px;
+font-size:18px;
 margin:0;
 }
 
@@ -35,29 +39,26 @@ font-size:22px;
 cursor:pointer;
 }
 
-/* LOGO */
-
 .logo{
-height:35px;
+height:32px;
 }
 
-/* DROPDOWN MENU */
+/* DROPDOWN */
 
 .dropdown{
 display:none;
 position:absolute;
-top:60px;
+top:50px;
 left:10px;
 background:white;
 border-radius:8px;
 box-shadow:0 4px 10px rgba(0,0,0,0.15);
 width:180px;
-overflow:hidden;
 }
 
 .dropdown a{
 display:block;
-padding:12px;
+padding:10px;
 text-decoration:none;
 color:#333;
 border-bottom:1px solid #eee;
@@ -67,16 +68,24 @@ border-bottom:1px solid #eee;
 background:#f2f2f2;
 }
 
+/* MAIN */
+
+main{
+flex:1;
+overflow:auto;
+}
+
 /* FEATURED */
 
 .featured{
-padding:15px;
+padding:10px 15px;
 }
 
 .section-title{
 display:flex;
 justify-content:space-between;
 align-items:center;
+margin-bottom:6px;
 }
 
 .quiz{
@@ -86,34 +95,46 @@ text-decoration:none;
 }
 
 .slider{
-margin-top:10px;
+position:relative;
+overflow:hidden;
+border-radius:12px;
+}
+
+.slides{
+display:flex;
+transition:transform 0.5s ease;
 }
 
 .slide{
+min-width:100%;
 position:relative;
 }
 
 .slide img{
 width:100%;
+height:170px;
+object-fit:cover;
 border-radius:12px;
 }
 
-.slide p{
+.slide a{
 position:absolute;
 bottom:10px;
-left:15px;
+left:10px;
 color:white;
 font-weight:bold;
 background:rgba(0,0,0,0.5);
 padding:5px 10px;
 border-radius:5px;
+text-decoration:none;
+font-size:14px;
 }
 
 /* DOTS */
 
 .dots{
 text-align:center;
-margin-top:8px;
+margin-top:4px;
 }
 
 .dots span{
@@ -122,7 +143,7 @@ width:6px;
 background:#ccc;
 display:inline-block;
 border-radius:50%;
-margin:3px;
+margin:2px;
 }
 
 .dots .active{
@@ -132,14 +153,14 @@ background:black;
 /* TOPICS */
 
 .topics{
-padding:15px;
+padding:8px 15px 15px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:15px;
-margin-top:15px;
+gap:12px;
+margin-top:8px;
 }
 
 .topic{
@@ -147,26 +168,28 @@ text-align:center;
 }
 
 .topic img{
-width:55px;
-height:55px;
+width:52px;
+height:52px;
 border-radius:12px;
 background:white;
-padding:8px;
+padding:6px;
 box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
 .topic p{
-font-size:13px;
-margin-top:6px;
+font-size:12px;
+margin-top:4px;
 }
 
 /* FOOTER */
 
 footer{
 text-align:center;
-padding:20px;
-color:#777;
-font-size:14px;
+padding:10px;
+background:white;
+font-size:13px;
+color:#666;
+box-shadow:0 -2px 5px rgba(0,0,0,0.1);
 }
 
 </style>
@@ -185,41 +208,54 @@ font-size:14px;
 <div class="dropdown" id="menu">
 
 <a href="https://en.wikipedia.org/wiki/About_us" target="_blank">About Us</a>
-
 <a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>
-
 <a href="https://en.wikipedia.org/wiki/Mobile_app_rating" target="_blank">Rate Us</a>
 
 </div>
 
 </header>
 
+<main>
+
 <section class="featured">
 
 <div class="section-title">
-
-<h2>Featured Stories</h2>
-
+<h3>Featured Stories</h3>
 <a class="quiz" href="https://en.wikipedia.org/wiki/Quiz" target="_blank">Quiz</a>
-
 </div>
 
 <div class="slider">
 
+<div class="slides" id="slides">
+
 <div class="slide">
-
 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+<a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India">Economic Survey</a>
+</div>
 
-<p>Economic Survey 2024-25</p>
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
+<a href="https://en.wikipedia.org/wiki/Indian_economy">Indian Economy</a>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
+<a href="https://en.wikipedia.org/wiki/Climate_change">Climate Change</a>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9">
+<a href="https://en.wikipedia.org/wiki/Science">Science and Tech</a>
+</div>
 
 </div>
 
 </div>
 
 <div class="dots">
-<span></span>
-<span></span>
 <span class="active"></span>
+<span></span>
+<span></span>
 <span></span>
 </div>
 
@@ -227,73 +263,28 @@ font-size:14px;
 
 <section class="topics">
 
-<h2>Filter By Topics</h2>
+<h3>Filter By Topics</h3>
 
 <div class="grid">
 
-<div class="topic">
-<img src="https://img.icons8.com/color/96/india.png">
-<p>All</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/book.png">
-<p>Daily</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/combo-chart.png">
-<p>Economy</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/edit.png">
-<p>Editorial</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/forest.png">
-<p>Environment</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/parliament.png">
-<p>Governance</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/taj-mahal.png">
-<p>History</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/handshake.png">
-<p>I.R</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/video.png">
-<p>Sansad TV</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/india-map.png">
-<p>Schemes</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/dna-helix.png">
-<p>Science</p>
-</div>
-
-<div class="topic">
-<img src="https://img.icons8.com/color/96/conference.png">
-<p>Social</p>
-</div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india.png"><p>All</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/book.png"><p>Daily</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/combo-chart.png"><p>Economy</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/edit.png"><p>Editorial</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/forest.png"><p>Environment</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/parliament.png"><p>Governance</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/taj-mahal.png"><p>History</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/handshake.png"><p>I.R</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/video.png"><p>Sansad TV</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india-map.png"><p>Schemes</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/dna-helix.png"><p>Science</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/conference.png"><p>Social</p></div>
 
 </div>
 
 </section>
+
+</main>
 
 <footer>
 Quick reads, smarter insights
@@ -301,19 +292,36 @@ Quick reads, smarter insights
 
 <script>
 
+/* MENU */
+
 function toggleMenu(){
-let menu = document.getElementById("menu");
-
-if(menu.style.display === "block"){
-menu.style.display = "none";
-}else{
-menu.style.display = "block";
+let menu=document.getElementById("menu");
+menu.style.display = menu.style.display==="block"?"none":"block";
 }
 
+/* SLIDER */
+
+let index=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dots span");
+
+function showSlide(){
+index++;
+
+if(index>=4){
+index=0;
 }
+
+slides.style.transform="translateX(-"+index*100+"%)";
+
+dots.forEach(dot=>dot.classList.remove("active"));
+dots[index].classList.add("active");
+}
+
+setInterval(showSlide,4000);
 
 </script>
 
 </body>
 </html>
-
+```
