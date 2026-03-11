@@ -20,8 +20,6 @@ body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
 min-height:100vh;
-display:flex;
-flex-direction:column;
 overflow-x:hidden;
 }
 
@@ -32,6 +30,10 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:15px 20px;
+position:sticky;
+top:0;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+z-index:1000;
 }
 
 .menu{
@@ -184,7 +186,7 @@ font-size:11px;
 margin-top:4px;
 }
 
-/* POSTER BANNER */
+/* POSTER */
 
 .poster{
 margin:20px;
@@ -224,6 +226,7 @@ text-align:center;
 padding:10px;
 font-size:12px;
 opacity:.8;
+margin-bottom:10px;
 }
 
 </style>
@@ -250,7 +253,7 @@ opacity:.8;
 
 <div class="header">
 <div class="menu" onclick="toggleMenu()">☰</div>
-<h3>Treedell</h3>
+<h3>Home</h3>
 </div>
 
 <!-- FEATURED -->
@@ -317,15 +320,15 @@ opacity:.8;
 
 </section>
 
-<!-- POSTER BANNER -->
+<!-- POSTER -->
 
 <div class="poster">
 
-<img src="https://wallpapercave.com/wp/wp7702271.jpg">
+<img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
 
 <div class="poster-content">
-<h4></h4>
-<p></p>
+<h4>Daily Current Affairs</h4>
+<p>Stay updated with quick insights & important news.</p>
 </div>
 
 </div>
@@ -360,4 +363,3 @@ slides.style.transform="translateX(-"+index*100+"%)";
 
 </body>
 </html>
-
