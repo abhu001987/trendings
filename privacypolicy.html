@@ -8,11 +8,17 @@
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
 
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -29,7 +35,7 @@ background:linear-gradient(90deg,#ff6a00,#ee0979,#00f2fe);
 -webkit-text-fill-color:transparent;
 }
 
-/* GRID */
+/* TOP GRID */
 
 .grid{
 display:grid;
@@ -38,14 +44,12 @@ gap:30px;
 padding:50px;
 }
 
-/* CARDS */
-
 .card{
 position:relative;
 border-radius:18px;
 overflow:hidden;
 cursor:pointer;
-transition:.4s;
+transition:.35s;
 }
 
 .card:hover{
@@ -71,7 +75,7 @@ justify-content:space-between;
 }
 
 .counter{
-font-size:30px;
+font-size:28px;
 font-weight:600;
 }
 
@@ -83,7 +87,7 @@ font-weight:600;
 .playbook h2{color:#00ff9c}
 .checklist h2{color:#ffd000}
 
-/* DETAILS */
+/* DETAIL SECTIONS */
 
 .details{
 padding:60px 80px;
@@ -93,7 +97,7 @@ padding:60px 80px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:70px;
+margin-bottom:80px;
 gap:40px;
 }
 
@@ -106,9 +110,17 @@ font-size:30px;
 margin-bottom:10px;
 }
 
+.detail-text p{
+opacity:.9;
+line-height:1.6;
+}
+
+/* IMAGE ZOOM FIX */
+
 .detail-img{
 flex:1;
 text-align:right;
+overflow:hidden;
 }
 
 .detail-img img{
@@ -116,34 +128,52 @@ width:260px;
 border-radius:12px;
 cursor:pointer;
 transition:.35s;
+display:block;
 }
 
 .detail-img img.zoomed{
-transform:scale(1.35);
+transform:scale(1.25);
 }
 
 /* GUIDE SECTION */
 
 .guide{
 padding:60px 80px;
-background:rgba(0,0,0,.35);
-margin-top:30px;
 }
 
 .guide h2{
 color:#ffd000;
-margin-bottom:20px;
+margin-bottom:30px;
 }
 
-.guide h3{
-margin-top:20px;
+.guide-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+
+.guide-box{
+background:rgba(255,255,255,0.06);
+border-radius:14px;
+padding:25px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
+transition:.3s;
+}
+
+.guide-box:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.guide-box h3{
 color:#00f2fe;
+margin-bottom:10px;
 }
 
-.guide p{
-opacity:.9;
-margin-top:8px;
+.guide-box p{
 line-height:1.6;
+opacity:.9;
 }
 
 /* FOOTER */
@@ -153,7 +183,7 @@ text-align:center;
 padding:40px;
 font-size:18px;
 color:#ffd000;
-border-top:2px solid rgba(255,255,255,.2);
+border-top:2px solid rgba(255,255,255,.15);
 }
 
 </style>
@@ -218,7 +248,7 @@ border-top:2px solid rgba(255,255,255,.2);
 <img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
 <div class="card-content">
 <div>
-<h2>Checklist Alert</h2>
+<h2>Checklist Alert System</h2>
 <p>Compliance alerts</p>
 </div>
 <div class="counter" data-target="89">0</div>
@@ -227,7 +257,7 @@ border-top:2px solid rgba(255,255,255,.2);
 
 </div>
 
-<!-- DETAILS -->
+<!-- DETAIL SECTIONS -->
 
 <div class="details">
 
@@ -254,7 +284,7 @@ border-top:2px solid rgba(255,255,255,.2);
 <div id="ahtSection" class="detail-row">
 <div class="detail-text">
 <h3 style="color:#ff2975;">AHT Alarm System</h3>
-<p>Triggers alerts when response time thresholds exceed defined limits.</p>
+<p>Triggers alerts when response time thresholds exceed limits.</p>
 </div>
 <div class="detail-img">
 <img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7" onclick="zoomImage(this)">
@@ -289,24 +319,40 @@ border-top:2px solid rgba(255,255,255,.2);
 
 <h2>If you have any queries</h2>
 
+<div class="guide-grid">
+
+<div class="guide-box">
 <h3>Download Tampermonkey (Chrome)</h3>
 <p>
-Open Chrome Web Store → Search Tampermonkey → Click Add to Chrome → Confirm installation.
+1. Open Chrome Web Store<br>
+2. Search Tampermonkey<br>
+3. Click Add to Chrome<br>
+4. Confirm installation
 </p>
+</div>
 
+<div class="guide-box">
 <h3>Download Tampermonkey (Firefox)</h3>
 <p>
-Open Firefox Add-ons → Search Tampermonkey → Click Add to Firefox → Allow permissions.
+1. Open Firefox Add-ons<br>
+2. Search Tampermonkey<br>
+3. Click Add to Firefox<br>
+4. Allow permissions
 </p>
+</div>
 
+<div class="guide-box">
 <h3>Install the Script</h3>
 <p>
 1. Open Tampermonkey dashboard<br>
-2. Click "Create New Script"<br>
+2. Click Create New Script<br>
 3. Paste the script code<br>
-4. Save the script<br>
-5. Refresh the page where the script should run
+4. Click Save<br>
+5. Refresh the page
 </p>
+</div>
+
+</div>
 
 </div>
 
@@ -340,7 +386,7 @@ update();
 
 });
 
-/* SCROLL TO SECTION */
+/* SCROLL FUNCTION */
 
 function scrollToSection(id){
 
