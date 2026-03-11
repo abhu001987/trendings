@@ -1,352 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy | Treedell</title>
+<meta charset="UTF-8">
+<title>Tempermoneky Tool Dashboard</title>
 
-  <style>
-    /* ================= GLOBAL ================= */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    body {
-      background: linear-gradient(180deg, #FFF, #FFF);
-      color: #C7D3FF;
-      line-height: 1.7;
-    }
+<style>
 
-    a {
-      color: #6d28d9;
-      text-decoration: none;
-    }
-
-    /* ================= PAGE HEADER ================= */
-    .page-header {
-      padding: 70px 16px 40px;
-      text-align: center;
-      color: #111;
-    }
-
-    .page-header h1 {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      letter-spacing: -0.5px;
-    }
-
-    .page-header p {
-      font-size: 15px;
-      opacity: 0.85;
-    }
-
-    /* ================= CONTENT CARD ================= */
-    .policy-wrapper {
-      max-width: 900px;
-      margin: auto;
-      padding: 0 16px 80px;
-    }
-
-    .policy-card {
-      background: E9EEFF(255, 255, 255, 0.96);
-      border-radius: 18px;
-      padding: 40px 34px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
-    }
-
-    .policy-card section {
-      margin-bottom: 32px;
-    }
-
-    .policy-card h2 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #111827;
-    }
-
-    .policy-card p {
-      font-size: 14.5px;
-      color: #374151;
-      margin-bottom: 10px;
-    }
-
-    .policy-card ul {
-      margin-left: 18px;
-      margin-top: 8px;
-    }
-
-    .policy-card li {
-      font-size: 14.5px;
-      margin-bottom: 6px;
-      color: #374151;
-    }
-
-    .updated {
-      font-size: 13px;
-      opacity: 0.7;
-      margin-bottom: 25px;
-    }
-
-    /* ================= FOOTER ================= */
-.site-footer {
-  width: 100%;
-  background: linear-gradient(to bottom, #FFF, #FFF);
-  color: #111;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
 }
 
-/* MAIN AREA */
-.footer-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 22px 16px;   /* 🔥 reduced more */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+overflow-x:hidden;
 }
 
-/* BRAND */
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;   /* 🔥 tighter */
+/* HEADER */
+
+.header{
+text-align:center;
+padding:60px 20px;
+animation:blurReveal 1.5s ease;
 }
 
-.footer-brand img {
-  height: 34px;         /* 🔥 smaller logo */
+.header h1{
+font-size:48px;
+background:linear-gradient(90deg,#ff6a00,#ee0979,#00f2fe);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.brand-name {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+.header p{
+opacity:.8;
+margin-top:10px;
 }
 
-/* TEXT */
-.footer-text {
-  max-width: 420px;
-  font-size: 12.5px;
-  line-height: 1.5;
-  opacity: 0.85;
-  margin-bottom: 6px;   /* 🔥 tighter */
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+padding:50px;
 }
 
-/* LINKS */
-.footer-links {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
+/* CARDS */
+
+.card{
+position:relative;
+border-radius:18px;
+overflow:hidden;
+cursor:pointer;
+transform:translateY(40px);
+opacity:0;
+animation:cardReveal 1.4s forwards;
+backdrop-filter:blur(12px);
 }
 
-/* BOTTOM BAR */
-.footer-bottom {
-  border-top: 1px solid #111;
-  text-align: center;
-  padding: 8px 12px;    /* 🔥 reduced */
-  font-size: 11.5px;
-  opacity: 0.85;
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+filter:brightness(.5);
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .footer-main {
-    padding: 18px 14px;
-  }
-
-  .footer-brand img {
-    height: 30px;
-  }
-
-  .brand-name {
-    font-size: 16px;
-  }
+.card-content{
+position:absolute;
+top:0;
+left:0;
+padding:20px;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
 }
-  </style>
+
+.card h2{
+font-size:24px;
+}
+
+.card p{
+font-size:14px;
+opacity:.85;
+}
+
+/* COUNTER */
+
+.counter{
+font-size:32px;
+font-weight:600;
+margin-top:10px;
+}
+
+/* COLORS */
+
+.sop h2{color:#00f2fe;}
+.t4 h2{color:#ff6a00;}
+.aht h2{color:#ff2975;}
+.playbook h2{color:#00ff9c;}
+.checklist h2{color:#ffd000;}
+
+/* HOVER */
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+transition:.4s;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+/* ANIMATIONS */
+
+@keyframes blurReveal{
+
+0%{
+opacity:0;
+filter:blur(10px);
+transform:translateY(30px);
+}
+
+100%{
+opacity:1;
+filter:blur(0);
+transform:translateY(0);
+}
+
+}
+
+@keyframes cardReveal{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* DELAYS */
+
+.card:nth-child(1){animation-delay:.2s;}
+.card:nth-child(2){animation-delay:.4s;}
+.card:nth-child(3){animation-delay:.6s;}
+.card:nth-child(4){animation-delay:.8s;}
+.card:nth-child(5){animation-delay:1s;}
+
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="page-header">
-    <h1>Privacy Policy</h1>
-    <p>Your privacy matters to us at Treedell</p>
-  </header>
+<div class="header">
+<h1>Tempermoneky Tool Dashboard</h1>
+<p>Automation | Monitoring | Alerts | SOP Control</p>
+</div>
 
-  <!-- CONTENT -->
-  <main class="policy-wrapper">
-    <div class="policy-card">
+<div class="grid">
 
-      <p class="updated">Last updated: January 2025</p>
+<!-- SOP -->
 
-     <section>
-  <h2>1. Introduction</h2>
-  <p>
-    Treedell (“we”, “our”, or “us”) takes your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use our website. By accessing or using Treedell, you agree to the terms outlined in this policy.
-  </p>
-</section>
+<div class="card sop">
+<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
+<div class="card-content">
+<div>
+<h2>All SOP</h2>
+<p>Standard Operating Procedures database</p>
+</div>
+<div class="counter" data-target="124">0</div>
+</div>
+</div>
 
-<section>
-  <h2>2. Information We Collect</h2>
-  <p>
-    Treedell does not require users to create an account or provide personal information to access our website.
-  </p>
-  <p>
-    However, we may automatically collect limited non-personal information such as IP address, browser type, device information, pages visited, and user interactions to improve website functionality and user experience.
-  </p>
-</section>
+<!-- T4 TOOL -->
 
-<section>
-  <h2>3. How We Use Information</h2>
-  <p>The information we collect may be used to:</p>
-  <ul>
-    <li>Provide and improve our website and services</li>
-    <li>Provide access to test series and study materials</li>
-    <li>Respond to inquiries and user requests</li>
-    <li>Send updates, purchased content, or important notices</li>
-    <li>Analyze usage trends and improve performance</li>
-    <li>Enforce our policies and prevent misuse</li>
-  </ul>
-</section>
+<div class="card t4">
+<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
+<div class="card-content">
+<div>
+<h2>T4 Specific Tool</h2>
+<p>Advanced workflow automation tool</p>
+</div>
+<div class="counter" data-target="52">0</div>
+</div>
+</div>
 
-<section>
-  <h2>4. Data Sharing and Disclosure</h2>
-  <p>
-    We do not sell or rent your personal information. We may share information with trusted service providers, technical partners, or payment processors only when necessary to operate our services or comply with legal obligations.
-  </p>
-  <ul>
-    <li>Service providers supporting our platform</li>
-    <li>Payment and technical service providers</li>
-    <li>Law enforcement or government authorities when required by law</li>
-  </ul>
-</section>
+<!-- AHT -->
 
-<section>
-  <h2>5. Cookies and Tracking Technologies</h2>
-  <p>
-    Treedell may use cookies, web beacons, and similar technologies to enhance user experience, analyze website traffic, and improve our services.
-  </p>
-  <p>
-    We may also use third-party services such as Google Analytics and Google AdSense, which use cookies to analyze usage and display relevant advertisements based on your interests.
-  </p>
-</section>
+<div class="card aht">
+<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
+<div class="card-content">
+<div>
+<h2>AHT Alarm System</h2>
+<p>Monitor response time alerts</p>
+</div>
+<div class="counter" data-target="18">0</div>
+</div>
+</div>
 
-<section>
-  <h2>6. Your Choices and Rights</h2>
-  <p>
-    You may choose to disable cookies through your browser settings. However, doing so may affect certain features of the website.
-  </p>
-  <p>
-    Where applicable, you may have the right to request access, correction, or deletion of your personal data.
-  </p>
-</section>
+<!-- PLAYBOOK -->
 
-<section>
-  <h2>7. GDPR Consent</h2>
-  <p>
-   If you are located in the European Economic Area (EEA), we will obtain your consent before collecting or processing your personal information. By using our website, you consent to our collection and processing of your personal information as described in this Privacy Policy.
-  </p>
-</section>
+<div class="card playbook">
+<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
+<div class="card-content">
+<div>
+<h2>Playbook</h2>
+<p>Operational response strategies</p>
+</div>
+<div class="counter" data-target="36">0</div>
+</div>
+</div>
 
-<section>
-  <h2>7. CPRA Privacy Message</h2>
-  <p>
-    Under the California Consumer Privacy Act (CCPA), California residents have the right to request access to their personal information, to request deletion of their personal information, and to opt-out of the sale of their personal information. If you are a California resident, you may exercise these rights by contacting us at support{@}gktoday.in.
-  </p>
-</section>
+<!-- CHECKLIST -->
 
-<section>
-  <h2>8. Advertising and Third-Party Links</h2>
-  <p>
-    Treedell may display advertisements through advertising partners such as Google AdSense. These partners may use cookies and tracking technologies to serve relevant ads.
-  </p>
-  <p>
-    Our website may also contain links to third-party websites. We are not responsible for their privacy practices, and we encourage you to review their policies.
-  </p>
-</section>
+<div class="card checklist">
+<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
+<div class="card-content">
+<div>
+<h2>Checklist Alert System</h2>
+<p>Daily monitoring & compliance alerts</p>
+</div>
+<div class="counter" data-target="89">0</div>
+</div>
+</div>
 
-<section>
-  <h2>9. Data Retention</h2>
-  <p>
-    We will retain your personal information for as long as necessary to fulfill the purposes for which it was collected, unless a longer retention period is required by law.
-  </p>
-</section>
+</div>
 
-<section>
-  <h2>10. Data Security</h2>
-  <p>
-    We take reasonable measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction. However, no method of transmission over the internet or method of electronic storage is 100% secure.
-  </p>
-</section>
+<script>
 
-<section>
-  <h2>11. Children's Privacy</h2>
-  <p>
-    Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under the age of 13. If we become aware that we have collected personal information from a child under the age of 13, we will take steps to delete the information as soon as possible.
-  </p>
-</section>
+/* COUNTER ANIMATION */
 
-<section>
-  <h2>12. International Data Transfers</h2>
-  <p>
-    Your personal information may be transferred to and processed in countries other than the country in which you are located. These countries may have different data protection laws than your country of residence. By using our website, you consent to the transfer of your personal information to these countries.
-  </p>
-</section>
+const counters=document.querySelectorAll('.counter');
 
-<section>
-  <h2>13. Changes to This Privacy Policy</h2>
-  <p>
-    We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.
-  </p>
-</section>
+counters.forEach(counter=>{
 
-<section>
-  <h2>14. Contact Us</h2>
-  <p>
-    If you have any questions about this Privacy Policy, you may contact us at:
-  </p>
-  <p>
-    Email: support@treedell.com<br>
-    Website: www.treedell.com
-  </p>
-</section>
+counter.innerText='0';
 
-    </div>
-  </main>
+const update=()=>{
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <img
-          src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png"
-          alt="Treedell logo"
-        />
-        <span class="brand-name">Treedell</span>
-      </div>
+const target=+counter.getAttribute('data-target');
+const c=+counter.innerText;
 
-      <p class="footer-text">
-        Treedell helps creators and brands bring everything together
-        in one powerful link.
-      </p>
+const increment=target/120;
 
-      <div class="footer-links">
-        <a href="https://en.wikipedia.org/wiki/Trademark" target="_blank">Privacy Policy</a>
-        <span>•</span>
-        <a href="https://en.wikipedia.org/wiki/Brand_guidelines" target="_blank">Term and Condition</a>
-      </div>
-    </div>
+if(c<target){
 
-    <div class="footer-bottom">
-      © 2025 <strong>Treedell</strong>. All rights reserved.
-    </div>
-  </footer>
+counter.innerText=`${Math.ceil(c+increment)}`;
+setTimeout(update,20);
+
+}else{
+
+counter.innerText=target;
+
+}
+
+}
+
+update();
+
+});
+
+</script>
 
 </body>
 </html>
