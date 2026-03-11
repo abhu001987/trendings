@@ -20,9 +20,9 @@ body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
 min-height:100vh;
+display:flex;
+flex-direction:column;
 overflow-x:hidden;
-margin:0;
-padding:0;
 }
 
 /* HEADER */
@@ -121,7 +121,7 @@ width:100%;
 height:160px;
 object-fit:cover;
 border-radius:12px;
-filter:brightness(.85);
+filter:brightness(.8);
 }
 
 .slide span{
@@ -153,7 +153,7 @@ border-radius:6px;
 /* TOPICS */
 
 .topics{
-padding:14px 20px 8px;
+padding:16px 20px;
 }
 
 .grid{
@@ -165,13 +165,6 @@ margin-top:10px;
 
 .topic{
 text-align:center;
-padding:6px 0;
-}
-
-.topic a{
-text-decoration:none;
-color:white;
-display:block;
 }
 
 .topic img{
@@ -191,15 +184,46 @@ font-size:11px;
 margin-top:4px;
 }
 
+/* POSTER BANNER */
+
+.poster{
+margin:20px;
+border-radius:14px;
+overflow:hidden;
+position:relative;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+.poster img{
+width:100%;
+height:160px;
+object-fit:cover;
+filter:brightness(.75);
+}
+
+.poster-content{
+position:absolute;
+bottom:12px;
+left:14px;
+}
+
+.poster-content h4{
+font-size:16px;
+margin-bottom:3px;
+}
+
+.poster-content p{
+font-size:12px;
+opacity:.9;
+}
+
 /* FOOTER */
 
 footer{
 text-align:center;
-padding:10px 10px 6px;
+padding:10px;
 font-size:12px;
-opacity:.85;
-margin-top:8px;
-padding-bottom:env(safe-area-inset-bottom);
+opacity:.8;
 }
 
 </style>
@@ -225,11 +249,8 @@ padding-bottom:env(safe-area-inset-bottom);
 <!-- HEADER -->
 
 <div class="header">
-
 <div class="menu" onclick="toggleMenu()">☰</div>
-
 <h3>Home</h3>
-
 </div>
 
 <!-- FEATURED -->
@@ -277,93 +298,37 @@ padding-bottom:env(safe-area-inset-bottom);
 
 <div class="grid">
 
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/India">
-<img src="https://img.icons8.com/color/96/india.png">
-<p>All</p>
-</a>
-</div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india.png"><p>All</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/book.png"><p>Daily</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/combo-chart.png"><p>Economy</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/edit.png"><p>Editorial</p></div>
 
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Current_events">
-<img src="https://img.icons8.com/color/96/book.png">
-<p>Daily</p>
-</a>
-</div>
+<div class="topic"><img src="https://img.icons8.com/color/96/forest.png"><p>Environment</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/parliament.png"><p>Governance</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/taj-mahal.png"><p>History</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/handshake.png"><p>I.R</p></div>
 
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Economy_of_India">
-<img src="https://img.icons8.com/color/96/combo-chart.png">
-<p>Economy</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Editorial">
-<img src="https://img.icons8.com/color/96/edit.png">
-<p>Editorial</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Environment">
-<img src="https://img.icons8.com/color/96/forest.png">
-<p>Environment</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Government_of_India">
-<img src="https://img.icons8.com/color/96/parliament.png">
-<p>Governance</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/History_of_India">
-<img src="https://img.icons8.com/color/96/taj-mahal.png">
-<p>History</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/International_relations">
-<img src="https://img.icons8.com/color/96/handshake.png">
-<p>I.R</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Sansad_TV">
-<img src="https://img.icons8.com/color/96/video.png">
-<p>Sansad TV</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Government_scheme">
-<img src="https://img.icons8.com/color/96/india-map.png">
-<p>Schemes</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Science">
-<img src="https://img.icons8.com/color/96/dna-helix.png">
-<p>Science</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Society">
-<img src="https://img.icons8.com/color/96/conference.png">
-<p>Social</p>
-</a>
-</div>
+<div class="topic"><img src="https://img.icons8.com/color/96/video.png"><p>Sansad TV</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india-map.png"><p>Schemes</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/dna-helix.png"><p>Science</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/conference.png"><p>Social</p></div>
 
 </div>
 
 </section>
+
+<!-- POSTER BANNER -->
+
+<div class="poster">
+
+<img src="https://wallpapercave.com/wp/wp7702271.jpg">
+
+<div class="poster-content">
+<h4></h4>
+<p></p>
+</div>
+
+</div>
 
 <footer>
 Quick reads, smarter insights
