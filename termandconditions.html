@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +23,7 @@ align-items:center;
 padding:15px;
 background:white;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
+position:relative;
 }
 
 .header h1{
@@ -29,9 +31,41 @@ font-size:20px;
 margin:0;
 }
 
-.menu,.login{
+.menu{
 font-size:22px;
 cursor:pointer;
+}
+
+/* LOGO */
+
+.logo{
+height:35px;
+}
+
+/* DROPDOWN MENU */
+
+.dropdown{
+display:none;
+position:absolute;
+top:60px;
+left:10px;
+background:white;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+width:180px;
+overflow:hidden;
+}
+
+.dropdown a{
+display:block;
+padding:12px;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+}
+
+.dropdown a:hover{
+background:#f2f2f2;
 }
 
 /* FEATURED */
@@ -49,6 +83,7 @@ align-items:center;
 .quiz{
 color:#7a2df3;
 font-weight:bold;
+text-decoration:none;
 }
 
 .slider{
@@ -141,23 +176,45 @@ font-size:14px;
 <body>
 
 <header class="header">
-<div class="menu">☰</div>
+
+<div class="menu" onclick="toggleMenu()">☰</div>
+
 <h1>Home</h1>
-<div class="login">⇥</div>
+
+<img class="logo" src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png">
+
+<div class="dropdown" id="menu">
+
+<a href="https://en.wikipedia.org/wiki/About_us" target="_blank">About Us</a>
+
+<a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>
+
+<a href="https://en.wikipedia.org/wiki/Mobile_app_rating" target="_blank">Rate Us</a>
+
+</div>
+
 </header>
 
 <section class="featured">
 
 <div class="section-title">
+
 <h2>Featured Stories</h2>
-<span class="quiz">Quiz</span>
+
+<a class="quiz" href="https://en.wikipedia.org/wiki/Quiz" target="_blank">Quiz</a>
+
 </div>
 
 <div class="slider">
+
 <div class="slide">
+
 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+
 <p>Economic Survey 2024-25</p>
+
 </div>
+
 </div>
 
 <div class="dots">
@@ -243,6 +300,21 @@ font-size:14px;
 Quick reads, smarter insights
 </footer>
 
+<script>
+
+function toggleMenu(){
+let menu = document.getElementById("menu");
+
+if(menu.style.display === "block"){
+menu.style.display = "none";
+}else{
+menu.style.display = "block";
+}
+
+}
+
+</script>
+
 </body>
 </html>
-
+```
