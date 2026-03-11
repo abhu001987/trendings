@@ -5,100 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quick Reads</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins;
+font-family:Arial, sans-serif;
 }
 
 body{
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-color:white;
+background:#f4f4f4;
+display:flex;
+flex-direction:column;
 min-height:100vh;
-overflow-x:hidden;
-margin:0;
-padding:0;
 }
 
 /* HEADER */
 
 .header{
 display:flex;
-align-items:center;
 justify-content:space-between;
-padding:15px 20px;
+align-items:center;
+padding:12px 15px;
+background:white;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+position:relative;
+}
+
+.header h1{
+font-size:18px;
 }
 
 .menu{
-font-size:24px;
+font-size:22px;
 cursor:pointer;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-position:fixed;
-top:0;
-left:-260px;
-width:260px;
-height:100%;
-background:#203a43;
-transition:.35s;
-z-index:999;
+.logo{
+height:32px;
 }
 
-.sidebar.open{
-left:0;
+/* DROPDOWN */
+
+.dropdown{
+display:none;
+position:absolute;
+top:50px;
+left:10px;
+background:white;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+width:180px;
+overflow:hidden;
 }
 
-.sidebar-header{
-display:flex;
-justify-content:space-between;
-padding:16px;
-border-bottom:1px solid rgba(255,255,255,0.15);
-}
-
-.close-btn{
-cursor:pointer;
-font-size:20px;
-}
-
-.sidebar a{
+.dropdown a{
 display:block;
-padding:15px 20px;
+padding:10px;
 text-decoration:none;
-color:white;
-border-bottom:1px solid rgba(255,255,255,0.08);
+color:#333;
+border-bottom:1px solid #eee;
 }
 
-.sidebar a:hover{
-background:#2c5364;
+.dropdown a:hover{
+background:#f2f2f2;
+}
+
+/* MAIN */
+
+main{
+flex:1;
+overflow:auto;
 }
 
 /* FEATURED */
 
 .featured{
-padding:10px 20px;
+padding:10px 15px;
 }
 
 .section-title{
 display:flex;
 justify-content:space-between;
-margin-bottom:8px;
+align-items:center;
+margin-bottom:6px;
 }
 
 .quiz{
-color:#ff6a00;
+color:#7a2df3;
+font-weight:bold;
 text-decoration:none;
-font-weight:600;
 }
-
-/* SLIDER */
 
 .slider{
 position:relative;
@@ -118,21 +116,25 @@ position:relative;
 
 .slide img{
 width:100%;
-height:160px;
+height:170px;
 object-fit:cover;
 border-radius:12px;
-filter:brightness(.85);
 }
 
-.slide span{
+.slide a{
 position:absolute;
 bottom:10px;
 left:10px;
-background:rgba(0,0,0,0.6);
-padding:6px 10px;
-border-radius:6px;
-font-size:13px;
+color:white;
+font-weight:bold;
+background:rgba(0,0,0,0.5);
+padding:5px 10px;
+border-radius:5px;
+text-decoration:none;
+font-size:14px;
 }
+
+/* SLIDER BUTTONS */
 
 .slider-btn{
 position:absolute;
@@ -141,8 +143,8 @@ transform:translateY(-50%);
 background:rgba(0,0,0,0.5);
 border:none;
 color:white;
-font-size:18px;
-padding:5px 10px;
+font-size:20px;
+padding:6px 10px;
 cursor:pointer;
 border-radius:6px;
 }
@@ -150,44 +152,56 @@ border-radius:6px;
 .prev{left:10px}
 .next{right:10px}
 
+/* DOTS */
+
+.dots{
+text-align:center;
+margin-top:5px;
+}
+
+.dots span{
+height:6px;
+width:6px;
+background:#ccc;
+display:inline-block;
+border-radius:50%;
+margin:3px;
+}
+
+.dots .active{
+background:black;
+}
+
 /* TOPICS */
 
 .topics{
-padding:14px 20px 8px;
+padding:10px 15px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
+grid-template-columns:repeat(4,1fr);
 gap:14px;
 margin-top:10px;
 }
 
 .topic{
 text-align:center;
-padding:6px 0;
-}
-
-.topic a{
-text-decoration:none;
-color:white;
-display:block;
 }
 
 .topic img{
-width:48px;
-height:48px;
+width:52px;
+height:52px;
 border-radius:12px;
 background:white;
 padding:6px;
 box-shadow:0 2px 6px rgba(0,0,0,0.1);
-object-fit:contain;
 display:block;
-margin:0 auto;
+margin:auto;
 }
 
 .topic p{
-font-size:11px;
+font-size:12px;
 margin-top:4px;
 }
 
@@ -195,11 +209,12 @@ margin-top:4px;
 
 footer{
 text-align:center;
-padding:10px 10px 6px;
-font-size:12px;
-opacity:.85;
-margin-top:8px;
-padding-bottom:env(safe-area-inset-bottom);
+padding:12px;
+background:white;
+font-size:13px;
+color:#666;
+box-shadow:0 -2px 5px rgba(0,0,0,0.1);
+margin-top:auto;
 }
 
 </style>
@@ -207,30 +222,23 @@ padding-bottom:env(safe-area-inset-bottom);
 
 <body>
 
-<!-- SIDEBAR -->
-
-<div class="sidebar" id="sidebar">
-
-<div class="sidebar-header">
-<b>Menu</b>
-<div class="close-btn" onclick="toggleMenu()">✕</div>
-</div>
-
-<a href="https://en.wikipedia.org/wiki/About_us">About Us</a>
-<a href="https://en.wikipedia.org/wiki/Privacy_policy">Privacy Policy</a>
-<a href="https://en.wikipedia.org/wiki/Mobile_app_rating">Rate Us</a>
-
-</div>
-
-<!-- HEADER -->
-
-<div class="header">
+<header class="header">
 
 <div class="menu" onclick="toggleMenu()">☰</div>
 
-<h3>Home</h3>
+<h1>Home</h1>
 
+<img class="logo" src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png">
+
+<div class="dropdown" id="menu">
+<a href="https://en.wikipedia.org/wiki/About_us" target="_blank">About Us</a>
+<a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>
+<a href="https://en.wikipedia.org/wiki/Mobile_app_rating" target="_blank">Rate Us</a>
 </div>
+
+</header>
+
+<main>
 
 <!-- FEATURED -->
 
@@ -238,7 +246,7 @@ padding-bottom:env(safe-area-inset-bottom);
 
 <div class="section-title">
 <h3>Featured Stories</h3>
-<a class="quiz" href="https://en.wikipedia.org/wiki/Quiz">Quiz</a>
+<a class="quiz" href="https://en.wikipedia.org/wiki/Quiz" target="_blank">Quiz</a>
 </div>
 
 <div class="slider">
@@ -247,17 +255,22 @@ padding-bottom:env(safe-area-inset-bottom);
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
-<span>Economic Survey</span>
+<a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India">Economic Survey</a>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
-<span>Indian Economy</span>
+<a href="https://en.wikipedia.org/wiki/Indian_economy">Indian Economy</a>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
-<span>Climate Change</span>
+<a href="https://en.wikipedia.org/wiki/Climate_change">Climate Change</a>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9">
+<a href="https://en.wikipedia.org/wiki/Science">Science & Tech</a>
 </div>
 
 </div>
@@ -265,6 +278,13 @@ padding-bottom:env(safe-area-inset-bottom);
 <button class="slider-btn prev" onclick="prevSlide()">❮</button>
 <button class="slider-btn next" onclick="nextSlide()">❯</button>
 
+</div>
+
+<div class="dots">
+<span class="active"></span>
+<span></span>
+<span></span>
+<span></span>
 </div>
 
 </section>
@@ -277,93 +297,24 @@ padding-bottom:env(safe-area-inset-bottom);
 
 <div class="grid">
 
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/India">
-<img src="https://img.icons8.com/color/96/india.png">
-<p>All</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Current_events">
-<img src="https://img.icons8.com/color/96/book.png">
-<p>Daily</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Economy_of_India">
-<img src="https://img.icons8.com/color/96/combo-chart.png">
-<p>Economy</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Editorial">
-<img src="https://img.icons8.com/color/96/edit.png">
-<p>Editorial</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Environment">
-<img src="https://img.icons8.com/color/96/forest.png">
-<p>Environment</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Government_of_India">
-<img src="https://img.icons8.com/color/96/parliament.png">
-<p>Governance</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/History_of_India">
-<img src="https://img.icons8.com/color/96/taj-mahal.png">
-<p>History</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/International_relations">
-<img src="https://img.icons8.com/color/96/handshake.png">
-<p>I.R</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Sansad_TV">
-<img src="https://img.icons8.com/color/96/video.png">
-<p>Sansad TV</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Government_scheme">
-<img src="https://img.icons8.com/color/96/india-map.png">
-<p>Schemes</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Science">
-<img src="https://img.icons8.com/color/96/dna-helix.png">
-<p>Science</p>
-</a>
-</div>
-
-<div class="topic">
-<a href="https://en.wikipedia.org/wiki/Society">
-<img src="https://img.icons8.com/color/96/conference.png">
-<p>Social</p>
-</a>
-</div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india.png"><p>All</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/book.png"><p>Daily</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/combo-chart.png"><p>Economy</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/edit.png"><p>Editorial</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/forest.png"><p>Environment</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/parliament.png"><p>Governance</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/taj-mahal.png"><p>History</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/handshake.png"><p>I.R</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/video.png"><p>Sansad TV</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/india-map.png"><p>Schemes</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/dna-helix.png"><p>Science</p></div>
+<div class="topic"><img src="https://img.icons8.com/color/96/conference.png"><p>Social</p></div>
 
 </div>
 
 </section>
+
+</main>
 
 <footer>
 Quick reads, smarter insights
@@ -372,22 +323,22 @@ Quick reads, smarter insights
 <script>
 
 function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("open");
+let menu=document.getElementById("menu");
+menu.style.display = menu.style.display==="block" ? "none" : "block";
 }
 
 let index=0;
+const slides=document.getElementById("slides");
 
 function nextSlide(){
-const slides=document.getElementById("slides");
 index++;
-if(index>2) index=0;
+if(index>3) index=0;
 slides.style.transform="translateX(-"+index*100+"%)";
 }
 
 function prevSlide(){
-const slides=document.getElementById("slides");
 index--;
-if(index<0) index=2;
+if(index<0) index=3;
 slides.style.transform="translateX(-"+index*100+"%)";
 }
 
