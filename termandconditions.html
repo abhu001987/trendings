@@ -3,95 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Quick Reads</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-body{
-font-family: Arial, sans-serif;
+*{
 margin:0;
-background:#f4f4f4;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+overflow-x:hidden;
+min-height:100vh;
 display:flex;
 flex-direction:column;
-height:100vh;
 }
 
 /* HEADER */
 
 .header{
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:10px 15px;
-background:white;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-position:relative;
-}
-
-.header h1{
-font-size:18px;
-margin:0;
+justify-content:space-between;
+padding:14px 18px;
 }
 
 .menu{
+font-size:24px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100%;
+background:#203a43;
+transition:.35s;
+padding-top:20px;
+z-index:999;
+}
+
+.sidebar.open{
+left:0;
+}
+
+.sidebar-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.close-btn{
 font-size:22px;
 cursor:pointer;
 }
 
-.logo{
-height:32px;
-}
-
-/* DROPDOWN */
-
-.dropdown{
-display:none;
-position:absolute;
-top:50px;
-left:10px;
-background:white;
-border-radius:8px;
-box-shadow:0 4px 10px rgba(0,0,0,0.15);
-width:180px;
-}
-
-.dropdown a{
+.sidebar a{
 display:block;
-padding:10px;
+padding:16px 25px;
+color:white;
 text-decoration:none;
-color:#333;
-border-bottom:1px solid #eee;
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.dropdown a:hover{
-background:#f2f2f2;
+.sidebar a:hover{
+background:#2c5364;
 }
 
 /* MAIN */
 
 main{
 flex:1;
-overflow:auto;
 }
 
 /* FEATURED */
 
 .featured{
-padding:10px 15px;
+padding:8px 18px;
 }
 
 .section-title{
 display:flex;
 justify-content:space-between;
-align-items:center;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
 .quiz{
-color:#7a2df3;
-font-weight:bold;
+color:#ff6a00;
 text-decoration:none;
+font-weight:600;
 }
+
+/* SLIDER */
 
 .slider{
 position:relative;
@@ -101,7 +117,7 @@ border-radius:12px;
 
 .slides{
 display:flex;
-transition:transform 0.5s ease;
+transition:transform .4s;
 }
 
 .slide{
@@ -111,48 +127,43 @@ position:relative;
 
 .slide img{
 width:100%;
-height:170px;
+height:150px;
 object-fit:cover;
-border-radius:12px;
+filter:brightness(.75);
 }
 
 .slide a{
 position:absolute;
 bottom:10px;
 left:10px;
+background:rgba(0,0,0,.6);
+padding:6px 12px;
+border-radius:6px;
 color:white;
-font-weight:bold;
-background:rgba(0,0,0,0.5);
-padding:5px 10px;
-border-radius:5px;
 text-decoration:none;
-font-size:14px;
+font-size:13px;
 }
 
-/* DOTS */
-
-.dots{
-text-align:center;
-margin-top:4px;
+.slider-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.5);
+border:none;
+color:white;
+font-size:18px;
+padding:5px 10px;
+cursor:pointer;
+border-radius:6px;
 }
 
-.dots span{
-height:6px;
-width:6px;
-background:#ccc;
-display:inline-block;
-border-radius:50%;
-margin:2px;
-}
-
-.dots .active{
-background:black;
-}
+.prev{left:8px}
+.next{right:8px}
 
 /* TOPICS */
 
 .topics{
-padding:8px 15px 15px;
+padding:14px 18px;
 }
 
 .grid{
@@ -164,20 +175,27 @@ margin-top:8px;
 
 .topic{
 text-align:center;
+background:rgba(255,255,255,0.07);
+border-radius:12px;
+padding:8px;
+border:1px solid rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+transition:.25s;
+}
+
+.topic:hover{
+transform:translateY(-3px);
 }
 
 .topic img{
-width:52px;
-height:52px;
-border-radius:12px;
-background:white;
-padding:6px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+width:36px;
+margin-bottom:4px;
 }
 
-.topic p{
-font-size:12px;
-margin-top:4px;
+.topic a{
+text-decoration:none;
+color:white;
+font-size:11px;
 }
 
 /* FOOTER */
@@ -185,10 +203,8 @@ margin-top:4px;
 footer{
 text-align:center;
 padding:10px;
-background:white;
-font-size:13px;
-color:#666;
-box-shadow:0 -2px 5px rgba(0,0,0,0.1);
+font-size:12px;
+opacity:.8;
 }
 
 </style>
@@ -196,31 +212,40 @@ box-shadow:0 -2px 5px rgba(0,0,0,0.1);
 
 <body>
 
-<header class="header">
+<!-- SIDEBAR -->
 
-<div class="menu" onclick="toggleMenu()">☰</div>
+<div class="sidebar" id="sidebar">
 
-<h1>Home</h1>
+<div class="sidebar-header">
+<b>Menu</b>
+<div class="close-btn" onclick="toggleMenu()">✕</div>
+</div>
 
-<img class="logo" src="https://studymate81.wordpress.com/wp-content/uploads/2025/12/jps_for_tree-removebg-preview.png">
-
-<div class="dropdown" id="menu">
-
-<a href="https://en.wikipedia.org/wiki/About_us" target="_blank">About Us</a>
-<a href="https://en.wikipedia.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>
-<a href="https://en.wikipedia.org/wiki/Mobile_app_rating" target="_blank">Rate Us</a>
+<a href="https://en.wikipedia.org/wiki/About_us">About Us</a>
+<a href="https://en.wikipedia.org/wiki/Privacy_policy">Privacy Policy</a>
+<a href="https://en.wikipedia.org/wiki/Mobile_app_rating">Rate Us</a>
 
 </div>
 
-</header>
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="menu" onclick="toggleMenu()">☰</div>
+
+<h3>Home</h3>
+
+</div>
 
 <main>
+
+<!-- FEATURED -->
 
 <section class="featured">
 
 <div class="section-title">
 <h3>Featured Stories</h3>
-<a class="quiz" href="https://en.wikipedia.org/wiki/Quiz" target="_blank">Quiz</a>
+<a class="quiz" href="https://en.wikipedia.org/wiki/Quiz">Quiz</a>
 </div>
 
 <div class="slider">
@@ -242,23 +267,16 @@ box-shadow:0 -2px 5px rgba(0,0,0,0.1);
 <a href="https://en.wikipedia.org/wiki/Climate_change">Climate Change</a>
 </div>
 
-<div class="slide">
-<img src="https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9">
-<a href="https://en.wikipedia.org/wiki/Science">Science and Tech</a>
 </div>
 
-</div>
+<button class="slider-btn prev" onclick="prevSlide()">❮</button>
+<button class="slider-btn next" onclick="nextSlide()">❯</button>
 
-</div>
-
-<div class="dots">
-<span class="active"></span>
-<span></span>
-<span></span>
-<span></span>
 </div>
 
 </section>
+
+<!-- TOPICS -->
 
 <section class="topics">
 
@@ -266,18 +284,29 @@ box-shadow:0 -2px 5px rgba(0,0,0,0.1);
 
 <div class="grid">
 
-<div class="topic"><img src="https://img.icons8.com/color/96/india.png"><p>All</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/book.png"><p>Daily</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/combo-chart.png"><p>Economy</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/edit.png"><p>Editorial</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/forest.png"><p>Environment</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/parliament.png"><p>Governance</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/taj-mahal.png"><p>History</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/handshake.png"><p>I.R</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/video.png"><p>Sansad TV</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/india-map.png"><p>Schemes</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/dna-helix.png"><p>Science</p></div>
-<div class="topic"><img src="https://img.icons8.com/color/96/conference.png"><p>Social</p></div>
+<div class="topic"><a href="https://en.wikipedia.org/wiki/India"><img src="https://img.icons8.com/color/96/india.png"><br>All</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Current_events"><img src="https://img.icons8.com/color/96/book.png"><br>Daily</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Economy_of_India"><img src="https://img.icons8.com/color/96/combo-chart.png"><br>Economy</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Editorial"><img src="https://img.icons8.com/color/96/edit.png"><br>Editorial</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Environment"><img src="https://img.icons8.com/color/96/forest.png"><br>Environment</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Government_of_India"><img src="https://img.icons8.com/color/96/parliament.png"><br>Governance</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/History_of_India"><img src="https://img.icons8.com/color/96/taj-mahal.png"><br>History</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/International_relations"><img src="https://img.icons8.com/color/96/handshake.png"><br>I.R</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Sansad_TV"><img src="https://img.icons8.com/color/96/video.png"><br>Sansad TV</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Government_scheme"><img src="https://img.icons8.com/color/96/india-map.png"><br>Schemes</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Science"><img src="https://img.icons8.com/color/96/dna-helix.png"><br>Science</a></div>
+
+<div class="topic"><a href="https://en.wikipedia.org/wiki/Society"><img src="https://img.icons8.com/color/96/conference.png"><br>Social</a></div>
 
 </div>
 
@@ -291,35 +320,28 @@ Quick reads, smarter insights
 
 <script>
 
-/* MENU */
-
 function toggleMenu(){
-let menu=document.getElementById("menu");
-menu.style.display = menu.style.display==="block"?"none":"block";
+document.getElementById("sidebar").classList.toggle("open");
 }
-
-/* SLIDER */
 
 let index=0;
+
+function nextSlide(){
 const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dots span");
-
-function showSlide(){
 index++;
-
-if(index>=4){
-index=0;
-}
-
+if(index>2) index=0;
 slides.style.transform="translateX(-"+index*100+"%)";
-
-dots.forEach(dot=>dot.classList.remove("active"));
-dots[index].classList.add("active");
 }
 
-setInterval(showSlide,4000);
+function prevSlide(){
+const slides=document.getElementById("slides");
+index--;
+if(index<0) index=2;
+slides.style.transform="translateX(-"+index*100+"%)";
+}
 
 </script>
 
 </body>
 </html>
+
