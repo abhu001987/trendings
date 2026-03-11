@@ -131,7 +131,7 @@ color:#ffd000;
 margin-bottom:35px;
 }
 
-/* TOP TWO BOXES */
+/* DOWNLOAD BOXES */
 
 .guide-top{
 display:grid;
@@ -162,6 +162,7 @@ margin-bottom:14px;
 .guide-box p{
 line-height:1.7;
 opacity:.9;
+margin-bottom:20px;
 }
 
 /* INSTALL BOX */
@@ -171,6 +172,7 @@ background:linear-gradient(135deg,#1c3b45,#294f5b);
 border-radius:16px;
 padding:35px;
 border:1px solid rgba(255,255,255,0.2);
+text-align:center;
 }
 
 .install-box h3{
@@ -181,26 +183,43 @@ font-size:22px;
 
 .install-box p{
 line-height:1.7;
-margin-bottom:25px;
+margin-bottom:20px;
 }
 
 /* IMAGES */
 
 .install-images{
 display:flex;
-gap:20px;
+justify-content:center;
+gap:30px;
+margin-top:20px;
 }
 
 .install-images img{
-width:110px;
-height:80px;
+width:160px;
+height:110px;
 object-fit:cover;
-border-radius:10px;
-transition:.3s;
+border-radius:12px;
 }
 
-.install-images img:hover{
-transform:scale(1.08);
+/* BUTTON */
+
+.glow-btn{
+display:inline-block;
+margin-top:10px;
+padding:10px 20px;
+background:#ff6a00;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-weight:600;
+transition:.3s;
+box-shadow:0 0 10px #ff6a00,0 0 20px rgba(255,106,0,.6);
+}
+
+.glow-btn:hover{
+background:#ff8c33;
+box-shadow:0 0 15px #ff6a00,0 0 35px rgba(255,106,0,.8);
 }
 
 /* FOOTER */
@@ -213,19 +232,34 @@ color:#ffd000;
 border-top:2px solid rgba(255,255,255,.15);
 }
 
+/* BLUR REVEAL */
+
+.reveal{
+opacity:0;
+transform:translateY(40px);
+filter:blur(8px);
+transition:all 1s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<div class="header reveal">
 <h1>Tempermoneky Tool Dashboard</h1>
 <p>Automation | Monitoring | Alerts | SOP Control</p>
 </div>
 
-<!-- TOP CARDS -->
+<!-- TOOL CARDS -->
 
-<div class="grid">
+<div class="grid reveal">
 
 <div class="card sop" onclick="scrollToSection('sopSection')">
 <img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
@@ -286,7 +320,7 @@ border-top:2px solid rgba(255,255,255,.15);
 
 <!-- DETAILS -->
 
-<div class="details">
+<div class="details reveal">
 
 <div id="sopSection" class="detail-row">
 <div class="detail-text">
@@ -342,30 +376,44 @@ border-top:2px solid rgba(255,255,255,.15);
 
 <!-- GUIDE -->
 
-<div class="guide">
+<div class="guide reveal">
 
 <h2>If you have any queries</h2>
 
 <div class="guide-top">
 
 <div class="guide-box">
+
 <h3>Download Tampermonkey (Chrome)</h3>
+
 <p>
 1. Open Chrome Web Store<br>
 2. Search Tampermonkey<br>
 3. Click Add to Chrome<br>
 4. Confirm installation
 </p>
+
+<a class="glow-btn" href="https://en.wikipedia.org/wiki/Tampermonkey" target="_blank">
+Download
+</a>
+
 </div>
 
 <div class="guide-box">
+
 <h3>Download Tampermonkey (Firefox)</h3>
+
 <p>
 1. Open Firefox Add-ons<br>
 2. Search Tampermonkey<br>
 3. Click Add to Firefox<br>
 4. Allow permissions
 </p>
+
+<a class="glow-btn" href="https://en.wikipedia.org/wiki/Firefox" target="_blank">
+Download
+</a>
+
 </div>
 
 </div>
@@ -381,6 +429,10 @@ border-top:2px solid rgba(255,255,255,.15);
 4. Click Save<br>
 5. Refresh the page
 </p>
+
+<a class="glow-btn" href="https://en.wikipedia.org/wiki/Userscript" target="_blank">
+Installation Guide
+</a>
 
 <div class="install-images">
 
@@ -399,6 +451,8 @@ Reach out to me for any queries
 </div>
 
 <script>
+
+/* COUNTER */
 
 document.querySelectorAll('.counter').forEach(counter=>{
 
@@ -422,6 +476,8 @@ update();
 
 });
 
+/* SCROLL */
+
 function scrollToSection(id){
 
 document.getElementById(id).scrollIntoView({
@@ -429,6 +485,31 @@ behavior:'smooth'
 });
 
 }
+
+/* BLUR REVEAL */
+
+function reveal(){
+
+const reveals=document.querySelectorAll(".reveal");
+
+for(let i=0;i<reveals.length;i++){
+
+const windowHeight=window.innerHeight;
+const elementTop=reveals[i].getBoundingClientRect().top;
+const elementVisible=120;
+
+if(elementTop < windowHeight - elementVisible){
+
+reveals[i].classList.add("active");
+
+}
+
+}
+
+}
+
+window.addEventListener("scroll",reveal);
+reveal();
 
 </script>
 
