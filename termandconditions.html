@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Quick Reads</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -20,10 +19,10 @@ font-family:Poppins;
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
-overflow-x:hidden;
 min-height:100vh;
 display:flex;
 flex-direction:column;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -32,7 +31,7 @@ flex-direction:column;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:14px 18px;
+padding:15px 20px;
 }
 
 .menu{
@@ -50,7 +49,6 @@ width:260px;
 height:100%;
 background:#203a43;
 transition:.35s;
-padding-top:20px;
 z-index:999;
 }
 
@@ -61,21 +59,20 @@ left:0;
 .sidebar-header{
 display:flex;
 justify-content:space-between;
-align-items:center;
-padding:15px 20px;
-border-bottom:1px solid rgba(255,255,255,.15);
+padding:16px;
+border-bottom:1px solid rgba(255,255,255,0.15);
 }
 
 .close-btn{
-font-size:22px;
 cursor:pointer;
+font-size:20px;
 }
 
 .sidebar a{
 display:block;
-padding:16px 25px;
-color:white;
+padding:15px 20px;
 text-decoration:none;
+color:white;
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
@@ -92,7 +89,7 @@ flex:1;
 /* FEATURED */
 
 .featured{
-padding:8px 18px;
+padding:10px 20px;
 }
 
 .section-title{
@@ -127,20 +124,19 @@ position:relative;
 
 .slide img{
 width:100%;
-height:150px;
+height:160px;
 object-fit:cover;
-filter:brightness(.75);
+border-radius:12px;
+filter:brightness(.8);
 }
 
-.slide a{
+.slide span{
 position:absolute;
 bottom:10px;
 left:10px;
-background:rgba(0,0,0,.6);
-padding:6px 12px;
+background:rgba(0,0,0,0.6);
+padding:6px 10px;
 border-radius:6px;
-color:white;
-text-decoration:none;
 font-size:13px;
 }
 
@@ -148,7 +144,7 @@ font-size:13px;
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-background:rgba(0,0,0,.5);
+background:rgba(0,0,0,0.5);
 border:none;
 color:white;
 font-size:18px;
@@ -157,60 +153,48 @@ cursor:pointer;
 border-radius:6px;
 }
 
-.prev{left:8px}
-.next{right:8px}
-
+.prev{left:10px}
+.next{right:10px}
 
 /* TOPICS */
 
 .topics{
-padding:16px 18px;
+padding:16px 20px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:14px;
+gap:16px;
 margin-top:10px;
 }
 
 .topic{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-aspect-ratio:1/1;
-background:rgba(255,255,255,0.07);
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.15);
-backdrop-filter:blur(10px);
-transition:.25s;
-}
-
-.topic:hover{
-transform:translateY(-4px);
-}
-
-.topic img{
-width:42px;
-height:42px;
-object-fit:contain;
-margin-bottom:6px;
+text-align:center;
 }
 
 .topic a{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
 text-decoration:none;
 color:white;
-font-size:12px;
-font-weight:400;
-height:100%;
-width:100%;
+display:block;
 }
 
+.topic img{
+width:52px;
+height:52px;
+border-radius:12px;
+background:white;
+padding:6px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+object-fit:contain;
+display:block;
+margin:0 auto;
+}
+
+.topic p{
+font-size:12px;
+margin-top:6px;
+}
 
 /* FOOTER */
 
@@ -268,17 +252,17 @@ opacity:.8;
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
-<a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India">Economic Survey</a>
+<span>Economic Survey</span>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
-<a href="https://en.wikipedia.org/wiki/Indian_economy">Indian Economy</a>
+<span>Indian Economy</span>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
-<a href="https://en.wikipedia.org/wiki/Climate_change">Climate Change</a>
+<span>Climate Change</span>
 </div>
 
 </div>
@@ -298,29 +282,89 @@ opacity:.8;
 
 <div class="grid">
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/India"><img src="https://img.icons8.com/color/96/india.png"><br>All</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/India">
+<img src="https://img.icons8.com/color/96/india.png">
+<p>All</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Current_events"><img src="https://img.icons8.com/color/96/book.png"><br>Daily</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Current_events">
+<img src="https://img.icons8.com/color/96/book.png">
+<p>Daily</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Economy_of_India"><img src="https://img.icons8.com/color/96/combo-chart.png"><br>Economy</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Economy_of_India">
+<img src="https://img.icons8.com/color/96/combo-chart.png">
+<p>Economy</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Editorial"><img src="https://img.icons8.com/color/96/edit.png"><br>Editorial</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Editorial">
+<img src="https://img.icons8.com/color/96/edit.png">
+<p>Editorial</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Environment"><img src="https://img.icons8.com/color/96/forest.png"><br>Environment</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Environment">
+<img src="https://img.icons8.com/color/96/forest.png">
+<p>Environment</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Government_of_India"><img src="https://img.icons8.com/color/96/parliament.png"><br>Governance</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Government_of_India">
+<img src="https://img.icons8.com/color/96/parliament.png">
+<p>Governance</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/History_of_India"><img src="https://img.icons8.com/color/96/taj-mahal.png"><br>History</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/History_of_India">
+<img src="https://img.icons8.com/color/96/taj-mahal.png">
+<p>History</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/International_relations"><img src="https://img.icons8.com/color/96/handshake.png"><br>I.R</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/International_relations">
+<img src="https://img.icons8.com/color/96/handshake.png">
+<p>I.R</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Sansad_TV"><img src="https://img.icons8.com/color/96/video.png"><br>Sansad TV</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Sansad_TV">
+<img src="https://img.icons8.com/color/96/video.png">
+<p>Sansad TV</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Government_scheme"><img src="https://img.icons8.com/color/96/india-map.png"><br>Schemes</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Government_scheme">
+<img src="https://img.icons8.com/color/96/india-map.png">
+<p>Schemes</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Science"><img src="https://img.icons8.com/color/96/dna-helix.png"><br>Science</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Science">
+<img src="https://img.icons8.com/color/96/dna-helix.png">
+<p>Science</p>
+</a>
+</div>
 
-<div class="topic"><a href="https://en.wikipedia.org/wiki/Society"><img src="https://img.icons8.com/color/96/conference.png"><br>Social</a></div>
+<div class="topic">
+<a href="https://en.wikipedia.org/wiki/Society">
+<img src="https://img.icons8.com/color/96/conference.png">
+<p>Social</p>
+</a>
+</div>
 
 </div>
 
