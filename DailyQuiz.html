@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quiz App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+position:absolute;
+top:20px;
+left:20px;
+font-size:20px;
+cursor:pointer;
+background:rgba(0,0,0,0.4);
+padding:8px 14px;
+border-radius:8px;
+transition:.25s;
+}
+
+.back-btn:hover{
+background:#ff6a00;
+}
+
+/* QUIZ BOX */
+
+.quiz-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:14px;
+max-width:650px;
+width:100%;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+h2{
+margin-bottom:10px;
+}
+
+.question-count{
+font-size:13px;
+opacity:.8;
+margin-bottom:15px;
+}
+
+/* OPTIONS */
+
+.option{
+background:#203a43;
+padding:12px;
+border-radius:8px;
+margin:8px 0;
+cursor:pointer;
+transition:.25s;
+}
+
+.option:hover{
+background:#2c5364;
+}
+
+.correct{
+background:#2ecc71 !important;
+}
+
+.wrong{
+background:#e74c3c !important;
+}
+
+/* EXPLANATION */
+
+.explanation{
+margin-top:12px;
+background:rgba(0,0,0,0.35);
+padding:10px;
+border-radius:8px;
+display:none;
+font-size:14px;
+}
+
+/* BUTTONS */
+
+.nav{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#ff6a00;
+color:white;
+font-weight:600;
+}
+
+/* RESULT */
+
+.result{
+display:none;
+}
+
+.result-item{
+background:#203a43;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+font-size:14px;
+}
+
+.correct-answer{
+color:#2ecc71;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="back-btn" onclick="goBack()">←</div>
+
+<div class="quiz-box">
+
+<div id="quiz">
+
+<h2 id="question"></h2>
+<div class="question-count" id="count"></div>
+
+<div id="options"></div>
+
+<div class="explanation" id="explanation"></div>
+
+<div class="nav">
+<button onclick="prevQuestion()">Previous</button>
+<button onclick="nextQuestion()">Next</button>
+</div>
+
+</div>
+
+<div id="result" class="result">
+
+<h2>Your Score: <span id="score"></span></h2>
+
+<div id="review"></div>
+
+</div>
+
+</div>
+
+<script>
+
+/* BACK BUTTON */
+
+function goBack(){
+window.location.href="https://myaffiliatepage.com/termandconditions"
+}
+
+/* QUIZ DATA */
+
+const quiz=[
+
+{
+q:"What does HTML stand for?",
+options:[
+"Hyper Text Markup Language",
+"High Transfer Machine Language",
+"Hyperlinks and Text Markup Language",
+"Home Tool Markup Language"
+],
+answer:0,
+exp:"HTML stands for HyperText Markup Language. It structures web pages."
+},
+
+{
+q:"Which language is used for styling web pages?",
+options:[
+"HTML",
+"CSS",
+"Python",
+"PHP"
+],
+answer:1,
+exp:"CSS controls the design, layout, and colors of websites."
+},
+
+{
+q:"Which language makes websites interactive?",
+options:[
+"Java",
+"Python",
+"JavaScript",
+"C"
+],
+answer:2,
+exp:"JavaScript adds interactivity like sliders, buttons, and animations."
+},
+
+{
+q:"Which tag creates a hyperlink?",
+options:[
+"<link>",
+"<a>",
+"<href>",
+"<url>"
+],
+answer:1,
+exp:"The anchor tag <a> is used to create hyperlinks."
+},
+
+{
+q:"Which CSS property changes text color?",
+options:[
+"font-style",
+"color",
+"text-color",
+"background"
+],
+answer:1,
+exp:"The 'color' property controls text color."
+},
+
+{
+q:"Which symbol is used for ID selector in CSS?",
+options:[
+".",
+"#",
+"*",
+"&"
+],
+answer:1,
+exp:"# selects elements using their id."
+},
+
+{
+q:"Which HTML tag inserts an image?",
+options:[
+"<image>",
+"<img>",
+"<pic>",
+"<photo>"
+],
+answer:1,
+exp:"The <img> tag is used to display images."
+},
+
+{
+q:"Which company developed JavaScript?",
+options:[
+"Netscape",
+"Microsoft",
+"Google",
+"IBM"
+],
+answer:0,
+exp:"JavaScript was originally created by Netscape."
+},
+
+{
+q:"Which property adds space inside an element?",
+options:[
+"margin",
+"padding",
+"spacing",
+"border"
+],
+answer:1,
+exp:"Padding controls space inside an element."
+},
+
+{
+q:"Which HTML element is used for largest heading?",
+options:[
+"<h6>",
+"<heading>",
+"<h1>",
+"<head>"
+],
+answer:2,
+exp:"<h1> represents the largest heading."
+}
+
+]
+
+let index=0
+let score=0
+let selected=[]
+
+function loadQuestion(){
+
+let q=quiz[index]
+
+document.getElementById("question").innerText=q.q
+document.getElementById("count").innerText="Question "+(index+1)+" / "+quiz.length
+
+let optionsHTML=""
+
+q.options.forEach((opt,i)=>{
+
+let className="option"
+
+if(selected[index]!=null){
+
+if(i===q.answer) className+=" correct"
+else if(i===selected[index]) className+=" wrong"
+
+}
+
+optionsHTML+=`<div class="${className}" onclick="selectAnswer(${i})">${opt}</div>`
+
+})
+
+document.getElementById("options").innerHTML=optionsHTML
+
+let exp=document.getElementById("explanation")
+
+if(selected[index]!=null){
+exp.style.display="block"
+exp.innerText=q.exp
+}else{
+exp.style.display="none"
+}
+
+}
+
+function selectAnswer(i){
+
+if(selected[index]!=null) return
+
+selected[index]=i
+
+if(i===quiz[index].answer) score++
+
+loadQuestion()
+
+}
+
+function nextQuestion(){
+
+if(index<quiz.length-1){
+index++
+loadQuestion()
+}else{
+showResult()
+}
+
+}
+
+function prevQuestion(){
+
+if(index>0){
+index--
+loadQuestion()
+}
+
+}
+
+function showResult(){
+
+document.getElementById("quiz").style.display="none"
+document.getElementById("result").style.display="block"
+
+document.getElementById("score").innerText=score+" / "+quiz.length
+
+let reviewHTML=""
+
+quiz.forEach((q,i)=>{
+
+reviewHTML+=`
+<div class="result-item">
+<b>Q${i+1}. ${q.q}</b><br>
+Correct Answer: <span class="correct-answer">${q.options[q.answer]}</span>
+</div>
+`
+
+})
+
+document.getElementById("review").innerHTML=reviewHTML
+
+}
+
+loadQuestion()
+
+</script>
+
+</body>
+</html>
+
