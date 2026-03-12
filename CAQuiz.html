@@ -1,12 +1,13 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <title>Quiz App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -27,7 +28,25 @@ justify-content:center;
 padding:20px;
 }
 
-/* QUIZ CARD */
+/* BACK BUTTON */
+
+.back-btn{
+position:absolute;
+top:20px;
+left:20px;
+font-size:20px;
+cursor:pointer;
+background:rgba(0,0,0,0.4);
+padding:8px 14px;
+border-radius:8px;
+transition:.25s;
+}
+
+.back-btn:hover{
+background:#ff6a00;
+}
+
+/* QUIZ BOX */
 
 .quiz-box{
 background:rgba(255,255,255,0.05);
@@ -125,6 +144,8 @@ font-weight:600;
 
 <body>
 
+<div class="back-btn" onclick="goBack()">←</div>
+
 <div class="quiz-box">
 
 <div id="quiz">
@@ -143,7 +164,6 @@ font-weight:600;
 
 </div>
 
-
 <div id="result" class="result">
 
 <h2>Your Score: <span id="score"></span></h2>
@@ -154,10 +174,17 @@ font-weight:600;
 
 </div>
 
-
 <script>
 
-const quiz = [
+/* BACK BUTTON */
+
+function goBack(){
+window.location.href="https://myaffiliatepage.com/termandconditions"
+}
+
+/* QUIZ DATA */
+
+const quiz=[
 
 {
 q:"What does HTML stand for?",
@@ -168,7 +195,7 @@ options:[
 "Home Tool Markup Language"
 ],
 answer:0,
-exp:"HTML stands for HyperText Markup Language. It is used to structure web pages."
+exp:"HTML stands for HyperText Markup Language. It structures web pages."
 },
 
 {
@@ -180,7 +207,7 @@ options:[
 "PHP"
 ],
 answer:1,
-exp:"CSS (Cascading Style Sheets) controls the layout, colors, and design of websites."
+exp:"CSS controls the design, layout, and colors of websites."
 },
 
 {
@@ -192,7 +219,7 @@ options:[
 "C"
 ],
 answer:2,
-exp:"JavaScript is used to add interactivity like buttons, sliders, and dynamic content."
+exp:"JavaScript adds interactivity like sliders, buttons, and animations."
 },
 
 {
@@ -204,7 +231,7 @@ options:[
 "<url>"
 ],
 answer:1,
-exp:"The <a> anchor tag is used to create hyperlinks."
+exp:"The anchor tag <a> is used to create hyperlinks."
 },
 
 {
@@ -228,7 +255,7 @@ options:[
 "&"
 ],
 answer:1,
-exp:"The # symbol selects elements by ID."
+exp:"# selects elements using their id."
 },
 
 {
@@ -384,3 +411,4 @@ loadQuestion()
 
 </body>
 </html>
+```
