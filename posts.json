@@ -1,0 +1,188 @@
+[
+{
+"id":1,
+"title":"Daily Current Affairs Roundup",
+"image":"https://images.unsplash.com/photo-1504711434969-e33886168f5c",
+"content":"A daily overview of major developments in policy, economy, international relations and science relevant for civil services preparation.",
+"category":"daily",
+"time":"3 hours ago"
+},
+{
+"id":2,
+"title":"Top National Developments Today",
+"image":"https://images.unsplash.com/photo-1495020689067-958852a7765e",
+"content":"Important national news and policy updates shaping India's governance and development agenda.",
+"category":"daily",
+"time":"6 hours ago"
+},
+
+{
+"id":3,
+"title":"India’s Economic Growth Outlook",
+"image":"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a",
+"content":"India’s GDP growth continues to be driven by domestic consumption, infrastructure spending and digital economy expansion.",
+"category":"economy",
+"time":"2 days ago"
+},
+{
+"id":4,
+"title":"Fiscal Policy and Budget Trends",
+"image":"https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+"content":"Government fiscal policy focuses on infrastructure investments while balancing fiscal discipline.",
+"category":"economy",
+"time":"1 day ago"
+},
+
+{
+"id":5,
+"title":"AI and National Security Debate",
+"image":"https://images.unsplash.com/photo-1518770660439-4636190af475",
+"content":"Artificial intelligence is increasingly shaping modern warfare, intelligence gathering and national defence strategies.",
+"category":"editorial",
+"time":"5 hours ago"
+},
+{
+"id":6,
+"title":"Technology and Strategic Autonomy",
+"image":"https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+"content":"Technological sovereignty is becoming central to India's policy discussions on innovation and defence.",
+"category":"editorial",
+"time":"8 hours ago"
+},
+
+{
+"id":7,
+"title":"Climate Change and India",
+"image":"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+"content":"India is expanding renewable energy while balancing development needs and climate commitments.",
+"category":"environment",
+"time":"1 day ago"
+},
+{
+"id":8,
+"title":"Green Energy Transition",
+"image":"https://images.unsplash.com/photo-1466611653911-95081537e5b7",
+"content":"Solar and wind energy are becoming central pillars of India's clean energy strategy.",
+"category":"environment",
+"time":"12 hours ago"
+},
+
+{
+"id":9,
+"title":"Reforms in Public Administration",
+"image":"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+"content":"Governance reforms aim to improve transparency, accountability and efficiency in public administration.",
+"category":"governance",
+"time":"9 hours ago"
+},
+{
+"id":10,
+"title":"Digital Governance Initiatives",
+"image":"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+"content":"Digital platforms like DigiLocker and Aadhaar continue to transform governance delivery.",
+"category":"governance",
+"time":"6 hours ago"
+},
+
+{
+"id":11,
+"title":"Lessons from Indian Freedom Movement",
+"image":"https://images.unsplash.com/photo-1565099824688-e93eb20fe622",
+"content":"The freedom struggle provides important lessons in leadership, unity and democratic values.",
+"category":"history",
+"time":"2 days ago"
+},
+{
+"id":12,
+"title":"Ancient Indian Civilisation Insights",
+"image":"https://images.unsplash.com/photo-1549880338-65ddcdfd017b",
+"content":"India’s ancient civilisation contributed significantly to science, philosophy and culture.",
+"category":"history",
+"time":"1 day ago"
+},
+
+{
+"id":13,
+"title":"India's Role in Global Politics",
+"image":"https://images.unsplash.com/photo-1529101091764-c3526daf38fe",
+"content":"India is playing a growing role in shaping the geopolitical landscape through diplomacy and partnerships.",
+"category":"i.r",
+"time":"4 hours ago"
+},
+{
+"id":14,
+"title":"Strategic Partnerships and Diplomacy",
+"image":"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+"content":"India continues to strengthen relations with major global powers through strategic cooperation.",
+"category":"i.r",
+"time":"10 hours ago"
+},
+
+{
+"id":15,
+"title":"Sansad TV Policy Discussion",
+"image":"https://images.unsplash.com/photo-1529101091764-c3526daf38fe",
+"content":"Sansad TV debates provide insights into important policy issues and parliamentary discussions.",
+"category":"sansad tv",
+"time":"1 day ago"
+},
+{
+"id":16,
+"title":"Parliamentary Debate Highlights",
+"image":"https://images.unsplash.com/photo-1495020689067-958852a7765e",
+"content":"Key parliamentary debates highlight policy directions and governance priorities.",
+"category":"sansad tv",
+"time":"18 hours ago"
+},
+
+{
+"id":17,
+"title":"Government Welfare Schemes",
+"image":"https://images.unsplash.com/photo-1492724441997-5dc865305da7",
+"content":"Various welfare schemes aim to support economic development and social welfare.",
+"category":"schemes",
+"time":"7 hours ago"
+},
+{
+"id":18,
+"title":"Rural Development Programs",
+"image":"https://images.unsplash.com/photo-1470004914212-05527e49370b",
+"content":"Government initiatives continue to focus on improving rural infrastructure and livelihoods.",
+"category":"schemes",
+"time":"3 hours ago"
+},
+
+{
+"id":19,
+"title":"Space Research Advancements",
+"image":"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa",
+"content":"India's space program continues to achieve milestones in satellite technology and exploration.",
+"category":"science",
+"time":"8 hours ago"
+},
+{
+"id":20,
+"title":"Artificial Intelligence Innovations",
+"image":"https://images.unsplash.com/photo-1518770660439-4636190af475",
+"content":"AI research is transforming industries from healthcare to defence and education.",
+"category":"science",
+"time":"5 hours ago"
+},
+
+{
+"id":21,
+"title":"Social Justice Policies",
+"image":"https://images.unsplash.com/photo-1509099836639-18ba1795216d",
+"content":"Social justice initiatives focus on equality, inclusion and access to opportunities.",
+"category":"social",
+"time":"11 hours ago"
+},
+{
+"id":22,
+"title":"Education and Social Development",
+"image":"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
+"content":"Education remains the foundation of long-term social and economic progress.",
+"category":"social",
+"time":"2 hours ago"
+}
+]
