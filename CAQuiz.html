@@ -3,565 +3,382 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treedell History Test Series</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<title>Quiz App</title>
 
 <style>
-
-/* ================= RESET ================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Poppins;
 }
 
 body{
-background:#f4f6f8;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
 min-height:100vh;
 display:flex;
-flex-direction:column;
-}
-
-/* ================= HEADER ================= */
-
-header{
-background:#fff;
-padding:15px 20px;
-display:flex;
-justify-content:space-between;
 align-items:center;
-box-shadow:0 2px 6px rgba(0,0,0,0.05);
+justify-content:center;
+padding:20px;
 }
 
-.logo{
-font-size:24px;
-font-weight:bold;
-color:#0a58ca;
-}
+/* QUIZ CARD */
 
-nav{
-display:flex;
-gap:20px;
-}
-
-nav a{
-text-decoration:none;
-color:#333;
-font-weight:600;
-}
-
-nav a:hover{
-color:#0a58ca;
-}
-
-.menu-icon{
-display:none;
-font-size:26px;
-cursor:pointer;
-}
-
-.mobile-menu{
-display:none;
-background:#fff;
-padding:15px;
-}
-
-.mobile-menu a{
-display:block;
-padding:10px;
-text-decoration:none;
-color:#333;
-}
-
-/* ================= CONTAINER ================= */
-
-.container{
+.quiz-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:14px;
+max-width:650px;
 width:100%;
-max-width:700px;
-margin:40px auto;
-background:#fff;
-padding:30px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
-flex:1;
-min-height:520px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
-/* ================= INSTRUCTION ================= */
-
-.test-title{
-color:#0a58ca;
-margin-bottom:20px;
-}
-
-.instruction-card{
-background:#f9f9f9;
-padding:15px;
-border-radius:8px;
-margin-bottom:15px;
-}
-
-.instruction-card ul{
-margin-left:20px;
-margin-top:10px;
-}
-
-.instruction-card li{
-margin-bottom:8px;
-}
-
-.start-btn{
-margin-top:20px;
-padding:12px 25px;
-background:#0a58ca;
-color:#fff;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
-
-/* ================= QUIZ ================= */
-
-.q-number{
-color:#0a58ca;
-font-weight:bold;
+h2{
 margin-bottom:10px;
 }
 
-.question{
-font-size:22px;
-margin-bottom:20px;
-min-height:60px;
+.question-count{
+font-size:13px;
+opacity:.8;
+margin-bottom:15px;
 }
 
-.options{
-min-height:220px;
-}
+/* OPTIONS */
 
 .option{
+background:#203a43;
 padding:12px;
-margin-bottom:12px;
-background:#f1f1f1;
-border-radius:6px;
+border-radius:8px;
+margin:8px 0;
 cursor:pointer;
+transition:.25s;
 }
 
 .option:hover{
-background:#e2e2e2;
+background:#2c5364;
 }
 
-.option.selected{
-background:#0a58ca;
-color:#fff;
+.correct{
+background:#2ecc71 !important;
 }
 
-/* ================= BUTTONS ================= */
+.wrong{
+background:#e74c3c !important;
+}
 
-.buttons{
+/* EXPLANATION */
+
+.explanation{
+margin-top:12px;
+background:rgba(0,0,0,0.35);
+padding:10px;
+border-radius:8px;
+display:none;
+font-size:14px;
+}
+
+/* BUTTONS */
+
+.nav{
 display:flex;
 justify-content:space-between;
+margin-top:20px;
 }
 
-.btn{
-padding:10px 22px;
+button{
+padding:10px 18px;
 border:none;
-background:#0a58ca;
-color:#fff;
-border-radius:6px;
+border-radius:8px;
 cursor:pointer;
+background:#ff6a00;
+color:white;
+font-weight:600;
 }
 
-.btn:disabled{
-background:#ccc;
-}
-
-/* ================= RESULT ================= */
+/* RESULT */
 
 .result{
 display:none;
 }
 
-.score{
-font-size:26px;
-margin-bottom:10px;
-color:#0a58ca;
-}
-
-.performance{
-font-size:18px;
-margin-bottom:20px;
-color:green;
-}
-
-.review{
-background:#f9f9f9;
-padding:15px;
-margin-bottom:15px;
+.result-item{
+background:#203a43;
+padding:10px;
+margin:8px 0;
 border-radius:8px;
-}
-
-.correct{
-color:green;
-}
-
-.wrong{
-color:red;
-}
-
-.desc{
 font-size:14px;
-margin-top:5px;
-color:#555;
 }
 
-/* ================= FOOTER ================= */
-
-footer{
-background:#111;
-color:#fff;
-text-align:center;
-padding:20px;
-margin-top:auto;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:768px){
-
-nav{
-display:none;
-}
-
-.menu-icon{
-display:block;
-}
-
+.correct-answer{
+color:#2ecc71;
+font-weight:600;
 }
 
 </style>
-
 </head>
+
 <body>
 
-<!-- HEADER -->
+<div class="quiz-box">
 
-<header>
-  <div class="logo">
-    <a href="https://myaffiliatepage.com/" style="text-decoration: none; color: inherit;">
-      Treedell
-    </a>
-  </div>
+<div id="quiz">
 
-<nav>
+<h2 id="question"></h2>
+<div class="question-count" id="count"></div>
 
-<a href="https://myaffiliatepage.com/Dailyquiz">Daily Quiz</a>
-<a href="https://myaffiliatepage.com/UPSCquiz">UPSC Quiz</a>
-<a href="https://myaffiliatepage.com/CAQuiz">Curren Affairs</a>
-<a href="https://www.youtube.com/@PastCast-13">YouTube</a>
+<div id="options"></div>
 
-</nav>
+<div class="explanation" id="explanation"></div>
 
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
-
-</header>
-
-<div class="mobile-menu" id="mobileMenu">
-
-<a href="https://myaffiliatepage.com/Dailyquiz">Daily Quiz</a>
-<a href="https://myaffiliatepage.com/UPSCquiz">UPSC Quiz</a>
-<a href="https://myaffiliatepage.com/CAQuiz">Curren Affairs</a>
-<a href="https://www.youtube.com/@PastCast-13">YouTube</a>
+<div class="nav">
+<button onclick="prevQuestion()">Previous</button>
+<button onclick="nextQuestion()">Next</button>
+</div>
 
 </div>
 
-<!-- CONTAINER -->
 
-<div class="container">
+<div id="result" class="result">
 
-<!-- INSTRUCTION PAGE -->
+<h2>Your Score: <span id="score"></span></h2>
 
-<div id="instructionBox">
-
-<h2 class="test-title">Current Affairs Test Series – Full Length Test</h2>
-
-<div class="instruction-card">
-
-<h3>Test Instructions</h3>
-
-<ul>
-<li>Total Questions: <b>10</b></li>
-<li>Total Marks: <b>10</b></li>
-<li>No negative marking</li>
-<li>You can change answers anytime</li>
-<li>Click Finish to submit test</li>
-</ul>
-
-</div>
-
-<div class="instruction-card">
-
-<h3>Important Guidelines</h3>
-
-<ul>
-<li>Ensure stable internet connection</li>
-<li>Do not refresh page during test</li>
-<li>Result shown immediately after submission</li>
-</ul>
-
-</div>
-
-<button class="start-btn" onclick="startTest()">
-Start Test
-</button>
-
-</div>
-
-<!-- QUIZ -->
-
-<div id="quizBox" style="display:none;">
-
-<div class="q-number" id="qNumber"></div>
-
-<div class="question" id="question"></div>
-
-<div class="options" id="options"></div>
-
-<div class="buttons">
-
-<button class="btn" onclick="prevQuestion()" id="prevBtn">
-Previous
-</button>
-
-<button class="btn" onclick="nextQuestion()" id="nextBtn">
-Next
-</button>
+<div id="review"></div>
 
 </div>
 
 </div>
 
-<div id="resultBox" class="result"></div>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer>
-© 2026 Treedell.com
-</footer>
 
 <script>
 
-/* MOBILE MENU */
+const quiz = [
 
-function toggleMenu(){
-let menu=document.getElementById("mobileMenu");
-menu.style.display=menu.style.display==="block"?"none":"block";
+{
+q:"What does HTML stand for?",
+options:[
+"Hyper Text Markup Language",
+"High Transfer Machine Language",
+"Hyperlinks and Text Markup Language",
+"Home Tool Markup Language"
+],
+answer:0,
+exp:"HTML stands for HyperText Markup Language. It is used to structure web pages."
+},
+
+{
+q:"Which language is used for styling web pages?",
+options:[
+"HTML",
+"CSS",
+"Python",
+"PHP"
+],
+answer:1,
+exp:"CSS (Cascading Style Sheets) controls the layout, colors, and design of websites."
+},
+
+{
+q:"Which language makes websites interactive?",
+options:[
+"Java",
+"Python",
+"JavaScript",
+"C"
+],
+answer:2,
+exp:"JavaScript is used to add interactivity like buttons, sliders, and dynamic content."
+},
+
+{
+q:"Which tag creates a hyperlink?",
+options:[
+"<link>",
+"<a>",
+"<href>",
+"<url>"
+],
+answer:1,
+exp:"The <a> anchor tag is used to create hyperlinks."
+},
+
+{
+q:"Which CSS property changes text color?",
+options:[
+"font-style",
+"color",
+"text-color",
+"background"
+],
+answer:1,
+exp:"The 'color' property controls text color."
+},
+
+{
+q:"Which symbol is used for ID selector in CSS?",
+options:[
+".",
+"#",
+"*",
+"&"
+],
+answer:1,
+exp:"The # symbol selects elements by ID."
+},
+
+{
+q:"Which HTML tag inserts an image?",
+options:[
+"<image>",
+"<img>",
+"<pic>",
+"<photo>"
+],
+answer:1,
+exp:"The <img> tag is used to display images."
+},
+
+{
+q:"Which company developed JavaScript?",
+options:[
+"Netscape",
+"Microsoft",
+"Google",
+"IBM"
+],
+answer:0,
+exp:"JavaScript was originally created by Netscape."
+},
+
+{
+q:"Which property adds space inside an element?",
+options:[
+"margin",
+"padding",
+"spacing",
+"border"
+],
+answer:1,
+exp:"Padding controls space inside an element."
+},
+
+{
+q:"Which HTML element is used for largest heading?",
+options:[
+"<h6>",
+"<heading>",
+"<h1>",
+"<head>"
+],
+answer:2,
+exp:"<h1> represents the largest heading."
 }
 
-/* START TEST */
+]
 
-function startTest(){
-document.getElementById("instructionBox").style.display="none";
-document.getElementById("quizBox").style.display="block";
-loadQuestion();
-}
-
-/* QUESTIONS */
-
-const quiz=[
-
-{
-q:"Who founded the Maurya Empire?",
-options:["Chandragupta Maurya","Ashoka","Bindusara","Harsha"],
-answer:0,
-desc:"Chandragupta Maurya founded Maurya Empire in 322 BCE."
-},
-
-{
-q:"Battle of Plassey was fought in?",
-options:["1757","1764","1857","1747"],
-answer:0,
-desc:"Battle of Plassey was fought in 1757."
-},
-
-{
-q:"First Mughal Emperor?",
-options:["Babur","Akbar","Humayun","Aurangzeb"],
-answer:0,
-desc:"Babur founded Mughal Empire in 1526."
-},
-
-{
-q:"Who wrote Arthashastra?",
-options:["Kautilya","Kalidasa","Tulsidas","Banabhatta"],
-answer:0,
-desc:"Kautilya wrote Arthashastra."
-},
-
-{
-q:"Who built Red Fort?",
-options:["Shah Jahan","Akbar","Babur","Aurangzeb"],
-answer:0,
-desc:"Red Fort built by Shah Jahan."
-},
-
-{
-q:"Quit India Movement year?",
-options:["1942","1947","1930","1920"],
-answer:0,
-desc:"Started in 1942."
-},
-
-{
-q:"First Governor General?",
-options:["Warren Hastings","Cornwallis","Dalhousie","Clive"],
-answer:0,
-desc:"Warren Hastings was first Governor General."
-},
-
-{
-q:"First INC President?",
-options:["W.C. Banerjee","Gandhi","Nehru","Patel"],
-answer:0,
-desc:"W.C. Banerjee was first INC President."
-},
-
-{
-q:"Nalanda University located in?",
-options:["Bihar","UP","Delhi","MP"],
-answer:0,
-desc:"Nalanda is in Bihar."
-},
-
-{
-q:"Who started Non Cooperation Movement?",
-options:["Gandhi","Nehru","Patel","Tilak"],
-answer:0,
-desc:"Started by Gandhi in 1920."
-}
-
-];
-
-let current=0;
-let userAnswers=new Array(quiz.length).fill(null);
-
-/* LOAD */
+let index=0
+let score=0
+let selected=[]
 
 function loadQuestion(){
 
-document.getElementById("qNumber").innerText=
-"Question "+(current+1)+" of "+quiz.length;
+let q=quiz[index]
 
-document.getElementById("question").innerText=quiz[current].q;
+document.getElementById("question").innerText=q.q
+document.getElementById("count").innerText="Question "+(index+1)+" / "+quiz.length
 
-let html="";
+let optionsHTML=""
 
-quiz[current].options.forEach((opt,i)=>{
+q.options.forEach((opt,i)=>{
 
-let selected=userAnswers[current]==i?"selected":"";
+let className="option"
 
-html+=`<div class="option ${selected}" onclick="selectOption(${i})">${opt}</div>`;
+if(selected[index]!=null){
 
-});
-
-document.getElementById("options").innerHTML=html;
-
-document.getElementById("prevBtn").disabled=current==0;
-
-document.getElementById("nextBtn").innerText=
-current==quiz.length-1?"Finish":"Next";
+if(i===q.answer) className+=" correct"
+else if(i===selected[index]) className+=" wrong"
 
 }
 
-/* SELECT */
+optionsHTML+=`<div class="${className}" onclick="selectAnswer(${i})">${opt}</div>`
 
-function selectOption(i){
-userAnswers[current]=i;
-loadQuestion();
+})
+
+document.getElementById("options").innerHTML=optionsHTML
+
+let exp=document.getElementById("explanation")
+
+if(selected[index]!=null){
+exp.style.display="block"
+exp.innerText=q.exp
+}else{
+exp.style.display="none"
 }
 
-/* NEXT */
+}
+
+function selectAnswer(i){
+
+if(selected[index]!=null) return
+
+selected[index]=i
+
+if(i===quiz[index].answer) score++
+
+loadQuestion()
+
+}
 
 function nextQuestion(){
 
-if(current<quiz.length-1){
-
-current++;
-loadQuestion();
-
+if(index<quiz.length-1){
+index++
+loadQuestion()
 }else{
-
-showResult();
-
+showResult()
 }
 
 }
-
-/* PREV */
 
 function prevQuestion(){
 
-current--;
-loadQuestion();
-
+if(index>0){
+index--
+loadQuestion()
 }
 
-/* RESULT */
+}
 
 function showResult(){
 
-document.getElementById("quizBox").style.display="none";
+document.getElementById("quiz").style.display="none"
+document.getElementById("result").style.display="block"
 
-let score=0;
+document.getElementById("score").innerText=score+" / "+quiz.length
 
-quiz.forEach((q,i)=>{
-if(userAnswers[i]==q.answer) score++;
-});
-
-let percent=Math.floor(score/quiz.length*100);
-
-let better=Math.floor(60+percent*0.4);
-
-let html="";
-
-html+=`<div class="score">Score: ${score}/${quiz.length}</div>`;
-
-html+=`<div class="performance">
-Congratulations! You performed better than ${better}% aspirants.
-</div>`;
+let reviewHTML=""
 
 quiz.forEach((q,i)=>{
 
-html+=`
-<div class="review">
-
+reviewHTML+=`
+<div class="result-item">
 <b>Q${i+1}. ${q.q}</b><br>
-
-<span class="${userAnswers[i]==q.answer?'correct':'wrong'}">
-Your Answer: ${q.options[userAnswers[i]] || "Not Answered"}
-</span><br>
-
-<span class="correct">
-Correct Answer: ${q.options[q.answer]}
-</span>
-
-<div class="desc">
-Explanation: ${q.desc}
+Correct Answer: <span class="correct-answer">${q.options[q.answer]}</span>
 </div>
+`
 
-</div>
-`;
+})
 
-});
-
-document.getElementById("resultBox").innerHTML=html;
-
-document.getElementById("resultBox").style.display="block";
+document.getElementById("review").innerHTML=reviewHTML
 
 }
+
+loadQuestion()
 
 </script>
 
