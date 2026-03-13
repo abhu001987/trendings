@@ -28,10 +28,11 @@ scroll-behavior:smooth;
 .post{
 height:100vh;
 scroll-snap-align:start;
-scroll-snap-stop:always; /* prevents skipping posts */
+scroll-snap-stop:always;
 display:flex;
 flex-direction:column;
 padding:22px;
+overflow:hidden;
 }
 
 /* image frame */
@@ -102,6 +103,9 @@ color:#cfcfcf;
 
 .content{
 margin-top:14px;
+flex:1;
+overflow-y:auto;
+padding-right:5px;
 }
 
 .content h2{
