@@ -107,3 +107,18 @@ font-size:16px;
 line-height:1.6;
 color:#333;
 }
+#posts{
+height:100vh;
+overflow-y:auto;
+
+scroll-snap-type:y mandatory;
+scroll-behavior:smooth;
+
+-webkit-overflow-scrolling:touch;
+}
+
+.post{
+height:100vh;
+scroll-snap-align:start;
+scroll-snap-stop:always; /* prevents skipping posts */
+}
