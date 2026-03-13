@@ -1,12 +1,20 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BlogGirl</title>
 
-<link rel="stylesheet" href="style.css">
+<!-- Disable caching -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- Versioned CSS to force reload -->
+<link rel="stylesheet" href="style.css?v=1.0">
 
 </head>
 
@@ -14,8 +22,10 @@
 
 <div id="posts"></div>
 
-<script src="script.js"></script>
+<!-- Versioned JS to force reload -->
+<script src="script.js?v=1.0"></script>
 
 </body>
 
 </html>
+```
