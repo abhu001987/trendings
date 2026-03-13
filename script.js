@@ -1,28 +1,44 @@
-const urlParams = new URLSearchParams(window.location.search);
-const category = urlParams.get("cat");
+const params = new URLSearchParams(window.location.search)
+const category = params.get("cat")
 
-fetch("posts.json")
+let allPosts = []
+let visiblePosts = 0
+const loadCount = 10
+
+function goBack(){
+window.location.href="https://myaffiliatepage.com/termandconditions"
+}
+
+/* fetch JSON without caching */
+
+fetch("posts.json?v=" + new Date().getTime())
 .then(res => res.json())
 .then(data => {
 
-const container = document.getElementById("posts");
-container.innerHTML = "";
-
-// filter posts
-let filteredPosts = data;
-
 if(category){
-filteredPosts = data.filter(post => post.category === category);
+allPosts = data.filter(post => post.category === category)
+}else{
+allPosts = data
 }
 
-// render posts
-filteredPosts.forEach(post => {
+loadMore()
 
-const card = document.createElement("div");
-card.className = "post";
+})
+
+function loadMore(){
+
+const container = document.getElementById("posts")
+
+let nextPosts = allPosts.slice(visiblePosts, visiblePosts + loadCount)
+
+nextPosts.forEach(post => {
+
+const card = document.createElement("div")
+card.className = "post"
 
 card.innerHTML = `
-<div class="image-container">
+
+<div class="image-frame">
 
 <img src="${post.image}">
 
@@ -39,15 +55,27 @@ card.innerHTML = `
 <h2>${post.title}</h2>
 <p>${post.content}</p>
 </div>
-`;
 
-container.appendChild(card);
+`
 
-});
+container.appendChild(card)
 
-});
+})
 
-// BACK BUTTON FUNCTION
-function goBack(){
-window.location.href="https://myaffiliatepage.com/termandconditions";
+visiblePosts += loadCount
+
 }
+
+/* detect scroll to bottom */
+
+document.getElementById("posts").addEventListener("scroll",function(){
+
+const container = this
+
+if(container.scrollTop + container.clientHeight >= container.scrollHeight - 5){
+
+loadMore()
+
+}
+
+})
