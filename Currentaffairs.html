@@ -1,12 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quiz App</title>
+<title>Knowledge Quiz</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- CACHE FIX -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <style>
 
@@ -178,131 +184,131 @@ font-weight:600;
 /* BACK BUTTON */
 
 function goBack(){
-window.location.href="https://myaffiliatepage.com/termandconditions"
+window.location.href="https://myaffiliatepage.com/termandconditions/CAQuiz"
 }
 
-/* QUIZ DATA */
+/* QUIZ QUESTIONS */
 
 const quiz=[
 
 {
-q:"What does HTML stand for?",
+q:"Which gas is primarily responsible for global warming?",
 options:[
-"Hyper Text Markup Language",
-"High Transfer Machine Language",
-"Hyperlinks and Text Markup Language",
-"Home Tool Markup Language"
-],
-answer:0,
-exp:"HTML stands for HyperText Markup Language. It structures web pages."
-},
-
-{
-q:"Which language is used for styling web pages?",
-options:[
-"HTML",
-"CSS",
-"Python",
-"PHP"
+"Oxygen",
+"Carbon Dioxide",
+"Nitrogen",
+"Helium"
 ],
 answer:1,
-exp:"CSS controls the design, layout, and colors of websites."
+exp:"Carbon dioxide traps heat in the atmosphere and is a major greenhouse gas."
 },
 
 {
-q:"Which language makes websites interactive?",
+q:"Which planet is known as the Red Planet?",
 options:[
-"Java",
-"Python",
-"JavaScript",
-"C"
+"Earth",
+"Mars",
+"Venus",
+"Jupiter"
+],
+answer:1,
+exp:"Mars appears red due to iron oxide (rust) on its surface."
+},
+
+{
+q:"The Industrial Revolution first began in which country?",
+options:[
+"Germany",
+"France",
+"United Kingdom",
+"United States"
 ],
 answer:2,
-exp:"JavaScript adds interactivity like sliders, buttons, and animations."
+exp:"The Industrial Revolution began in Britain in the late 18th century."
 },
 
 {
-q:"Which tag creates a hyperlink?",
+q:"Which layer of Earth protects us from harmful UV radiation?",
 options:[
-"<link>",
-"<a>",
-"<href>",
-"<url>"
-],
-answer:1,
-exp:"The anchor tag <a> is used to create hyperlinks."
-},
-
-{
-q:"Which CSS property changes text color?",
-options:[
-"font-style",
-"color",
-"text-color",
-"background"
-],
-answer:1,
-exp:"The 'color' property controls text color."
-},
-
-{
-q:"Which symbol is used for ID selector in CSS?",
-options:[
-".",
-"#",
-"*",
-"&"
-],
-answer:1,
-exp:"# selects elements using their id."
-},
-
-{
-q:"Which HTML tag inserts an image?",
-options:[
-"<image>",
-"<img>",
-"<pic>",
-"<photo>"
-],
-answer:1,
-exp:"The <img> tag is used to display images."
-},
-
-{
-q:"Which company developed JavaScript?",
-options:[
-"Netscape",
-"Microsoft",
-"Google",
-"IBM"
+"Ozone Layer",
+"Troposphere",
+"Mantle",
+"Core"
 ],
 answer:0,
-exp:"JavaScript was originally created by Netscape."
+exp:"The ozone layer absorbs most of the Sun's ultraviolet radiation."
 },
 
 {
-q:"Which property adds space inside an element?",
+q:"Which ocean is the largest on Earth?",
 options:[
-"margin",
-"padding",
-"spacing",
-"border"
-],
-answer:1,
-exp:"Padding controls space inside an element."
-},
-
-{
-q:"Which HTML element is used for largest heading?",
-options:[
-"<h6>",
-"<heading>",
-"<h1>",
-"<head>"
+"Atlantic Ocean",
+"Indian Ocean",
+"Pacific Ocean",
+"Arctic Ocean"
 ],
 answer:2,
-exp:"<h1> represents the largest heading."
+exp:"The Pacific Ocean covers more than 30% of the Earth's surface."
+},
+
+{
+q:"Sociology mainly studies what?",
+options:[
+"Planets",
+"Human societies",
+"Chemical reactions",
+"Weather patterns"
+],
+answer:1,
+exp:"Sociology studies social behavior, relationships, and institutions."
+},
+
+{
+q:"Who was the first President of the United States?",
+options:[
+"George Washington",
+"Abraham Lincoln",
+"Thomas Jefferson",
+"John Adams"
+],
+answer:0,
+exp:"George Washington served as the first U.S. President from 1789 to 1797."
+},
+
+{
+q:"Which natural resource is renewable?",
+options:[
+"Coal",
+"Petroleum",
+"Solar Energy",
+"Natural Gas"
+],
+answer:2,
+exp:"Solar energy comes from the sun and is renewable."
+},
+
+{
+q:"Which planet is the largest in our solar system?",
+options:[
+"Earth",
+"Jupiter",
+"Saturn",
+"Mars"
+],
+answer:1,
+exp:"Jupiter is the biggest planet in our solar system."
+},
+
+{
+q:"What is the main purpose of recycling?",
+options:[
+"Increase pollution",
+"Reduce waste and conserve resources",
+"Produce more plastic",
+"Increase landfill usage"
+],
+answer:1,
+exp:"Recycling helps reduce waste and saves natural resources."
 }
 
 ]
@@ -410,4 +416,4 @@ loadQuestion()
 
 </body>
 </html>
-
+```
