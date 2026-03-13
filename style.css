@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f2f2f2;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:#f1f1f1;
 overflow-y:auto;
 }
 
@@ -16,6 +19,8 @@ overflow-y:auto;
 height:100vh;
 overflow-y:auto;
 scroll-snap-type:y mandatory;
+scroll-behavior:smooth;
+-webkit-overflow-scrolling:touch;
 }
 
 /* post card */
@@ -23,18 +28,19 @@ scroll-snap-type:y mandatory;
 .post{
 height:100vh;
 scroll-snap-align:start;
+scroll-snap-stop:always; /* prevents skipping posts */
 display:flex;
 flex-direction:column;
-padding:15px;
+padding:22px;
 }
 
 /* image frame */
 
 .image-frame{
-background:white;
+background:#1b2d36;
 border-radius:12px;
 overflow:hidden;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 6px 18px rgba(0,0,0,0.35);
 position:relative;
 }
 
@@ -56,7 +62,7 @@ left:12px;
 width:36px;
 height:36px;
 border-radius:50%;
-background:rgba(0,0,0,0.45);
+background:rgba(0,0,0,0.55);
 color:white;
 display:flex;
 align-items:center;
@@ -70,55 +76,43 @@ cursor:pointer;
 .post-meta{
 display:flex;
 justify-content:space-between;
-padding:10px 5px;
-margin-top:10px;
+padding:12px 5px;
+margin-top:12px;
 }
 
 /* category */
 
 .category-badge{
-background:#1976d2;
+background:#ff6a00;
 color:white;
-padding:5px 12px;
-border-radius:15px;
-font-size:12px;
+padding:6px 14px;
+border-radius:18px;
+font-size:13px;
+font-weight:600;
 }
 
 /* date */
 
 .post-date{
-font-size:12px;
-color:#777;
+font-size:14px;
+color:#cfcfcf;
 }
 
 /* content */
 
 .content{
-margin-top:10px;
+margin-top:14px;
 }
 
 .content h2{
-font-size:22px;
-margin-bottom:10px;
+font-size:26px;
+margin-bottom:14px;
+font-weight:600;
+letter-spacing:0.3px;
 }
 
 .content p{
-font-size:16px;
-line-height:1.6;
-color:#333;
-}
-#posts{
-height:100vh;
-overflow-y:auto;
-
-scroll-snap-type:y mandatory;
-scroll-behavior:smooth;
-
--webkit-overflow-scrolling:touch;
-}
-
-.post{
-height:100vh;
-scroll-snap-align:start;
-scroll-snap-stop:always; /* prevents skipping posts */
+font-size:18px;
+line-height:1.9;
+color:#e6e6e6;
 }
