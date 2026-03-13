@@ -149,7 +149,14 @@
 "category":"sansad tv",
 "time":"18 hours ago"
 },
-
+{
+"id":10,
+"title":"Digital Initiatives",
+"image":"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+"content":"Digital platforms form governance delivery.",
+"category":"governance",
+"time":"6 hours ago"
+},
 {
 "id":17,
 "title":"Government Welfare Schemes",
