@@ -15,10 +15,25 @@
 "category":"daily",
 "time":"6 hours ago"
 },
-
 {
 "id":3,
 "title":"India’s Economic Growth Outlook",
+"image":"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a",
+"content":"AI is transforming defence strategy.\n\nIt helps in surveillance, intelligence analysis, and automated decision-making.\n\nCountries are investing heavily in military AI systems.",
+"category":"economy",
+"time":"2 days ago"
+},
+{
+"id":3,
+"title":"India’s Outlook",
+"image":"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a",
+"content":"AI is transforming defence strategy.\n\nIt helps in surveillance, intelligence analysis, and automated decision-making.\n\nCountries are investing heavily in military AI systems.",
+"category":"economy",
+"time":"2 days ago"
+},
+{
+"id":3,
+"title":"India’s Economic",
 "image":"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a",
 "content":"AI is transforming defence strategy.\n\nIt helps in surveillance, intelligence analysis, and automated decision-making.\n\nCountries are investing heavily in military AI systems.",
 "category":"economy",
