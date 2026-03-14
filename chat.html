@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<title>Community Chat</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.chat-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:14px;
+max-width:650px;
+width:100%;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+h2{
+margin-bottom:10px;
+}
+
+#chat{
+height:350px;
+overflow:auto;
+background:#203a43;
+padding:12px;
+border-radius:8px;
+margin-bottom:12px;
+}
+
+.message{
+margin:6px 0;
+padding:6px;
+background:#2c5364;
+border-radius:6px;
+font-size:14px;
+}
+
+input{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+margin-top:8px;
+}
+
+button{
+margin-top:10px;
+padding:10px 18px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#ff6a00;
+color:white;
+font-weight:600;
+}
+
+button:hover{
+opacity:.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="chat-box">
+
+<h2>Community Chat</h2>
+
+<div id="chat"></div>
+
+<input id="name" placeholder="Your name">
+
+<input id="msg" placeholder="Type message">
+
+<button onclick="sendMsg()">Send</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot }
+from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyA7wwgFsSyhUK-C6C-TE64yH1Ksldm7A_E",
+authDomain: "community-chat-ffd34.firebaseapp.com",
+projectId: "community-chat-ffd34",
+storageBucket: "community-chat-ffd34.firebasestorage.app",
+messagingSenderId: "45644496109",
+appId: "1:45644496109:web:9ad0351a6592114d66e0e4",
+measurementId: "G-9S4NTQDCHY"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const chat=document.getElementById("chat");
+
+const q=query(
+collection(db,"messages"),
+orderBy("time","desc"),
+limit(50)
+);
+
+onSnapshot(q,(snapshot)=>{
+
+chat.innerHTML="";
+
+snapshot.forEach(doc=>{
+
+const m=doc.data();
+
+chat.innerHTML+=`
+<div class="message">
+<b>${m.name}</b>: ${m.text}
+</div>
+`;
+
+});
+
+chat.scrollTop=chat.scrollHeight;
+
+});
+
+window.sendMsg=async()=>{
+
+const name=document.getElementById("name").value || "Anon";
+
+const text=document.getElementById("msg").value;
+
+if(text==="") return;
+
+await addDoc(collection(db,"messages"),{
+
+name:name,
+text:text,
+time:Date.now()
+
+});
+
+document.getElementById("msg").value="";
+
+}
+
+</script>
+
+</body>
+</html>
