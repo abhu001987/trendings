@@ -85,7 +85,7 @@ border-bottom:1px solid rgba(255,255,255,0.08);
 .sidebar a:hover{
 background:#2c5364;
 }
-
+}
 /* FEATURED */
 
 .featured{
@@ -120,6 +120,8 @@ transition:transform .4s;
 .slide{
 min-width:100%;
 position:relative;
+text-decoration:none;
+color:white;
 }
 
 .slide img{
@@ -155,7 +157,6 @@ border-radius:6px;
 
 .prev{left:10px}
 .next{right:10px}
-
 /* TOPICS */
 
 .topics{
@@ -276,6 +277,8 @@ margin-bottom:10px;
 
 <section class="featured">
 
+<div class="featured">
+
 <div class="section-title">
     <h3>Featured Stories</h3>
     <a class="quiz" href="https://myaffiliatepage.com/Currentaffairs">Quiz</a>
@@ -284,24 +287,25 @@ margin-bottom:10px;
 <div class="slider">
     <div class="slides" id="slides">
 
-        <div class="slide">
+        <a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India" target="_blank" class="slide">
             <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
             <span>Economic Survey</span>
-        </div>
+        </a>
 
-        <div class="slide">
+        <a href="https://en.wikipedia.org/wiki/Economy_of_India" target="_blank" class="slide">
             <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
             <span>Indian Economy</span>
-        </div>
+        </a>
 
-        <div class="slide">
+        <a href="https://en.wikipedia.org/wiki/Climate_change" target="_blank" class="slide">
             <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
             <span>Climate Change</span>
-        </div>
+        </a>
 
     </div>
 </div>
 
+</div>
 </section>
 
 <!-- TOPICS -->
