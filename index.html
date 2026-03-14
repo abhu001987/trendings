@@ -130,7 +130,10 @@ cursor:pointer;
 
 /* FEATURED */
 
-.featured{padding:15px 20px;}
+.featured{
+padding:15px 20px;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+}
 
 .section-title{display:flex;justify-content:space-between;margin-bottom:10px;}
 
@@ -189,23 +192,32 @@ border-radius:6px;
 .next{right:10px}
 
 /* TOPICS */
-/* spacing + color fix */
 
 .topics{
-padding:10px 20px 20px 20px;
+padding:16px 20px;
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
 .grid{
 display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
-gap:16px;
-margin-top:12px;
+gap:14px;
+margin-top:10px;
 }
 
-.topic{text-align:center;}
+.topic{
+text-align:center;
+}
 
-.topic a{text-decoration:none;color:white;display:block;}
+/* make the whole card clickable */
+
+.topic a{
+text-decoration:none;
+color:white;
+display:block;
+}
+
+/* icon */
 
 .topic img{
 width:48px;
@@ -213,15 +225,20 @@ height:48px;
 border-radius:12px;
 background:white;
 padding:6px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
 object-fit:contain;
 display:block;
-margin:auto;
+margin:0 auto;
 }
 
-.topic p{font-size:11px;margin-top:4px;}
+/* label */
+
+.topic p{
+font-size:11px;
+margin-top:4px;
+}
 
 /* POSTER */
-/* color alignment fix */
 
 .poster{
 margin:20px;
@@ -237,7 +254,6 @@ width:100%;
 height:160px;
 object-fit:cover;
 filter:brightness(.75);
-display:block;
 }
 
 .poster-content{
@@ -246,16 +262,28 @@ bottom:12px;
 left:14px;
 }
 
-/* SEND BUTTON SAFE AREA FIX */
-
-.chat-input-bar{
-padding-bottom:calc(12px + env(safe-area-inset-bottom));
+.poster-content h4{
+font-size:16px;
+margin-bottom:3px;
 }
 
-footer{text-align:center;padding:12px;font-size:12px;opacity:.8;}
+.poster-content p{
+font-size:12px;
+opacity:.9;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:10px;
+font-size:12px;
+opacity:.8;
+margin-bottom:10px;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+}
 
 </style>
-
 
 </head>
 
