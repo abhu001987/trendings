@@ -73,7 +73,7 @@ background:rgba(0,0,0,0.35);
 border-radius:10px;
 max-width:420px;
 width:100%;
-height:200px;
+height:220px;
 overflow-y:auto;
 padding:15px;
 font-size:13px;
@@ -94,7 +94,7 @@ flex-direction:column;
 height:100vh;
 }
 
-/* MESSAGE AREA */
+/* MESSAGES */
 
 #messages{
 flex:1;
@@ -136,7 +136,7 @@ background:rgba(0,0,0,0.45);
 backdrop-filter:blur(8px);
 }
 
-/* INPUT */
+/* MESSAGE INPUT */
 
 #messageInput{
 flex:1;
@@ -233,6 +233,22 @@ const db = getFirestore(app);
 
 let username="";
 
+/* BLOCKED WORDS */
+
+const bannedWords = [
+"spam",
+"scam",
+"Fuck",
+"Hotsex",
+"Desi",
+"Porn",
+"XXX",
+"Childporn",
+"Sex",
+"Sexy",
+"abuse"
+];
+
 /* JOIN CHAT */
 
 document.getElementById("joinBtn").onclick=()=>{
@@ -294,11 +310,24 @@ const text=input.value.trim();
 
 if(text==="") return;
 
+/* WORD LIMIT */
+
 const wordCount=text.split(/\s+/).length;
 
 if(wordCount>15){
 alert("Message cannot exceed 15 words.");
 return;
+}
+
+/* BLOCKED WORD FILTER */
+
+const lowerText = text.toLowerCase();
+
+for(let word of bannedWords){
+if(lowerText.includes(word)){
+alert("Your message contains blocked words.");
+return;
+}
 }
 
 addDoc(collection(db,"messages"),{
