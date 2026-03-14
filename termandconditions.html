@@ -1,30 +1,463 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Reads</title>
 
-<title>BlogGirl</title>
-
-<!-- Disable caching -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<!-- Versioned CSS to force reload -->
-<link rel="stylesheet" href="style.css?v=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 20px;
+position:sticky;
+top:0;
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+z-index:1000;
+}
+
+.menu{
+font-size:24px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100%;
+background:#203a43;
+transition:.35s;
+z-index:999;
+}
+
+.sidebar.open{
+left:0;
+}
+
+.sidebar-header{
+display:flex;
+justify-content:space-between;
+padding:16px;
+border-bottom:1px solid rgba(255,255,255,0.15);
+}
+
+.close-btn{
+cursor:pointer;
+font-size:20px;
+}
+
+.sidebar a{
+display:block;
+padding:15px 20px;
+text-decoration:none;
+color:white;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar a:hover{
+background:#2c5364;
+}
+
+/* FEATURED */
+
+.featured{
+padding:10px 20px;
+}
+
+.section-title{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+}
+
+.quiz{
+color:#ff6a00;
+text-decoration:none;
+font-weight:600;
+}
+
+/* SLIDER */
+
+.slider{
+position:relative;
+overflow:hidden;
+border-radius:12px;
+}
+
+.slides{
+display:flex;
+transition:transform .35s ease;
+}
+
+.slide{
+min-width:100%;
+position:relative;
+}
+
+.slide img{
+width:100%;
+height:190px;
+object-fit:cover;
+border-radius:12px;
+filter:brightness(.8);
+}
+
+.slide span{
+position:absolute;
+bottom:10px;
+left:10px;
+background:rgba(0,0,0,0.6);
+padding:6px 10px;
+border-radius:6px;
+font-size:13px;
+color:white;
+}
+
+/* clickable overlay */
+
+.slide a{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:5;
+}
+
+/* slider buttons */
+
+.slider-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.5);
+border:none;
+color:white;
+font-size:20px;
+padding:6px 12px;
+cursor:pointer;
+border-radius:6px;
+z-index:10;
+}
+
+.prev{left:10px}
+.next{right:10px}
+
+/* TOPICS */
+
+.topics{
+padding:16px 20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:14px;
+margin-top:10px;
+}
+
+.topic{
+text-align:center;
+}
+
+.topic a{
+text-decoration:none;
+color:white;
+display:block;
+}
+
+.topic img{
+width:48px;
+height:48px;
+border-radius:12px;
+background:white;
+padding:6px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+object-fit:contain;
+display:block;
+margin:0 auto;
+}
+
+.topic p{
+font-size:11px;
+margin-top:4px;
+}
+
+/* POSTER */
+
+.poster{
+margin:20px;
+border-radius:14px;
+overflow:hidden;
+position:relative;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+.poster img{
+width:100%;
+height:160px;
+object-fit:cover;
+filter:brightness(.75);
+}
+
+.poster-content{
+position:absolute;
+bottom:12px;
+left:14px;
+}
+
+.poster-content h4{
+font-size:16px;
+margin-bottom:3px;
+}
+
+.poster-content p{
+font-size:12px;
+opacity:.9;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:10px;
+font-size:12px;
+opacity:.8;
+margin-bottom:10px;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<div id="posts"></div>
+<!-- SIDEBAR -->
 
-<!-- Versioned JS to force reload -->
-<script src="script.js?v=1.0"></script>
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-header">
+<b>Menu</b>
+<div class="close-btn" onclick="toggleMenu()">✕</div>
+</div>
+
+<a href="https://myaffiliatepage.com/aboutus">About Us</a> <a href="https://myaffiliatepage.com/privacypolicy">Privacy Policy</a> <a href="https://myaffiliatepage.com/contactus">Contact Us</a>
+
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+<div class="menu" onclick="toggleMenu()">☰</div>
+<h3>Home</h3>
+</div>
+
+<!-- FEATURED -->
+
+<section class="featured">
+
+<div class="section-title">
+<h3>Featured Stories</h3>
+<a class="quiz" href="https://myaffiliatepage.com/Currentaffairs">Quiz</a>
+</div>
+
+<div class="slider">
+
+<div class="slides" id="slides">
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+<span>Economic Survey</span>
+<a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India"></a>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
+<span>Indian Economy</span>
+<a href="https://en.wikipedia.org/wiki/Economy_of_India"></a>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
+<span>Climate Change</span>
+<a href="https://en.wikipedia.org/wiki/Climate_change"></a>
+</div>
+
+</div>
+
+<button class="slider-btn prev" onclick="prevSlide()">❮</button> <button class="slider-btn next" onclick="nextSlide()">❯</button>
+
+</div>
+
+</section>
+
+<!-- TOPICS -->
+
+<section class="topics">
+
+<h3>Filter By Topics</h3>
+
+<div class="grid">
+
+<div class="topic">
+<a href="https://myaffiliatepage.com">
+<img src="https://img.icons8.com/color/96/india.png">
+<p>All</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=daily">
+<img src="https://img.icons8.com/color/96/book.png">
+<p>Daily</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=economy">
+<img src="https://img.icons8.com/color/96/combo-chart.png">
+<p>Economy</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=editorial">
+<img src="https://img.icons8.com/color/96/edit.png">
+<p>Editorial</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=environment">
+<img src="https://img.icons8.com/color/96/forest.png">
+<p>Environment</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=governance">
+<img src="https://img.icons8.com/color/96/parliament.png">
+<p>Governance</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=history">
+<img src="https://img.icons8.com/color/96/taj-mahal.png">
+<p>History</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=i.r">
+<img src="https://img.icons8.com/color/96/handshake.png">
+<p>I.R</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=sansad tv">
+<img src="https://img.icons8.com/color/96/video.png">
+<p>Sansad TV</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=schemes">
+<img src="https://img.icons8.com/color/96/parliament.png">
+<p>Schemes</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=science">
+<img src="https://img.icons8.com/color/96/dna-helix.png">
+<p>Science</p>
+</a>
+</div>
+
+<div class="topic">
+<a href="https://myaffiliatepage.com/?cat=social">
+<img src="https://img.icons8.com/color/96/conference.png">
+<p>Social</p>
+</a>
+</div>
+
+</div>
+
+</section>
+
+<!-- POSTER -->
+
+<div class="poster">
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXqSWzCTCOm6CY6Yomk3NsjfngVPtE6K1-g&s">
+
+<div class="poster-content">
+<h4></h4>
+<p></p>
+</div>
+
+</div>
+
+<footer>
+Quick reads, smarter insights
+</footer>
+
+<script>
+
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("open");
+}
+
+let index=0;
+
+function updateSlide(){
+document.getElementById("slides").style.transform="translateX(-"+index*100+"%)";
+}
+
+function nextSlide(){
+index++;
+if(index>2) index=0;
+updateSlide();
+}
+
+function prevSlide(){
+index--;
+if(index<0) index=2;
+updateSlide();
+}
+
+</script>
 
 </body>
-
 </html>
-
