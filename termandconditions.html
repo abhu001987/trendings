@@ -153,13 +153,7 @@ height:100%;
 z-index:5;
 }
 
-.slides{
-display:flex;
-transition:transform .35s ease;
-will-change: transform;
-}
-
-/* buttons */
+/* slider buttons */
 
 .slider-btn{
 position:absolute;
@@ -168,8 +162,8 @@ transform:translateY(-50%);
 background:rgba(0,0,0,0.5);
 border:none;
 color:white;
-font-size:18px;
-padding:6px 11px;
+font-size:20px;
+padding:6px 12px;
 cursor:pointer;
 border-radius:6px;
 z-index:10;
@@ -296,7 +290,7 @@ margin-bottom:10px;
 <a class="quiz" href="https://myaffiliatepage.com/Currentaffairs">Quiz</a>
 </div>
 
-<div class="slider" id="slider">
+<div class="slider">
 
 <div class="slides" id="slides">
 
@@ -446,47 +440,22 @@ document.getElementById("sidebar").classList.toggle("open");
 }
 
 let index=0;
-const slides=document.getElementById("slides");
-const total=3;
 
 function updateSlide(){
-slides.style.transform="translateX(-"+index*100+"%)";
+document.getElementById("slides").style.transform="translateX(-"+index*100+"%)";
 }
 
 function nextSlide(){
 index++;
-if(index>=total) index=0;
+if(index>2) index=0;
 updateSlide();
 }
 
 function prevSlide(){
 index--;
-if(index<0) index=total-1;
+if(index<0) index=2;
 updateSlide();
 }
-
-/* swipe support */
-
-let startX=0;
-let isDragging=false;
-
-const slider=document.getElementById("slider");
-
-slider.addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX;
-isDragging=true;
-});
-
-slider.addEventListener("touchend",e=>{
-if(!isDragging) return;
-let endX=e.changedTouches[0].clientX;
-let diff=startX-endX;
-
-if(diff>50) nextSlide();
-if(diff<-50) prevSlide();
-
-isDragging=false;
-});
 
 </script>
 
