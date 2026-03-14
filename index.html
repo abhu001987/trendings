@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -7,10 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Quick Reads</title>
-
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -27,6 +24,7 @@ body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
 min-height:100vh;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -38,6 +36,7 @@ justify-content:space-between;
 padding:15px 20px;
 position:sticky;
 top:0;
+z-index:1000;
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
@@ -56,6 +55,7 @@ width:260px;
 height:100%;
 background:#203a43;
 transition:.35s;
+z-index:2000;
 }
 
 .sidebar.open{
@@ -71,6 +71,7 @@ border-bottom:1px solid rgba(255,255,255,0.15);
 
 .close-btn{
 cursor:pointer;
+font-size:20px;
 }
 
 .sidebar a{
@@ -88,13 +89,14 @@ background:#2c5364;
 /* FEATURED */
 
 .featured{
-padding:10px 20px;
+padding:15px 20px;
+z-index:1;
 }
 
 .section-title{
 display:flex;
 justify-content:space-between;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .quiz{
@@ -123,7 +125,7 @@ position:relative;
 
 .slide img{
 width:100%;
-height:190px;
+height:200px;
 object-fit:cover;
 border-radius:12px;
 filter:brightness(.8);
@@ -139,6 +141,15 @@ border-radius:6px;
 font-size:13px;
 }
 
+.slide a{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:5;
+}
+
 /* slider buttons */
 
 .slider-btn{
@@ -151,6 +162,8 @@ color:white;
 font-size:20px;
 padding:6px 12px;
 cursor:pointer;
+border-radius:6px;
+z-index:10;
 }
 
 .prev{left:10px}
@@ -159,14 +172,16 @@ cursor:pointer;
 /* TOPICS */
 
 .topics{
-padding:16px 20px;
+padding:20px;
+position:relative;
+z-index:5;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin-top:10px;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:16px;
+margin-top:12px;
 }
 
 .topic{
@@ -176,6 +191,7 @@ text-align:center;
 .topic a{
 text-decoration:none;
 color:white;
+display:block;
 }
 
 .topic img{
@@ -194,11 +210,47 @@ font-size:11px;
 margin-top:4px;
 }
 
+/* POSTER */
+
+.poster{
+margin:20px;
+border-radius:14px;
+overflow:hidden;
+position:relative;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+.poster img{
+width:100%;
+height:170px;
+object-fit:cover;
+filter:brightness(.75);
+}
+
+.poster-content{
+position:absolute;
+bottom:12px;
+left:14px;
+}
+
+.poster-content h4{
+font-size:16px;
+margin-bottom:3px;
+}
+
+.poster-content p{
+font-size:12px;
+opacity:.9;
+}
+
+/* FOOTER */
+
 footer{
 text-align:center;
-padding:10px;
+padding:12px;
 font-size:12px;
 opacity:.8;
+margin-bottom:10px;
 }
 
 </style>
@@ -216,10 +268,7 @@ opacity:.8;
 <div class="close-btn" onclick="toggleMenu()">✕</div>
 </div>
 
-<a href="/aboutus">About Us</a>
-<a href="/privacypolicy">Privacy Policy</a>
-<a href="/contactus">Contact Us</a>
-<a href="/termandconditions">Terms & Conditions</a>
+<a href="/aboutus">About Us</a> <a href="/privacypolicy">Privacy Policy</a> <a href="/contactus">Contact Us</a> <a href="/termandconditions">Terms & Conditions</a>
 
 </div>
 
@@ -236,7 +285,7 @@ opacity:.8;
 
 <div class="section-title">
 <h3>Featured Stories</h3>
-<a class="quiz" href="/posts">Quiz</a>
+<a class="quiz" href="/quiz">Quiz</a>
 </div>
 
 <div class="slider">
@@ -246,22 +295,24 @@ opacity:.8;
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
 <span>Economic Survey</span>
+<a href="https://en.wikipedia.org/wiki/Economic_Survey_of_India"></a>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
 <span>Indian Economy</span>
+<a href="https://en.wikipedia.org/wiki/Economy_of_India"></a>
 </div>
 
 <div class="slide">
 <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e">
 <span>Climate Change</span>
+<a href="https://en.wikipedia.org/wiki/Climate_change"></a>
 </div>
 
 </div>
 
-<button class="slider-btn prev" onclick="prevSlide()">❮</button>
-<button class="slider-btn next" onclick="nextSlide()">❯</button>
+<button class="slider-btn prev" onclick="prevSlide()">❮</button> <button class="slider-btn next" onclick="nextSlide()">❯</button>
 
 </div>
 
@@ -276,7 +327,7 @@ opacity:.8;
 <div class="grid">
 
 <div class="topic">
-<a href="/posts">
+<a href="/posts.html">
 <img src="https://img.icons8.com/color/96/india.png">
 <p>All</p>
 </a>
@@ -307,6 +358,19 @@ opacity:.8;
 
 </section>
 
+<!-- POSTER IMAGE -->
+
+<div class="poster">
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXqSWzCTCOm6CY6Yomk3NsjfngVPtE6K1-g&s">
+
+<div class="poster-content">
+<h4>Stay Updated</h4>
+<p>Daily insights for UPSC preparation</p>
+</div>
+
+</div>
+
 <footer>
 Quick reads, smarter insights
 </footer>
@@ -317,22 +381,22 @@ function toggleMenu(){
 document.getElementById("sidebar").classList.toggle("open");
 }
 
-let index=0
+let index=0;
 
 function updateSlide(){
-document.getElementById("slides").style.transform="translateX(-"+index*100+"%)"
+document.getElementById("slides").style.transform="translateX(-"+index*100+"%)";
 }
 
 function nextSlide(){
-index++
-if(index>2) index=0
-updateSlide()
+index++;
+if(index>2) index=0;
+updateSlide();
 }
 
 function prevSlide(){
-index--
-if(index<0) index=2
-updateSlide()
+index--;
+if(index<0) index=2;
+updateSlide();
 }
 
 </script>
