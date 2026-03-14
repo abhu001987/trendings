@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -9,16 +8,14 @@
 
 <title>Treedell</title>
 
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2027">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
@@ -40,10 +37,7 @@ z-index:1000;
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 }
 
-.menu{
-font-size:24px;
-cursor:pointer;
-}
+.menu{font-size:24px;cursor:pointer;}
 
 /* SIDEBAR */
 
@@ -58,9 +52,7 @@ transition:.35s;
 z-index:2000;
 }
 
-.sidebar.open{
-left:0;
-}
+.sidebar.open{left:0;}
 
 .sidebar-header{
 display:flex;
@@ -69,10 +61,7 @@ padding:16px;
 border-bottom:1px solid rgba(255,255,255,0.15);
 }
 
-.close-btn{
-cursor:pointer;
-font-size:20px;
-}
+.close-btn{cursor:pointer;font-size:20px;}
 
 .sidebar a{
 display:block;
@@ -82,46 +71,72 @@ color:white;
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.sidebar a:hover{
-background:#2c5364;
+.sidebar a:hover{background:#2c5364;}
+
+/* Convert App Box */
+
+.install-box{
+margin:20px;
+padding:14px;
+border-radius:10px;
+background:#ff6a00;
+text-align:center;
+font-weight:600;
+cursor:pointer;
 }
+
+/* Popup */
+
+.install-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:3000;
+}
+
+.install-content{
+background:white;
+color:black;
+padding:25px;
+border-radius:12px;
+text-align:center;
+width:80%;
+max-width:320px;
+}
+
+.install-content button{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:#ff6a00;
+color:white;
+margin:5px;
+cursor:pointer;
+}
+
+.cancel-btn{background:gray;}
 
 /* FEATURED */
 
-.featured{
-padding:15px 20px;
-z-index:1;
-}
+.featured{padding:15px 20px;}
 
-.section-title{
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
-}
+.section-title{display:flex;justify-content:space-between;margin-bottom:10px;}
 
-.quiz{
-color:#ff6a00;
-text-decoration:none;
-font-weight:600;
-}
+.quiz{color:#ff6a00;text-decoration:none;font-weight:600;}
 
 /* SLIDER */
 
-.slider{
-position:relative;
-overflow:hidden;
-border-radius:12px;
-}
+.slider{position:relative;overflow:hidden;border-radius:12px;}
 
-.slides{
-display:flex;
-transition:transform .35s ease;
-}
+.slides{display:flex;transition:transform .35s ease;}
 
-.slide{
-min-width:100%;
-position:relative;
-}
+.slide{min-width:100%;position:relative;}
 
 .slide img{
 width:100%;
@@ -147,7 +162,6 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-z-index:5;
 }
 
 /* slider buttons */
@@ -163,7 +177,6 @@ font-size:20px;
 padding:6px 12px;
 cursor:pointer;
 border-radius:6px;
-z-index:10;
 }
 
 .prev{left:10px}
@@ -171,11 +184,7 @@ z-index:10;
 
 /* TOPICS */
 
-.topics{
-padding:20px;
-position:relative;
-z-index:5;
-}
+.topics{padding:20px;}
 
 .grid{
 display:grid;
@@ -184,15 +193,9 @@ gap:16px;
 margin-top:12px;
 }
 
-.topic{
-text-align:center;
-}
+.topic{text-align:center;}
 
-.topic a{
-text-decoration:none;
-color:white;
-display:block;
-}
+.topic a{text-decoration:none;color:white;display:block;}
 
 .topic img{
 width:48px;
@@ -205,10 +208,7 @@ display:block;
 margin:auto;
 }
 
-.topic p{
-font-size:11px;
-margin-top:4px;
-}
+.topic p{font-size:11px;margin-top:4px;}
 
 /* POSTER */
 
@@ -233,25 +233,7 @@ bottom:12px;
 left:14px;
 }
 
-.poster-content h4{
-font-size:16px;
-margin-bottom:3px;
-}
-
-.poster-content p{
-font-size:12px;
-opacity:.9;
-}
-
-/* FOOTER */
-
-footer{
-text-align:center;
-padding:12px;
-font-size:12px;
-opacity:.8;
-margin-bottom:10px;
-}
+footer{text-align:center;padding:12px;font-size:12px;opacity:.8;}
 
 </style>
 
@@ -268,12 +250,12 @@ margin-bottom:10px;
 <div class="close-btn" onclick="toggleMenu()">✕</div>
 </div>
 
-<a href="/aboutus">About Us</a>
-<a href="/privacypolicy">Privacy Policy</a>
-<a href="/contactus">Contact Us</a>
-<a href="/termandconditions">Terms & Conditions</a>
-<a href="/chat">Community Chat</a>
-  
+<a href="/aboutus">About Us</a> <a href="/privacypolicy">Privacy Policy</a> <a href="/contactus">Contact Us</a> <a href="/termandconditions">Terms & Conditions</a> <a href="/chat">Community Chat</a>
+
+<div class="install-box" id="openInstallBox">
+📲 Convert to App
+</div>
+
 </div>
 
 <!-- HEADER -->
@@ -357,6 +339,7 @@ margin-bottom:10px;
 <p>Editorial</p>
 </a>
 </div>
+
 <div class="topic">
 <a href="/posts.html?cat=environment">
 <img src="https://img.icons8.com/color/96/forest.png">
@@ -417,22 +400,35 @@ margin-bottom:10px;
 
 </section>
 
-<!-- POSTER IMAGE -->
+<!-- POSTER -->
 
 <div class="poster">
-
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXqSWzCTCOm6CY6Yomk3NsjfngVPtE6K1-g&s">
-
 <div class="poster-content">
 <h4>Stay Updated</h4>
 <p>Daily insights for UPSC preparation</p>
 </div>
+</div>
+
+<footer>Quick reads, smarter insights</footer>
+
+<!-- Install Popup -->
+
+<div class="install-popup" id="installPopup">
+
+<div class="install-content">
+
+<h3>Convert Website to App</h3>
+
+<p>Install Treedell on your device.</p>
+
+<button id="installBtn">Convert</button>
+
+<button class="cancel-btn" onclick="closeInstall()">Cancel</button>
 
 </div>
 
-<footer>
-Quick reads, smarter insights
-</footer>
+</div>
 
 <script>
 
@@ -446,16 +442,40 @@ function updateSlide(){
 document.getElementById("slides").style.transform="translateX(-"+index*100+"%)";
 }
 
-function nextSlide(){
-index++;
-if(index>2) index=0;
-updateSlide();
+function nextSlide(){index++;if(index>2) index=0;updateSlide();}
+
+function prevSlide(){index--;if(index<0) index=2;updateSlide();}
+
+/* PWA install */
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt',(e)=>{
+e.preventDefault();
+deferredPrompt=e;
+});
+
+document.getElementById("openInstallBox").addEventListener("click",()=>{
+document.getElementById("installPopup").style.display="flex";
+});
+
+function closeInstall(){
+document.getElementById("installPopup").style.display="none";
 }
 
-function prevSlide(){
-index--;
-if(index<0) index=2;
-updateSlide();
+document.getElementById("installBtn").addEventListener("click",async()=>{
+if(deferredPrompt){
+deferredPrompt.prompt();
+await deferredPrompt.userChoice;
+deferredPrompt=null;
+closeInstall();
+}
+});
+
+/* register service worker */
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('service-worker.js');
 }
 
 </script>
