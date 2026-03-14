@@ -6,12 +6,10 @@ let visiblePosts = 0
 const loadCount = 10
 
 function goBack(){
-window.location.href="https://myaffiliatepage.com/termandconditions"
+window.location.href="/"
 }
 
-/* fetch JSON without caching */
-
-fetch("posts.json?v=" + new Date().getTime())
+fetch("posts.json")
 .then(res => res.json())
 .then(data => {
 
@@ -65,8 +63,6 @@ container.appendChild(card)
 visiblePosts += loadCount
 
 }
-
-/* detect scroll to bottom */
 
 document.getElementById("posts").addEventListener("scroll",function(){
 
