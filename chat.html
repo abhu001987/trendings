@@ -27,8 +27,6 @@ flex-direction:column;
 overflow:hidden;
 }
 
-/* NAME PAGE */
-
 #namePage{
 display:flex;
 flex-direction:column;
@@ -37,11 +35,6 @@ justify-content:center;
 height:100vh;
 padding:20px;
 text-align:center;
-}
-
-#namePage h2{
-font-size:22px;
-margin-bottom:12px;
 }
 
 #usernameInput{
@@ -65,8 +58,6 @@ font-weight:600;
 cursor:pointer;
 }
 
-/* GUIDELINES */
-
 .guidelines{
 margin-top:20px;
 background:rgba(0,0,0,0.35);
@@ -81,20 +72,11 @@ line-height:1.6;
 text-align:left;
 }
 
-.guidelines h3{
-color:#ffb347;
-margin-bottom:6px;
-}
-
-/* CHAT PAGE */
-
 #chatPage{
 display:none;
 flex-direction:column;
 height:100vh;
 }
-
-/* MESSAGES */
 
 #messages{
 flex:1;
@@ -102,8 +84,6 @@ overflow-y:auto;
 padding:15px;
 padding-bottom:90px;
 }
-
-/* MESSAGE BUBBLE */
 
 .message{
 background:rgba(0,0,0,0.35);
@@ -121,8 +101,6 @@ font-weight:600;
 margin-right:6px;
 }
 
-/* INPUT BAR */
-
 #inputArea{
 position:fixed;
 bottom:0;
@@ -133,10 +111,7 @@ align-items:center;
 gap:8px;
 padding:10px;
 background:rgba(0,0,0,0.45);
-backdrop-filter:blur(8px);
 }
-
-/* MESSAGE INPUT */
 
 #messageInput{
 flex:1;
@@ -146,8 +121,6 @@ border:none;
 border-radius:10px;
 font-size:15px;
 }
-
-/* SEND BUTTON */
 
 #sendBtn{
 flex-shrink:0;
@@ -167,8 +140,6 @@ cursor:pointer;
 
 <body>
 
-<!-- NAME PAGE -->
-
 <div id="namePage">
 
 <h2>Enter your name to join chat</h2>
@@ -183,21 +154,17 @@ cursor:pointer;
 
 <ul>
 <li>Be respectful to everyone.</li>
-<li>No harassment, hate speech, or abusive language.</li>
+<li>No harassment or hate speech.</li>
 <li>No spam or repeated messages.</li>
-<li>Do not share illegal or harmful content.</li>
+<li>No illegal or harmful content.</li>
+<li>No sexual or explicit content.</li>
 <li>Do not share personal information.</li>
-<li>Keep conversations friendly and appropriate.</li>
-<li>Follow basic internet etiquette.</li>
-<li>Moderators may remove harmful content.</li>
-<li>Repeated violations may lead to removal.</li>
+<li>Keep conversation friendly.</li>
 </ul>
 
 </div>
 
 </div>
-
-<!-- CHAT PAGE -->
 
 <div id="chatPage">
 
@@ -233,23 +200,17 @@ const db = getFirestore(app);
 
 let username="";
 
-/* BLOCKED WORDS */
-
 const bannedWords = [
 "spam",
 "scam",
-"Fuck",
-"Hotsex",
-"Desi",
-"Porn",
-"XXX",
-"Childporn",
-"Sex",
-"Sexy",
+"fuck",
+"porn",
+"sex",
+"xxx",
+"sexy",
+"childporn",
 "abuse"
 ];
-
-/* JOIN CHAT */
 
 document.getElementById("joinBtn").onclick=()=>{
 
@@ -266,8 +227,6 @@ document.getElementById("namePage").style.display="none";
 document.getElementById("chatPage").style.display="flex";
 
 };
-
-/* LOAD LAST 50 MESSAGES */
 
 const messages=document.getElementById("messages");
 
@@ -299,8 +258,6 @@ messages.scrollTop=messages.scrollHeight;
 
 });
 
-/* SEND MESSAGE */
-
 document.getElementById("sendBtn").onclick=sendMessage;
 
 function sendMessage(){
@@ -310,8 +267,6 @@ const text=input.value.trim();
 
 if(text==="") return;
 
-/* WORD LIMIT */
-
 const wordCount=text.split(/\s+/).length;
 
 if(wordCount>15){
@@ -319,12 +274,14 @@ alert("Message cannot exceed 15 words.");
 return;
 }
 
-/* BLOCKED WORD FILTER */
+/* CLEAN TEXT FOR FILTER */
 
-const lowerText = text.toLowerCase();
+const cleaned = text
+.toLowerCase()
+.replace(/[\s\.\-_]/g,'');
 
 for(let word of bannedWords){
-if(lowerText.includes(word)){
+if(cleaned.includes(word)){
 alert("Your message contains blocked words.");
 return;
 }
