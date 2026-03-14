@@ -11,21 +11,23 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2027">
 
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
-html,body{
-height:100%;
-}
+html,body{height:100%;}
 
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
 min-height:100vh;
 overflow-x:hidden;
+padding-bottom:env(safe-area-inset-bottom);
 }
 
 /* HEADER */
@@ -316,89 +318,29 @@ footer{text-align:center;padding:12px;font-size:12px;opacity:.8;}
 
 <div class="grid">
 
-<div class="topic">
-<a href="/posts.html">
-<img src="https://img.icons8.com/color/96/india.png">
-<p>All</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html"><img src="https://img.icons8.com/color/96/india.png"><p>All</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=daily">
-<img src="https://img.icons8.com/color/96/book.png">
-<p>Daily</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=daily"><img src="https://img.icons8.com/color/96/book.png"><p>Daily</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=economy">
-<img src="https://img.icons8.com/color/96/combo-chart.png">
-<p>Economy</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=economy"><img src="https://img.icons8.com/color/96/combo-chart.png"><p>Economy</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=editorial">
-<img src="https://img.icons8.com/color/96/edit.png">
-<p>Editorial</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=editorial"><img src="https://img.icons8.com/color/96/edit.png"><p>Editorial</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=environment">
-<img src="https://img.icons8.com/color/96/forest.png">
-<p>Environment</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=environment"><img src="https://img.icons8.com/color/96/forest.png"><p>Environment</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=governance">
-<img src="https://img.icons8.com/color/96/parliament.png">
-<p>Governance</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=governance"><img src="https://img.icons8.com/color/96/parliament.png"><p>Governance</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=history">
-<img src="https://img.icons8.com/color/96/taj-mahal.png">
-<p>History</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=history"><img src="https://img.icons8.com/color/96/taj-mahal.png"><p>History</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=i.r">
-<img src="https://img.icons8.com/color/96/handshake.png">
-<p>International Relations</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=i.r"><img src="https://img.icons8.com/color/96/handshake.png"><p>International Relations</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=sansad tv">
-<img src="https://img.icons8.com/color/96/video.png">
-<p>Sansad TV</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=sansad tv"><img src="https://img.icons8.com/color/96/video.png"><p>Sansad TV</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=schemes">
-<img src="https://img.icons8.com/color/96/parliament.png">
-<p>Schemes</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=schemes"><img src="https://img.icons8.com/color/96/parliament.png"><p>Schemes</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=science">
-<img src="https://img.icons8.com/color/96/dna-helix.png">
-<p>Science</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=science"><img src="https://img.icons8.com/color/96/dna-helix.png"><p>Science</p></a></div>
 
-<div class="topic">
-<a href="/posts.html?cat=social">
-<img src="https://img.icons8.com/color/96/conference.png">
-<p>Social Issues</p>
-</a>
-</div>
+<div class="topic"><a href="/posts.html?cat=social"><img src="https://img.icons8.com/color/96/conference.png"><p>Social Issues</p></a></div>
 
 </div>
 
@@ -407,16 +349,19 @@ footer{text-align:center;padding:12px;font-size:12px;opacity:.8;}
 <!-- POSTER -->
 
 <div class="poster">
+
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXqSWzCTCOm6CY6Yomk3NsjfngVPtE6K1-g&s">
+
 <div class="poster-content">
 <h4>Stay Updated</h4>
 <p>Daily insights for UPSC preparation</p>
 </div>
+
 </div>
 
 <footer>Quick reads, smarter insights</footer>
 
-<!-- Install Popup -->
+<!-- INSTALL POPUP -->
 
 <div class="install-popup" id="installPopup">
 
@@ -447,19 +392,22 @@ document.getElementById("slides").style.transform="translateX(-"+index*100+"%)";
 }
 
 function nextSlide(){index++;if(index>2) index=0;updateSlide();}
-
 function prevSlide(){index--;if(index<0) index=2;updateSlide();}
 
-/* PWA install */
+/* PWA INSTALL FIX */
 
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt',(e)=>{
+window.addEventListener("beforeinstallprompt",(e)=>{
 e.preventDefault();
-deferredPrompt=e;
+deferredPrompt = e;
 });
 
 document.getElementById("openInstallBox").addEventListener("click",()=>{
+if(!deferredPrompt){
+alert("Installation not ready yet. Refresh the page.");
+return;
+}
 document.getElementById("installPopup").style.display="flex";
 });
 
@@ -468,18 +416,17 @@ document.getElementById("installPopup").style.display="none";
 }
 
 document.getElementById("installBtn").addEventListener("click",async()=>{
-if(deferredPrompt){
+if(!deferredPrompt) return;
 deferredPrompt.prompt();
 await deferredPrompt.userChoice;
 deferredPrompt=null;
 closeInstall();
-}
 });
 
-/* register service worker */
+/* SERVICE WORKER */
 
-if('serviceWorker' in navigator){
-navigator.serviceWorker.register('service-worker.js');
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("service-worker.js");
 }
 
 </script>
