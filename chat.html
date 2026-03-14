@@ -27,6 +27,8 @@ flex-direction:column;
 overflow:hidden;
 }
 
+/* NAME PAGE */
+
 #namePage{
 display:flex;
 flex-direction:column;
@@ -64,7 +66,7 @@ background:rgba(0,0,0,0.35);
 border-radius:10px;
 max-width:420px;
 width:100%;
-height:220px;
+height:230px;
 overflow-y:auto;
 padding:15px;
 font-size:13px;
@@ -72,26 +74,33 @@ line-height:1.6;
 text-align:left;
 }
 
+/* CHAT PAGE */
+
 #chatPage{
 display:none;
 flex-direction:column;
 height:100vh;
 }
 
+/* MESSAGE AREA */
+
 #messages{
 flex:1;
 overflow-y:auto;
 padding:15px;
-padding-bottom:90px;
+padding-bottom:160px;
+-webkit-overflow-scrolling:touch;
 }
+
+/* MESSAGE BUBBLE */
 
 .message{
 background:rgba(0,0,0,0.35);
-padding:10px 14px;
+padding:12px 14px;
 margin:10px 0;
 border-radius:10px;
-font-size:15px;
-max-width:90%;
+font-size:16px;
+max-width:95%;
 word-wrap:break-word;
 }
 
@@ -101,36 +110,40 @@ font-weight:600;
 margin-right:6px;
 }
 
+/* INPUT BAR */
+
 #inputArea{
 position:fixed;
 bottom:0;
 left:0;
 width:100%;
 display:flex;
-align-items:center;
 gap:8px;
-padding:10px;
-background:rgba(0,0,0,0.45);
+padding:12px;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(8px);
 }
+
+/* INPUT */
 
 #messageInput{
 flex:1;
-min-width:0;
 padding:12px;
 border:none;
 border-radius:10px;
 font-size:15px;
 }
 
+/* SEND BUTTON */
+
 #sendBtn{
-flex-shrink:0;
-width:70px;
-padding:12px 0;
+width:80px;
 border:none;
 border-radius:10px;
 background:#ff6a00;
 color:white;
 font-weight:600;
+font-size:15px;
 cursor:pointer;
 }
 
@@ -156,10 +169,11 @@ cursor:pointer;
 <li>Be respectful to everyone.</li>
 <li>No harassment or hate speech.</li>
 <li>No spam or repeated messages.</li>
-<li>No illegal or harmful content.</li>
 <li>No sexual or explicit content.</li>
-<li>Do not share personal information.</li>
-<li>Keep conversation friendly.</li>
+<li>No illegal content.</li>
+<li>No sharing personal information.</li>
+<li>Links may be blocked.</li>
+<li>Keep the chat friendly.</li>
 </ul>
 
 </div>
@@ -200,21 +214,25 @@ const db = getFirestore(app);
 
 let username="";
 
-const bannedWords = [
-"spam",
-"scam",
-"fuck",
+/* BANNED WORDS */
+
+const bannedWords=[
 "porn",
 "sex",
 "xxx",
+"fuck",
 "sexy",
 "childporn",
-"abuse"
+"abuse",
+"scam",
+"spam"
 ];
+
+/* JOIN CHAT */
 
 document.getElementById("joinBtn").onclick=()=>{
 
-const name=document.getElementById("usernameInput").value;
+const name=document.getElementById("usernameInput").value.trim();
 
 if(name===""){
 alert("Please enter your name");
@@ -227,6 +245,8 @@ document.getElementById("namePage").style.display="none";
 document.getElementById("chatPage").style.display="flex";
 
 };
+
+/* LOAD LAST 50 MESSAGES */
 
 const messages=document.getElementById("messages");
 
@@ -258,6 +278,8 @@ messages.scrollTop=messages.scrollHeight;
 
 });
 
+/* SEND MESSAGE */
+
 document.getElementById("sendBtn").onclick=sendMessage;
 
 function sendMessage(){
@@ -267,6 +289,8 @@ const text=input.value.trim();
 
 if(text==="") return;
 
+/* WORD LIMIT */
+
 const wordCount=text.split(/\s+/).length;
 
 if(wordCount>15){
@@ -274,11 +298,20 @@ alert("Message cannot exceed 15 words.");
 return;
 }
 
-/* CLEAN TEXT FOR FILTER */
+/* BLOCK LINKS */
 
-const cleaned = text
+if(text.includes("http") || text.includes("www")){
+alert("Links are not allowed.");
+return;
+}
+
+/* CLEAN TEXT */
+
+const cleaned=text
 .toLowerCase()
 .replace(/[\s\.\-_]/g,'');
+
+/* BAD WORD CHECK */
 
 for(let word of bannedWords){
 if(cleaned.includes(word)){
@@ -286,6 +319,8 @@ alert("Your message contains blocked words.");
 return;
 }
 }
+
+/* SEND */
 
 addDoc(collection(db,"messages"),{
 name:username,
