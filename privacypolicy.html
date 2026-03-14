@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tempermoneky Tool Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -18,233 +19,83 @@ font-family:Poppins;
 body{
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
-overflow-x:hidden;
-}
-
-/* HEADER */
-
-.header{
-text-align:center;
-padding:60px 20px;
-}
-
-.header h1{
-font-size:48px;
-background:linear-gradient(90deg,#ff6a00,#ee0979,#00f2fe);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-/* GRID */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-padding:50px;
-}
-
-.card{
-position:relative;
-border-radius:18px;
-overflow:hidden;
-cursor:pointer;
-transition:.35s;
-}
-
-.card:hover{
-transform:translateY(-10px) scale(1.03);
-}
-
-.card img{
-width:100%;
-height:200px;
-object-fit:cover;
-filter:brightness(.6);
-}
-
-.card-content{
-position:absolute;
-top:0;
-left:0;
-padding:20px;
-height:100%;
+min-height:100vh;
 display:flex;
-flex-direction:column;
-justify-content:space-between;
-}
-
-.counter{
-font-size:28px;
-font-weight:600;
-}
-
-/* COLORS */
-
-.sop h2{color:#00f2fe}
-.t4 h2{color:#ff6a00}
-.aht h2{color:#ff2975}
-.playbook h2{color:#00ff9c}
-.checklist h2{color:#ffd000}
-
-/* DETAILS */
-
-.details{
-padding:60px 80px;
-}
-
-.detail-row{
-display:flex;
-justify-content:space-between;
 align-items:center;
-margin-bottom:80px;
-gap:40px;
-}
-
-.detail-text{
-flex:1;
-}
-
-.detail-text h3{
-font-size:30px;
-margin-bottom:10px;
-}
-
-.detail-text p{
-opacity:.9;
-line-height:1.6;
-}
-
-.detail-img img{
-width:260px;
-border-radius:12px;
-}
-
-/* GUIDE SECTION */
-
-.guide{
-padding:70px 80px;
-}
-
-.guide h2{
-color:#ffd000;
-margin-bottom:35px;
-}
-
-/* DOWNLOAD BOXES */
-
-.guide-top{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-margin-bottom:40px;
-}
-
-.guide-box{
-background:rgba(255,255,255,0.07);
-border-radius:16px;
-padding:28px;
-border:1px solid rgba(255,255,255,0.15);
-backdrop-filter:blur(10px);
-transition:.3s;
-}
-
-.guide-box:hover{
-transform:translateY(-6px);
-box-shadow:0 15px 35px rgba(0,0,0,.5);
-}
-
-.guide-box h3{
-color:#00f2fe;
-margin-bottom:14px;
-}
-
-.guide-box p{
-line-height:1.7;
-opacity:.9;
-margin-bottom:20px;
-}
-
-/* INSTALL BOX */
-
-.install-box{
-background:linear-gradient(135deg,#1c3b45,#294f5b);
-border-radius:16px;
-padding:35px;
-border:1px solid rgba(255,255,255,0.2);
-text-align:center;
-}
-
-.install-box h3{
-color:#00ffcc;
-margin-bottom:18px;
-font-size:22px;
-}
-
-.install-box p{
-line-height:1.7;
-margin-bottom:20px;
-}
-
-/* IMAGES */
-
-.install-images{
-display:flex;
 justify-content:center;
-gap:30px;
-margin-top:20px;
+padding:20px;
 }
 
-.install-images img{
-width:160px;
-height:110px;
-object-fit:cover;
-border-radius:12px;
+/* MAIN BOX */
+
+.policy-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:14px;
+max-width:800px;
+width:100%;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
-/* BUTTON */
+/* TITLE */
 
-.glow-btn{
-display:inline-block;
-margin-top:10px;
-padding:10px 20px;
-background:#ff6a00;
-color:white;
+h1{
+margin-bottom:15px;
+}
+
+h2{
+margin-top:18px;
+margin-bottom:8px;
+color:#ff6a00;
+}
+
+/* TEXT */
+
+p{
+font-size:14px;
+line-height:1.7;
+opacity:0.9;
+margin-bottom:8px;
+}
+
+ul{
+margin-left:20px;
+margin-top:8px;
+}
+
+li{
+font-size:14px;
+margin:6px 0;
+}
+
+/* LINK */
+
+a{
+color:#ff6a00;
 text-decoration:none;
-border-radius:8px;
 font-weight:600;
-transition:.3s;
-box-shadow:0 0 10px #ff6a00,0 0 20px rgba(255,106,0,.6);
 }
 
-.glow-btn:hover{
-background:#ff8c33;
-box-shadow:0 0 15px #ff6a00,0 0 35px rgba(255,106,0,.8);
+a:hover{
+text-decoration:underline;
 }
 
-/* FOOTER */
+/* BACK BUTTON */
 
-.footer{
-text-align:center;
-padding:40px;
-font-size:18px;
-color:#ffd000;
-border-top:2px solid rgba(255,255,255,.15);
+.back{
+display:inline-block;
+margin-top:20px;
+background:#ff6a00;
+padding:10px 16px;
+border-radius:8px;
+color:white;
+font-weight:600;
+text-decoration:none;
 }
 
-/* BLUR REVEAL */
-
-.reveal{
-opacity:0;
-transform:translateY(40px);
-filter:blur(8px);
-transition:all 1s ease;
-}
-
-.reveal.active{
-opacity:1;
-transform:translateY(0);
-filter:blur(0);
+.back:hover{
+opacity:0.9;
 }
 
 </style>
@@ -252,266 +103,60 @@ filter:blur(0);
 
 <body>
 
-<div class="header reveal">
-<h1>Tempermoneky Tool Dashboard</h1>
-<p>Automation | Monitoring | Alerts | SOP Control</p>
-</div>
+<div class="policy-box">
 
-<!-- TOOL CARDS -->
-
-<div class="grid reveal">
-
-<div class="card sop" onclick="scrollToSection('sopSection')">
-<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
-<div class="card-content">
-<div>
-<h2>All SOP</h2>
-<p>Standard Operating Procedures database</p>
-</div>
-<div class="counter" data-target="124">0</div>
-</div>
-</div>
-
-<div class="card t4" onclick="scrollToSection('t4Section')">
-<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
-<div class="card-content">
-<div>
-<h2>T4 Specific Tool</h2>
-<p>Workflow automation tool</p>
-</div>
-<div class="counter" data-target="52">0</div>
-</div>
-</div>
-
-<div class="card aht" onclick="scrollToSection('ahtSection')">
-<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
-<div class="card-content">
-<div>
-<h2>AHT Alarm System</h2>
-<p>Response time monitoring</p>
-</div>
-<div class="counter" data-target="18">0</div>
-</div>
-</div>
-
-<div class="card playbook" onclick="scrollToSection('playbookSection')">
-<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
-<div class="card-content">
-<div>
-<h2>Playbook</h2>
-<p>Operational strategy</p>
-</div>
-<div class="counter" data-target="36">0</div>
-</div>
-</div>
-
-<div class="card checklist" onclick="scrollToSection('checklistSection')">
-<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
-<div class="card-content">
-<div>
-<h2>Checklist Alert System</h2>
-<p>Compliance alerts</p>
-</div>
-<div class="counter" data-target="89">0</div>
-</div>
-</div>
-
-</div>
-
-<!-- DETAILS -->
-
-<div class="details reveal">
-
-<div id="sopSection" class="detail-row">
-<div class="detail-text">
-<h3 style="color:#00f2fe;">All SOP</h3>
-<p>Centralized SOP library for quick reference and standardized workflows.</p>
-</div>
-<div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773098587128-6b3f56533245">
-</div>
-</div>
-
-<div id="t4Section" class="detail-row">
-<div class="detail-text">
-<h3 style="color:#ff6a00;">T4 Specific Tool</h3>
-<p>Automation utility built specifically for T4 operational tasks.</p>
-</div>
-<div class="detail-img">
-<img src="https://images.unsplash.com/photo-1761839259946-2d80f8e72e18">
-</div>
-</div>
-
-<div id="ahtSection" class="detail-row">
-<div class="detail-text">
-<h3 style="color:#ff2975;">AHT Alarm System</h3>
-<p>Triggers alerts when response time thresholds exceed limits.</p>
-</div>
-<div class="detail-img">
-<img src="https://plus.unsplash.com/premium_photo-1772992024323-a7af486b1ff7">
-</div>
-</div>
-
-<div id="playbookSection" class="detail-row">
-<div class="detail-text">
-<h3 style="color:#00ff9c;">Playbook</h3>
-<p>Operational response strategies for common workflow scenarios.</p>
-</div>
-<div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773074846090-0cbb043f853a">
-</div>
-</div>
-
-<div id="checklistSection" class="detail-row">
-<div class="detail-text">
-<h3 style="color:#ffd000;">Checklist Alert System</h3>
-<p>Automated checklist monitoring and alerts for compliance tracking.</p>
-</div>
-<div class="detail-img">
-<img src="https://images.unsplash.com/photo-1773118073884-632bf2c28076">
-</div>
-</div>
-
-</div>
-
-<!-- GUIDE -->
-
-<div class="guide reveal">
-
-<h2>If you have any queries</h2>
-
-<div class="guide-top">
-
-<div class="guide-box">
-
-<h3>Download Tampermonkey (Chrome)</h3>
+<h1>Privacy Policy</h1>
 
 <p>
-1. Open Chrome Web Store<br>
-2. Search Tampermonkey<br>
-3. Click Add to Chrome<br>
-4. Confirm installation
+Your privacy is important to us. This Privacy Policy document explains what information we collect and how we use it when you use our website.
 </p>
 
-<a class="glow-btn" href="https://en.wikipedia.org/wiki/Tampermonkey" target="_blank">
-Download
-</a>
+<h2>Information We Collect</h2>
+<p>We may collect certain information automatically when you visit our website, including:</p>
+<ul>
+<li>Browser type</li>
+<li>Device information</li>
+<li>Pages visited</li>
+<li>General analytics data</li>
+</ul>
 
-</div>
+<h2>How We Use Your Information</h2>
+<p>The information we collect may be used to:</p>
+<ul>
+<li>Improve website performance</li>
+<li>Enhance user experience</li>
+<li>Analyze website traffic</li>
+<li>Prevent spam or abuse</li>
+</ul>
 
-<div class="guide-box">
-
-<h3>Download Tampermonkey (Firefox)</h3>
-
+<h2>Cookies</h2>
 <p>
-1. Open Firefox Add-ons<br>
-2. Search Tampermonkey<br>
-3. Click Add to Firefox<br>
-4. Allow permissions
+Our website may use cookies to improve user experience and analyze traffic. You can disable cookies through your browser settings.
 </p>
 
-<a class="glow-btn" href="https://en.wikipedia.org/wiki/Firefox" target="_blank">
-Download
-</a>
-
-</div>
-
-</div>
-
-<div class="install-box">
-
-<h3>Install the Script</h3>
-
+<h2>Third-Party Services</h2>
 <p>
-1. Open Tampermonkey dashboard<br>
-2. Click Create New Script<br>
-3. Paste the script code<br>
-4. Click Save<br>
-5. Refresh the page
+We may use third-party services such as analytics or advertising partners. These services may collect anonymous usage data according to their own privacy policies.
 </p>
 
-<a class="glow-btn" href="https://en.wikipedia.org/wiki/Userscript" target="_blank">
-Installation Guide
-</a>
+<h2>External Links</h2>
+<p>
+Our website may contain links to external websites. We are not responsible for the privacy policies or practices of those websites.
+</p>
 
-<div class="install-images">
+<h2>Consent</h2>
+<p>
+By using our website, you consent to our Privacy Policy and agree to its terms.
+</p>
 
-<img src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613">
-<img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+<h2>Updates</h2>
+<p>
+We may update this Privacy Policy from time to time. Changes will be posted on this page.
+</p>
+
+<a href="https://myaffiliatepage.com/termandconditions" class="back">Back to Home</a>
 
 </div>
-
-</div>
-
-</div>
-
-<div class="footer">
-Reach out to me for any queries
-</div>
-
-<script>
-
-/* COUNTER */
-
-document.querySelectorAll('.counter').forEach(counter=>{
-
-const update=()=>{
-
-const target=+counter.getAttribute('data-target');
-const c=+counter.innerText;
-
-const inc=target/100;
-
-if(c<target){
-counter.innerText=Math.ceil(c+inc);
-setTimeout(update,20);
-}else{
-counter.innerText=target;
-}
-
-}
-
-update();
-
-});
-
-/* SCROLL */
-
-function scrollToSection(id){
-
-document.getElementById(id).scrollIntoView({
-behavior:'smooth'
-});
-
-}
-
-/* BLUR REVEAL */
-
-function reveal(){
-
-const reveals=document.querySelectorAll(".reveal");
-
-for(let i=0;i<reveals.length;i++){
-
-const windowHeight=window.innerHeight;
-const elementTop=reveals[i].getBoundingClientRect().top;
-const elementVisible=120;
-
-if(elementTop < windowHeight - elementVisible){
-
-reveals[i].classList.add("active");
-
-}
-
-}
-
-}
-
-window.addEventListener("scroll",reveal);
-reveal();
-
-</script>
 
 </body>
 </html>
