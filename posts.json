@@ -25,6 +25,16 @@
 },
 {
 "id":3,
+"title":"AI Revolution in Defence",
+"heroImage":"https://lumenor.ai/cdn-cgi/imagedelivery/F5KOmplEz0rStV2qDKhYag/6936c382-e5cb-42f8-9e37-7b5a22cd7700/tn",
+"ctaText":"Check Now",
+"ctaLink":"https://example.com",
+"music":"https://www.chosic.com/wp-content/uploads/2020/08/keys-of-moon-the-success(chosic.com).mp3",
+"category":"daily",
+"time":"3 hours ago"
+},
+{
+"id":3,
 "title":"India’s Digital Economy Expands Rapidly",
 "image":"https://images.unsplash.com/photo-1518779578993-ec3579fee39f",
 "content":"Digital payments and online services are transforming India's economy, improving financial inclusion and enabling easier access to government services.",
@@ -56,16 +66,6 @@
 "ctaLink":"https://example.com",
 "music":"https://www.chosic.com/wp-content/uploads/2020/08/keys-of-moon-the-success(chosic.com).mp3",
 "category":"economy",
-"time":"3 hours ago"
-},
-{
-"id":3,
-"title":"AI Revolution in Defence",
-"heroImage":"https://lumenor.ai/cdn-cgi/imagedelivery/F5KOmplEz0rStV2qDKhYag/6936c382-e5cb-42f8-9e37-7b5a22cd7700/tn",
-"ctaText":"Check Now",
-"ctaLink":"https://example.com",
-"music":"https://www.chosic.com/wp-content/uploads/2020/08/keys-of-moon-the-success(chosic.com).mp3",
-"category":"daily",
 "time":"3 hours ago"
 },
 {
