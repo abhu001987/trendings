@@ -42,7 +42,7 @@ hero.className = "hero-post"
 
 hero.innerHTML = `
 
-<img src="${window.innerWidth > 768 && post.heroImageDesktop ? post.heroImageDesktop : post.heroImage}" class="hero-img">
+<img src="${post.heroImage}" class="hero-img">
 
 <div class="hero-overlay">
 <a href="${post.ctaLink}" class="hero-btn">${post.ctaText}</a>
