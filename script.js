@@ -31,6 +31,32 @@ let nextPosts = allPosts.slice(visiblePosts, visiblePosts + loadCount)
 
 nextPosts.forEach(post => {
 
+const container = document.getElementById("posts")
+
+/* HERO IMAGE POST */
+
+if(post.heroImage){
+
+const hero = document.createElement("div")
+hero.className = "hero-post"
+
+hero.innerHTML = `
+
+<img src="${post.heroImage}" class="hero-img">
+
+<div class="hero-overlay">
+<a href="${post.ctaLink}" class="hero-btn">${post.ctaText}</a>
+</div>
+
+`
+
+container.appendChild(hero)
+
+return
+}
+
+/* NORMAL POST (your original code) */
+
 const card = document.createElement("div")
 card.className = "post"
 
