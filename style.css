@@ -195,25 +195,4 @@ background:rgba(255,255,255,0.25);
 transform:scale(1.05);
 
 }
-/* Desktop fix: keep phone-style vertical post */
-
-@media (min-width:768px){
-
-.hero-post{
-max-width:420px;       /* phone width */
-margin:auto;
-height:100vh;
-}
-
-.hero-img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-#posts{
-display:flex;
-flex-direction:column;
-align-items:center;
-}
 
