@@ -48,6 +48,8 @@ hero.innerHTML = `
 <a href="${post.ctaLink}" class="hero-btn">${post.ctaText}</a>
 </div>
 
+${post.music ? `<audio class="hero-music" src="${post.music}" loop></audio>` : ""}
+
 `
 
 container.appendChild(hero)
@@ -101,3 +103,38 @@ loadMore()
 }
 
 })
+
+const heroObserver = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+const audio = entry.target.querySelector(".hero-music")
+
+if(!audio) return
+
+if(entry.isIntersecting){
+
+audio.play().catch(()=>{})
+
+}else{
+
+audio.pause()
+audio.currentTime = 0
+
+}
+
+})
+
+},{threshold:0.6})
+
+function observeHeroPosts(){
+
+document.querySelectorAll(".hero-post").forEach(post=>{
+heroObserver.observe(post)
+})
+
+}
+
+/* observe after posts load */
+
+setInterval(observeHeroPosts,1000)
