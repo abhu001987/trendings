@@ -24,7 +24,6 @@ color:white;
 height:100vh;
 display:flex;
 flex-direction:column;
-overflow:hidden;
 }
 
 /* NAME PAGE */
@@ -60,6 +59,8 @@ font-weight:600;
 cursor:pointer;
 }
 
+/* GUIDELINES */
+
 .guidelines{
 margin-top:20px;
 background:rgba(0,0,0,0.35);
@@ -86,26 +87,41 @@ height:100vh;
 
 #messages{
 flex:1;
+display:flex;
+flex-direction:column;
 overflow-y:auto;
 padding:15px;
-padding-bottom:160px;
+padding-bottom:120px;
 -webkit-overflow-scrolling:touch;
 }
 
-/* MESSAGE BUBBLE */
+/* MESSAGE */
 
 .message{
-background:rgba(0,0,0,0.35);
+max-width:75%;
 padding:12px 14px;
-margin:10px 0;
-border-radius:10px;
+margin:6px 0;
+border-radius:12px;
 font-size:16px;
-max-width:95%;
 word-wrap:break-word;
 }
 
+/* OTHER USERS */
+
+.other{
+background:rgba(0,0,0,0.35);
+align-self:flex-start;
+}
+
+/* YOUR MESSAGE */
+
+.me{
+background:#ff6a00;
+color:white;
+align-self:flex-end;
+}
+
 .username{
-color:#ffb347;
 font-weight:600;
 margin-right:6px;
 }
@@ -119,9 +135,8 @@ left:0;
 width:100%;
 display:flex;
 gap:8px;
-padding:12px;
-background:rgba(0,0,0,0.55);
-backdrop-filter:blur(8px);
+padding:10px;
+background:rgba(0,0,0,0.6);
 }
 
 /* INPUT */
@@ -172,7 +187,7 @@ cursor:pointer;
 <li>No sexual or explicit content.</li>
 <li>No illegal content.</li>
 <li>No sharing personal information.</li>
-<li>Links may be blocked.</li>
+<li>Links are blocked.</li>
 <li>Keep the chat friendly.</li>
 </ul>
 
@@ -197,24 +212,25 @@ cursor:pointer;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot }
+import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp }
 from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyA7wwgFsSyhUK-C6C-TE64yH1Ksldm7A_E",
-authDomain: "community-chat-ffd34.firebaseapp.com",
-projectId: "community-chat-ffd34",
-storageBucket: "community-chat-ffd34.firebasestorage.app",
-messagingSenderId: "45644496109",
-appId: "1:45644496109:web:9ad0351a6592114d66e0e4"
+const firebaseConfig={
+apiKey:"AIzaSyA7wwgFsSyhUK-C6C-TE64yH1Ksldm7A_E",
+authDomain:"community-chat-ffd34.firebaseapp.com",
+projectId:"community-chat-ffd34",
+storageBucket:"community-chat-ffd34.firebasestorage.app",
+messagingSenderId:"45644496109",
+appId:"1:45644496109:web:9ad0351a6592114d66e0e4"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
 let username="";
+let lastMessageTime=0;
 
-/* BANNED WORDS */
+/* BLOCKED WORDS */
 
 const bannedWords=[
 "porn",
@@ -224,8 +240,8 @@ const bannedWords=[
 "sexy",
 "childporn",
 "abuse",
-"scam",
-"spam"
+"spam",
+"scam"
 ];
 
 /* JOIN CHAT */
@@ -252,7 +268,7 @@ const messages=document.getElementById("messages");
 
 const q=query(
 collection(db,"messages"),
-orderBy("time","desc"),
+orderBy("time","asc"),
 limit(50)
 );
 
@@ -260,14 +276,13 @@ onSnapshot(q,(snapshot)=>{
 
 messages.innerHTML="";
 
-const docs=snapshot.docs.reverse();
-
-docs.forEach(doc=>{
+snapshot.docs.forEach(doc=>{
 
 const m=doc.data();
+const isMe = m.name === username;
 
 messages.innerHTML+=`
-<div class="message">
+<div class="message ${isMe ? "me" : "other"}">
 <span class="username">${m.name}:</span> ${m.text}
 </div>
 `;
@@ -289,6 +304,17 @@ const text=input.value.trim();
 
 if(text==="") return;
 
+/* 3 SECOND COOLDOWN */
+
+const now=Date.now();
+
+if(now-lastMessageTime<3000){
+alert("Please wait 3 seconds before sending another message.");
+return;
+}
+
+lastMessageTime=now;
+
 /* WORD LIMIT */
 
 const wordCount=text.split(/\s+/).length;
@@ -300,18 +326,16 @@ return;
 
 /* BLOCK LINKS */
 
-if(text.includes("http") || text.includes("www")){
+if(text.includes("http")||text.includes("www")){
 alert("Links are not allowed.");
 return;
 }
 
 /* CLEAN TEXT */
 
-const cleaned=text
-.toLowerCase()
-.replace(/[\s\.\-_]/g,'');
+const cleaned=text.toLowerCase().replace(/[\s\.\-_]/g,'');
 
-/* BAD WORD CHECK */
+/* BAD WORD FILTER */
 
 for(let word of bannedWords){
 if(cleaned.includes(word)){
@@ -325,7 +349,7 @@ return;
 addDoc(collection(db,"messages"),{
 name:username,
 text:text,
-time:Date.now()
+time:serverTimestamp()
 });
 
 input.value="";
