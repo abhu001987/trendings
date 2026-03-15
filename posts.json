@@ -16,16 +16,6 @@
 "time":"6 hours ago"
 },
 {
-"id":3,
-"title":"AI Revolution in Defence",
-"heroImage":"https://lumenor.ai/cdn-cgi/imagedelivery/F5KOmplEz0rStV2qDKhYag/6936c382-e5cb-42f8-9e37-7b5a22cd7700/tn",
-"ctaText":"Check Now",
-"ctaLink":"https://example.com",
-"music":"https://www.chosic.com/wp-content/uploads/2020/08/keys-of-moon-the-success(chosic.com).mp3",
-"category":"daily",
-"time":"3 hours ago"
-},
-{
 "id":2,
 "title":"Supreme Court Emphasizes Transparency in Governance",
 "image":"https://images.unsplash.com/photo-1589829545856-d10d557cf95f",
@@ -62,7 +52,7 @@
 "id":3,
 "title":"AI Revolution in Defence",
 
-"heroImage":"https://img.freepik.com/free-photo/closeup-scarlet-macaw-from-side-view-scarlet-macaw-closeup-head_488145-3540.jpg?semt=ais_hybrid&w=740&q=80",
+"heroImage":"https://lumenor.ai/cdn-cgi/imagedelivery/F5KOmplEz0rStV2qDKhYag/6936c382-e5cb-42f8-9e37-7b5a22cd7700/tn",
 "heroImageDesktop":"https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
 
 "ctaText":"Check Now",
