@@ -18,9 +18,16 @@
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
 
-html,body{height:100%;}
+html,body{
+  height:100%;
+}
 
 body{
   background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
@@ -131,13 +138,20 @@ cursor:pointer;
 /* FEATURED */
 
 .featured{
-padding:15px 20px;
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  padding:15px 20px;
 }
 
-.section-title{display:flex;justify-content:space-between;margin-bottom:10px;}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
 
-.quiz{color:#ff6a00;text-decoration:none;font-weight:600;}
+.quiz{
+  color:#ff6a00;
+  text-decoration:none;
+  font-weight:600;
+}
 
 /* SLIDER */
 
@@ -194,82 +208,63 @@ border-radius:6px;
 /* TOPICS */
 
 .topics{
-padding:16px 20px;
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  padding:20px;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:14px;
-margin-top:10px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  margin-top:12px;
 }
 
 .topic{
-text-align:center;
+  text-align:center;
 }
-
-/* make the whole card clickable */
 
 .topic a{
-text-decoration:none;
-color:white;
-display:block;
+  text-decoration:none;
+  color:white;
+  display:block;
 }
-
-/* icon */
 
 .topic img{
-width:48px;
-height:48px;
-border-radius:12px;
-background:white;
-padding:6px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
-object-fit:contain;
-display:block;
-margin:0 auto;
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  background:white;
+  padding:6px;
+  object-fit:contain;
+  display:block;
+  margin:auto;
 }
 
-/* label */
-
 .topic p{
-font-size:11px;
-margin-top:4px;
+  font-size:11px;
+  margin-top:4px;
 }
 
 /* POSTER */
 
 .poster{
-margin:20px;
-border-radius:14px;
-overflow:hidden;
-position:relative;
-box-shadow:0 6px 18px rgba(0,0,0,0.3);
-background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  margin:20px;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
 }
 
 .poster img{
-width:100%;
-height:160px;
-object-fit:cover;
-filter:brightness(.75);
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  filter:brightness(.75);
 }
 
 .poster-content{
-position:absolute;
-bottom:12px;
-left:14px;
-}
-
-.poster-content h4{
-font-size:16px;
-margin-bottom:3px;
-}
-
-.poster-content p{
-font-size:12px;
-opacity:.9;
+  position:absolute;
+  bottom:12px;
+  left:14px;
 }
 
 /* FOOTER */
