@@ -195,19 +195,18 @@ background:rgba(255,255,255,0.25);
 transform:scale(1.05);
 
 }
-/* laptop / desktop fix */
+/* Desktop / Laptop fix */
 
-@media (min-width:900px){
+@media (min-width:768px){
 
-.hero-post{
-max-width:900px;
+#posts{
+max-width:420px;   /* phone width */
 margin:auto;
-border-radius:16px;
-overflow:hidden;
 }
 
-.hero-img{
-height:70vh;
+body{
+display:flex;
+justify-content:center;
 }
 
 }
