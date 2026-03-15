@@ -59,12 +59,17 @@
 "time":"1 day ago"
 },
 {
-"id":6,
-"title":"India’s Manufacturing Sector and Make in India",
-"image":"https://images.unsplash.com/photo-1581093588401-22fdb2c1db9c",
-"content":"The Make in India initiative aims to strengthen domestic manufacturing, generate employment and boost exports.",
-"category":"economy",
-"time":"1 day ago"
+"id":3,
+"title":"AI Revolution in Defence",
+
+"heroImage":"https://img.freepik.com/free-photo/closeup-scarlet-macaw-from-side-view-scarlet-macaw-closeup-head_488145-3540.jpg?semt=ais_hybrid&w=740&q=80",
+"heroImageDesktop":"https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
+
+"ctaText":"Check Now",
+"ctaLink":"https://example.com",
+
+"category":"daily",
+"time":"3 hours ago"
 },
 {
 "id":7,
