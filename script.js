@@ -9,18 +9,22 @@ function goBack(){
 window.location.href="/"
 }
 
-fetch("posts.json")
+/* 🚀 FORCE FRESH LOAD (NO CACHE) */
+
+const file = category ? `${category}.json` : "posts.json"
+const url = file + "?v=" + new Date().getTime()
+
+fetch(url)
 .then(res => res.json())
 .then(data => {
 
-if(category){
-allPosts = data.filter(post => post.category === category)
-}else{
 allPosts = data
-}
-
 loadMore()
 
+})
+.catch(() => {
+document.getElementById("posts").innerHTML =
+"<h2 style='padding:40px;text-align:center'>No posts found</h2>"
 })
 
 function loadMore(){
@@ -30,8 +34,6 @@ const container = document.getElementById("posts")
 let nextPosts = allPosts.slice(visiblePosts, visiblePosts + loadCount)
 
 nextPosts.forEach(post => {
-
-const container = document.getElementById("posts")
 
 /* HERO IMAGE POST */
 
@@ -53,11 +55,10 @@ ${post.music ? `<audio class="hero-music" src="${post.music}" loop></audio>` : "
 `
 
 container.appendChild(hero)
-
 return
 }
 
-/* NORMAL POST (your original code) */
+/* NORMAL POST */
 
 const card = document.createElement("div")
 card.className = "post"
@@ -92,17 +93,19 @@ visiblePosts += loadCount
 
 }
 
+/* SCROLL LOAD */
+
 document.getElementById("posts").addEventListener("scroll",function(){
 
 const container = this
 
 if(container.scrollTop + container.clientHeight >= container.scrollHeight - 5){
-
 loadMore()
-
 }
 
 })
+
+/* HERO AUDIO */
 
 const heroObserver = new IntersectionObserver(entries => {
 
@@ -113,14 +116,10 @@ const audio = entry.target.querySelector(".hero-music")
 if(!audio) return
 
 if(entry.isIntersecting){
-
 audio.play().catch(()=>{})
-
 }else{
-
 audio.pause()
 audio.currentTime = 0
-
 }
 
 })
@@ -128,13 +127,10 @@ audio.currentTime = 0
 },{threshold:0.6})
 
 function observeHeroPosts(){
-
 document.querySelectorAll(".hero-post").forEach(post=>{
 heroObserver.observe(post)
 })
-
 }
 
 /* observe after posts load */
-
 setInterval(observeHeroPosts,1000)
