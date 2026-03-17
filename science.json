@@ -1,0 +1,18 @@
+[
+{
+"id":1,
+"title":"ISRO’s Space Achievements",
+"image":"https://images.unsplash.com/photo-1446776811953-b23d57bd21aa",
+"content":"India continues to achieve milestones in satellite launches and missions.",
+"category":"science",
+"time":"4 days ago"
+},
+{
+"id":2,
+"title":"Artificial Intelligence Growth",
+"image":"https://images.unsplash.com/photo-1518779578993-ec3579fee39f",
+"content":"AI is transforming industries including healthcare, education and governance.",
+"category":"science",
+"time":"5 days ago"
+}
+]
