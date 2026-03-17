@@ -1,0 +1,34 @@
+[
+{
+"id":1,
+"title":"Fiscal Health Index 2026",
+"image":"https://images.unsplash.com/photo-1500937386664-56d1dfef3854",
+"content":"Policy reforms aim to improve farmer incomes through better market access.",
+"category":"economy",
+"time":"2 days ago"
+},
+{
+"id":2,
+"title":"India’s Inflation Trends and Policy Response",
+"image":"https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+"content":"Rising inflation continues to impact household budgets, prompting the Reserve Bank to adjust monetary policy measures.",
+"category":"economy",
+"time":"1 day ago"
+},
+{
+"id":3,
+"title":"Growth of Digital Payments in India",
+"image":"https://images.unsplash.com/photo-1581093588401-22fdb2c1db9c",
+"content":"UPI and digital platforms are driving financial inclusion and transforming India’s economic landscape rapidly.",
+"category":"economy",
+"time":"12 hours ago"
+},
+{
+"id":4,
+"title":"Export Performance and Global Trade Challenges",
+"image":"https://images.unsplash.com/photo-1507679799987-c73779587ccf",
+"content":"India’s export sector faces global uncertainties while exploring new markets and strengthening trade partnerships.",
+"category":"economy",
+"time":"6 hours ago"
+}
+]
