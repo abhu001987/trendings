@@ -1,0 +1,18 @@
+[
+{
+"id":1,
+"title":"Ayushman Bharat Scheme",
+"image":"https://images.unsplash.com/photo-1584515933487-779824d29309",
+"content":"Provides health coverage to economically weaker sections of society.",
+"category":"schemes",
+"time":"5 days ago"
+},
+{
+"id":2,
+"title":"PM Kisan Samman Nidhi",
+"image":"https://images.unsplash.com/photo-1500937386664-56d1dfef3854",
+"content":"Offers income support to farmers to improve agricultural productivity.",
+"category":"schemes",
+"time":"6 days ago"
+}
+]
