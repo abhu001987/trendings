@@ -1,0 +1,18 @@
+[
+{
+"id":1,
+"title":"E-Governance Initiatives",
+"image":"https://images.unsplash.com/photo-1581093458791-9d8e0b9ed9e5",
+"content":"Digital platforms improve service delivery and transparency in governance.",
+"category":"governance",
+"time":"2 days ago"
+},
+{
+"id":2,
+"title":"Panchayati Raj System",
+"image":"https://images.unsplash.com/photo-1541872705-1f73c6400ec9",
+"content":"Local governance plays a crucial role in rural development and participation.",
+"category":"governance",
+"time":"3 days ago"
+}
+]
