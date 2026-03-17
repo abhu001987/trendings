@@ -49,7 +49,6 @@
 "category":"daily",
 "time":"9 hours ago"
 },
-
 {
 "id":7,
 "title":"Inflation Trends in the Indian Economy",
@@ -84,28 +83,11 @@
 "category":"economy",
 "time":"2 days ago"
 },
-
 {
-"id":11,
-"title": "Transforming Indian Agriculture: From Production Powerhouse to Value-Driven Growth Engine",
-"image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef",
-"content":"Education reforms focus on innovation, skill development and preparing youth for a rapidly changing global economy.",
-"category":"editorial",
-"time":"3 days ago"
-},
-{
-"id":12,
-"title":"Reimagining India’s Education System: Bridging Access, Equity and Quality",
-"image":"https://images.unsplash.com/photo-1523240795612-9a054b0db644",
-"content":"Education reforms focus on innovation, skill development and preparing youth for a rapidly changing global economy.",
-"category":"editorial",
-"time":"3 days ago"
-},
-{
-"id":13,
-"title":"Editorial: Education Reforms for Future India",
-"image":"https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
-"content":"Education reforms focus on innovation, skill development and preparing youth for a rapidly changing global economy.",
+"id":14,
+"title":"Editorial: The Importance of Federalism",
+"image":"https://images.unsplash.com/photo-1495020689067-958852a7765e",
+"content":"India’s federal structure enables cooperation between the Union and states for effective governance.",
 "category":"editorial",
 "time":"3 days ago"
 },
@@ -117,7 +99,22 @@
 "category":"editorial",
 "time":"3 days ago"
 },
-
+{
+"id":14,
+"title":"Editorial: The Importance of Federalism",
+"image":"https://images.unsplash.com/photo-1495020689067-958852a7765e",
+"content":"India’s federal structure enables cooperation between the Union and states for effective governance.",
+"category":"editorial",
+"time":"3 days ago"
+},
+{
+"id":14,
+"title":"Editorial: The Importance of Federalism",
+"image":"https://images.unsplash.com/photo-1495020689067-958852a7765e",
+"content":"India’s federal structure enables cooperation between the Union and states for effective governance.",
+"category":"editorial",
+"time":"3 days ago"
+},
 {
 "id":15,
 "title":"India’s Forest Conservation Efforts",
