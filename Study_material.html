@@ -27,49 +27,94 @@ padding:20px;
 /* TITLE */
 
 .title{
-font-size:28px;
-font-weight:600;
-margin-bottom:25px;
+font-size:30px;
 text-align:center;
+margin-bottom:30px;
+font-weight:600;
+position:relative;
 }
 
-/* SUBJECT */
+.title::after{
+content:"";
+width:80px;
+height:3px;
+background:#ff6a00;
+display:block;
+margin:8px auto 0;
+border-radius:2px;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+/* CARD */
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border-radius:12px;
+margin-bottom:18px;
+overflow:hidden;
+transition:.3s;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+.card:hover{
+transform:scale(1.02);
+}
+
+/* SUBJECT HEADER */
 
 .subject{
-margin-bottom:15px;
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-.subject-title{
-font-size:18px;
-padding:12px;
-cursor:pointer;
-color:#ff6a00;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+cursor:pointer;
+font-size:16px;
 }
 
-.subject-title:hover{
-background:rgba(255,255,255,0.05);
-border-radius:6px;
+.subject-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.icon{
+font-size:20px;
+}
+
+/* ARROW */
+
+.arrow{
+transition:.3s;
+}
+
+.rotate{
+transform:rotate(180deg);
 }
 
 /* DROPDOWN */
 
 .dropdown{
-display:none;
-padding-left:15px;
-margin-bottom:10px;
+max-height:0;
+overflow:hidden;
+transition:max-height .4s ease;
+background:rgba(0,0,0,0.2);
 }
 
 .dropdown a{
 display:block;
-padding:10px;
+padding:12px 18px;
 text-decoration:none;
 color:#f1f5f9;
 font-size:14px;
 border-left:3px solid transparent;
+transition:.2s;
 }
 
 .dropdown a:hover{
@@ -77,10 +122,10 @@ background:rgba(255,255,255,0.05);
 border-left:3px solid #ff6a00;
 }
 
-/* ACTIVE */
+/* ACTIVE CARD */
 
-.active{
-display:block;
+.card.active{
+border:1px solid rgba(255,255,255,0.1);
 }
 
 </style>
@@ -91,10 +136,14 @@ display:block;
 
 <h1 class="title">Study Materials</h1>
 
-<!-- SUBJECT LIST -->
+<div class="container">
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">History ▾</div>
+<!-- HISTORY -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">📜</span> History</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/history6_2.pdf" target="_blank">Class 6</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/copy-of-our-past-class-7-social-science_2.pdf" target="_blank">Class 7</a>
@@ -108,8 +157,12 @@ display:block;
 </div>
 </div>
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">Geography ▾</div>
+<!-- GEOGRAPHY -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">🌍</span> Geography</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/geography_2.pdf" target="_blank">Class 6</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/copy-of-our-environmemnt-class-7-copy_2.pdf" target="_blank">Class 7</a>
@@ -123,8 +176,12 @@ display:block;
 </div>
 </div>
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">Science ▾</div>
+<!-- SCIENCE -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">🔬</span> Science</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/science-class-6.pdf" target="_blank">Class 6</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/copy-of-science-class-7.pdf" target="_blank">Class 7</a>
@@ -134,8 +191,12 @@ display:block;
 </div>
 </div>
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">Polity ▾</div>
+<!-- POLITY -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">⚖️</span> Polity</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/polity6.pdf" target="_blank">Class 6</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/social-science-7.pdf" target="_blank">Class 7</a>
@@ -145,8 +206,12 @@ display:block;
 </div>
 </div>
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">Economics ▾</div>
+<!-- ECONOMICS -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">💰</span> Economics</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/economics-class-9.pdf" target="_blank">Class 9</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/ncert-class-10-economics.pdf" target="_blank">Class 10</a>
@@ -156,8 +221,12 @@ display:block;
 </div>
 </div>
 
-<div class="subject">
-<div class="subject-title" onclick="toggle(this)">Art & Culture ▾</div>
+<!-- ART -->
+<div class="card">
+<div class="subject" onclick="toggle(this)">
+<div class="subject-left"><span class="icon">🎭</span> Art & Culture</div>
+<div class="arrow">▾</div>
+</div>
 <div class="dropdown">
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/introduction-to-indian-art-_.pdf" target="_blank">Class 11</a>
 <a href="https://studymate81.wordpress.com/wp-content/uploads/2026/03/ncert-class-11-heritage-crafts.pdf" target="_blank">Class 11</a>
@@ -165,14 +234,35 @@ display:block;
 </div>
 </div>
 
+</div>
 
 <script>
 
 function toggle(element){
 
+let card = element.parentElement
 let dropdown = element.nextElementSibling
+let arrow = element.querySelector(".arrow")
 
-dropdown.classList.toggle("active")
+/* close all */
+document.querySelectorAll(".card").forEach(c=>{
+if(c !== card){
+c.classList.remove("active")
+c.querySelector(".dropdown").style.maxHeight = null
+c.querySelector(".arrow").classList.remove("rotate")
+}
+})
+
+/* toggle current */
+card.classList.toggle("active")
+
+if(dropdown.style.maxHeight){
+dropdown.style.maxHeight = null
+arrow.classList.remove("rotate")
+}else{
+dropdown.style.maxHeight = dropdown.scrollHeight + "px"
+arrow.classList.add("rotate")
+}
 
 }
 
@@ -180,3 +270,4 @@ dropdown.classList.toggle("active")
 
 </body>
 </html>
+
