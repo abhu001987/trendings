@@ -162,19 +162,23 @@ from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
 /* CONFIG */
 
-const app = initializeApp({
-apiKey:"AIzaSy...",
-authDomain:"community-chat-ffd34.firebaseapp.com",
-projectId:"community-chat-ffd34"
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyA7wwgFsSyhUK-C6C-TE64yH1Ksldm7A_E",
+  authDomain: "community-chat-ffd34.firebaseapp.com",
+  projectId: "community-chat-ffd34",
+  storageBucket: "community-chat-ffd34.firebasestorage.app",
+  messagingSenderId: "45644496109",
+  appId: "1:45644496109:web:9ad0351a6592114d66e0e4"
+};
+
+const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
-const auth = getAuth(app); // ✅ FIXED
+const auth = getAuth(app); // ✅ correct
 
-let user=null;
-let username="";
-let lastMessageTime=0;
-
+let user = null;
+let username = "";
+let lastMessageTime = 0;
 /* 🔐 ADMIN UID */
 
 const ADMIN_UID="PASTE_YOUR_UID_HERE";
