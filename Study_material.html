@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Study Materials</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:#f1f5f9;
+padding:20px;
+}
+
+/* TITLE */
+
+.title{
+font-size:28px;
+font-weight:600;
+margin-bottom:25px;
+text-align:center;
+}
+
+/* SUBJECT */
+
+.subject{
+margin-bottom:15px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.subject-title{
+font-size:18px;
+padding:12px;
+cursor:pointer;
+color:#ff6a00;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.subject-title:hover{
+background:rgba(255,255,255,0.05);
+border-radius:6px;
+}
+
+/* DROPDOWN */
+
+.dropdown{
+display:none;
+padding-left:15px;
+margin-bottom:10px;
+}
+
+.dropdown a{
+display:block;
+padding:10px;
+text-decoration:none;
+color:#f1f5f9;
+font-size:14px;
+border-left:3px solid transparent;
+}
+
+.dropdown a:hover{
+background:rgba(255,255,255,0.05);
+border-left:3px solid #ff6a00;
+}
+
+/* ACTIVE */
+
+.active{
+display:block;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 class="title">Study Materials</h1>
+
+<!-- SUBJECT LIST -->
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">History ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/History" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Ancient_history" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Medieval_history" target="_blank">Class 8</a>
+</div>
+</div>
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">Geography ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/Geography" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Physical_geography" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Human_geography" target="_blank">Class 8</a>
+</div>
+</div>
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">Science ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/Science" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Physics" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Chemistry" target="_blank">Class 8</a>
+</div>
+</div>
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">Polity ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/Political_science" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Democracy" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Constitution" target="_blank">Class 8</a>
+</div>
+</div>
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">Economics ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/Economics" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Microeconomics" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Macroeconomics" target="_blank">Class 8</a>
+</div>
+</div>
+
+<div class="subject">
+<div class="subject-title" onclick="toggle(this)">Art & Culture ▾</div>
+<div class="dropdown">
+<a href="https://en.wikipedia.org/wiki/Culture" target="_blank">Class 6</a>
+<a href="https://en.wikipedia.org/wiki/Indian_art" target="_blank">Class 7</a>
+<a href="https://en.wikipedia.org/wiki/Indian_culture" target="_blank">Class 8</a>
+</div>
+</div>
+
+
+<script>
+
+function toggle(element){
+
+let dropdown = element.nextElementSibling
+
+dropdown.classList.toggle("active")
+
+}
+
+</script>
+
+</body>
+</html>
+
