@@ -410,13 +410,20 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 <!-- INSTALL POPUP -->
 <div class="install-popup" id="installPopup">
   <div class="install-content">
-    <h3>Convert to App</h3>
+   <h3>Get the App</h3>
 
-    <p>
-      Install this app for a faster and better experience.<br><br>
+<p>
+  Enjoy a faster and smoother experience.<br><br>
 
-      📱 <b>Android:</b><br>
-      Tap "Convert" and follow the install prompt.<br><br>
+  📱 <b>Android:</b><br>
+  Tap "Add to Home Screen" and follow the prompt.<br><br>
+
+  🍎 <b>iPhone / iPad:</b><br>
+  Tap the Share (⬆️) button,<br>
+  then select <b>"Add to Home Screen"</b>.<br><br>
+</p>
+
+<button id="installBtn">Add to Home Screen</button>
 
       🍎 <b>iPhone / iPad:</b><br>
       Tap the Share (⬆️) button in your browser,<br>
@@ -455,11 +462,13 @@ deferredPrompt = e;
 });
 
 document.getElementById("openInstallBox").addEventListener("click",()=>{
-if(!deferredPrompt){
-alert("Installation not ready yet. Refresh the page.");
-return;
-}
-document.getElementById("installPopup").style.display="flex";
+document.getElementById("openInstallBox").addEventListener("click",()=>{
+  if(!deferredPrompt){
+    alert("Please wait a few seconds and try again");
+    return;
+  }
+
+  document.getElementById("installPopup").style.display="flex";
 });
 
 function closeInstall(){
