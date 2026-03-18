@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 
@@ -15,14 +14,13 @@
 html,body{
 height:100%;
 width:100%;
-overflow-x:hidden;
 background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 color:white;
 display:flex;
 flex-direction:column;
 }
 
-/* LOGIN PAGE */
+/* LOGIN */
 
 #loginPage{
 display:flex;
@@ -30,8 +28,8 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 height:100vh;
-padding:20px;
 text-align:center;
+padding:20px;
 }
 
 #loginBtn{
@@ -55,13 +53,12 @@ height:100vh;
 
 #messages{
 flex:1;
-display:flex;
-flex-direction:column;
 overflow-y:auto;
 padding:15px;
-padding-bottom:150px;
--webkit-overflow-scrolling:touch;
+padding-bottom:90px;
 }
+
+/* MESSAGES */
 
 .message{
 max-width:75%;
@@ -102,8 +99,8 @@ left:0;
 width:100%;
 display:flex;
 gap:8px;
-padding:10px 12px;
-background:rgba(0,0,0,0.65);
+padding:10px;
+background:rgba(0,0,0,0.75);
 }
 
 #messageInput{
@@ -111,10 +108,11 @@ flex:1;
 padding:12px;
 border:none;
 border-radius:12px;
+font-size:14px;
 }
 
 #sendBtn{
-width:75px;
+width:80px;
 border:none;
 border-radius:12px;
 background:#ff6a00;
@@ -123,32 +121,34 @@ font-weight:600;
 cursor:pointer;
 }
 
+/* MOBILE FIX */
+
+@media(max-width:600px){
+#sendBtn{width:70px;}
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 
 <div id="loginPage">
-
 <h2>Join Community Chat</h2>
 <button id="loginBtn">Login with Google</button>
-
 </div>
 
-<!-- CHAT PAGE -->
+<!-- CHAT -->
 
 <div id="chatPage">
-
 <div id="messages"></div>
 
 <div id="inputArea">
 <input id="messageInput" placeholder="Type message...">
 <button id="sendBtn">Send</button>
 </div>
-
 </div>
 
 <script type="module">
@@ -160,30 +160,30 @@ from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider }
 from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-/* FIREBASE CONFIG */
+/* CONFIG */
 
-const app=initializeApp({
+const app = initializeApp({
 apiKey:"AIzaSy...",
 authDomain:"community-chat-ffd34.firebaseapp.com",
 projectId:"community-chat-ffd34"
 });
 
-const db=getFirestore(app);
-const auth=getAuth();
-
-/* USER STATE */
+const db = getFirestore(app);
+const auth = getAuth(app); // ✅ FIXED
 
 let user=null;
 let username="";
 let lastMessageTime=0;
 
-/* 🔐 SET YOUR ADMIN UID HERE */
+/* 🔐 ADMIN UID */
 
 const ADMIN_UID="PASTE_YOUR_UID_HERE";
 
 /* LOGIN */
 
 document.getElementById("loginBtn").onclick=async()=>{
+
+try{
 
 const provider=new GoogleAuthProvider();
 const result=await signInWithPopup(auth,provider);
@@ -192,7 +192,7 @@ user=result.user;
 
 console.log("Your UID:",user.uid);
 
-/* ADMIN CHECK */
+/* ADMIN */
 
 if(user.uid===ADMIN_UID){
 username=user.displayName+" (Admin)";
@@ -200,8 +200,15 @@ username=user.displayName+" (Admin)";
 username=user.displayName;
 }
 
+/* SWITCH UI */
+
 document.getElementById("loginPage").style.display="none";
 document.getElementById("chatPage").style.display="flex";
+
+}catch(err){
+console.error(err);
+alert("Login failed: "+err.message);
+}
 
 };
 
@@ -222,14 +229,18 @@ messages.innerHTML="";
 snap.docs.forEach(doc=>{
 
 const m=doc.data();
+
+if(!m.name || !m.text) return;
+
 const isMe=m.name===username;
 const isAdminMsg=m.name.includes("(Admin)");
 
-messages.innerHTML+=`
-<div class="message ${isMe?"me":"other"} ${isAdminMsg?"admin":""}">
-<span class="username">${m.name}:</span> ${m.text}
-</div>
-`;
+const div=document.createElement("div");
+div.className="message "+(isMe?"me":"other")+(isAdminMsg?" admin":"");
+
+div.innerHTML=`<span class="username">${m.name}:</span> ${m.text}`;
+
+messages.appendChild(div);
 
 });
 
@@ -237,21 +248,24 @@ messages.scrollTop=messages.scrollHeight;
 
 });
 
-/* SEND MESSAGE */
+/* SEND */
 
-document.getElementById("sendBtn").onclick=()=>{
+document.getElementById("sendBtn").onclick=send;
+
+function send(){
 
 const input=document.getElementById("messageInput");
 const text=input.value.trim();
 
 if(!text) return;
 
-/* 3 sec cooldown */
+/* COOLDOWN */
 
 if(Date.now()-lastMessageTime<3000){
 alert("Wait 3 seconds");
 return;
 }
+
 lastMessageTime=Date.now();
 
 /* SEND */
@@ -264,7 +278,7 @@ time:serverTimestamp()
 
 input.value="";
 
-};
+}
 
 </script>
 
