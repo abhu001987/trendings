@@ -4,19 +4,13 @@
 <head>
 
 <title>Community Chat</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
 html,body{
 height:100%;
@@ -60,8 +54,6 @@ font-weight:600;
 cursor:pointer;
 }
 
-/* GUIDELINES */
-
 .guidelines{
 margin-top:20px;
 background:rgba(0,0,0,0.35);
@@ -74,15 +66,13 @@ padding:15px;
 font-size:13px;
 }
 
-/* CHAT PAGE */
+/* CHAT */
 
 #chatPage{
 display:none;
 flex-direction:column;
 height:100vh;
 }
-
-/* MESSAGE AREA */
 
 #messages{
 flex:1;
@@ -94,38 +84,25 @@ padding-bottom:150px;
 -webkit-overflow-scrolling:touch;
 }
 
-/* MESSAGE BUBBLES */
-
 .message{
 max-width:75%;
-padding:12px 14px;
+padding:12px;
 margin:6px 0;
 border-radius:12px;
 font-size:15px;
-word-wrap:break-word;
 }
 
-/* OTHER USERS */
+.other{background:rgba(0,0,0,0.35);align-self:flex-start;}
+.me{background:#ff6a00;align-self:flex-end;color:white;}
 
-.other{
-background:rgba(0,0,0,0.35);
-align-self:flex-start;
+.admin{
+border:2px solid #00ffc8;
+background:#0f3d3d;
 }
 
-/* YOUR MESSAGE */
+.username{font-weight:600;margin-right:5px;}
 
-.me{
-background:#ff6a00;
-color:white;
-align-self:flex-end;
-}
-
-.username{
-font-weight:600;
-margin-right:5px;
-}
-
-/* INPUT BAR */
+/* INPUT */
 
 #inputArea{
 position:fixed;
@@ -133,30 +110,20 @@ bottom:0;
 left:0;
 width:100%;
 display:flex;
-align-items:center;
 gap:8px;
 padding:10px 12px;
 background:rgba(0,0,0,0.65);
-box-sizing:border-box;
 }
-
-/* INPUT */
 
 #messageInput{
 flex:1;
-min-width:0;
 padding:12px;
 border:none;
 border-radius:12px;
-font-size:15px;
 }
 
-/* SEND BUTTON */
-
 #sendBtn{
-flex-shrink:0;
 width:75px;
-padding:12px 0;
 border:none;
 border-radius:12px;
 background:#ff6a00;
@@ -171,47 +138,29 @@ cursor:pointer;
 
 <body>
 
-<!-- NAME PAGE -->
-
 <div id="namePage">
-
 <h2>Enter your name to join chat</h2>
-
 <input id="usernameInput" placeholder="Your name">
-
 <button id="joinBtn">Join Chat</button>
 
 <div class="guidelines">
-
 <h3>Community Guidelines</h3>
-
 <ul>
 <li>Be respectful to everyone.</li>
-<li>No harassment or hate speech.</li>
-<li>No spam or repeated messages.</li>
-<li>No sexual or explicit content.</li>
+<li>No spam or abuse.</li>
 <li>No illegal content.</li>
-<li>No sharing personal information.</li>
-<li>Links are blocked.</li>
-<li>Keep the chat friendly.</li>
+<li>No links allowed.</li>
 </ul>
-
 </div>
 
 </div>
-
-<!-- CHAT PAGE -->
 
 <div id="chatPage">
-
 <div id="messages"></div>
 
 <div id="inputArea">
-
-<input id="messageInput" placeholder="Type message (max 15 words)...">
-
+<input id="messageInput" placeholder="Type message...">
 <button id="sendBtn">Send</button>
-
 </div>
 
 </div>
@@ -222,47 +171,60 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/fireba
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp }
 from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-const firebaseConfig={
-apiKey:"AIzaSyA7wwgFsSyhUK-C6C-TE64yH1Ksldm7A_E",
+const app=initializeApp({
+apiKey:"AIzaSy...",
 authDomain:"community-chat-ffd34.firebaseapp.com",
-projectId:"community-chat-ffd34",
-storageBucket:"community-chat-ffd34.firebasestorage.app",
-messagingSenderId:"45644496109",
-appId:"1:45644496109:web:9ad0351a6592114d66e0e4"
-};
+projectId:"community-chat-ffd34"
+});
 
-const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
 
 let username="";
 let lastMessageTime=0;
+let isAdmin=false;
 
-/* BANNED WORDS */
+/* ADMIN SETTINGS */
 
-const bannedWords=[
-"porn",
-"sex",
-"xxx",
-"fuck",
-"sexy",
-"childporn",
-"abuse",
-"spam",
-"scam"
-];
+const ADMIN_NAME="Lakshay Pandey";
+const ADMIN_CODE="12345";
 
-/* JOIN CHAT */
+/* NORMALIZE FUNCTION */
+
+function normalize(text){
+return text.toLowerCase().replace(/[\s\.\-_]/g,'');
+}
+
+/* JOIN */
 
 document.getElementById("joinBtn").onclick=()=>{
 
 const name=document.getElementById("usernameInput").value.trim();
 
 if(name===""){
-alert("Please enter your name");
+alert("Enter name");
 return;
 }
 
+const inputNorm=normalize(name);
+const adminNorm=normalize(ADMIN_NAME);
+
+/* MATCH ALL VARIANTS */
+
+if(inputNorm===adminNorm){
+
+const code=prompt("Enter admin code:");
+
+if(code===ADMIN_CODE){
+isAdmin=true;
+username=ADMIN_NAME+" (Admin)";
+}else{
+alert("This name is reserved");
+return;
+}
+
+}else{
 username=name;
+}
 
 document.getElementById("namePage").style.display="none";
 document.getElementById("chatPage").style.display="flex";
@@ -279,17 +241,18 @@ orderBy("time","asc"),
 limit(50)
 );
 
-onSnapshot(q,(snapshot)=>{
+onSnapshot(q,(snap)=>{
 
 messages.innerHTML="";
 
-snapshot.docs.forEach(doc=>{
+snap.docs.forEach(doc=>{
 
 const m=doc.data();
 const isMe=m.name===username;
+const isAdminMsg=m.name.includes("(Admin)");
 
 messages.innerHTML+=`
-<div class="message ${isMe ? "me" : "other"}">
+<div class="message ${isMe?"me":"other"} ${isAdminMsg?"admin":""}">
 <span class="username">${m.name}:</span> ${m.text}
 </div>
 `;
@@ -300,56 +263,22 @@ messages.scrollTop=messages.scrollHeight;
 
 });
 
-/* SEND MESSAGE */
+/* SEND */
 
-document.getElementById("sendBtn").onclick=sendMessage;
-
-function sendMessage(){
+document.getElementById("sendBtn").onclick=()=>{
 
 const input=document.getElementById("messageInput");
 const text=input.value.trim();
 
-if(text==="") return;
+if(!text) return;
 
-/* 3 SECOND COOLDOWN */
+/* COOLDOWN */
 
-const now=Date.now();
-
-if(now-lastMessageTime<3000){
-alert("Please wait 3 seconds before sending another message.");
+if(Date.now()-lastMessageTime<3000){
+alert("Wait 3 seconds");
 return;
 }
-
-lastMessageTime=now;
-
-/* WORD LIMIT */
-
-const wordCount=text.split(/\s+/).length;
-
-if(wordCount>15){
-alert("Message cannot exceed 15 words.");
-return;
-}
-
-/* BLOCK LINKS */
-
-if(text.includes("http")||text.includes("www")){
-alert("Links are not allowed.");
-return;
-}
-
-/* CLEAN TEXT */
-
-const cleaned=text.toLowerCase().replace(/[\s\.\-_]/g,'');
-
-/* BAD WORD CHECK */
-
-for(let word of bannedWords){
-if(cleaned.includes(word)){
-alert("Your message contains blocked words.");
-return;
-}
-}
+lastMessageTime=Date.now();
 
 /* SEND */
 
@@ -361,7 +290,7 @@ time:serverTimestamp()
 
 input.value="";
 
-}
+};
 
 </script>
 
