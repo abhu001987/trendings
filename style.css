@@ -195,4 +195,25 @@ background:rgba(255,255,255,0.25);
 transform:scale(1.05);
 
 }
+.dict-popup{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:white;
+  color:black;
+  padding:14px 16px;
+  border-radius:12px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  z-index:5000;
+  display:none;
+}
 
+.dict-close{
+  position:absolute;
+  top:8px;
+  right:10px;
+  cursor:pointer;
+}
