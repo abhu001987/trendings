@@ -132,32 +132,38 @@ heroObserver.observe(post)
 })
 }
 
-// ===== DICTIONARY FEATURE (WORKING FINAL) =====
+// ===== DICTIONARY FINAL WORKING =====
 
+// close popup
 function closeDict(){
   document.getElementById("dictPopup").style.display = "none";
 }
 
+// cache
 const dictCache = {};
 let lastCall = 0;
 
-// attach globally (fix)
-document.addEventListener("mouseup", handleSelection);
-document.addEventListener("touchend", handleSelection);
+// wait for DOM
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.addEventListener("mouseup", handleSelection);
+  document.addEventListener("touchend", handleSelection);
+
+});
 
 function handleSelection(){
 
   let now = Date.now();
-  if(now - lastCall < 700) return;
+  if(now - lastCall < 500) return;
   lastCall = now;
 
-  let word = window.getSelection().toString().trim();
+  let selection = window.getSelection();
+  if(!selection) return;
 
-  if(
-    word.length < 2 ||
-    word.length > 20 ||
-    word.includes(" ")
-  ) return;
+  let word = selection.toString().trim();
+
+  if(!word || word.length < 2 || word.length > 20) return;
+  if(word.includes(" ")) return;
 
   fetchMeaning(word.toLowerCase());
 }
@@ -190,7 +196,11 @@ function fetchMeaning(word){
 }
 
 function showPopup(word, meaning){
+
+  const popup = document.getElementById("dictPopup");
+
   document.getElementById("dictWord").innerText = word;
   document.getElementById("dictMeaning").innerText = meaning;
-  document.getElementById("dictPopup").style.display = "block";
+
+  popup.style.display = "block";
 }
