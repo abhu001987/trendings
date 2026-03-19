@@ -132,44 +132,32 @@ heroObserver.observe(post)
 })
 }
 
-// ===== DICTIONARY FINAL WORKING =====
+// ===== DICTIONARY FEATURE (STABLE VERSION) =====
 
-// close popup
 function closeDict(){
-  document.getElementById("dictPopup").style.display = "none";
+  document.getElementById("dictPopup").style.display="none";
 }
 
-// cache
+// simple cache (SAFE)
 const dictCache = {};
-let lastCall = 0;
 
-// wait for DOM
-document.addEventListener("DOMContentLoaded", () => {
-
-  document.addEventListener("mouseup", handleSelection);
-  document.addEventListener("touchend", handleSelection);
-
-});
+// attach globally (keep this — it works)
+document.addEventListener("mouseup", handleSelection);
+document.addEventListener("touchend", handleSelection);
 
 function handleSelection(){
 
-  let now = Date.now();
-  if(now - lastCall < 500) return;
-  lastCall = now;
+  let word = window.getSelection().toString().trim();
 
-  let selection = window.getSelection();
-  if(!selection) return;
-
-  let word = selection.toString().trim();
-
-  if(!word || word.length < 2 || word.length > 20) return;
-  if(word.includes(" ")) return;
+  // filters
+  if(word.length < 2 || word.length > 20 || word.includes(" ")) return;
 
   fetchMeaning(word.toLowerCase());
 }
 
 function fetchMeaning(word){
 
+  // ✅ cache (NEW - safe)
   if(dictCache[word]){
     showPopup(word, dictCache[word]);
     return;
@@ -185,22 +173,19 @@ function fetchMeaning(word){
         meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
       }
 
+      // save cache
       dictCache[word] = meaning;
 
       showPopup(word, meaning);
 
     })
     .catch(() => {
-      showPopup(word, "Meaning not available");
+      showPopup(word, "Error fetching meaning");
     });
 }
 
 function showPopup(word, meaning){
-
-  const popup = document.getElementById("dictPopup");
-
   document.getElementById("dictWord").innerText = word;
   document.getElementById("dictMeaning").innerText = meaning;
-
-  popup.style.display = "block";
+  document.getElementById("dictPopup").style.display = "block";
 }
