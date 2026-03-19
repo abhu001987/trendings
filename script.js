@@ -132,36 +132,35 @@ heroObserver.observe(post)
 })
 }
 
-// ===== DICTIONARY FEATURE (FINAL VERSION) =====
+// ===== DICTIONARY FEATURE (FIXED) =====
 
 // close popup
 function closeDict(){
   document.getElementById("dictPopup").style.display = "none";
 }
 
-// simple cache (session based)
 const dictCache = {};
-
-// delay control (prevents spam)
 let lastCall = 0;
 
-// attach only to posts container (better performance)
-const postContainer = document.getElementById("posts");
+document.addEventListener("DOMContentLoaded", () => {
 
-postContainer.addEventListener("mouseup", handleSelection);
-postContainer.addEventListener("touchend", handleSelection);
+  const postContainer = document.getElementById("posts");
+
+  if(!postContainer) return;
+
+  postContainer.addEventListener("mouseup", handleSelection);
+  postContainer.addEventListener("touchend", handleSelection);
+
+});
 
 function handleSelection(){
 
   let now = Date.now();
-
-  // prevent too frequent calls
   if(now - lastCall < 700) return;
   lastCall = now;
 
   let word = window.getSelection().toString().trim();
 
-  // filters
   if(
     word.length < 2 ||
     word.length > 20 ||
@@ -173,7 +172,6 @@ function handleSelection(){
 
 function fetchMeaning(word){
 
-  // check cache first
   if(dictCache[word]){
     showPopup(word, dictCache[word]);
     return;
@@ -189,7 +187,6 @@ function fetchMeaning(word){
         meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
       }
 
-      // save to cache
       dictCache[word] = meaning;
 
       showPopup(word, meaning);
@@ -205,3 +202,4 @@ function showPopup(word, meaning){
   document.getElementById("dictMeaning").innerText = meaning;
   document.getElementById("dictPopup").style.display = "block";
 }
+
