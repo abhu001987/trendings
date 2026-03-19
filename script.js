@@ -132,9 +132,8 @@ heroObserver.observe(post)
 })
 }
 
-// ===== DICTIONARY FEATURE (FIXED) =====
+// ===== DICTIONARY FEATURE (WORKING FINAL) =====
 
-// close popup
 function closeDict(){
   document.getElementById("dictPopup").style.display = "none";
 }
@@ -142,16 +141,9 @@ function closeDict(){
 const dictCache = {};
 let lastCall = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  const postContainer = document.getElementById("posts");
-
-  if(!postContainer) return;
-
-  postContainer.addEventListener("mouseup", handleSelection);
-  postContainer.addEventListener("touchend", handleSelection);
-
-});
+// attach globally (fix)
+document.addEventListener("mouseup", handleSelection);
+document.addEventListener("touchend", handleSelection);
 
 function handleSelection(){
 
@@ -202,4 +194,3 @@ function showPopup(word, meaning){
   document.getElementById("dictMeaning").innerText = meaning;
   document.getElementById("dictPopup").style.display = "block";
 }
-
