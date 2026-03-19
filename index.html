@@ -267,6 +267,48 @@ border-radius:6px;
   bottom:12px;
   left:14px;
 }
+/* DICTIONARY POPUP */
+
+.dict-popup{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:white;
+  color:black;
+  padding:14px 16px;
+  border-radius:12px;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  z-index:5000;
+  display:none;
+  animation:fadeIn .2s ease;
+}
+
+.dict-popup h4{
+  margin-bottom:6px;
+  font-size:16px;
+}
+
+.dict-popup p{
+  font-size:13px;
+  line-height:1.4;
+}
+
+.dict-close{
+  position:absolute;
+  top:8px;
+  right:10px;
+  cursor:pointer;
+  font-size:16px;
+  color:#555;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translate(-50%,20px);}
+  to{opacity:1; transform:translate(-50%,0);}
+}
 
 /* FOOTER */
 
@@ -283,6 +325,12 @@ background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
 </head>
 
 <body>
+<!-- DICTIONARY POPUP -->
+<div class="dict-popup" id="dictPopup">
+  <div class="dict-close" onclick="closeDict()">✕</div>
+  <h4 id="dictWord">Word</h4>
+  <p id="dictMeaning">Meaning will appear here...</p>
+</div>
 
 <!-- SIDEBAR -->
 
@@ -450,7 +498,50 @@ document.getElementById("openInstallBox").addEventListener("click", () => {
 function closeInstall(){
   document.getElementById("installPopup").style.display = "none";
 }
+// DICTIONARY FEATURE
 
+function closeDict(){
+  document.getElementById("dictPopup").style.display="none";
+}
+
+// Detect selection (mobile + desktop)
+document.addEventListener("mouseup", handleSelection);
+document.addEventListener("touchend", handleSelection);
+
+function handleSelection(){
+  let word = window.getSelection().toString().trim();
+
+  // ignore small selections
+  if(word.length < 2 || word.includes(" ")) return;
+
+  fetchMeaning(word);
+}
+
+function fetchMeaning(word){
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+    .then(res => res.json())
+    .then(data => {
+
+      let meaning = "No definition found";
+
+      if(Array.isArray(data)){
+        meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
+      }
+
+      showPopup(word, meaning);
+
+    })
+    .catch(() => {
+      showPopup(word, "No meaning found or network error.");
+    });
+}
+
+function showPopup(word, meaning){
+  document.getElementById("dictWord").innerText = word;
+  document.getElementById("dictMeaning").innerText = meaning;
+
+  document.getElementById("dictPopup").style.display = "block";
+}
 
 </script>
 
