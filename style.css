@@ -196,23 +196,28 @@ transform:scale(1.05);
 
 .dict-popup{
   position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:white;
-  color:black;
-  padding:14px 16px;
-  border-radius:12px;
-  width:90%;
-  max-width:420px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-  z-index:5000;
+  background:#111;
+  color:white;
+  padding:10px 12px;
+  border-radius:8px;
+  font-size:13px;
+  max-width:250px;
+  z-index:9999;
   display:none;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+.dict-popup h4{
+  font-size:13px;
+  margin-bottom:4px;
+  color:#ff6a00;
+}
+
+.dict-popup p{
+  font-size:12px;
+  line-height:1.4;
 }
 
 .dict-close{
-  position:absolute;
-  top:8px;
-  right:10px;
-  cursor:pointer;
+  display:none; /* hide close button for clean UI */
 }
