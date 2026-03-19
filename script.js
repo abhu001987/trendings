@@ -132,28 +132,53 @@ heroObserver.observe(post)
 })
 }
 
-/* observe after posts load */
-setInterval(observeHeroPosts,1000)
+// ===== DICTIONARY FEATURE (FINAL VERSION) =====
 
-// ===== DICTIONARY FEATURE (GLOBAL) =====
-
+// close popup
 function closeDict(){
-  document.getElementById("dictPopup").style.display="none";
+  document.getElementById("dictPopup").style.display = "none";
 }
 
-// IMPORTANT: use event delegation (works with dynamic posts)
-document.addEventListener("mouseup", handleSelection);
-document.addEventListener("touchend", handleSelection);
+// simple cache (session based)
+const dictCache = {};
+
+// delay control (prevents spam)
+let lastCall = 0;
+
+// attach only to posts container (better performance)
+const postContainer = document.getElementById("posts");
+
+postContainer.addEventListener("mouseup", handleSelection);
+postContainer.addEventListener("touchend", handleSelection);
 
 function handleSelection(){
+
+  let now = Date.now();
+
+  // prevent too frequent calls
+  if(now - lastCall < 700) return;
+  lastCall = now;
+
   let word = window.getSelection().toString().trim();
 
-  if(word.length < 2 || word.length > 20 || word.includes(" ")) return;
+  // filters
+  if(
+    word.length < 2 ||
+    word.length > 20 ||
+    word.includes(" ")
+  ) return;
 
-  fetchMeaning(word);
+  fetchMeaning(word.toLowerCase());
 }
 
 function fetchMeaning(word){
+
+  // check cache first
+  if(dictCache[word]){
+    showPopup(word, dictCache[word]);
+    return;
+  }
+
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     .then(res => res.json())
     .then(data => {
@@ -164,11 +189,14 @@ function fetchMeaning(word){
         meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
       }
 
+      // save to cache
+      dictCache[word] = meaning;
+
       showPopup(word, meaning);
 
     })
     .catch(() => {
-      showPopup(word, "Error fetching meaning");
+      showPopup(word, "Meaning not available");
     });
 }
 
