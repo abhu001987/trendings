@@ -134,3 +134,46 @@ heroObserver.observe(post)
 
 /* observe after posts load */
 setInterval(observeHeroPosts,1000)
+
+// ===== DICTIONARY FEATURE (GLOBAL) =====
+
+function closeDict(){
+  document.getElementById("dictPopup").style.display="none";
+}
+
+// IMPORTANT: use event delegation (works with dynamic posts)
+document.addEventListener("mouseup", handleSelection);
+document.addEventListener("touchend", handleSelection);
+
+function handleSelection(){
+  let word = window.getSelection().toString().trim();
+
+  if(word.length < 2 || word.length > 20 || word.includes(" ")) return;
+
+  fetchMeaning(word);
+}
+
+function fetchMeaning(word){
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+    .then(res => res.json())
+    .then(data => {
+
+      let meaning = "No meaning found";
+
+      if(Array.isArray(data)){
+        meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
+      }
+
+      showPopup(word, meaning);
+
+    })
+    .catch(() => {
+      showPopup(word, "Error fetching meaning");
+    });
+}
+
+function showPopup(word, meaning){
+  document.getElementById("dictWord").innerText = word;
+  document.getElementById("dictMeaning").innerText = meaning;
+  document.getElementById("dictPopup").style.display = "block";
+}
