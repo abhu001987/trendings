@@ -132,37 +132,25 @@ heroObserver.observe(post)
 })
 }
 
-// ===== DICTIONARY FEATURE (STABLE VERSION) =====
+// ===== DICTIONARY FEATURE (GLOBAL) =====
 
 function closeDict(){
   document.getElementById("dictPopup").style.display="none";
 }
 
-// simple cache (SAFE)
-const dictCache = {};
-
-// attach globally (keep this — it works)
+// IMPORTANT: use event delegation (works with dynamic posts)
 document.addEventListener("mouseup", handleSelection);
 document.addEventListener("touchend", handleSelection);
 
 function handleSelection(){
-
   let word = window.getSelection().toString().trim();
 
-  // filters
   if(word.length < 2 || word.length > 20 || word.includes(" ")) return;
 
-  fetchMeaning(word.toLowerCase());
+  fetchMeaning(word);
 }
 
 function fetchMeaning(word){
-
-  // ✅ cache (NEW - safe)
-  if(dictCache[word]){
-    showPopup(word, dictCache[word]);
-    return;
-  }
-
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
     .then(res => res.json())
     .then(data => {
@@ -172,9 +160,6 @@ function fetchMeaning(word){
       if(Array.isArray(data)){
         meaning = data[0]?.meanings[0]?.definitions[0]?.definition || meaning;
       }
-
-      // save cache
-      dictCache[word] = meaning;
 
       showPopup(word, meaning);
 
