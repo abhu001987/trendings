@@ -165,31 +165,35 @@ left:50%;
 transform:translateX(-50%);
 }
 
-/* glass button */
-
 .hero-btn{
+  backdrop-filter: blur(14px);
+  background: rgba(255, 140, 0, 0.85);
+  border: 1px solid rgba(255,255,255,0.25);
 
-backdrop-filter:blur(14px);
-background: rgba(255, 140, 0, 0.85); /* strong orange */
-border:1px solid rgba(255,255,255,0.25);
+  padding: 14px 24px;
 
-padding:14px 32px;
+  border-radius: 20px; /* slightly less for better text fit */
 
-border-radius:40px;
+  font-size: 14px;
+  font-weight: 600;
 
-font-size:16px;
-font-weight:600;
+  color: white;
+  text-decoration: none;
 
-color:white;
-text-decoration:none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 
-box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  transition: all .25s ease;
 
-transition:all .25s ease;
+  display: inline-block;
+  max-width: 260px;       /* controls width */
+  line-height: 1.4;       /* better readability */
+  text-align: center;
 
+  white-space: normal;    /* ✅ allows wrapping */
+  word-break: break-word; /* ✅ prevents overflow */
 }
 
 .hero-btn:hover{
-
-background:rgba(255,255,255,0.25);
-transform:scale(1.05);
+  background: rgba(255, 120, 0, 1);
+  transform: scale(1.05);
+}
